@@ -6,6 +6,8 @@ import javax.persistence.*;
 import static javax.persistence.FetchType.LAZY;
 import java.util.Date;
 
+import static javax.persistence.FetchType.LAZY;
+
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
