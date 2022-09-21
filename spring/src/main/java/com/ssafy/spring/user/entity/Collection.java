@@ -11,7 +11,7 @@ import java.util.Date;
 @Getter
 @Setter
 @Entity
-public class Collections {
+public class Collection {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -19,7 +19,7 @@ public class Collections {
 
     @ManyToOne
     @JoinColumn(name="user_id")
-    private Users user;
+    private User user;
 
     private String menuName;
 
