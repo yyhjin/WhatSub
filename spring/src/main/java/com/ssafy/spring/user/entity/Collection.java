@@ -3,6 +3,7 @@ package com.ssafy.spring.user.entity;
 import lombok.*;
 
 import javax.persistence.*;
+import static javax.persistence.FetchType.LAZY;
 import java.util.Date;
 
 import static javax.persistence.FetchType.LAZY;
@@ -25,7 +26,7 @@ public class Collection {
 
     private String menuName;
 
-    private int ranks;
+    private int ranking;
 
     private Date rankDate;
 }
