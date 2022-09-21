@@ -29,4 +29,7 @@ export default {
   margin-top: 5px;
   margin-bottom: 20px;
 }
+.combi_card:last-child {
+  margin-right: 20px;
+}
 </style>
