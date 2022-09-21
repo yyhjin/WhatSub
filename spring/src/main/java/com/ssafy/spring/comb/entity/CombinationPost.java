@@ -1,12 +1,15 @@
 package com.ssafy.spring.comb.entity;
 
 import com.fasterxml.jackson.annotation.JsonRawValue;
+import com.ssafy.spring.review.entity.entity.Review;
 import lombok.Getter;
 import lombok.Setter;
 import springfox.documentation.spring.web.json.Json;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Getter
@@ -31,4 +34,7 @@ public class CombinationPost {
 
     @JsonRawValue
     private String statistics;
+
+    @OneToMany(mappedBy = "combinationPost")
+    private List<Review> reviews = new ArrayList<>();
 }
