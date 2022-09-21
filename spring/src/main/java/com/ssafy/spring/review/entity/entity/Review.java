@@ -1,5 +1,6 @@
 package com.ssafy.spring.review.entity.entity;
 
+import com.ssafy.spring.comb.entity.CombinationPost;
 import com.ssafy.spring.user.entity.User;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
@@ -21,13 +22,13 @@ public class Review {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int reviewId;
 
-//    @ManyToOne
-//    @JoinColumn(name="combination_post_id")
-//    private CombinationPost combinationPost;
-//
-//    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name="combination_post_id")
+    private CombinationPost combinationPost;
+
+//    @ManyToOne(fetch = FetchType.LAZY)
 //    @JoinColumn(name="user_id")
-//    private Users user;
+//    private User user;
 
     @NotBlank
     @Lob
