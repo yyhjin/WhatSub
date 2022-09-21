@@ -1,6 +1,6 @@
 package com.ssafy.spring.review.entity.entity;
 
-import com.ssafy.spring.user.entity.Users;
+import com.ssafy.spring.user.entity.User;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 

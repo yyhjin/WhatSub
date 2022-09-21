@@ -3,46 +3,51 @@ package com.ssafy.spring.comb.entity;
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import javax.validation.constraints.NotBlank;
-import java.util.ArrayList;
-import java.util.List;
 
 @Entity
 @Getter
 @Setter
-public class Ingredient {
+public class Menu {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int ingredientId;
-
-    @NotBlank
-    private int category;
-
-    @NotBlank
-    private String name;
+    private int menuId;
 
     @NotBlank
     private String imgUrl;
+
+    @NotBlank
+    private String menuName;
+
+    private String menuDesc;
+
+    private String allergies;
+
+    @NotBlank
+    private int price;
 
     private int weight;
 
     @NotBlank
     private int kcal;
 
+    @NotBlank
     private float protein;
 
+    @NotBlank
     private float sodium;
 
+    @NotBlank
     private float fat;
 
+    @NotBlank
     private float sugar;
 
-    private String allergies;
-
-    private int price;
-
-    @OneToMany(mappedBy = "ingredient")
-    private List<Composition> compositions = new ArrayList<>();
+    @NotBlank
+    private int length;
 }
