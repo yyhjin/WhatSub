@@ -2,3 +2,17 @@
   color: #ffffff !important;
   background-color: #f4c41f !important;
 }
+
+.no-scroll::-webkit-scrollbar {
+  display: none;
+}
+
+.verti_combi {
+  overflow: scroll;
+  white-space: nowrap;
+  display: flex;
+}
+
+.test{
+  color: #f4c41f;
+}

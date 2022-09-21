@@ -22,17 +22,11 @@ export default {
 </script>
 
 <style>
-.verti_combi {
-  overflow: scroll;
-  white-space: nowrap;
-  display: flex;
-}
+@import "@/scss/common.scss";
+
 .combi_card {
   margin-left: 20px;
   margin-top: 5px;
   margin-bottom: 20px;
-}
-.no-scroll::-webkit-scrollbar {
-  display: none;
 }
 </style>
