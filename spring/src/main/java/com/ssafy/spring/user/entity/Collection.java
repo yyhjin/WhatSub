@@ -5,6 +5,8 @@ import lombok.*;
 import javax.persistence.*;
 import java.util.Date;
 
+import static javax.persistence.FetchType.LAZY;
+
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
@@ -17,13 +19,13 @@ public class Collection {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int collectionId;
 
-    @ManyToOne
+    @ManyToOne(fetch = LAZY)
     @JoinColumn(name="user_id")
     private User user;
 
     private String menuName;
 
-    private int rank;
+    private int ranks;
 
     private Date rankDate;
 }
