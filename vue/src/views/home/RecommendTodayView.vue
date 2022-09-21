@@ -1,13 +1,16 @@
 <template>
-  <div></div>
+  <div>
+    <recommend-today-detail></recommend-today-detail>
+  </div>
 </template>
 
 <script>
+import RecommendTodayDetail from "@/components/home/RecommendTodayDetail.vue";
+
 export default {
-  name: 'RecommendTodayView'
-}
+  name: "RecommendTodayView",
+  components: { RecommendTodayDetail },
+};
 </script>
 
-<style>
-
-</style>
+<style></style>

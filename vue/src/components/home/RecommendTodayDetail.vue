@@ -1,13 +1,13 @@
 <template>
-  <div></div>
+  <div>
+    <v-card></v-card>
+  </div>
 </template>
 
 <script>
 export default {
-  name: "ResultRecommendToday"
-}
+  name: "ResultRecommendToday",
+};
 </script>
 
-<style>
-
-</style>
+<style></style>
