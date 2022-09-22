@@ -10,6 +10,6 @@ RUN npm run build
 FROM nginx:stable-alpine
 
 COPY --from=builder /var/jenkins_home/workspace/whatsub/vue/dist /usr/share/nginx/html
-COPY /var/jenkins_home/workspace/whatsub/deploy/nginx.conf /etc/nginx/conf.d/default.conf
+COPY /var/jenkins_home/workspace/whatsub/vue/nginx.conf /etc/nginx/conf.d/default.conf
 EXPOSE 80 443
 CMD ["nginx", "-g","daemon off;"]
