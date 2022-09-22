@@ -1,4 +1,3 @@
-#!/bin/sh
 FROM python:3.9.10
 WORKDIR /var/jenkins_home/workspace/whatsub/django
 
