@@ -3,33 +3,51 @@
     <div class="title">
       기본 취향 파악
     </div>
-    <div>
-      <v-btn>뒤로가기</v-btn>
+    <div class="backbar">
+      <v-btn @click="goBack" icon><v-icon>mdi-arrow-left</v-icon></v-btn>
       <progress value="1" max="2"></progress>
     </div>
     <div class="vegetable">
       <h4>못먹거나 싫어하는 음식을 선택해 주세요</h4>
       <div class="con" >
-        <button class="vege">
+        <button class="vege" 
+        style="background-image: url(https://www.subway.co.kr/images/menu/img_recipe_v01.jpg);
+              background-size: 100% 100%;">
         </button>
-        <button class="vege">
+        <button class="vege" 
+        style="background-image: url(https://www.subway.co.kr/images/menu/img_recipe_v02.jpg);
+              background-size: 100% 100%;">
         </button>
-        <button class="vege">
+        <button class="vege" 
+        style="background-image: url(https://www.subway.co.kr/images/menu/img_recipe_v03.jpg);
+              background-size: 100% 100%;">
         </button>
-        <button class="vege">
+        <button class="vege" 
+        style="background-image: url(https://www.subway.co.kr/images/menu/img_recipe_v04.jpg);
+              background-size: 100% 100%;">
         </button>
-        <button class="vege">
+        <button class="vege" 
+        style="background-image: url(https://www.subway.co.kr/images/menu/img_recipe_v05.jpg);
+              background-size: 100% 100%;">
         </button>
-        <button class="vege">
+        <button class="vege" 
+        style="background-image: url(https://www.subway.co.kr/images/menu/img_recipe_v06.jpg);
+              background-size: 100% 100%;">
         </button>
-        <button class="vege">
+        <button class="vege" 
+        style="background-image: url(https://www.subway.co.kr/images/menu/img_recipe_v07.jpg);
+              background-size: 100% 100%;">
         </button>
-        <button class="vege">
+        <button class="vege" 
+        style="background-image: url(https://www.subway.co.kr/images/menu/img_recipe_v08.jpg);
+              background-size: 100% 100%;">
         </button>
-        <button class="vege">
+        <button class="vege" 
+        style="background-image: url(https://www.subway.co.kr/images/menu/img_recipe_v09.jpg);
+              background-size: 100% 100%;">
         </button>
       </div>
-    <hr>
+      <hr>
     </div>
     <div class="allergie">
       <h4>알레르기 유발하는 음식을 선택해주세요.</h4>
@@ -63,23 +81,54 @@
 
 <script>
 export default {
-  name: 'SurveyBasicView'
+  name: 'SurveyBasicView',
+
+  data () {
+    let vegetables = []
+    let allergies = []
+    return {
+      allergies : allergies,
+      vegetables : vegetables,
+
+    }
+  },
+
+  methods: {
+    goBack() {
+      this.$router.go(-1);
+    },
+  }
 }
 </script>
 
-<style>
+<style scoped>
 .title {
+  height:46px;
   width: 100%;
-  height: 46px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.backbar {
+  width: 90%;
+  margin: auto;
+  display: flex;
+  align-items: center;
+}
+progress {
+  display: block;
+  height: 25px;
+  width: 80%;
 }
 .vegetable {
   width: 90%;
   margin: auto;
-  height: 380px;
+  height: 360px;
   display: flex;
   flex-direction: column;
-  
   align-items: center;
+  border-bottom: 1px solid;
+  margin-bottom: 20px;
 }
 
 .vege {
@@ -87,8 +136,7 @@ export default {
   width: 80px;
   border-radius: 50%;
   border-style: solid;
-  background-image: url("https://www.subway.co.kr/images/menu/img_recipe_v01.jpg");
-  background-size: 100% 100%;
+  
   
 }
 /* .vege img {
@@ -108,11 +156,12 @@ export default {
 .allergie {
   width: 90%;
   margin: auto;
-  height: 240px;
+  height: 220px;
   display: flex;
   flex-direction: column;
-  
   align-items: center;
+  border-bottom: 1px solid;
+  margin-bottom: 20px;
 }
 .allcon {
   
