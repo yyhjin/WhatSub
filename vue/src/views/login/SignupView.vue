@@ -2,14 +2,14 @@
   <div>
     <div class="title">회원가입</div>
     <v-form class="form" @submit.prevent="signup">
-      <v-file-input prepend-icon="mdi-account" filled="true" @change="selectFile"></v-file-input>
+      <v-file-input prepend-icon="mdi-account"  @change="selectFile"></v-file-input>
       <div class="nickname">
-        <v-text-field label="닉네임"></v-text-field>
+        <v-text-field label="닉네임" v-model="credentials.username"></v-text-field>
         <v-btn class="main_btn" @click="checkId">닉네임 중복검사</v-btn>
       </div>
       <div class="gender">
         성별
-        <v-radio-group v-model="row" row class="radio">
+        <v-radio-group v-model="credentials.gender" row class="radio">
           <v-radio
             label="남자"
             value="radio-1"
@@ -22,9 +22,9 @@
       </div>
       <div class="birth">
         <v-select          
-          v-model="select"
+          v-model="credentials.birthYear"
           :items="items"
-          :error-messages="errors"
+          
           label="출생년도"
           data-vv-name="select"
           required></v-select>
@@ -49,14 +49,15 @@ export default {
       items.push(year-i)
     }
     
-    // const formData =new FormData()
+    const formData =new FormData()
     return {
       credentials: {
         username: '',
         gender: '',
         birthYear: ''
       },
-      items : items
+      items : items,
+      formData: formData
     }
   },
 
@@ -65,10 +66,14 @@ export default {
       //axios로 요청보내서 검사
     },
     signup () {
-
+      this.formData.append("username", this.credentials.username)
+      this.formData.append("gender", this.credentials.gender)
+      this.formData.append("birthYear", this.credentials.birthYear)
+      //formData를 axios로 서버로 보냄
     },
-    selectFile () {
-
+    selectFile (event) {
+      console.log(event)
+      this.formData.append('profile_img', event)
     }
   }
 }
