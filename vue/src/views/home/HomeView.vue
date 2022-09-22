@@ -12,10 +12,12 @@
     <div class="ml-5 mr-5">
       <v-row>
         <v-col>
-          <v-btn class="main_btn" elevation="0" rounded>오늘의 추천</v-btn>
+          <v-btn class="main_btn" elevation="0" rounded @click="goTodayReco">오늘의 추천</v-btn>
         </v-col>
         <v-col>
-          <v-btn class="main_btn" elevation="0" rounded>영양정보로 추천 받기</v-btn>
+          <v-btn class="main_btn" elevation="0" rounded @click="goNutriReco"
+            >영양정보로 추천 받기</v-btn
+          >
         </v-col>
       </v-row>
     </div>
@@ -60,6 +62,14 @@ export default {
         },
       ],
     };
+  },
+  methods: {
+    goTodayReco() {
+      this.$router.push({ name: "recommendtoday" });
+    },
+    goNutriReco() {
+      this.$router.push({ name: "recommendnutrition" });
+    },
   },
 };
 </script>

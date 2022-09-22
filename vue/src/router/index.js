@@ -58,11 +58,6 @@ const routes = [
     component: RecommendNutritionView
   },
   {
-    path: "/recommendnutrition",
-    name: "recommendnutrition",
-    component: RecommendNutritionView,
-  },
-  {
     path: "/recommendtoday",
     name: "recommendtoday",
     component: RecommendTodayView,
