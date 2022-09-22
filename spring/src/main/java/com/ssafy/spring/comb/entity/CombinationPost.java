@@ -32,6 +32,7 @@ public class CombinationPost {
 
     private Date createdAt;
 
+    @Column(columnDefinition = "json")
     @JsonRawValue
     private String statistics;
 

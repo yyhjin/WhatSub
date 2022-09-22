@@ -3,6 +3,16 @@
   background-color: #f4c41f !important;
 }
 
+.green_btn {
+  color: #ffffff !important;
+  background-color: #239347 !important;
+}
+
+.grey_btn{
+  color: #ffffff !important;
+  background-color: #757575 !important;
+}
+
 .no-scroll::-webkit-scrollbar {
   display: none;
 }
@@ -15,4 +25,14 @@
 
 .test{
   color: #f4c41f;
+}
+
+.q_card {
+  padding-top: 255px;
+  padding-left: 55px;
+}
+
+.r_card{
+  padding-top: 200px;
+  padding-left: 55px;
 }

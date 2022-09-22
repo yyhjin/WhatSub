@@ -16,7 +16,7 @@ import ZzimView from '@/views/navbar/ZzimView.vue';
 
 //login
 import LoginView from "@/views/login/LoginView.vue";
-import SingupView from "@/views/login/SingupView.vue";
+import SignupView from "@/views/login/SignupView.vue";
 import SurveyBasicView from "@/views/login/SurveyBasicView.vue";
 import SurveySubtiView from "@/views/login/SurveySubtiView.vue";
 
@@ -58,11 +58,6 @@ const routes = [
     component: RecommendNutritionView
   },
   {
-    path: "/recommendnutrition",
-    name: "recommendnutrition",
-    component: RecommendNutritionView,
-  },
-  {
     path: "/recommendtoday",
     name: "recommendtoday",
     component: RecommendTodayView,
@@ -102,9 +97,9 @@ const routes = [
     component: LoginView,
   },
   {
-    path: "/singup",
-    name: "singup",
-    component: SingupView,
+    path: "/signup",
+    name: "signup",
+    component: SignupView,
   },
   {
     path: "/surveybasic",
