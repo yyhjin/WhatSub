@@ -1,6 +1,9 @@
 # Created by https://www.toptal.com/developers/gitignore/api/django,venv,visualstudiocode,python
 # Edit at https://www.toptal.com/developers/gitignore?templates=django,venv,visualstudiocode,python
 
+# additional
+my_settings.py
+
 ### Django ###
 *.log
 *.pot

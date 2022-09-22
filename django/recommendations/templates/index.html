@@ -1,0 +1,10 @@
+<h1>mysql django 연동 test</h1>
+{% for user in users %}
+   <p>
+    유저 pk: {{user.pk}}
+    | 유저 이름: {{user.user_name}}
+    | 다이어트 여부: {{user.is_diet}}
+    | 태어난 연도: {{user.birth_year}}
+   </p>
+	
+{%endfor%}
