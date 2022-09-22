@@ -1,3 +1,4 @@
+#!/bin/sh
 # frontend build
 FROM node:16.16.0 as builder
 WORKDIR /var/jenkins_home/workspace/whatsub/vue

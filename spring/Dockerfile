@@ -1,3 +1,4 @@
+#!/bin/sh
 FROM openjdk:17-alpine
 WORKDIR /var/jenkins_home/workspace/whatsub/spring
 COPY . .
