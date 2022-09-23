@@ -16,3 +16,13 @@ class User(models.Model):
     class Meta:
         managed = False
         db_table = 'user'
+
+class Review(models.Model):
+    review_id = models.AutoField(primary_key=True)
+    content = models.TextField(blank=True, null=True)
+    created_at = models.DateTimeField(blank=True, null=True)
+    score = models.IntegerField()
+
+    class Meta:
+        managed = False
+        db_table = 'review'
