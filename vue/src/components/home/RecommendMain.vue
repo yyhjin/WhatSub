@@ -1,6 +1,5 @@
 <template>
-  <div>
-    <h1>recommendmain</h1>
+  <div class="pt-9">
     <div class="main_card">
       <recommend-personal></recommend-personal>
     </div>
