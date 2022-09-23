@@ -24,14 +24,14 @@ public class Menu {
     @NotBlank
     private String menuName;
 
+    private String ingredients;
+
     private String menuDesc;
 
     private String allergies;
 
     @NotBlank
     private int price;
-
-    private int weight;
 
     @NotBlank
     private int kcal;
