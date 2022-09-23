@@ -187,6 +187,11 @@ export default {
 </script>
 
 <style scoped>
+.top {
+  margin: 10px;
+  position: fixed;
+  width: 100%;
+}
 .card_font {
   font-size: 13px;
 }

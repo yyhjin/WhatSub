@@ -38,7 +38,12 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
+.top {
+  margin: 10px;
+  position: fixed;
+  width: 100%;
+}
 .result-view {
   padding-top: 70px;
   padding-bottom: 50px;
