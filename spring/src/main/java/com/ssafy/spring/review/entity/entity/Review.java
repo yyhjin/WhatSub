@@ -26,12 +26,11 @@ public class Review {
     @JoinColumn(name="combination_post_id")
     private CombinationPost combinationPost;
 
-//    @ManyToOne(fetch = FetchType.LAZY)
-//    @JoinColumn(name="user_id")
-//    private User user;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name="user_id")
+    private User user;
 
     @NotBlank
-    @Lob
     private String content;
 
     @NotBlank
