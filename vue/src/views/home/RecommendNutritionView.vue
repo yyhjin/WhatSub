@@ -4,10 +4,8 @@
 
 <script>
 export default {
-  name: 'RecommendNutritionView'
-}
+  name: "RecommendNutritionView",
+};
 </script>
 
-<style>
-
-</style>
+<style></style>
