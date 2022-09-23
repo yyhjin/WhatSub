@@ -11,7 +11,7 @@ public class OrderHistory {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="order_id")
-    private Order order;
+    private Orders order;
 
     @NotBlank
     private int count;
