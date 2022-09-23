@@ -1,3 +1,14 @@
+.top {
+  margin: 10px;
+  position: fixed;
+  width: 100%;
+}
+.bottom {
+  position: fixed;
+  width: 100%;
+  bottom: 0;
+}
+
 .main_btn {
   color: #ffffff !important;
   background-color: #f4c41f !important;
@@ -35,4 +46,9 @@
 .r_card{
   padding-top: 200px;
   padding-left: 55px;
+}
+
+.n_card {
+  padding-top: 70px;
+  padding-left: 20px;
 }
