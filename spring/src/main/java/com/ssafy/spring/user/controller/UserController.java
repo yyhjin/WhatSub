@@ -26,24 +26,53 @@ public class UserController {
     @ApiOperation(value = "일반 회원가입", notes="회원가입에 성공하면 success, 아니면 fail", httpMethod = "POST")
     @PostMapping("/signup")
     public SuccessResponseResult signUp(@RequestBody UserRequest.SignUpRequest request){
-        User user = new User();
-        UserService.save(user);
-        return new SuccessResponseResult();
+//        User user = new User();
+
+        // 회원가입 로직
+//        UserService.save(user);
+//        String userName = user.getUserName();
+        
+        String userName = "김싸피";
+        return new SuccessResponseResult(userName);
     }
 
     @ApiOperation(value = "일반 로그인", notes="로그인에 성공하면 username 반환", httpMethod = "POST")
     @PostMapping("/login")
     public SuccessResponseResult login(@RequestBody UserRequest.LoginRequest request){
 
+        // 로그인 로직
 
         return new SuccessResponseResult();
     }
 
-    @ApiOperation(value = "유저 정보 조회", notes="유저 정보 조회에 성공하면 success와 data, 실패하면 fail", httpMethod = "GET")
+    @ApiOperation(value = "유저 정보 조회", notes="userName을 통해 유저 정보 조회", httpMethod = "GET")
     @GetMapping("/{userName}")
     public SuccessResponseResult getUser(@PathVariable String userName){
-        User user = UserService.getUserByUserName(userName);
-        return new SuccessResponseResult(user);
+//        User user = UserService.getUserByUserName(userName);
+        // 존재하지 않는 유저 예외 처리
+
+        // 테스트를 위한 더미 데이터
+        User user = User.builder()
+                .userId(1)
+                .email("ssafy1@naver.com")
+                .gender("female") //female? 여성?
+                .birthYear(1998)
+                .userName("김싸피")
+                .profileImg("profileLink")
+                .subti("LSAH")
+                .build();
+
+        UserResponse.GetUserResponse response = UserResponse.GetUserResponse.builder()
+                .email(user.getEmail())
+                .gender(user.getGender())
+                .birthYear(user.getBirthYear())
+                .userName(user.getUserName())
+                .profileImg(user.getProfileImg())
+                .subti(user.getSubti())
+                .isDiet(user.isDiet())
+                .build();
+
+        return new SuccessResponseResult(response);
     }
 
 
@@ -59,7 +88,7 @@ public class UserController {
     public SuccessResponseResult getDibNcombList(@PathVariable String userName){
         User user = UserService.getUserByUserName(userName);
         List<Dib> dibList = UserService.getDibsByUserAndStateIsTrue(user);
-        List<Combination> combinationList = null;
+        List<Combination> combinationList = null; // 임시 꿀조합 리스트
 
         UserResponse.GetDibNcombListResponse response = new UserResponse.GetDibNcombListResponse(dibList, combinationList);
         return new SuccessResponseResult(response);
@@ -67,19 +96,23 @@ public class UserController {
 
     @ApiOperation(value = "subti 등록", notes="subti 결과를 DB에 등록", httpMethod = "POST")
     @PostMapping("subti")
-    public SuccessResponseResult setSubti(@RequestBody UserRequest.GetSubtiRequest request) {
+    public SuccessResponseResult setSubti(@RequestBody UserRequest.SetSubtiRequest request) {
         int userId = request.getUserId();
-        User user = UserService.getUserByUserId(userId);
-
-        String subti = request.getSubti();
-        user.setSubti(subti);
-        UserService.save(user);
+//        User user = UserService.getUserByUserId(userId);
+//
+//        String subti = request.getSubti();
+//        user.setSubti(subti);
+//        UserService.save(user);
         return new SuccessResponseResult();
     }
 
     @ApiOperation(value = "제외 재료 등록", notes="등록이 완료되면 success, 아니면 fail", httpMethod = "POST")
     @PostMapping("/{userName}/exclude")
-    public SuccessResponseResult excludeIngred(@RequestBody UserRequest.ExcludeRequest request){
+    public SuccessResponseResult excludeIngredient(@RequestBody UserRequest.ExcludeRequest request){
+        List<Integer> vegetables = request.getVegetables();
+        List<Integer> allergies = request.getAllergies();
+
+        // 알레르기 및 제외 재료 로직
 
         return new SuccessResponseResult();
     }

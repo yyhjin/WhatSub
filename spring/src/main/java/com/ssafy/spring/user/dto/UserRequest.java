@@ -1,26 +1,37 @@
 package com.ssafy.spring.user.dto;
 
 import lombok.Data;
-import lombok.Getter;
+
+import java.util.List;
 
 public class UserRequest {
 
-    @Getter
-    public class GetSubtiRequest {
-        int userId;
-        String subti;
+    @Data
+    public static class SetSubtiRequest {
+        private int userId;
+        private String subti;
     }
 
-    public class SignUpRequest{
-
+    @Data
+    public static class SignUpRequest{
+        private int userId;
+//        private String authId;
+        private String email;
+        private String gender;
+        private int birthYear;
+        private String userName;
+        private String profileImg;
     }
 
-    public class LoginRequest{
-
+    @Data
+    public static class LoginRequest{
+        private String userId;
     }
 
-    public class ExcludeRequest{
-
+    @Data
+    public static class ExcludeRequest{
+        private List<Integer> vegetables;
+        private List<Integer> allergies;
     }
 }
 
