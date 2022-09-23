@@ -8,3 +8,14 @@
    </p>
 	
 {%endfor%}
+
+
+{% for review in reviews %}
+   <p>
+    리뷰 pk: {{review.pk}}
+    | 리뷰 내용: {{review.content}}
+    | 별점: {{review.score}}
+    
+   </p>
+	
+{%endfor%}
