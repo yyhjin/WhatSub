@@ -23,8 +23,6 @@ public class Combination {
     @JoinColumn(name = "menu_id")
     private Menu menu;
 
-    private int weight;
-
     @NotBlank
     private int kcal;
 
