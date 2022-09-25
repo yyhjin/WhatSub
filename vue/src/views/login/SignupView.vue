@@ -36,7 +36,7 @@
 </template>
 
 <script>
-// import axios from 'axios'
+import axios from 'axios'
 
 export default {
   name: 'SignupView',
@@ -57,7 +57,8 @@ export default {
         birthYear: ''
       },
       items : items,
-      formData: formData
+      formData: formData,
+      code: ''
     }
   },
 
@@ -74,7 +75,29 @@ export default {
     selectFile (event) {
       console.log(event)
       this.formData.append('profile_img', event)
+    },
+
+    getToken () {
+      axios({
+        methods:'post',
+        url:'https://kauth.kakao.com/oauth/token',
+        headers :{
+          'Content-type': 'application/x-www-form-urlencoded;charset=utf-8',
+        },
+        params:{
+          grant_type: 'authorization_code',
+          client_id: process.env.VUE_APP_KAKAO_API_KEY,
+          redirect_uri: 'http://localhost:8080/signup',
+          code: this.code,
+        }
+      })
+      .then(res => console.log(res))
     }
+  },
+
+  created() {
+    this.code = this.$route.query.code
+    this.getToken()
   }
 }
 </script>
