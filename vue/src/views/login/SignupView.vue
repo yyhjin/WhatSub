@@ -58,7 +58,9 @@ export default {
       },
       items : items,
       formData: formData,
-      code: ''
+      code: '',
+      accessToken : '',
+      refreshToken : ''
     }
   },
 
@@ -77,6 +79,18 @@ export default {
       this.formData.append('profile_img', event)
     },
 
+    // async getUserInfo () {
+    //   await window.Kakao.API.request({
+    //       url: '/v2/user/me', // 사용자 정보 가져오기
+    //     })
+    //       .then(function(response) {
+    //         console.log(response)
+    //       })
+    //       .catch(function(error) {
+    //         console.error(error)
+    //       })
+    // },
+
     getToken () {
       axios({
         methods:'post',
@@ -91,7 +105,22 @@ export default {
           code: this.code,
         }
       })
-      .then(res => console.log(res))
+      .then(res => {
+        console.log(res)
+        this.accessToken = res.data.access_token,
+        console.log(res.data.access_token)
+        this.refreshToken = res.data.refresh_token
+        window.Kakao.Auth.setAccessToken(res.data.access_token);
+        window.Kakao.API.request({
+            url: '/v2/user/me', // 사용자 정보 가져오기
+          })
+            .then(function(response) {
+              console.log(response)
+            })
+            .catch(function(error) {
+              console.error(error)
+            })
+      })
     }
   },
 
