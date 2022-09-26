@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonRawValue;
 import com.ssafy.spring.review.entity.entity.Review;
 import lombok.Getter;
 import lombok.Setter;
-import springfox.documentation.spring.web.json.Json;
+import org.hibernate.annotations.ColumnDefault;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -28,6 +28,7 @@ public class CombinationPost {
 
     private String content;
 
+    @ColumnDefault("0")
     private int likesCnt;
 
     private Date createdAt;

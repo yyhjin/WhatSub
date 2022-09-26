@@ -18,14 +18,7 @@ public class Combination {
     @Id
     private String combinationId;
 
-    @OneToMany(mappedBy = "combination")
-    private List<Composition> compositions = new ArrayList<>();
-
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "menu_id")
-    private Menu menu;
-
-    private int kcal;
+    private float kcal;
 
     private float protein;
 
@@ -39,5 +32,6 @@ public class Combination {
 
     private int price;
 
+    @NotBlank
     private String imgUrl;
 }

@@ -22,9 +22,7 @@ public class Branch {
     @NotBlank
     private String contactNo;
 
-    @NotBlank
     private float lat;
 
-    @NotBlank
     private float lng;
 }
