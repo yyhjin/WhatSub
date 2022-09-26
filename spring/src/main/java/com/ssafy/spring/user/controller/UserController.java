@@ -2,7 +2,6 @@ package com.ssafy.spring.user.controller;
 
 import com.ssafy.spring.SuccessResponseResult;
 import com.ssafy.spring.comb.entity.Combination;
-import com.ssafy.spring.comb.service.S3Service;
 import com.ssafy.spring.user.dto.UserRequest;
 import com.ssafy.spring.user.dto.UserResponse;
 import com.ssafy.spring.user.entity.Dib;
@@ -24,6 +23,7 @@ public class UserController {
     @Autowired
     private UserService UserService;
 
+    // 더미 데이터 생성 api
 //    @GetMapping("/dummy")
 //    public SuccessResponseResult dummy(){
 //        String[] SUBTI_LIST = new String[]{"LSAH", "LSAM", "LSEH", "LSEM",
@@ -54,7 +54,6 @@ public class UserController {
 //                    .isDiet(isDiet)
 //                    .build();
 //
-//            // 회원가입 로직
 //            UserService.save(user);
 //        }
 //
