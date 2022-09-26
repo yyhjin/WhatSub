@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="small_card">
     <v-row>
       <v-col v-for="(SandListItem, index) in sandList" :key="index">
         <sand-small-list-item :sand-list-item="SandListItem"></sand-small-list-item>
@@ -43,4 +43,8 @@ export default {
 };
 </script>
 
-<style></style>
+<style>
+.small_card:last-child {
+  margin-bottom: 40px;
+}
+</style>

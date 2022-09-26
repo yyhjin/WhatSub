@@ -1,12 +1,27 @@
 <template>
   <div>
-    <v-card class="home_card_s" elevation="3" outlined>{{ combiListItem.name }}</v-card>
+    <v-card class="home_card_s" elevation="3" outlined @click.stop="dialogRecoCombi = true">{{
+      combiListItem.name
+    }}</v-card>
+    <combi-modal
+      :combi-list-item="combiListItem"
+      :value="dialogRecoCombi"
+      @input="dialogRecoCombi = $event"
+    ></combi-modal>
   </div>
 </template>
 
 <script>
+import CombiModal from "@/components/common/CombiModal.vue";
+
 export default {
   name: "RecommendCombListItem",
+  components: { CombiModal },
+  data() {
+    return {
+      dialogRecoCombi: false,
+    };
+  },
   props: {
     combiListItem: Object,
   },
