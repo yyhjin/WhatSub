@@ -1,7 +1,6 @@
 package com.ssafy.spring.order.controller;
 
 import com.ssafy.spring.SuccessResponseResult;
-import com.ssafy.spring.order.dto.OrderDto;
 import com.ssafy.spring.order.service.OrderService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
