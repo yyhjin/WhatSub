@@ -1,17 +1,16 @@
 package com.ssafy.spring.comb.entity;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 
 @Entity
 @Getter
 @Setter
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class Menu {
 
     @Id
@@ -30,24 +29,16 @@ public class Menu {
 
     private String allergies;
 
-    @NotBlank
     private int price;
 
-    @NotBlank
     private int kcal;
 
-    @NotBlank
     private float protein;
 
-    @NotBlank
     private float sodium;
 
-    @NotBlank
     private float fat;
 
-    @NotBlank
     private float sugar;
 
-    @NotBlank
-    private int length;
 }
