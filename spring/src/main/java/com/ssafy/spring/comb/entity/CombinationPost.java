@@ -1,7 +1,7 @@
 package com.ssafy.spring.comb.entity;
 
 import com.fasterxml.jackson.annotation.JsonRawValue;
-import com.ssafy.spring.review.entity.entity.Review;
+import com.ssafy.spring.review.entity.Review;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.ColumnDefault;

@@ -1,8 +1,7 @@
-package com.ssafy.spring.review.entity.service;
+package com.ssafy.spring.review.service;
 
-import com.ssafy.spring.review.entity.entity.Review;
-import com.ssafy.spring.review.entity.repository.ReviewJpaRepository;
-import com.ssafy.spring.review.entity.repository.ReviewRepository;
+import com.ssafy.spring.review.entity.Review;
+import com.ssafy.spring.review.repository.ReviewJpaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

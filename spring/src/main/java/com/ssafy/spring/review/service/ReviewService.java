@@ -1,8 +1,6 @@
-package com.ssafy.spring.review.entity.service;
+package com.ssafy.spring.review.service;
 
-import com.ssafy.spring.review.entity.entity.Review;
-import com.ssafy.spring.review.entity.repository.ReviewRepository;
-import org.springframework.stereotype.Service;
+import com.ssafy.spring.review.entity.Review;
 
 import java.util.List;
 
