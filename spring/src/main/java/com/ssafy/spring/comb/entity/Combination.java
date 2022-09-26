@@ -3,9 +3,7 @@ package com.ssafy.spring.comb.entity;
 import lombok.*;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotBlank;
-import java.util.ArrayList;
-import java.util.List;
+
 
 @Entity
 @Getter
@@ -32,6 +30,6 @@ public class Combination {
 
     private int price;
 
-    @NotBlank
+    @Column(nullable = false)
     private String imgUrl;
 }

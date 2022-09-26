@@ -3,9 +3,7 @@ package com.ssafy.spring.comb.entity;
 import lombok.*;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotBlank;
-import java.util.ArrayList;
-import java.util.List;
+
 
 @Entity
 @Getter
@@ -18,13 +16,13 @@ public class Ingredient {
     @Id
     private String ingredientId;
 
-    @NotBlank
+    @Column(nullable = false)
     private String category;
 
-    @NotBlank
+    @Column(nullable = false)
     private String name;
 
-    @NotBlank
+    @Column(nullable = false)
     private String imgUrl;
 
     @Column(nullable = true)

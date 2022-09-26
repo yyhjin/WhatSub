@@ -1,4 +1,4 @@
-package com.ssafy.spring.review.entity.dto;
+package com.ssafy.spring.review.dto;
 
 import lombok.Builder;
 import lombok.Getter;

@@ -1,4 +1,4 @@
-package com.ssafy.spring.review.entity.entity;
+package com.ssafy.spring.review.entity;
 
 import com.ssafy.spring.comb.entity.CombinationPost;
 import com.ssafy.spring.user.entity.User;
@@ -6,7 +6,6 @@ import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotBlank;
 import java.sql.Timestamp;
 
 
@@ -30,7 +29,7 @@ public class Review {
     @JoinColumn(name="user_id")
     private User user;
 
-    @NotBlank
+    @Column(nullable = false)
     private String content;
 
     private int score;
