@@ -7,6 +7,7 @@ import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.sql.Timestamp;
 
 
@@ -33,7 +34,7 @@ public class Review {
     @NotBlank
     private String content;
 
-    @NotBlank
+    @NotNull //NotBlank는 String만 받을 수 있음
     private int score;
 
     @CreationTimestamp
