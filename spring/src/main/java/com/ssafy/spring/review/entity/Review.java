@@ -1,4 +1,4 @@
-package com.ssafy.spring.review.entity.entity;
+package com.ssafy.spring.review.entity;
 
 import com.ssafy.spring.comb.entity.CombinationPost;
 import com.ssafy.spring.user.entity.User;
@@ -31,10 +31,8 @@ public class Review {
 //    private User user;
 
     @NotBlank
-    @Lob
     private String content;
 
-    @NotBlank
     private int score;
 
     @CreationTimestamp

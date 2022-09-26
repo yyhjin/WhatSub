@@ -16,8 +16,7 @@ import java.util.List;
 public class Ingredient {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int ingredientId;
+    private String ingredientId;
 
     @NotBlank
     private String category;
@@ -28,21 +27,23 @@ public class Ingredient {
     @NotBlank
     private String imgUrl;
 
-    private int kcal;
+    @Column(nullable = true)
+    private float kcal;
 
+    @Column(nullable = true)
     private float protein;
 
+    @Column(nullable = true)
     private float sodium;
 
+    @Column(nullable = true)
     private float fat;
 
+    @Column(nullable = true)
     private float sugar;
 
     private String allergies;
 
-    @Column(nullable = true)
     private int price;
 
-    @OneToMany(mappedBy = "ingredient")
-    private List<Composition> compositions = new ArrayList<>();
 }

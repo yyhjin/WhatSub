@@ -1,4 +1,4 @@
-package com.ssafy.spring.review.entity.controller;
+package com.ssafy.spring.review.controller;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;

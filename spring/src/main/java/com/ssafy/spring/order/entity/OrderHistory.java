@@ -13,6 +13,5 @@ public class OrderHistory {
     @JoinColumn(name="order_id")
     private Orders order;
 
-    @NotBlank
     private int count;
 }
