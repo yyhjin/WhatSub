@@ -1,5 +1,7 @@
 package com.ssafy.spring.auth.repository.service;
 
-public interface AuthService {
+import com.ssafy.spring.auth.dto.KakaoTokenInfo;
 
+public interface AuthService {
+    KakaoTokenInfo getAccessToken(String code);
 }
