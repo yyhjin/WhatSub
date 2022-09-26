@@ -1,7 +1,6 @@
 package com.ssafy.spring.comb.entity;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
@@ -11,6 +10,9 @@ import java.util.List;
 @Entity
 @Getter
 @Setter
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class Combination {
 
     @Id
@@ -23,7 +25,6 @@ public class Combination {
     @JoinColumn(name = "menu_id")
     private Menu menu;
 
-    @NotBlank
     private int kcal;
 
     private float protein;
