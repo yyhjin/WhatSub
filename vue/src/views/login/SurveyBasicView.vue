@@ -10,7 +10,7 @@
     <div class="vegetable">
       <h4>못먹거나 싫어하는 음식을 선택해 주세요</h4>
       <div class="con" >
-        <button class="vege" 
+        <!-- <button class="vege"   @click="fetchVege"
         style="background-image: url(https://www.subway.co.kr/images/menu/img_recipe_v01.jpg);
               background-size: 100% 100%;">
         </button>
@@ -45,7 +45,35 @@
         <button class="vege" 
         style="background-image: url(https://www.subway.co.kr/images/menu/img_recipe_v09.jpg);
               background-size: 100% 100%;">
-        </button>
+        </button> -->
+        <input type="checkbox" class="vege" v-model="vege1"
+        style="background-image: url(https://www.subway.co.kr/images/menu/img_recipe_v01.jpg);
+              background-size: 100% 100%;">
+        <input type="checkbox" class="vege" v-model="vege2"
+        style="background-image: url(https://www.subway.co.kr/images/menu/img_recipe_v02.jpg);
+              background-size: 100% 100%;">
+        <input type="checkbox" class="vege" v-model="vege3"
+        style="background-image: url(https://www.subway.co.kr/images/menu/img_recipe_v03.jpg);
+              background-size: 100% 100%;">
+        <input type="checkbox" class="vege" v-model="vege4"
+        style="background-image: url(https://www.subway.co.kr/images/menu/img_recipe_v04.jpg);
+              background-size: 100% 100%;">
+        <input type="checkbox" class="vege" v-model="vege5"
+        style="background-image: url(https://www.subway.co.kr/images/menu/img_recipe_v05.jpg);
+              background-size: 100% 100%;">
+        <input type="checkbox" class="vege" v-model="vege6"
+        style="background-image: url(https://www.subway.co.kr/images/menu/img_recipe_v06.jpg);
+              background-size: 100% 100%;">
+        <input type="checkbox" class="vege" v-model="vege7"
+        style="background-image: url(https://www.subway.co.kr/images/menu/img_recipe_v07.jpg);
+              background-size: 100% 100%;">
+        <input type="checkbox" class="vege" v-model="vege8"
+        style="background-image: url(https://www.subway.co.kr/images/menu/img_recipe_v08.jpg);
+              background-size: 100% 100%;">
+        <input type="checkbox" class="vege" v-model="vege9"
+        style="background-image: url(https://www.subway.co.kr/images/menu/img_recipe_v09.jpg);
+              background-size: 100% 100%;">
+              
       </div>
       <hr>
     </div>
@@ -53,29 +81,29 @@
       <h4>알레르기 유발하는 음식을 선택해주세요.</h4>
       <div class="allcon">
         <div class="allrow">
-          <button class="aller">계란</button>
-          <button class="aller">우유</button>
-          <button class="aller">대두</button>
-          <button class="aller">토마토</button>
+          <button class="aller" id="1" @click="changeAll">계란</button>
+          <button class="aller" id="2" @click="changeAll">우유</button>
+          <button class="aller" id="3" @click="changeAll">대두</button>
+          <button class="aller" id="4" @click="changeAll">토마토</button>
         </div>
         <div class="allrow">
-          <button class="aller">쇠고기</button>
-          <button class="aller">돼지고기</button>
-          <button class="aller">닭고기</button>
-          <button class="aller">새우</button>
+          <button class="aller" id="5" @click="changeAll">쇠고기</button>
+          <button class="aller" id="6" @click="changeAll">돼지고기</button>
+          <button class="aller" id="7" @click="changeAll">닭고기</button>
+          <button class="aller" id="8" @click="changeAll">새우</button>
         </div>
         <div class="allrow">
-          <button class="aller">조개류</button>
-          <button class="aller">아황산</button>
+          <button class="aller" id="9" @click="changeAll">조개류</button>
+          <button class="aller" id="10" @click="changeAll">아황산</button>
         </div>
       </div>
     <hr>
     </div>
     <div class="diet">
       <h4>식단 관리 중이라면 체크해주세요.</h4>
-      <button class="dietbtn">식단 관리 중</button>
+      <button class="dietbtn" @click="changeDiet">식단 관리 중</button>
     </div>
-    <v-btn class="main_btn next_btn">다음</v-btn>
+    <v-btn class="main_btn next_btn" @click="next">다음</v-btn>
   </div>
 </template>
 
@@ -89,14 +117,68 @@ export default {
     return {
       allergies : allergies,
       vegetables : vegetables,
+      vege1 : false,
+      vege2 : false,
+      vege3 : false,
+      vege4 : false,
+      vege5 : false,
+      vege6 : false,
+      vege7 : false,
+      vege8 : false,
+      vege9 : false,
 
+      allergie1 : false,
+      allergie2 : false,
+      allergie3 : false,
+      allergie4 : false,
+      allergie5 : false,
+      allergie6 : false,
+      allergie7 : false,
+      allergie8 : false,
+      allergie9 : false,
+      allergie10 : false,
+
+      isDiet : false
     }
   },
+
 
   methods: {
     goBack() {
       this.$router.go(-1);
     },
+
+    changeDiet (event) {
+      this.isDiet = !this.isDiet
+      if (this.isDiet) {
+        console.log(this.isDiet)
+        console.log(event.target.classList)
+        event.target.classList.add("checked")
+      } else {
+        console.log(this.isDiet)
+        console.log(event.target.classList)
+        event.target.classList.remove("checked")
+      }
+    },
+
+    changeAll (event) {
+      // console.log(this["allergie" + event.target.id])
+      // console.log(event.target.id)
+      // console.log(eval("this.allergie" + event.target.id))
+      this["allergie" + event.target.id] = !this["allergie" + event.target.id]
+      if (this["allergie" + event.target.id]) {
+        event.target.classList.add("checked")
+      } else {
+        event.target.classList.remove("checked")
+      }
+    },
+
+    next () {
+      //axios로 체크한거 백으로 요청 
+      //다음 페이지로 넘기기
+    }
+
+
   }
 }
 </script>
@@ -109,6 +191,16 @@ export default {
   justify-content: center;
   align-items: center;
 }
+.checked {
+  border: 5px solid #f4c41f;
+}
+
+input[type='checkbox']:checked {
+  
+  background-color: #f4c41f;
+  border: 5px solid #f4c41f;
+}
+
 .backbar {
   width: 90%;
   margin: auto;
@@ -132,12 +224,12 @@ progress {
 }
 
 .vege {
+  appearance: none;
   height: 80px; 
   width: 80px;
   border-radius: 50%;
   border-style: solid;
-  
-  
+  border: 2px solid;
 }
 /* .vege img {
   width: 100%;

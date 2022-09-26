@@ -18,15 +18,13 @@ public class Ingredient {
     private int ingredientId;
 
     @NotBlank
-    private int category;
+    private String category;
 
     @NotBlank
     private String name;
 
     @NotBlank
     private String imgUrl;
-
-    private int weight;
 
     @NotBlank
     private int kcal;
