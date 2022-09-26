@@ -17,7 +17,7 @@
       <v-tabs-items v-model="tab">
         <v-tab-item v-for="item in items" :key="item">
           <v-card v-if="item == '꿀조합 목록'" flat>
-            <div class="pa-7">
+            <div class="pt-4 pl-6 pr-6">
               <sand-small-list></sand-small-list>
             </div>
           </v-card>
