@@ -14,8 +14,7 @@ import javax.validation.constraints.NotBlank;
 public class Menu {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int menuId;
+    private String menuId;
 
     @NotBlank
     private String imgUrl;
@@ -23,15 +22,17 @@ public class Menu {
     @NotBlank
     private String menuName;
 
+    @NotBlank
     private String ingredients;
 
+    @NotBlank
     private String menuDesc;
 
     private String allergies;
 
     private int price;
 
-    private int kcal;
+    private float kcal;
 
     private float protein;
 

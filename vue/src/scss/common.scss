@@ -1,6 +1,7 @@
 .top {
   position: fixed;
   width: 100%;
+  z-index: 2;
 }
 .bottom {
   position: fixed;
@@ -50,4 +51,8 @@
 .n_card {
   padding-top: 70px;
   padding-left: 20px;
+}
+
+.pt-20{
+  padding-top: 80px;
 }
