@@ -17,6 +17,7 @@ import java.util.List;
 @Api(value = "review-controller", tags={"review-controller"})
 @RestController
 public class ReviewController {
+
     private final ReviewServiceImpl reviewService;
     private final ReviewJpaRepository reviewJpaRepository;
     @Autowired
