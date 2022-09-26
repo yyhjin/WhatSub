@@ -5,6 +5,7 @@ import org.hibernate.annotations.ColumnDefault;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -26,7 +27,7 @@ public class User {
     @NotBlank
     private String gender;
 
-    @NotBlank
+    @NotNull
     private int birthYear;
 
     @NotBlank
@@ -37,7 +38,7 @@ public class User {
 
     private String subti;
 
-    @NotBlank
+    @NotNull
     @ColumnDefault("false")
     private boolean isDiet;
 

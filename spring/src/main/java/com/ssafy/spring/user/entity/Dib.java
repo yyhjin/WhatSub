@@ -4,7 +4,7 @@ import lombok.*;
 import org.hibernate.annotations.ColumnDefault;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -21,10 +21,10 @@ public class Dib {
     @JoinColumn(name = "user_id")
     private User user;
 
-    @NotBlank
+    @NotNull
     private int combinationPostId;
 
-    @NotBlank
+    @NotNull
     @ColumnDefault("true")
     private boolean state;
 }
