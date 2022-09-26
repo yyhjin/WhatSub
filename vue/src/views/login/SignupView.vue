@@ -36,7 +36,7 @@
 </template>
 
 <script>
-// import axios from 'axios'
+import axios from 'axios'
 
 export default {
   name: 'SignupView',
@@ -57,7 +57,10 @@ export default {
         birthYear: ''
       },
       items : items,
-      formData: formData
+      formData: formData,
+      code: '',
+      accessToken : '',
+      refreshToken : ''
     }
   },
 
@@ -74,7 +77,56 @@ export default {
     selectFile (event) {
       console.log(event)
       this.formData.append('profile_img', event)
+    },
+
+    // async getUserInfo () {
+    //   await window.Kakao.API.request({
+    //       url: '/v2/user/me', // 사용자 정보 가져오기
+    //     })
+    //       .then(function(response) {
+    //         console.log(response)
+    //       })
+    //       .catch(function(error) {
+    //         console.error(error)
+    //       })
+    // },
+
+    getToken () {
+      axios({
+        methods:'post',
+        url:'https://kauth.kakao.com/oauth/token',
+        headers :{
+          'Content-type': 'application/x-www-form-urlencoded;charset=utf-8',
+        },
+        params:{
+          grant_type: 'authorization_code',
+          client_id: process.env.VUE_APP_KAKAO_API_KEY,
+          redirect_uri: 'http://localhost:8080/signup',
+          code: this.code,
+        }
+      })
+      .then(res => {
+        console.log(res)
+        this.accessToken = res.data.access_token,
+        console.log(res.data.access_token)
+        this.refreshToken = res.data.refresh_token
+        window.Kakao.Auth.setAccessToken(res.data.access_token);
+        window.Kakao.API.request({
+            url: '/v2/user/me', // 사용자 정보 가져오기
+          })
+            .then(function(response) {
+              console.log(response)
+            })
+            .catch(function(error) {
+              console.error(error)
+            })
+      })
     }
+  },
+
+  created() {
+    this.code = this.$route.query.code
+    this.getToken()
   }
 }
 </script>
