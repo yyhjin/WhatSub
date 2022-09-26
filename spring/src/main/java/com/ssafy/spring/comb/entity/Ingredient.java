@@ -1,7 +1,6 @@
 package com.ssafy.spring.comb.entity;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
@@ -11,6 +10,9 @@ import java.util.List;
 @Entity
 @Getter
 @Setter
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class Ingredient {
 
     @Id
@@ -26,7 +28,6 @@ public class Ingredient {
     @NotBlank
     private String imgUrl;
 
-    @NotBlank
     private int kcal;
 
     private float protein;
@@ -39,6 +40,7 @@ public class Ingredient {
 
     private String allergies;
 
+    @Column(nullable = true)
     private int price;
 
     @OneToMany(mappedBy = "ingredient")
