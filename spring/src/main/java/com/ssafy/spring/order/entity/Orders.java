@@ -1,9 +1,11 @@
 package com.ssafy.spring.order.entity;
 
 import com.ssafy.spring.user.entity.User;
+import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
+import java.sql.Timestamp;
 import java.util.Date;
 
 @Entity
@@ -21,10 +23,9 @@ public class Orders {
     @JoinColumn(name="branch_id")
     private Branch branch;
 
-    @NotBlank
     private int orderPrice;
 
-    @NotBlank
-    private Date orderedAt;
+    @CreationTimestamp
+    private Timestamp orderedAt;
 
 }

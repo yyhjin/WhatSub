@@ -3,9 +3,7 @@ package com.ssafy.spring.comb.entity;
 import lombok.*;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotBlank;
-import java.util.ArrayList;
-import java.util.List;
+
 
 @Entity
 @Getter
@@ -18,14 +16,7 @@ public class Combination {
     @Id
     private String combinationId;
 
-    @OneToMany(mappedBy = "combination")
-    private List<Composition> compositions = new ArrayList<>();
-
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "menu_id")
-    private Menu menu;
-
-    private int kcal;
+    private float kcal;
 
     private float protein;
 
@@ -39,5 +30,6 @@ public class Combination {
 
     private int price;
 
+    @Column(nullable = false)
     private String imgUrl;
 }

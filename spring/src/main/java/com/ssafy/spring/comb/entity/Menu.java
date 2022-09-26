@@ -3,7 +3,6 @@ package com.ssafy.spring.comb.entity;
 import lombok.*;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotBlank;
 
 @Entity
 @Getter
@@ -14,24 +13,25 @@ import javax.validation.constraints.NotBlank;
 public class Menu {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int menuId;
+    private String menuId;
 
-    @NotBlank
+    @Column(nullable = false)
     private String imgUrl;
 
-    @NotBlank
+    @Column(nullable = false)
     private String menuName;
 
+    @Column(nullable = false)
     private String ingredients;
 
+    @Column(nullable = false)
     private String menuDesc;
 
     private String allergies;
 
     private int price;
 
-    private int kcal;
+    private float kcal;
 
     private float protein;
 

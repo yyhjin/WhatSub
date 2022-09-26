@@ -1,4 +1,4 @@
-package com.ssafy.spring.review.entity.entity;
+package com.ssafy.spring.review.entity;
 
 import com.ssafy.spring.comb.entity.CombinationPost;
 import com.ssafy.spring.user.entity.User;
@@ -6,8 +6,6 @@ import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
 import java.sql.Timestamp;
 
 
@@ -31,10 +29,9 @@ public class Review {
     @JoinColumn(name="user_id")
     private User user;
 
-    @NotBlank
+    @Column(nullable = false)
     private String content;
 
-    @NotNull //NotBlank는 String만 받을 수 있음
     private int score;
 
     @CreationTimestamp

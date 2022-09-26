@@ -1,4 +1,4 @@
-package com.ssafy.spring.review.entity.controller;
+package com.ssafy.spring.review.controller;
 
 import com.ssafy.spring.comb.entity.CombinationPost;
 import com.ssafy.spring.review.entity.dto.ReviewResponse;

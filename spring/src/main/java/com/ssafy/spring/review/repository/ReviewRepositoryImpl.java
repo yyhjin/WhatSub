@@ -1,12 +1,7 @@
-package com.ssafy.spring.review.entity.repository;
+package com.ssafy.spring.review.repository;
 
 import com.ssafy.spring.comb.entity.CombinationPost;
-import com.ssafy.spring.review.entity.entity.Review;
-import org.springframework.data.domain.Example;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
-import org.springframework.data.repository.query.FluentQuery;
+import com.ssafy.spring.review.entity.Review;
 
 import javax.persistence.EntityManager;
 import java.util.List;
