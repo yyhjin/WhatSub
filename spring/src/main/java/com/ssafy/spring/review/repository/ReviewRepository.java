@@ -1,7 +1,7 @@
-package com.ssafy.spring.review.entity.repository;
+package com.ssafy.spring.review.repository;
 
 import com.ssafy.spring.comb.entity.CombinationPost;
-import com.ssafy.spring.review.entity.entity.Review;
+import com.ssafy.spring.review.entity.Review;
 
 import java.util.List;
 
