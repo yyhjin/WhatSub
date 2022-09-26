@@ -3,6 +3,7 @@ package com.ssafy.spring.order.entity;
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 
+@Entity
 public class OrderHistory {
 
     @Id
