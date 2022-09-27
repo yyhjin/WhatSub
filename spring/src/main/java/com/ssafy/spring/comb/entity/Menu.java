@@ -41,4 +41,19 @@ public class Menu {
 
     private float sugar;
 
+    private int soft;
+
+    private int salty;
+
+    private int chewy;
+
+    private int sour;
+
+    private int sweet;
+
+    private int nutty;
+
+    private int spicy;
+
+    private int bland;
 }
