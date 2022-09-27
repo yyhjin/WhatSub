@@ -10,9 +10,6 @@ import java.util.UUID;
 @Entity
 @Getter
 @Setter
-@Builder
-@NoArgsConstructor
-@AllArgsConstructor
 public class Ingredient {
 
     @Id
