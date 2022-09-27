@@ -1,5 +1,5 @@
 from django.shortcuts import render, get_list_or_404
-from .models import User, Review
+from .models import User, Review, CombinationPost, Ingredient, Combination
 
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
@@ -7,6 +7,9 @@ from rest_framework.response import Response
 from .serializers import UserSerializer
 
 from .bigdata.content_based_1 import get_content_based_filtering
+from .bigdata.collaborative import get_collaborative_filtering
+
+import pandas as pd
 # Create your views here.
 
 def test(request):
@@ -34,3 +37,15 @@ def content_based_filtering(request): # user_id 파라미터 받기
     #     compositions.append(get_list_or_404(Composition, combination_id=review.combination_id))
     result = get_content_based_filtering()
     return Response(result)
+
+@api_view(['GET'])
+def collaborative_filtering(request):
+    users = User.objects.all()
+    reviews = Review.objects.all()
+    combination_posts = CombinationPost.objects.all()
+    ingredients = Ingredient.objects.all()
+    combinations = Combination.objects.all()
+    result = get_collaborative_filtering(2, users, reviews, combination_posts, ingredients, combinations)
+    return Response({'boo':'far'})
+
+

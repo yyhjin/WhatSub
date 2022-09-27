@@ -40,13 +40,13 @@ def get_dummy_data():
     total_rows = [total_combination_id,combination_name,total_bread,total_cheese,total_menu, total_score, total_soft, total_salty]
     total_columns = ['combination_id','combination_name','bread','cheese','menu','score','soft','salty']
     total = pd.DataFrame(np.transpose(total_rows),columns=total_columns)
-    print('꿀조합 게시판에 있는 꿀조합 목록')
-    print(total,'\n')
+    # print('꿀조합 게시판에 있는 꿀조합 목록')
+    # print(total,'\n')
 
     # 별점으로 필터링하고 soft, salty 열만 남기기
     total_filtered = total.loc[total['score']>='3'][['combination_id','combination_name','soft','salty']]
-    print('꿀조합 게시판에 있는 꿀조합 목록(평점3이상만 필터링)')
-    print(total_filtered,'\n')
+    # print('꿀조합 게시판에 있는 꿀조합 목록(평점3이상만 필터링)')
+    # print(total_filtered,'\n')
 
     # 고객 주문 내역 (5개)
     user_combination_id = ['2,abcd,1,fgi','1,abdef,3,de','3,abc,1,af','1,adef,3,ad','2,acd,1,ade']
@@ -60,12 +60,12 @@ def get_dummy_data():
     user_rows = [user_combination_id,user_combination_name,user_bread,user_cheese,user_menu,user_score, user_soft, user_salty]
     user_columns = ['combination_id','combination_name','bread','cheese','menu','score','soft','salty']
     user = pd.DataFrame(np.transpose(user_rows),columns=user_columns)
-    print('특정 고객이 주문한 내역')
-    print(user,'\n')
+    # print('특정 고객이 주문한 내역')
+    # print(user,'\n')
 
     user_filtered = user.loc[user['score']>='4'][['combination_id','combination_name','soft','salty']]
-    print('특정 고객이 주문한 내역(4점이상만 필터링)')
-    print(user_filtered,'\n')
+    # print('특정 고객이 주문한 내역(4점이상만 필터링)')
+    # print(user_filtered,'\n')
 
     return total_filtered, user_filtered
 
@@ -74,14 +74,14 @@ def get_dummy_data():
 def difference_of_sets(total,user):
     total_filtered = pd.merge(total, user, how='outer', indicator=True)
     total_filtered = total_filtered.query('_merge == "left_only"').drop(columns=['_merge']).reset_index(drop=True)
-    print('꿀조합 게시판 목록 - 고객이 먹어본 목록')
-    print(total_filtered,'\n')
+    # print('꿀조합 게시판 목록 - 고객이 먹어본 목록')
+    # print(total_filtered,'\n')
     return total_filtered, user
 
 def find_similar_sandwich(total,user):
     res = cosine_similarity(total[['soft','salty']],user[['soft','salty']])
-    print('코사인 유사도(행:게시판, 열:주문내역)')
-    print(res,'\n') # 각 열에서 1이 아닌 가장 높은 값의 인덱스
+    # print('코사인 유사도(행:게시판, 열:주문내역)')
+    # print(res,'\n') # 각 열에서 1이 아닌 가장 높은 값의 인덱스
     combination_count = {} # 샌드위치별 count
     # 열을 순회하면서 가장 비슷한 샌드위치를 찾아서 combination_count에 반영
     for j in range(len(res[0])):
@@ -94,8 +94,8 @@ def find_similar_sandwich(total,user):
                 maxV = res[i][j]
                 maxIdx = i
         combination_count[maxIdx] = combination_count.get(maxIdx, 0)+ 1
-    print('가장 비슷한 샌드위치 카운트')
-    print(combination_count,'\n') 
+    # print('가장 비슷한 샌드위치 카운트')
+    # print(combination_count,'\n') 
 
     return combination_count    
 
@@ -133,7 +133,7 @@ def get_content_based_filtering():
 
         partial['count'] = v
         result.append(partial)
-    print(result)
+    # print(result)
     return result
 
 get_content_based_filtering()
