@@ -10,9 +10,6 @@ import java.util.UUID;
 @Entity
 @Getter
 @Setter
-@Builder
-@NoArgsConstructor
-@AllArgsConstructor
 public class Combination {
 
     @Id
@@ -31,9 +28,6 @@ public class Combination {
     private String allergies;
 
     private int price;
-
-    @Column(nullable = false)
-    private String imgUrl;
 
     private int soft;
 

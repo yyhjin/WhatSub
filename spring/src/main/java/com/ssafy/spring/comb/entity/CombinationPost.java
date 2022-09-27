@@ -5,8 +5,10 @@ import com.ssafy.spring.review.entity.Review;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.ColumnDefault;
+import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -28,10 +30,14 @@ public class CombinationPost {
 
     private String content;
 
+    @Column(nullable = false)
+    private String imgUrl;
+
     @ColumnDefault("0")
     private int likesCnt;
 
-    private Date createdAt;
+    @CreationTimestamp
+    private Timestamp createdAt;
 
     @Column(columnDefinition = "json")
     @JsonRawValue
