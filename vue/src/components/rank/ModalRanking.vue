@@ -1,13 +1,23 @@
 <template>
-  <div></div>
+  <div class="modal">
+    <div>
+    </div>
+  </div>
 </template>
 
 <script>
 export default {
-  name: 'ModalRanking'
+  name: 'ModalRanking',
+
+  props: {
+    sand: Object
+  }
 }
 </script>
 
-<style>
-
+<style scoped>
+.modal {
+  height: 350px;
+  width: 100%;
+}
 </style>

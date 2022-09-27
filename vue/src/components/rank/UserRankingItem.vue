@@ -4,17 +4,24 @@
       <div class="imgwrap">
         <img :src="sand.menu_imgurl" alt="">
       </div>
-      <div class="rank">
-        <h3 value="고기">{{ sand.menu }}</h3>
-        <h5>{{sand.rank1.ranking}}위 {{ sand.rank1.username }} {{ sand.rank1.cnt }}개</h5>
-
+      <div class="rollingbanner">
+        <h3 >{{ sand.menu }}</h3>
+        <div class="wrap">
+          <h5 class="current">{{sand.rank1.ranking}}위 {{ sand.rank1.username }} {{ sand.rank1.cnt }}개</h5>
+          <h5 class="next">{{sand.rank2.ranking}}위 {{ sand.rank2.username }} {{ sand.rank2.cnt }}개</h5>
+          <h5 >{{sand.rank3.ranking}}위 {{ sand.rank3.username }} {{ sand.rank3.cnt }}개</h5>
+          <h5 class="prev">{{sand.rank4.ranking}}위 {{ sand.rank4.username }} {{ sand.rank4.cnt }}개</h5>
+        </div>
       </div>
     </v-card>
+    
   
   </div>
 </template>
 
 <script>
+// import ModalRanking from '@/components/rank/ModalRanking.vue'
+
 export default {
   name: "UserRankingItem",
 
@@ -23,48 +30,46 @@ export default {
     index: Number
   },
 
-  // data () {
-  //   return {
-  //     // ranking : this.index + 1
-  //   }
-  // },
+  // components: { ModalRanking },
+  
 
-  // computed : {
-  //   ranking () {
-  //     return this.index + 1
-  //   },
-  //   name1 () {
-  //     return this.sand.rank1.username
-  //   },
-  //   name2() {
-  //     return this.sand.rank2.username
-  //   },
-  //   name3 () {
-  //     return this.sand.rank3.username
-  //   },
-  //   name4 () {
-  //     return this.sand.rank4.username
-  //   },
-  //   cnt1 () {
-  //     return this.sand.rank1.cnt
-  //   },
-  //   cnt2() {
-  //     return this.sand.rank2.cnt
-  //   },
-  //   cnt3 () {
-  //     return this.sand.rank3.cnt
-  //   },
-  //   cnt4 () {
-  //     return this.sand.rank4.cnt
-  //   }
-  // },
+  methods : {
+    rollingCallback () {
+      //.prev 클래스 삭제
+        document.querySelectorAll('.rollingbanner .prev').forEach(selected => 
+        selected.classList.remove('prev'));
 
-  // mounted() {
-  //   console.log(this.sand)
-  //   console.log(this.ranking)
-  //   let h = document.querySelector('h5')
-  //   h.innerText = `${this.ranking}`
-  // }
+        //.current -> .prev
+        let current = document.querySelectorAll('.rollingbanner .current');
+        current.forEach(selected => {
+          selected.classList.remove('current');
+          selected.classList.add('prev')
+          });
+
+        //.next -> .current
+        let next = document.querySelectorAll('.rollingbanner .next');
+        
+        //다음 목록 요소가 널인지 체크
+        next.forEach(selected => {
+          if(selected.nextElementSibling == null){
+            document.querySelectorAll('.rollingbanner .wrap h5:first-child').forEach(sel =>
+            sel.classList.add('next'));
+            
+          }else{
+            //목록 처음 요소를 다음 요소로 선택
+              selected.nextElementSibling.classList.add('next');
+          }
+          selected.classList.remove('next');
+          selected.classList.add('current');
+        })
+    }
+  },
+
+  mounted () {
+    window.addEventListener('load', ()=>{
+      window.setInterval(this.rollingCallback, 3000);
+    })
+  }
 }
 </script>
 
@@ -73,8 +78,6 @@ export default {
   margin: 20px;
   width: 90%;
   height: 80px;
-
-  
 }
 .imgwrap img {
   display:block;
@@ -91,6 +94,45 @@ export default {
   flex-direction: row;
   justify-content: space-evenly;
   align-items: center;
+}
+.rollingbanner{
+    position: relative;
+    width: 380px;
+    height: 32px;
+    font-size: .875rem;
+    letter-spacing: -1px;
+    padding: 7px 15px;
+    box-sizing: border-box;
+    background-color: #f0f0f0;
+    border-radius: 16px;
+}
+.rollingbanner > .title{
+    font-weight: bold;
+    float: left;
+    padding-right: 10px;
+}
+.rollingbanner > .wrap{
+    position: relative;
+    width: auto;
+    height: 100%;
+    box-sizing: border-box;
+    overflow: hidden;
+} 
+.rollingbanner h5{
+    position: absolute;
+    top: -36px;
+    left: 0;
+}
+.rollingbanner h5.prev{
+    top: 36px;
+    transition: top 0.5s ease;
+}   
+.rollingbanner h5.current{
+    top: 0;
+    transition: top 0.5s ease;
+}
+.rollingbanner h5.next{
+    top: -36px;
 }
 
 </style>
