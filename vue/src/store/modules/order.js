@@ -86,17 +86,22 @@ export default({
         price : 7000,
       },    
     ],
-    selectedMenu: null
+    selectedMenu: null,
+    selectedSize: null
   },
   getters: {
     menus : (state) => state.menus,
 
     selectedMenu: (state) => state.selectedMenu,
+
+    selectedSize: (state) => state.selectedSize,
   },
   mutations: {
     SET_MENUS : (state, value) => state.menus = value,
 
     SET_SELECTEDMENU : (state, value) => state.selectedMenu = value,
+
+    SET_SELECTEDSIZE : (state, value) => state.selectedSize = value,
   },
   actions: {
     // fetchMenus ({commit}, value) {
@@ -109,6 +114,10 @@ export default({
 
     selectMenu({ commit }, value) {
       commit('SET_SELECTEDMENU', value)
+    },
+
+    selectSize({ commit }, value) {
+      commit('SET_SELECTEDSIZE', value)
     }
   },
 

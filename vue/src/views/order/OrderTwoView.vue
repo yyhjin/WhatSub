@@ -10,13 +10,14 @@
     </div>
     <menu-list></menu-list>
     <div align="center" class="order_btn">
-      <v-btn class="main_btn" width="185" small elevation="0" rounded >주문하기</v-btn>
+      <v-btn class="main_btn" width="185" small elevation="0" rounded @click="goNext">주문하기</v-btn>
     </div>
   </div>
 </template>
 
 <script>
 import MenuList from '@/components/order/MenuList.vue'
+import { mapGetters } from 'vuex';
 
 // import { mapActions } from 'vuex';
 
@@ -25,6 +26,9 @@ export default {
 
   components: { MenuList },
 
+  computed: {
+    ...mapGetters(['selectedMenu'])
+  },
 
   methods: {
     // ...mapActions(['fetchMenus']),
@@ -32,15 +36,18 @@ export default {
       this.$router.go(-1);
     },
     
-    // fetchMenus () {
-    //   axios({
+    goNext () {
+      if (this.selectedMenu === null || this.selectedMenu === undefined) {
+        alert("메뉴를 선택해주세요")
+      } else {
+        this.$router.push({path:'orderthree'})
+      }
+    }
 
-    //   })
-    // }
   },
 
   created () {
-    // fetchMenus()
+    // this.fetchMenus()
   }
 }
 </script>
@@ -50,7 +57,8 @@ export default {
   width: 100vw;
 }
 .top {
-  margin: 10px;
+  margin-top: 10px;
+  margin-bottom: 10px;
   position:relative;
   width: 100%;
 }
@@ -59,5 +67,8 @@ export default {
 }
 .order_btn {
   margin: 20px;
+}
+.select {
+  border: 2px solid #239347;
 }
 </style>
