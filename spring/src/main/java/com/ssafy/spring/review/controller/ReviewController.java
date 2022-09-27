@@ -1,66 +1,79 @@
 package com.ssafy.spring.review.controller;
 
-import com.ssafy.spring.comb.entity.CombinationPost;
+import com.ssafy.spring.comb.repository.CombPostRepository;
+import com.ssafy.spring.SuccessResponseResult;
+import com.ssafy.spring.review.dto.ReviewRequest;
 import com.ssafy.spring.review.dto.ReviewResponse;
 import com.ssafy.spring.review.entity.Review;
-import com.ssafy.spring.review.repository.ReviewJpaRepository;
 import com.ssafy.spring.review.repository.ReviewRepository;
-import com.ssafy.spring.review.service.ReviewService;
 import com.ssafy.spring.review.service.ReviewServiceImpl;
+import com.ssafy.spring.user.repository.UserRepository;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Api(value = "review-controller", tags={"review-controller"})
 @RestController
 public class ReviewController {
-
     private final ReviewServiceImpl reviewService;
-    private final ReviewJpaRepository reviewJpaRepository;
+    private final ReviewRepository reviewRepository;
+    private final CombPostRepository combPostRepository;
+    private final UserRepository userRepository;
     @Autowired
-    public ReviewController(ReviewServiceImpl reviewService, ReviewJpaRepository reviewJpaRepository){
+    public ReviewController(ReviewServiceImpl reviewService, ReviewRepository reviewRepository, CombPostRepository combPostRepository, UserRepository userRepository){
         this.reviewService = reviewService;
-        this.reviewJpaRepository = reviewJpaRepository;
+        this.reviewRepository = reviewRepository;
+        this.combPostRepository = combPostRepository;
+        this.userRepository = userRepository;
     }
 
-//    @ApiOperation(value = "리뷰 목록 반환", notes="리뷰 목록을 반환한다",httpMethod = "GET")
-//    @GetMapping("/review")
-//    public ReviewResponse read() {
-//        ReviewResponse reviewResponse = ReviewResponse.builder()
-//                .combinationId("1,abc,2,de")
-//                .content("맛있음")
-//                .score(4)
-//                .userId(1)
-//                .build();
-//        return reviewResponse;
-//    }
     @ApiOperation(value = "리뷰 생성", notes="리뷰를 생성한다", httpMethod = "POST")
     @PostMapping("/review")
-    public String create(Review review) {
+    public SuccessResponseResult create(@RequestBody ReviewRequest.CreateRequest request) {
+        Review review = Review.builder()
+                .content(request.getContent())
+                .score(request.getScore())
+                .combinationPost(combPostRepository.findByCombinationPostId(request.getCombinationPostId()))
+                .user(userRepository.getUserByUserId(request.getUserId()))
+                .build();
+
         reviewService.create(review);
-        return "댓글이 생성되었습니다.";
+        return new SuccessResponseResult();
     }
     @ApiOperation(value = "리뷰 수정", notes="리뷰를 수정한다", httpMethod = "PUT")
-    @PutMapping("/review/{id}")
-    public String update(Review review, @PathVariable int id) {
-        reviewService.update(review, id);
-        return "댓글이 수정되었습니다.";
+    @PutMapping("/review/{reviewId}")
+    public SuccessResponseResult update(@RequestBody ReviewRequest.CreateRequest request, @PathVariable int reviewId) {
+        Review review = Review.builder()
+                .content(request.getContent())
+                .score(request.getScore())
+                .build();
+
+        reviewService.update(review, reviewId);
+        return new SuccessResponseResult();
     }
     @ApiOperation(value = "리뷰 삭제", notes="리뷰를 삭제한다", httpMethod = "DELETE")
-    @DeleteMapping("/review/{id}")
-    public String delete(@PathVariable int id){
-        reviewService.delete(id);
-        return "댓글이 삭제되었습니다.";
+    @DeleteMapping("/review/{reviewId}")
+    public SuccessResponseResult delete(@PathVariable int reviewId){
+        reviewService.delete(reviewId);
+        return new SuccessResponseResult();
     }
+
     @ApiOperation(value = "리뷰 조회", notes="게시글id를 받아 리뷰 목록을 반환한다", httpMethod = "GET")
     @GetMapping("/review/{combinationPostId}")
-    public String getReviews(@PathVariable int combinationPostId) { // List<Review>반환해야함 일단 String으로 테스트
-        reviewService.getReviewList(combinationPostId);
-        System.out.println(combinationPostId);
-        return "1";
+    public SuccessResponseResult getReviews(@PathVariable int combinationPostId) {
+        List<Review> reviews = reviewService.getReviewList(combinationPostId);
+        List<ReviewResponse.ResponseDto> reviewList = reviews.stream()
+                .map(Review::EntityToDto)
+                .collect(Collectors.toList());
+
+        return new SuccessResponseResult(reviewList);
     }
+
+
+
 
 }
