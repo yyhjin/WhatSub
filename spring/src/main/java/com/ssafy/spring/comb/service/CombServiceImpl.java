@@ -3,7 +3,6 @@ package com.ssafy.spring.comb.service;
 import com.ssafy.spring.comb.dto.CombDto;
 import com.ssafy.spring.comb.entity.Combination;
 import com.ssafy.spring.comb.repository.CombRepository;
-import com.ssafy.spring.review.repository.ReviewJpaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
