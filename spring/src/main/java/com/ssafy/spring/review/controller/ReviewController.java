@@ -1,12 +1,12 @@
 package com.ssafy.spring.review.controller;
 
 import com.ssafy.spring.comb.entity.CombinationPost;
-import com.ssafy.spring.review.entity.dto.ReviewResponse;
-import com.ssafy.spring.review.entity.entity.Review;
-import com.ssafy.spring.review.entity.repository.ReviewJpaRepository;
-import com.ssafy.spring.review.entity.repository.ReviewRepository;
-import com.ssafy.spring.review.entity.service.ReviewService;
-import com.ssafy.spring.review.entity.service.ReviewServiceImpl;
+import com.ssafy.spring.review.dto.ReviewResponse;
+import com.ssafy.spring.review.entity.Review;
+import com.ssafy.spring.review.repository.ReviewJpaRepository;
+import com.ssafy.spring.review.repository.ReviewRepository;
+import com.ssafy.spring.review.service.ReviewService;
+import com.ssafy.spring.review.service.ReviewServiceImpl;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
