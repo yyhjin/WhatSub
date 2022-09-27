@@ -13,33 +13,33 @@ import java.util.List;
 public class UserServiceImpl implements UserService {
 
     @Autowired
-    private UserRepository UserRepository;
+    private UserRepository userRepository;
 
     @Autowired
-    private DibRepository DibRepository;
+    private DibRepository dibRepository;
 
     @Override
     public void save(User user) {
-        UserRepository.save(user);
+        userRepository.save(user);
     }
 
     @Override
     public User getUserByUserId(int userId) {
-        return UserRepository.getUserByUserId(userId);
+        return userRepository.getUserByUserId(userId);
     }
 
     @Override
     public User getUserByUserName(String userName) {
-        return UserRepository.getUserByUserName(userName);
+        return userRepository.getUserByUserName(userName);
     }
 
     @Override
     public Boolean existsByUserName(String userName) {
-        return UserRepository.existsByUserName(userName);
+        return userRepository.existsByUserName(userName);
     }
 
     @Override
     public List<Dib> getDibsByUserAndStateIsTrue(User user) {
-        return DibRepository.getDibsByUserAndStateIsTrue(user);
+        return dibRepository.getDibsByUserAndStateIsTrue(user);
     }
 }

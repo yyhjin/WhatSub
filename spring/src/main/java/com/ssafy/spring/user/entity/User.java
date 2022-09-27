@@ -21,17 +21,15 @@ public class User {
 
     private String authId;
 
-    @NotBlank
+    @Column(nullable = false)
     private String email;
 
-    @NotBlank
+    @Column(nullable = false)
     private String gender;
 
-    @NotNull
     private int birthYear;
 
-    @NotBlank
-    @Column(unique = true)
+    @Column(unique = true, nullable = false)
     private String userName;
 
     private String profileImg;
