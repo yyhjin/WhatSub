@@ -21,6 +21,7 @@ public class AuthController {
         KakaoTokenInfo kakaoTokenInfo = authService.getTokenByCode(code);
         KakaoUserInfo kakaoUserInfo = authService.getUserByAccessToken(kakaoTokenInfo.getAccessToken());
 
+        System.out.println(kakaoUserInfo);
 
         return new SuccessResponseResult();
     }

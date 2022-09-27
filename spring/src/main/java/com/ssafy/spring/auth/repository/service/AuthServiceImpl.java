@@ -3,15 +3,15 @@ package com.ssafy.spring.auth.repository.service;
 import com.google.gson.FieldNamingPolicy;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.JsonObject;
 import com.ssafy.spring.auth.dto.KakaoTokenInfo;
 import com.ssafy.spring.auth.dto.KakaoUserInfo;
-import lombok.Value;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
 import org.springframework.stereotype.Service;
 
 import java.io.*;
 import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.ProtocolException;
 import java.net.URL;
 import java.util.Properties;
 
@@ -94,17 +94,50 @@ public class AuthServiceImpl implements AuthService{
 
     @Override
     public KakaoUserInfo getUserByAccessToken(String accessToken) {
-        String reqURL = "h https://kapi.kakao.com/v2/user/me";
-        KakaoUserInfo kakaoUserInfo = null;
-
+        String reqURL = "https://kapi.kakao.com/v2/user/me";
+        KakaoUserInfo kakaoUserInfo = new KakaoUserInfo();
         URL url = null;
+
         try {
             url = new URL(reqURL);
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+            conn.setRequestMethod("POST");
+            conn.setDoOutput(true);
             conn.setRequestProperty("Authorization", "Bearer " + accessToken);
 
-//            BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(conn.getOutputStream()));
+            int responseCode = conn.getResponseCode();
+            String line;
+            StringBuffer result;
 
+            // 결과가 200이면 성공
+            if(responseCode == 200){
+                BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+                result = new StringBuffer();
+
+                while((line = br.readLine()) != null){
+                    result.append(line);
+                }
+                br.close();
+
+                Gson gson = new GsonBuilder()
+                        .setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES)
+                        .create();
+                kakaoUserInfo = gson.fromJson(result.toString(), KakaoUserInfo.class);
+
+//                System.out.println(result);
+//
+                JSONParser jsonParser = new JSONParser();
+                JSONObject resultJson = (JSONObject) jsonParser.parse(result.toString());
+                JSONObject properties = (JSONObject) resultJson.get("properties");
+
+                kakaoUserInfo.setProperties(properties);
+
+                return kakaoUserInfo;
+            }
+            else {
+                //원래는 예외처리 해야함(getTokenByCode 함수 참고)
+                System.out.println("kakaoUserInfo 받기 에러");
+            }
 
         } catch (Exception e) {
             throw new RuntimeException(e);
