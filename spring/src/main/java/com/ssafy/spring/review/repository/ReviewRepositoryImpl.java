@@ -19,6 +19,7 @@ public class ReviewRepositoryImpl implements ReviewRepository {
         return em.createQuery("select r from Review r where r.combinationPost=:combinationPost")
                 .setParameter("combinationPost", combinationPost)
                 .getResultList();
+
     }
 
 }

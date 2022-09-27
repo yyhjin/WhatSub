@@ -38,7 +38,8 @@ public class ReviewServiceImpl implements ReviewService{
         // 게시글id로 게시글을 찾고
         // CombinationPost combinationPost = combinationPostRepository.findById(id);
         // 해당 게시글을 이용해서 리뷰 목록 가져오기
-        // return reviewJpaRepository.findByCombinationPost(combinationPost);
+//         return reviewJpaRepository.findByCombinationPost(combinationPost);
+//        reviewJpaRepository.findByCombinationPost_CombinationPostId(int id);
         return null;
     }
 }

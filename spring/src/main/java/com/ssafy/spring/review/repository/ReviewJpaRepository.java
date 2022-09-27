@@ -11,4 +11,5 @@ import java.util.List;
 public interface ReviewJpaRepository extends JpaRepository<Review, Integer>, ReviewRepository{
     @Override
     public List<Review> findByCombinationPost(CombinationPost combId);
+    public List<Review> findAllByCombinationPost_CombinationPostId(int id);
 }
