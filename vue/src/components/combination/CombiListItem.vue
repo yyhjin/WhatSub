@@ -1,6 +1,8 @@
 <template>
-  <div>
-    <v-card class="sand_big_card">zx</v-card>
+  <div class="mb-n2">
+    <v-card class="sand_big_card">
+      <v-card-title>{{ combiListItem.name }}</v-card-title>
+    </v-card>
   </div>
 </template>
 
@@ -8,7 +10,7 @@
 export default {
   name: "CombiListItem",
   props: {
-    SandListItem: Object,
+    combiListItem: Object,
   },
 };
 </script>
@@ -17,8 +19,5 @@ export default {
 .sand_big_card {
   height: 140px;
   width: 333px;
-}
-.sand_big_card:last-child {
-  margin-bottom: 10px;
 }
 </style>
