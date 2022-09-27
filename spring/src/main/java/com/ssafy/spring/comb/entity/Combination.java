@@ -1,16 +1,15 @@
 package com.ssafy.spring.comb.entity;
 
 import lombok.*;
+import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
+import java.util.UUID;
 
 
 @Entity
 @Getter
 @Setter
-@Builder
-@NoArgsConstructor
-@AllArgsConstructor
 public class Combination {
 
     @Id
@@ -30,6 +29,19 @@ public class Combination {
 
     private int price;
 
-    @Column(nullable = false)
-    private String imgUrl;
+    private int soft;
+
+    private int salty;
+
+    private int chewy;
+
+    private int sour;
+
+    private int sweet;
+
+    private int nutty;
+
+    private int spicy;
+
+    private int bland;
 }
