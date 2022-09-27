@@ -1,5 +1,6 @@
 package com.ssafy.spring.user.entity;
 
+import com.ssafy.spring.auth.dto.KakaoUserInfo;
 import lombok.*;
 import org.hibernate.annotations.ColumnDefault;
 
@@ -21,15 +22,16 @@ public class User {
 
     private String authId;
 
-    @Column(nullable = false)
+//    @Column(nullable = false)
     private String email;
 
-    @Column(nullable = false)
+//    @Column(nullable = false)
     private String gender;
 
     private int birthYear;
 
-    @Column(unique = true, nullable = false)
+    //    @Column(unique = true, nullable = false)
+    @Column(unique = true)
     private String userName;
 
     private String profileImg;
@@ -41,5 +43,4 @@ public class User {
     private boolean isDiet;
 
     private String refreshToken;
-
 }

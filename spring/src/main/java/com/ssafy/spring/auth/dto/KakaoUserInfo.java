@@ -1,7 +1,6 @@
 package com.ssafy.spring.auth.dto;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.google.gson.JsonObject;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;

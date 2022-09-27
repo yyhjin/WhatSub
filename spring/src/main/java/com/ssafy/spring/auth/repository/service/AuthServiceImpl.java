@@ -3,7 +3,6 @@ package com.ssafy.spring.auth.repository.service;
 import com.google.gson.FieldNamingPolicy;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.google.gson.JsonObject;
 import com.ssafy.spring.auth.dto.KakaoTokenInfo;
 import com.ssafy.spring.auth.dto.KakaoUserInfo;
 import org.json.simple.JSONObject;
@@ -17,6 +16,7 @@ import java.util.Properties;
 
 @Service
 public class AuthServiceImpl implements AuthService{
+
 
     public KakaoTokenInfo getTokenByCode(String code){
         String reqURL = "https://kauth.kakao.com/oauth/token";
@@ -92,7 +92,6 @@ public class AuthServiceImpl implements AuthService{
         return kakaoTokenInfo;
     }
 
-    @Override
     public KakaoUserInfo getUserByAccessToken(String accessToken) {
         String reqURL = "https://kapi.kakao.com/v2/user/me";
         KakaoUserInfo kakaoUserInfo = new KakaoUserInfo();
@@ -124,8 +123,6 @@ public class AuthServiceImpl implements AuthService{
                         .create();
                 kakaoUserInfo = gson.fromJson(result.toString(), KakaoUserInfo.class);
 
-//                System.out.println(result);
-//
                 JSONParser jsonParser = new JSONParser();
                 JSONObject resultJson = (JSONObject) jsonParser.parse(result.toString());
                 JSONObject properties = (JSONObject) resultJson.get("properties");
@@ -142,7 +139,6 @@ public class AuthServiceImpl implements AuthService{
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
-
 
         return kakaoUserInfo;
     }

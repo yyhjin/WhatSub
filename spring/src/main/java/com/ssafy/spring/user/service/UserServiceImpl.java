@@ -24,6 +24,11 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public Boolean existsByAuthId(String authId) {
+        return userRepository.existsByAuthId(authId);
+    }
+
+    @Override
     public User getUserByUserId(int userId) {
         return userRepository.getUserByUserId(userId);
     }
@@ -31,6 +36,11 @@ public class UserServiceImpl implements UserService {
     @Override
     public User getUserByUserName(String userName) {
         return userRepository.getUserByUserName(userName);
+    }
+
+    @Override
+    public User getUserByAuthId(String authId) {
+        return userRepository.getUserByAuthId(authId);
     }
 
     @Override
