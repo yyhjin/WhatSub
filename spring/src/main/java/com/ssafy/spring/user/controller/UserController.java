@@ -2,6 +2,7 @@ package com.ssafy.spring.user.controller;
 
 import com.ssafy.spring.SuccessResponseResult;
 import com.ssafy.spring.comb.entity.Combination;
+import com.ssafy.spring.exception.NoSuchUserException;
 import com.ssafy.spring.user.dto.UserRequest;
 import com.ssafy.spring.user.dto.UserResponse;
 import com.ssafy.spring.user.entity.Dib;
@@ -79,31 +80,23 @@ public class UserController {
     }
     
 
-    @ApiOperation(value = "일반 로그인", notes="로그인에 성공하면 username 반환", httpMethod = "POST")
-    @PostMapping("/login")
-    public SuccessResponseResult login(@RequestBody UserRequest.LoginRequest request){
-
-        // 로그인 로직
-
-        return new SuccessResponseResult();
-    }
+//    @ApiOperation(value = "일반 로그인", notes="로그인에 성공하면 username 반환", httpMethod = "POST")
+//    @PostMapping("/login")
+//    public SuccessResponseResult login(@RequestBody UserRequest.LoginRequest request){
+//
+//        // 로그인 로직
+//
+//        return new SuccessResponseResult();
+//    }
 
     @ApiOperation(value = "유저 정보 조회", notes="userName을 통해 유저 정보 조회(남자: 0, 여자: 1)", httpMethod = "GET")
     @GetMapping("/{userName}")
-    public SuccessResponseResult getUser(@PathVariable String userName){
-//        User user = UserService.getUserByUserName(userName);
+    public SuccessResponseResult getUser(@PathVariable String userName) throws NoSuchUserException {
+        User user = userService.getUserByUserName(userName);
         // 존재하지 않는 유저 예외 처리
-
-        // 테스트를 위한 더미 데이터
-        User user = User.builder()
-                .userId(1)
-                .email("ssafy1@naver.com")
-                .gender("0")
-                .birthYear(1998)
-                .userName("김싸피")
-                .profileImg("profileLink")
-                .subti("LSAH")
-                .build();
+        if(user == null){
+            throw new NoSuchUserException();
+        }
 
         UserResponse.GetUserResponse response = UserResponse.GetUserResponse.builder()
                 .email(user.getEmail())
