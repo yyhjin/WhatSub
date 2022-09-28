@@ -1,12 +1,11 @@
 package com.ssafy.spring.user.entity;
 
 import com.ssafy.spring.comb.entity.CombinationPost;
-import com.ssafy.spring.review.entity.Review;
 import lombok.*;
 import org.hibernate.annotations.ColumnDefault;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,16 +23,15 @@ public class User {
 
     private String authId;
 
-    @NotBlank
+//    @Column(nullable = false)
     private String email;
 
-    @NotBlank
+//    @Column(nullable = false)
     private String gender;
 
-    @NotBlank
     private int birthYear;
 
-    @NotBlank
+    //    @Column(unique = true, nullable = false)
     @Column(unique = true)
     private String userName;
 
@@ -41,7 +39,7 @@ public class User {
 
     private String subti;
 
-    @NotBlank
+    @NotNull
     @ColumnDefault("false")
     private boolean isDiet;
 
