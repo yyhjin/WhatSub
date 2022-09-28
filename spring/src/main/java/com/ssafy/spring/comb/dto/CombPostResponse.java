@@ -30,6 +30,10 @@ public class CombPostResponse {
 
     private String statistics;
 
+    private String imgUrl;
+
+    private float scoreAvg;
+
     private List<ReviewResponse.ResponseDto> reviews = new ArrayList<>();
 
 }

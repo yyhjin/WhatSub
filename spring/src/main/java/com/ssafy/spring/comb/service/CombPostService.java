@@ -9,4 +9,5 @@ import com.ssafy.spring.user.entity.User;
 public interface CombPostService {
     CombinationPost save(Combination comb, User user, String imgurl, CombPostRequest request);
     CombinationPost findByCombinationPostId(int postId);
+    int scoreUpdate(int postId, float scoreAvg);
 }
