@@ -18,20 +18,26 @@ class User(models.Model):
         db_table = 'user'
 
 class Menu(models.Model):
-    menu_id = models.AutoField(primary_key=True)
+    menu_id = models.CharField(primary_key=True, max_length=255)
     allergies = models.CharField(max_length=255, blank=True, null=True)
+    bland = models.IntegerField()
+    chewy = models.IntegerField()
     fat = models.FloatField()
-    img_url = models.CharField(max_length=255, blank=True, null=True)
-    kcal = models.IntegerField()
-    length = models.IntegerField()
-    menu_desc = models.CharField(max_length=255, blank=True, null=True)
-    menu_name = models.CharField(max_length=255, blank=True, null=True)
+    img_url = models.CharField(max_length=255)
+    ingredients = models.CharField(max_length=255)
+    kcal = models.FloatField()
+    menu_desc = models.CharField(max_length=255)
+    menu_name = models.CharField(max_length=255)
+    nutty = models.IntegerField()
     price = models.IntegerField()
     protein = models.FloatField()
+    salty = models.IntegerField()
     sodium = models.FloatField()
+    soft = models.IntegerField()
+    sour = models.IntegerField()
+    spicy = models.IntegerField()
     sugar = models.FloatField()
-    weight = models.IntegerField()
-    ingredients = models.CharField(max_length=255, blank=True, null=True)
+    sweet = models.IntegerField()
 
     class Meta:
         managed = False
@@ -40,15 +46,21 @@ class Menu(models.Model):
 class Combination(models.Model):
     combination_id = models.CharField(primary_key=True, max_length=255)
     allergies = models.CharField(max_length=255, blank=True, null=True)
+    bland = models.IntegerField()
+    chewy = models.IntegerField()
     fat = models.FloatField()
-    img_url = models.CharField(max_length=255, blank=True, null=True)
-    kcal = models.IntegerField()
+    img_url = models.CharField(max_length=255)
+    kcal = models.FloatField()
+    nutty = models.IntegerField()
     price = models.IntegerField()
     protein = models.FloatField()
+    salty = models.IntegerField()
     sodium = models.FloatField()
+    soft = models.IntegerField()
+    sour = models.IntegerField()
+    spicy = models.IntegerField()
     sugar = models.FloatField()
-    weight = models.IntegerField()
-    menu = models.ForeignKey('Menu', models.DO_NOTHING, blank=True, null=True)
+    sweet = models.IntegerField()
 
     class Meta:
         managed = False
@@ -62,10 +74,21 @@ class CombinationPost(models.Model):
     likes_cnt = models.IntegerField()
     statistics = models.JSONField(blank=True, null=True)
     combination = models.ForeignKey(Combination, models.DO_NOTHING, blank=True, null=True)
+    img_url = models.CharField(max_length=255)
 
     class Meta:
         managed = False
         db_table = 'combination_post'
+
+class Dib(models.Model):
+    dib_id = models.IntegerField(primary_key=True)
+    combination_post_id = models.IntegerField()
+    state = models.TextField()  # This field type is a guess.
+    user = models.ForeignKey('User', models.DO_NOTHING, blank=True, null=True)
+
+    class Meta:
+        managed = False
+        db_table = 'dib'
 
 class Review(models.Model):
     review_id = models.AutoField(primary_key=True)
@@ -80,18 +103,25 @@ class Review(models.Model):
         db_table = 'review'
 
 class Ingredient(models.Model):
-    ingredient_id = models.AutoField(primary_key=True)
+    ingredient_id = models.CharField(primary_key=True, max_length=255)
     allergies = models.CharField(max_length=255, blank=True, null=True)
-    category = models.CharField(max_length=255, blank=True, null=True)
-    fat = models.FloatField()
-    img_url = models.CharField(max_length=255, blank=True, null=True)
-    kcal = models.IntegerField()
-    name = models.CharField(max_length=255, blank=True, null=True)
+    bland = models.IntegerField()
+    category = models.CharField(max_length=255)
+    chewy = models.IntegerField()
+    fat = models.FloatField(blank=True, null=True)
+    img_url = models.CharField(max_length=255)
+    kcal = models.FloatField(blank=True, null=True)
+    name = models.CharField(max_length=255)
+    nutty = models.IntegerField()
     price = models.IntegerField()
-    protein = models.FloatField()
-    sodium = models.FloatField()
-    sugar = models.FloatField()
-    weight = models.IntegerField()
+    protein = models.FloatField(blank=True, null=True)
+    salty = models.IntegerField()
+    sodium = models.FloatField(blank=True, null=True)
+    soft = models.IntegerField()
+    sour = models.IntegerField()
+    spicy = models.IntegerField()
+    sugar = models.FloatField(blank=True, null=True)
+    sweet = models.IntegerField()
 
     class Meta:
         managed = False
