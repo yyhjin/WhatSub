@@ -2,6 +2,7 @@ package com.ssafy.spring.comb.entity;
 
 import com.fasterxml.jackson.annotation.JsonRawValue;
 import com.ssafy.spring.review.entity.Review;
+import com.ssafy.spring.user.entity.User;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.ColumnDefault;
@@ -26,11 +27,14 @@ public class CombinationPost {
     @JoinColumn(name = "combination_id")
     private Combination combination;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name="user_id")
+    private User user;
+
     private String combName;
 
     private String content;
 
-    @Column(nullable = false)
     private String imgUrl;
 
     @ColumnDefault("0")
