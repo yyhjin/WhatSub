@@ -178,10 +178,62 @@ export default({
         allergies: ''
       },
     ],
-    cheese: [],
+    cheese: [
+      {
+        ingredient_id: 7,
+        name: '아메리칸 치즈',
+        img_url: 'https://www.subway.co.kr/images/menu/img_recipe_b01.jpg',
+        kcal: 100,
+        protein: 10,
+        fat: 10,
+        price: 0,
+        allergies: ''
+      },
+      {
+        ingredient_id: 8,
+        name: '슈레드 치즈',
+        img_url: 'https://www.subway.co.kr/images/menu/img_recipe_b01.jpg',
+        kcal: 100,
+        protein: 10,
+        fat: 10,
+        price: 0,
+        allergies: ''
+      },
+      {
+        ingredient_id: 9,
+        name: '모짜렐라 치즈',
+        img_url: 'https://www.subway.co.kr/images/menu/img_recipe_b01.jpg',
+        kcal: 100,
+        protein: 10,
+        fat: 10,
+        price: 0,
+        allergies: ''
+      }
+    ],
     sauce: [],
     more: [],
-    vege: [],
+    veges: [
+      {
+        ingredient_id: 9,
+        name: '양상추',
+        img_url: 'https://www.subway.co.kr/images/menu/img_recipe_b01.jpg',
+        kcal: 100,
+        protein: 10,
+        fat: 10,
+        price: 0,
+        allergies: ''
+      },
+      {
+        ingredient_id: 9,
+        name: '양파',
+        img_url: 'https://www.subway.co.kr/images/menu/img_recipe_b01.jpg',
+        kcal: 100,
+        protein: 10,
+        fat: 10,
+        price: 0,
+        allergies: ''
+      }
+    ],
     selectedMenu: null,
     selectedSize: null,
     selectedBread: null,
@@ -194,11 +246,11 @@ export default({
   getters: {
     menus : (state) => state.menus,
     breads: (state) => state.breads,
-
+    veges: (state) => state.veges,
     cheese: (state) => state.cheese,
     sauce: (state) => state.sauce,
     more: (state) => state.more,
-    vege: (state) => state.vege,
+    
 
     selectedMenu: (state) => state.selectedMenu,
 

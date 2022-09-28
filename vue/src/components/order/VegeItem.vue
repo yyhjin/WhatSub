@@ -1,29 +1,30 @@
 <template>
-  <div class="bread">
-    <button class="oneChoose" @click="selectBread"></button>
-    <div class="title">{{ bread.name }}</div>
-    <div class="price">+{{ bread.price }}원</div>
+  <div class="vege">
+    <input type="checkbox" name="vege" class="multiChoose" @click="selectVege">
+    <div class="title">{{ vege.name }}</div>
+    <div class="price">+{{ vege.price }}원</div>
   </div>
+  
 </template>
 
 <script>
 export default {
-  name: 'BreadItem',
+  name: 'VegeItem',
 
   props:{
-    bread:Object
+    vege:Object
   },
 
   methods: {
-    selectBread () {
-      
+    selectVege () {
+
     }
   }
 }
 </script>
 
 <style scoped>
-.bread {
+.vege {
   margin-top: 10px;
   margin-bottom: 10px;
   width: 100%;
@@ -39,13 +40,11 @@ export default {
 .title {
   width: 70%;
 }
-.oneChoose {
-  width: 24px;
-  height: 24px;
-  border-radius: 50%;
+.multiChoose {
+  width: 25px;
+  height: 25px;
+  
   border: 8px solid  #D9D9D9;
   margin-right: 5px;
 }
-
-
 </style>

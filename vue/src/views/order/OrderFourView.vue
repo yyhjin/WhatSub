@@ -58,6 +58,7 @@
     </v-card>
     <choose-bread></choose-bread>
     <choose-cheese></choose-cheese>
+    <choose-vege></choose-vege>
   </div>
 </template>
 
@@ -65,9 +66,10 @@
 import { mapGetters } from 'vuex';
 import ChooseBread from '../../components/order/ChooseBread.vue';
 import ChooseCheese from '../../components/order/ChooseCheese.vue';
+import ChooseVege from '../../components/order/ChooseVege.vue';
 
 export default {
-  components: { ChooseBread, ChooseCheese },
+  components: { ChooseBread, ChooseCheese, ChooseVege },
   name: 'OrderFourView',
 
   computed: {

@@ -1,9 +1,9 @@
 <template>
   <div>
     <div class="cheese">
-      <button class="oneChoose" @click="selectBread"></button>
-      <div class="title">{{ bread.name }}</div>
-      <div class="price">+{{ bread.price }}원</div>
+      <button class="oneChoose" @click="selectCheese"></button>
+      <div class="title">{{ chee.name }}</div>
+      <div class="price">+{{ chee.price }}원</div>
     </div>
   </div>
 </template>
@@ -13,13 +13,19 @@ export default {
   name: 'CheeseItem',
 
   props: {
-    cheese: Object
+    chee: Object
+  },
+
+  methods: {
+    selectCheese () {
+      
+    }
   }
 }
 </script>
 
 <style scoped>
-.bread {
+.cheese {
   margin-top: 10px;
   margin-bottom: 10px;
   width: 100%;
