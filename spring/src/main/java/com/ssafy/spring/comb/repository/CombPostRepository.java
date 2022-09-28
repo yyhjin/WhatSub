@@ -14,4 +14,5 @@ public interface CombPostRepository extends JpaRepository<CombinationPost, Strin
     CombinationPost save(CombinationPost combPost);
 
     CombinationPost findByCombinationPostId(int postId);
+
 }
