@@ -45,6 +45,6 @@ export default {
 
 <style>
 .small_card:last-child {
-  margin-bottom: 40px;
+  margin-bottom: 70px;
 }
 </style>

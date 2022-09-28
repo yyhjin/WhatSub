@@ -9,7 +9,6 @@
     <div>
       <v-tabs v-model="tab">
         <v-tabs-slider color="#239347"></v-tabs-slider>
-
         <v-tab class="tab_text_color" v-for="item in items" :key="item">
           <h3>{{ item }}</h3>
         </v-tab>
@@ -17,7 +16,7 @@
       <v-tabs-items v-model="tab">
         <v-tab-item v-for="item in items" :key="item">
           <v-card v-if="item == '꿀조합 목록'" flat>
-            <div class="pa-7">
+            <div class="pt-4 pl-6 pr-6">
               <sand-small-list></sand-small-list>
             </div>
           </v-card>
@@ -44,7 +43,6 @@ export default {
     return {
       tab: null,
       items: ["꿀조합 목록", "찜 목록"],
-      text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
     };
   },
   props: {
