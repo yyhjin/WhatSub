@@ -15,7 +15,41 @@
         </div>
       </div>
       <div class="">
-        <v-card class="sand_big_card" style="position: relative; z-index: 1"></v-card>
+        <v-card class="sand_big_card" style="position: relative; z-index: 1">
+          <v-row>
+            <v-col class="pa-0 mt-3 ml-3" cols="5" align="center" @click="goCombiDetail">
+              <v-avatar class="" height="70" width="100" tile
+                ><v-img
+                  height="70"
+                  width="100"
+                  src="https://cdn.vuetifyjs.com/images/cards/foster.jpg"
+                ></v-img
+              ></v-avatar>
+              <div class="mt-1"><h6 style="font-size: 15px; font-weight: bold">JMT 치킨</h6></div>
+              <div><h6 style="font-size: 13px; font-weight: 400">7,400원</h6></div>
+            </v-col>
+            <v-col>
+              <div class="mt-1 ml-n4" @click="goCombiDetail">
+                <h6 style="font-size: 14px; font-weight: 500">
+                  메뉴: 치킨 슬라이스<br />추가재료: 아보카도<br />소스: 머스타드
+                </h6>
+              </div>
+              <div class="mt-4 ml-n3">
+                <v-icon size="20" color="yellow darken-2">mdi-star</v-icon>
+                <span style="font-size: small"> 5</span>
+                <v-icon class="ml-2" size="17" color="green darken-2">mdi-message-outline</v-icon>
+                <span style="font-size: small"> 20</span>
+                <v-icon v-if="!isliked" class="ml-6" size="30" color="grey" @click="clickHeart"
+                  >mdi-heart-outline</v-icon
+                >
+                <v-icon v-if="isliked" class="ml-6" size="30" color="red" @click="clickHeart"
+                  >mdi-heart</v-icon
+                >
+                <span style="font-size: small"> 20</span>
+              </div>
+            </v-col>
+          </v-row>
+        </v-card>
       </div>
     </div>
     <v-divider></v-divider>
@@ -36,6 +70,25 @@ import CombiList from "@/components/combination/CombiList.vue";
 export default {
   name: "CombinationView",
   components: { TopNav, BottomNav, CombiList },
+  data() {
+    return {
+      isliked: true,
+    };
+  },
+  methods: {
+    clickHeart() {
+      if (this.isliked) {
+        this.isliked = false;
+      } else {
+        this.isliked = true;
+      }
+    },
+    goCombiDetail() {
+      this.$router.push({
+        name: "combinationdetail",
+      });
+    },
+  },
 };
 </script>
 

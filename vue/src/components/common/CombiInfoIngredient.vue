@@ -1,6 +1,6 @@
 <template>
   <div class="pt-5">
-    <h3 style="color: black; font-size: 15px">빵, 야채, 소스 정보</h3>
+    <div style="color: black; font-size: 17px; font-weight: 900">빵, 야채, 소스 정보</div>
     <div class="verti_combi no-scroll">
       <div class="pa-2" v-for="(combiIngredient, index) in combiListItem.ingre" :key="index">
         <v-card class="pt-1" elevation="0" height="100" width="100" align="center">

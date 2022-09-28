@@ -1,9 +1,21 @@
 <template>
-  <div class="pt-5">
-    <div class="pl-5 pr-5 mb-3">
-      <div style="float: left" v-on:click="setfiltering">필터</div>
-      <div style="float: right">최신순</div>
-    </div>
+  <div>
+    <v-container class="mb-n8">
+      <v-row class="pl-2 pr-2">
+        <v-col cols="8" align="center" style="float: left" v-on:click="setfiltering"
+          ><v-select
+            :items="items"
+            color="#239347"
+            item-color="#239347"
+            full-width
+            label="Menu"
+            dense
+            outlined
+          ></v-select
+        ></v-col>
+        <v-col class="mt-3" align="right" style="float: right">최신순</v-col>
+      </v-row>
+    </v-container>
     <div class="big_card" v-for="sandListItem in scrollSandList" :key="sandListItem.id">
       <combi-list-item :combi-list-item="sandListItem"></combi-list-item>
     </div>
@@ -26,6 +38,7 @@ export default {
     return {
       scrollSandList: [],
       page: 1,
+      items: ["에그마요", "스테이크&치즈"],
     };
   },
   computed: {
@@ -60,5 +73,9 @@ export default {
 }
 .big_card:last-child {
   margin-bottom: 70px;
+}
+.v-input__slot {
+  min-height: 38px !important;
+  font-size: 15px;
 }
 </style>
