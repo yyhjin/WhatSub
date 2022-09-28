@@ -14,6 +14,7 @@ import java.util.List;
 public class CombPostRequest {
 
     private String combinationId;
+    private int userId;
     private String combName;
     private String content;
 
