@@ -23,7 +23,7 @@ public class CombinationPost {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int combinationPostId;
 
-    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "combination_id")
     private Combination combination;
 

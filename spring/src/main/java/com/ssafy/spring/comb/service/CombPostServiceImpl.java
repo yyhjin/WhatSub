@@ -19,6 +19,7 @@ public class CombPostServiceImpl implements CombPostService {
         this.combPostRepository = combPostRepository;
     }
 
+    @Override
     public CombinationPost save(Combination comb, User user, String imgurl, CombPostRequest request) {
         CombinationPost combPost = new CombinationPost();
         combPost.setCombName(request.getCombName());
@@ -29,8 +30,10 @@ public class CombPostServiceImpl implements CombPostService {
         return combPostRepository.save(combPost);
     }
 
+    @Override
     public CombinationPost findByCombinationPostId(int postId) {
         return combPostRepository.findByCombinationPostId(postId);
     }
+
 
 }
