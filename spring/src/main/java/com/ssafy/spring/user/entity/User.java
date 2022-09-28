@@ -1,12 +1,13 @@
 package com.ssafy.spring.user.entity;
 
-import com.ssafy.spring.auth.dto.KakaoUserInfo;
+import com.ssafy.spring.comb.entity.CombinationPost;
 import lombok.*;
 import org.hibernate.annotations.ColumnDefault;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import java.util.ArrayList;
+import java.util.List;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -43,4 +44,7 @@ public class User {
     private boolean isDiet;
 
     private String refreshToken;
+
+    @OneToMany(mappedBy = "user")
+    private List<CombinationPost> combinationPosts = new ArrayList<>();
 }

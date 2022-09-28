@@ -53,6 +53,24 @@ public class S3Service {
         return fileNameList;
     }
 
+    public String uploadOneFile(MultipartFile file) {
+
+        String fileName = createFileName(file.getOriginalFilename());
+        ObjectMetadata objectMetadata = new ObjectMetadata();
+        objectMetadata.setContentLength(file.getSize());
+        objectMetadata.setContentType(file.getContentType());
+
+        try(InputStream inputStream = file.getInputStream()) {
+            amazonS3.putObject(new PutObjectRequest(bucket, fileName, inputStream, objectMetadata)
+                    .withCannedAcl(CannedAccessControlList.PublicRead));
+        } catch(IOException e) {
+            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "파일 업로드에 실패했습니다.");
+        }
+        String fileurl = amazonS3.getUrl(bucket, fileName).toString();
+
+        return fileurl;
+    }
+
     public String deleteFile(String fileUrl) {
         String fileName = fileUrl.substring(bucketUrl.length()+1);
         amazonS3.deleteObject(new DeleteObjectRequest(bucket, fileName));
