@@ -1,5 +1,5 @@
 <template>
-  <div class="container" @click.prevent="select($event, menu.menu_id)">
+  <div class="container" @click.prevent="select($event, menu)">
     <div class="imgwrap">
       <img :src="menu.img_url" alt="">
     </div>
@@ -29,14 +29,14 @@ export default {
 
   methods: {
     ...mapActions(['selectMenu']),
-    select (event, id) {
-      if (this.selectedMenu === id) {
+    select (event, menu) {
+      if (this.selectedMenu === menu) {
         event.currentTarget.classList.remove('select')
         this.selectMenu()
       } else {
         this.removeSelect()
         event.currentTarget.classList.add('select')
-        this.selectMenu(id)
+        this.selectMenu(menu)
       }
     },
 
