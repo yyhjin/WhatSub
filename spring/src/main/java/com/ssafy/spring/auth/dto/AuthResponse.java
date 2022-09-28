@@ -12,10 +12,13 @@ public class AuthResponse {
         private String userName;
         private String profileImage;
 
-        public LoginResponse(User user, int result){
+        private String accessToken;
+
+        public LoginResponse(User user, int result, String accessToken){
             this.result = result;
             this.userName = user.getUserName();
             this.profileImage = user.getProfileImg();
+            this.accessToken = accessToken;
         }
     }
 }

@@ -17,7 +17,6 @@ import java.util.Properties;
 @Service
 public class AuthServiceImpl implements AuthService{
 
-
     public KakaoTokenInfo getTokenByCode(String code){
         String reqURL = "https://kauth.kakao.com/oauth/token";
         KakaoTokenInfo kakaoTokenInfo = null;
@@ -47,7 +46,7 @@ public class AuthServiceImpl implements AuthService{
             BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(conn.getOutputStream()));
             String sb = "grant_type=authorization_code" +
                     "&client_id=" + clientId + // REST_API_KEY 입력
-                    "&redirect_uri=http://localhost:8080/whatsub/v1/auth/kakao" + // 인가코드 받은 redirect_uri 입력
+                    "&redirect_uri=http://localhost:8080/whatsub/v1/auth/login" + // 인가코드 받은 redirect_uri 입력
                     "&code=" + code;
             bw.write(sb);
             bw.flush();
@@ -64,8 +63,6 @@ public class AuthServiceImpl implements AuthService{
                     result.append(line);
                 }
                 br.close();
-
-                System.out.println(result);
             }
             else { //결과 코드가 200이라면 성공
                 //요청을 통해 얻은 JSON타입의 Response 메세지 읽어오기
