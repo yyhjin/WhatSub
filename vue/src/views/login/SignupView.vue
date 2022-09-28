@@ -127,15 +127,23 @@ export default {
     getToken () {
       axios({
         method:'get',
-        url:'http://localhost:8081/whatsub/v1/auth/login',
+        url:'http://localhost:8081/api/v1/auth/login',
         params:{
           code:this.code
+        },
+      }).then(res => {
+        console.log(res)
+        if (res.data.data.result === 1) {
+          this.$router.push('/')
+        } else {
+          this.credentials.username = res.data.data.username
         }
-      }).then(res =>
-      console.log(res))
+      })
       .catch(err => 
       console.error(err))
-    }
+    },
+
+  
   },
 
   created() {
