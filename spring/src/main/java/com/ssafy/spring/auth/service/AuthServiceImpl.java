@@ -1,12 +1,15 @@
-package com.ssafy.spring.auth.repository.service;
+package com.ssafy.spring.auth.service;
 
 import com.google.gson.FieldNamingPolicy;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.ssafy.spring.auth.dto.KakaoTokenInfo;
 import com.ssafy.spring.auth.dto.KakaoUserInfo;
+import com.ssafy.spring.config.PropertyConfig;
+import com.ssafy.spring.util.JWTUtil;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.io.*;
@@ -15,7 +18,10 @@ import java.net.URL;
 import java.util.Properties;
 
 @Service
-public class AuthServiceImpl implements AuthService{
+public class AuthServiceImpl implements AuthService {
+
+    @Autowired
+    private JWTUtil jwtUtil;
 
     public KakaoTokenInfo getTokenByCode(String code){
         String reqURL = "https://kauth.kakao.com/oauth/token";
@@ -28,25 +34,14 @@ public class AuthServiceImpl implements AuthService{
             //POST 요청을 위해 기본값이 false인 setDoOutput을 true로
             conn.setRequestMethod("POST");
             conn.setDoOutput(true);
-            
-            //account.properties 파일에 있는 client-id를 참조
-            Properties properties = new Properties();
-            String rootPath = new File(".").getAbsolutePath();
-            String clientId = "";
 
-            try {
-                final String accountPath = rootPath + "/src/main/resources/account.properties";
-                properties.load(new FileInputStream(accountPath));
-                clientId = properties.getProperty("kakao.client-id");
-            } catch (IOException e){
-                e.printStackTrace();
-            }
+            String clientId = jwtUtil.getClientId();
 
             //POST 요청에 필요로 요구하는 파라미터 스트림을 통해 전송
             BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(conn.getOutputStream()));
             String sb = "grant_type=authorization_code" +
                     "&client_id=" + clientId + // REST_API_KEY 입력
-                    "&redirect_uri=http://localhost:8080/whatsub/v1/auth/login" + // 인가코드 받은 redirect_uri 입력
+                    "&redirect_uri=http://localhost:8081/api/v1/auth/login" + // 인가코드 받은 redirect_uri 입력
                     "&code=" + code;
             bw.write(sb);
             bw.flush();

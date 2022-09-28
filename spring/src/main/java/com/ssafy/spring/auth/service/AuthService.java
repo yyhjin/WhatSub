@@ -1,4 +1,4 @@
-package com.ssafy.spring.auth.repository.service;
+package com.ssafy.spring.auth.service;
 
 import com.ssafy.spring.auth.dto.KakaoTokenInfo;
 import com.ssafy.spring.auth.dto.KakaoUserInfo;

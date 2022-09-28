@@ -99,6 +99,8 @@ public class CombPostController {
         response.setCreatedAt(post.getCreatedAt());
         response.setLikesCnt(post.getLikesCnt());
         response.setStatistics(post.getStatistics());
+        response.setImgUrl(post.getImgUrl());
+        response.setScoreAvg(post.getScoreAvg());
 
         List<Review> reviews = reviewService.getReviewList(combinationPostId);
         List<ReviewResponse.ResponseDto> reviewList = reviews.stream()
