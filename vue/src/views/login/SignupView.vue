@@ -5,7 +5,7 @@
       <v-file-input prepend-icon="mdi-account"  @change="selectFile"></v-file-input>
       <div class="nickname">
         <v-text-field label="닉네임" v-model="credentials.username"></v-text-field>
-        <v-btn class="main_btn" @click="checkId">닉네임 중복검사</v-btn>
+        <v-btn class="main_btn" @click="checkId(credentials.username)">닉네임 중복검사</v-btn>
       </div>
       <div class="gender">
         성별
@@ -65,62 +65,76 @@ export default {
   },
 
   methods: {
-    checkId () {
+    checkId (username) {
       //axios로 요청보내서 검사
+      axios({
+        method: 'get',
+        url:'http://localhost:8081/whatsub/v1/user/check/'+username,
+      }).then(res => {
+        if (res.data === false) {
+          alert('가능')
+        } else {
+          alert('있는 아이디')
+        }
+      }).catch(err => console.error(err))
     },
+
     signup () {
       this.formData.append("username", this.credentials.username)
       this.formData.append("gender", this.credentials.gender)
       this.formData.append("birthYear", this.credentials.birthYear)
       //formData를 axios로 서버로 보냄
+      
     },
     selectFile (event) {
       console.log(event)
       this.formData.append('profile_img', event)
     },
 
-    // async getUserInfo () {
-    //   await window.Kakao.API.request({
-    //       url: '/v2/user/me', // 사용자 정보 가져오기
-    //     })
-    //       .then(function(response) {
-    //         console.log(response)
+
+    // getToken () {
+    //   axios({
+    //     methods:'post',
+    //     url:'https://kauth.kakao.com/oauth/token',
+    //     headers :{
+    //       'Content-type': 'application/x-www-form-urlencoded;charset=utf-8',
+    //     },
+    //     params:{
+    //       grant_type: 'authorization_code',
+    //       client_id: process.env.VUE_APP_KAKAO_API_KEY,
+    //       redirect_uri: 'http://localhost:8080/signup',
+    //       code: this.code,
+    //     }
+    //   })
+    //   .then(res => {
+    //     console.log(res)
+    //     this.accessToken = res.data.access_token,
+    //     console.log(res.data.access_token)
+    //     this.refreshToken = res.data.refresh_token
+    //     window.Kakao.Auth.setAccessToken(res.data.access_token);
+    //     window.Kakao.API.request({
+    //         url: '/v2/user/me', // 사용자 정보 가져오기
     //       })
-    //       .catch(function(error) {
-    //         console.error(error)
-    //       })
-    // },
+    //         .then(function(response) {
+    //           console.log(response)
+    //         })
+    //         .catch(function(error) {
+    //           console.error(error)
+    //         })
+    //   })
+    // }
 
     getToken () {
       axios({
-        methods:'post',
-        url:'https://kauth.kakao.com/oauth/token',
-        headers :{
-          'Content-type': 'application/x-www-form-urlencoded;charset=utf-8',
-        },
+        method:'get',
+        url:'http://localhost:8081/whatsub/v1/auth/login',
         params:{
-          grant_type: 'authorization_code',
-          client_id: process.env.VUE_APP_KAKAO_API_KEY,
-          redirect_uri: 'http://localhost:8080/signup',
-          code: this.code,
+          code:this.code
         }
-      })
-      .then(res => {
-        console.log(res)
-        this.accessToken = res.data.access_token,
-        console.log(res.data.access_token)
-        this.refreshToken = res.data.refresh_token
-        window.Kakao.Auth.setAccessToken(res.data.access_token);
-        window.Kakao.API.request({
-            url: '/v2/user/me', // 사용자 정보 가져오기
-          })
-            .then(function(response) {
-              console.log(response)
-            })
-            .catch(function(error) {
-              console.error(error)
-            })
-      })
+      }).then(res =>
+      console.log(res))
+      .catch(err => 
+      console.error(err))
     }
   },
 
