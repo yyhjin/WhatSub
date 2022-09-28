@@ -1,15 +1,15 @@
 package com.ssafy.spring.auth.controller;
 
 import com.ssafy.spring.SuccessResponseResult;
-import com.ssafy.spring.auth.dto.AuthRequest;
 import com.ssafy.spring.auth.dto.AuthResponse;
 import com.ssafy.spring.auth.dto.KakaoTokenInfo;
 import com.ssafy.spring.auth.dto.KakaoUserInfo;
-import com.ssafy.spring.auth.repository.service.AuthService;
+import com.ssafy.spring.auth.service.AuthService;
 import com.ssafy.spring.user.entity.User;
 import com.ssafy.spring.user.service.UserService;
 import com.ssafy.spring.util.JWTUtil;
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -17,7 +17,7 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
 
 @RestController@Api(value = "auth-controller", tags={"auth-controller"})
-@RequestMapping("/whatsub/v1/auth")
+@RequestMapping("/auth")
 public class AuthController {
 
     @Autowired
@@ -29,11 +29,13 @@ public class AuthController {
     @Autowired
     private JWTUtil jwtUtil;
 
+    @ApiOperation(value = "카카오 로그인", notes="인가 코드를 주면 기존 유저는 1, 신규 유저는 회원가입 후 2 반환", httpMethod = "GET")
     @GetMapping("/login")
+
     public SuccessResponseResult kakakoLogin(@RequestParam String code, HttpServletResponse httpServletResponse){
         KakaoTokenInfo kakaoTokenInfo = authService.getTokenByCode(code);
         KakaoUserInfo kakaoUserInfo = authService.getUserByAccessToken(kakaoTokenInfo.getAccessToken());
-//        System.out.println(kakaoUserInfo);
+        System.out.println(kakaoUserInfo);
 
         String authId = Long.toString(kakaoUserInfo.getId());
         User user;
@@ -69,19 +71,4 @@ public class AuthController {
         return new SuccessResponseResult(loginResponse);
     }
 
-
-//    @PostMapping("/login")
-//    public SuccessResponseResult login(){
-//        return new SuccessResponseResult();
-//    }
-
-    @GetMapping("/usercheck")
-    public SuccessResponseResult userCheck(@RequestBody AuthRequest.UserCheckRequest request){
-        String code = request.getCode();
-
-
-
-
-        return new SuccessResponseResult();
-    }
 }
