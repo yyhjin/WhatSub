@@ -46,7 +46,7 @@ public class AuthServiceImpl implements AuthService{
             BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(conn.getOutputStream()));
             String sb = "grant_type=authorization_code" +
                     "&client_id=" + clientId + // REST_API_KEY 입력
-                    "&redirect_uri=http://localhost:8081/whatsub/v1/auth/login" + // 인가코드 받은 redirect_uri 입력
+                    "&redirect_uri=http://localhost:8081/api/v1/auth/login" + // 인가코드 받은 redirect_uri 입력
                     "&code=" + code;
             bw.write(sb);
             bw.flush();
