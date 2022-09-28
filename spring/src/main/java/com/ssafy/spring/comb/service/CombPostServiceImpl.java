@@ -7,6 +7,7 @@ import com.ssafy.spring.comb.repository.CombPostRepository;
 import com.ssafy.spring.user.entity.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 
 @Service
@@ -35,5 +36,13 @@ public class CombPostServiceImpl implements CombPostService {
         return combPostRepository.findByCombinationPostId(postId);
     }
 
+    @Transactional
+    public int scoreUpdate(int postId, float scoreAvg) {
+        CombinationPost post = combPostRepository.findByCombinationPostId(postId);
+
+        post.scoreUpdate(scoreAvg);
+
+        return postId;
+    }
 
 }
