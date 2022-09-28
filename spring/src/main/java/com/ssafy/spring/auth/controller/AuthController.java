@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 @RestController@Api(value = "auth-controller", tags={"auth-controller"})
@@ -31,7 +32,6 @@ public class AuthController {
 
     @ApiOperation(value = "카카오 로그인", notes="인가 코드를 주면 기존 유저는 1, 신규 유저는 회원가입 후 2 반환", httpMethod = "GET")
     @GetMapping("/login")
-
     public SuccessResponseResult kakakoLogin(@RequestParam String code, HttpServletResponse httpServletResponse){
         KakaoTokenInfo kakaoTokenInfo = authService.getTokenByCode(code);
         KakaoUserInfo kakaoUserInfo = authService.getUserByAccessToken(kakaoTokenInfo.getAccessToken());

@@ -19,12 +19,19 @@ public class JWTUtil {
     @Value("${kakao.jwt.secretKey}")
     private String secretKey;
 
+    @Value("${kakao.client-id}")
+    private String clientId;
+
 //    private long tokenValidTime = 1000L * 60 * 60; // 60분
 //    private long refreshTokenValidTime = 1000L * 60 * 60 * 24 * 7; // 7일
 //
     @PostConstruct
     protected void init() {
         secretKey = Base64.getEncoder().encodeToString(secretKey.getBytes()); // 생성되면서 인코딩
+    }
+
+    public String getClientId(){
+        return clientId;
     }
 
     // 토큰 생성
