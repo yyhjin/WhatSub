@@ -11,7 +11,7 @@ import springfox.documentation.spring.web.plugins.Docket;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 
-//swagger address : http://localhost:8080/swagger-ui/#/
+//swagger address : http://localhost:8081/api/v1/swagger-ui/#/
 // https://j7a105.p.ssafy.io:8080/swagger-ui/#/
 
 @Configuration

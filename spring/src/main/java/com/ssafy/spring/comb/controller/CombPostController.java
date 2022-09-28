@@ -23,6 +23,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -78,17 +79,16 @@ public class CombPostController {
             imgurl = s3Service.uploadOneFile(file);
 
         CombinationPost newPost = combPostService.save(comb, user, imgurl, combPostRequest);
-
-
+        
         return new ResponseEntity(newPost.getCombinationPostId(), HttpStatus.OK);
     }
 
 
     @ApiOperation(value = "게시글 조회", notes = "해당 게시글의 정보들을 조회한다.", httpMethod = "GET")
     @GetMapping("/{combinationPostId}")
-    public ResponseEntity<CombPostResponse> getPostInfo(@PathVariable int combinationPostId) {
+    public ResponseEntity<CombPostResponse.PostDetailResponse> getPostDetail(@PathVariable int combinationPostId) {
 
-        CombPostResponse response = new CombPostResponse();
+        CombPostResponse.PostDetailResponse response = new CombPostResponse.PostDetailResponse();
 
         CombinationPost post = combPostService.findByCombinationPostId(combinationPostId);
 
@@ -112,6 +112,31 @@ public class CombPostController {
         return new ResponseEntity(response, HttpStatus.OK);
     }
 
+    @ApiOperation(value = "메뉴로 조회", notes = "해당하는 메뉴의 게시글 목록을 조회한다.", httpMethod = "GET")
+    @GetMapping("/menu/{menuId}")
+    public ResponseEntity<List<CombPostResponse.PostResponse>> getPostByMenu(@PathVariable String menuId) {
+
+        List<CombPostResponse.PostResponse> posts = new ArrayList<>();
+
+        List<CombinationPost> list = combPostService.findAllByMenuId(menuId);
+
+        for(int i = 0; i < list.size(); i++) {
+            CombinationPost current = list.get(i);
+            CombPostResponse.PostResponse response = new CombPostResponse.PostResponse();
+
+            response.setCombination(current.getCombination());
+            response.setCombName(current.getCombName());
+            response.setCombinationPostId(current.getCombinationPostId());
+            response.setCreatedAt(current.getCreatedAt());
+            response.setImgUrl(current.getImgUrl());
+            response.setLikesCnt(current.getLikesCnt());
+            response.setScoreAvg(current.getScoreAvg());
+
+            posts.add(response);
+        }
+
+        return new ResponseEntity(posts, HttpStatus.OK);
+    }
 
 }
 

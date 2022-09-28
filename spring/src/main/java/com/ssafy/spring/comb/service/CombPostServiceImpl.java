@@ -1,6 +1,7 @@
 package com.ssafy.spring.comb.service;
 
 import com.ssafy.spring.comb.dto.CombPostRequest;
+import com.ssafy.spring.comb.dto.CombPostResponse;
 import com.ssafy.spring.comb.entity.Combination;
 import com.ssafy.spring.comb.entity.CombinationPost;
 import com.ssafy.spring.comb.repository.CombPostRepository;
@@ -8,6 +9,8 @@ import com.ssafy.spring.user.entity.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 
 @Service
@@ -39,10 +42,13 @@ public class CombPostServiceImpl implements CombPostService {
     @Transactional
     public int scoreUpdate(int postId, float scoreAvg) {
         CombinationPost post = combPostRepository.findByCombinationPostId(postId);
-
         post.scoreUpdate(scoreAvg);
-
         return postId;
     }
+
+    public List<CombinationPost> findAllByMenuId (String menuId) {
+        return combPostRepository.findAllByMenuId(menuId);
+    }
+
 
 }
