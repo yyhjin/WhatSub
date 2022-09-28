@@ -16,7 +16,7 @@ import java.util.List;
 
 @RestController@Api(value = "user-controller", tags={"user-controller"})
 
-@RequestMapping("/whatsub/v1/user")
+@RequestMapping("/user")
 //@CrossOrigin(origins = "https://j7a105.p.ssafy.io")
 public class UserController {
 
@@ -24,6 +24,7 @@ public class UserController {
     private UserService userService;
 
     // 더미 데이터 생성 api
+    @ApiOperation(value = "더미 데이터 생성", notes="임시 유저 데이터 5000개 삽입", httpMethod = "GET")
     @GetMapping("/dummy")
     public SuccessResponseResult dummy(){
         String[] SUBTI_LIST = new String[]{"LSAH", "LSAM", "LSEH", "LSEM",
