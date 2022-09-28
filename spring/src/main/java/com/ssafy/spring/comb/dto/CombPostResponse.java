@@ -1,6 +1,7 @@
 package com.ssafy.spring.comb.dto;
 
 import com.ssafy.spring.comb.entity.Combination;
+import com.ssafy.spring.review.dto.ReviewResponse;
 import com.ssafy.spring.review.entity.Review;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
@@ -15,6 +16,7 @@ public class CombPostResponse {
 
     private int combinationPostId;
 
+    private String userName;
 
     private Combination combination;
 
@@ -28,6 +30,6 @@ public class CombPostResponse {
 
     private String statistics;
 
-    private List<Review> reviews = new ArrayList<>();
+    private List<ReviewResponse.ResponseDto> reviews = new ArrayList<>();
 
 }
