@@ -2,18 +2,21 @@ package com.ssafy.spring.user.service;
 
 import com.ssafy.spring.user.entity.Dib;
 import com.ssafy.spring.user.entity.User;
-import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 public interface UserService {
-    public void save(User user);
+    void save(User user);
 
-    public User getUserByUserId(int userId);
+    Boolean existsByAuthId(String authId);
 
-    public User getUserByUserName(String userName);
+    User getUserByUserId(int userId);
 
-    public Boolean existsByUserName(String userName);
+    User getUserByUserName(String userName);
 
-    public List<Dib> getDibsByUserAndStateIsTrue(User user);
+    User getUserByAuthId(String authId);
+
+    Boolean existsByUserName(String userName);
+
+    List<Dib> getDibsByUserAndStateIsTrue(User user);
 }

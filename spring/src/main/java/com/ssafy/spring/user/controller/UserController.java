@@ -14,27 +14,69 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@Api(value = "user-controller", tags={"user-controller"})
-@RestController
+@RestController@Api(value = "user-controller", tags={"user-controller"})
+
 @RequestMapping("/whatsub/v1/user")
 //@CrossOrigin(origins = "https://j7a105.p.ssafy.io")
 public class UserController {
 
     @Autowired
-    private UserService UserService;
+    private UserService userService;
+
+    // 더미 데이터 생성 api
+    @GetMapping("/dummy")
+    public SuccessResponseResult dummy(){
+        String[] SUBTI_LIST = new String[]{"LSAH", "LSAM", "LSEH", "LSEM",
+                                           "LCAH", "LCAM", "LCEH", "LCEM",
+                                           "ISAH", "ISAM", "ISEH", "ISEM",
+                                           "ICAH", "ICAM", "ICEH", "ICEM"};
+        String[] GENDER_LIST = new String[]{"0", "1"};
+        Boolean[] DIET_LIST = new Boolean[]{true, false};
+
+        for(int i = 1;i <= 5000;i++){
+            String email = "ssafy" + i + "@naver.com";
+            String gender = GENDER_LIST[(int)((Math.random()*10000)%2)];
+            int birthYear = (int)((Math.random()*10000)%70 + 1942); //10~80살 사이 랜덤하게 생성(2012~1942)
+            String userName = "ssafy" + i;
+            String profileImage = "default";
+
+            Boolean isDiet = DIET_LIST[(int)((Math.random()*10000)%2)];;
+            int subtiIndex = (int)((Math.random()*10000)%16); // 0~16사이의 난수 생성
+            String subti = SUBTI_LIST[subtiIndex];
+
+            User user = User.builder()
+                    .email(email)
+                    .gender(gender)
+                    .birthYear(birthYear)
+                    .userName(userName)
+                    .profileImg(profileImage)
+                    .subti(subti)
+                    .isDiet(isDiet)
+                    .build();
+
+            userService.save(user);
+        }
+
+        return new SuccessResponseResult();
+    }
 
     @ApiOperation(value = "일반 회원가입", notes="회원가입에 성공하면 success, 아니면 fail", httpMethod = "POST")
     @PostMapping("/signup")
     public SuccessResponseResult signUp(@RequestBody UserRequest.SignUpRequest request){
-//        User user = new User();
+        User user = User.builder()
+                .email(request.getEmail())
+                .gender(request.getGender())
+                .birthYear(request.getBirthYear())
+                .userName(request.getUserName())
+                .profileImg(request.getProfileImg())
+                .build();
 
         // 회원가입 로직
-//        UserService.save(user);
-//        String userName = user.getUserName();
-        
-        String userName = "김싸피";
+        userService.save(user);
+        String userName = user.getUserName();
         return new SuccessResponseResult(userName);
     }
+    
 
     @ApiOperation(value = "일반 로그인", notes="로그인에 성공하면 username 반환", httpMethod = "POST")
     @PostMapping("/login")
@@ -45,7 +87,7 @@ public class UserController {
         return new SuccessResponseResult();
     }
 
-    @ApiOperation(value = "유저 정보 조회", notes="userName을 통해 유저 정보 조회", httpMethod = "GET")
+    @ApiOperation(value = "유저 정보 조회", notes="userName을 통해 유저 정보 조회(남자: 0, 여자: 1)", httpMethod = "GET")
     @GetMapping("/{userName}")
     public SuccessResponseResult getUser(@PathVariable String userName){
 //        User user = UserService.getUserByUserName(userName);
@@ -55,7 +97,7 @@ public class UserController {
         User user = User.builder()
                 .userId(1)
                 .email("ssafy1@naver.com")
-                .gender("female") //female? 여성?
+                .gender("0")
                 .birthYear(1998)
                 .userName("김싸피")
                 .profileImg("profileLink")
@@ -79,15 +121,15 @@ public class UserController {
     @ApiOperation(value = "중복 닉네임 검사", notes="이미 등록된 이름이면 false, 아니면 true", httpMethod = "GET")
     @GetMapping("/check/{userName}")
     public SuccessResponseResult checkUserName(@PathVariable String userName){
-        boolean isDuplicate = UserService.existsByUserName(userName);
+        boolean isDuplicate = userService.existsByUserName(userName);
         return new SuccessResponseResult(isDuplicate);
     }
 
     @ApiOperation(value = "찜목록과 작성한 꿀조합 조회", notes="찜목록과 작성한 꿀조합 조회", httpMethod = "POST")
     @PostMapping("/{userName}/list")
     public SuccessResponseResult getDibNcombList(@PathVariable String userName){
-        User user = UserService.getUserByUserName(userName);
-        List<Dib> dibList = UserService.getDibsByUserAndStateIsTrue(user);
+        User user = userService.getUserByUserName(userName);
+        List<Dib> dibList = userService.getDibsByUserAndStateIsTrue(user);
         List<Combination> combinationList = null; // 임시 꿀조합 리스트
 
         UserResponse.GetDibNcombListResponse response = new UserResponse.GetDibNcombListResponse(dibList, combinationList);
