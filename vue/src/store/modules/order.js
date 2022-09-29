@@ -210,8 +210,90 @@ export default({
         allergies: ''
       }
     ],
-    sauce: [],
-    more: [],
+    sauce: [
+      {
+        ingredient_id: 9,
+        name: '렌치',
+        img_url: 'https://www.subway.co.kr/upload/menu/img_toppping_02.png',
+        kcal: 100,
+        protein: 10,
+        fat: 10,
+        price: 0,
+        allergies: ''
+      },
+      {
+        ingredient_id: 9,
+        name: '후추',
+        img_url: 'https://www.subway.co.kr/upload/menu/img_toppping_02.png',
+        kcal: 100,
+        protein: 10,
+        fat: 10,
+        price: 0,
+        allergies: ''
+      },
+      {
+        ingredient_id: 9,
+        name: '올리브오일',
+        img_url: 'https://www.subway.co.kr/upload/menu/img_toppping_02.png',
+        kcal: 100,
+        protein: 10,
+        fat: 10,
+        price: 0,
+        allergies: ''
+      },
+    ],
+    more: [
+      {
+        ingredient_id: 9,
+        name: '에그마요',
+        img_url: 'https://www.subway.co.kr/upload/menu/img_toppping_02.png',
+        kcal: 100,
+        protein: 10,
+        fat: 10,
+        price: 1800,
+        allergies: ''
+      },
+      {
+        ingredient_id: 9,
+        name: '베이컨',
+        img_url: 'https://www.subway.co.kr/upload/menu/img_toppping_02.png',
+        kcal: 100,
+        protein: 10,
+        fat: 10,
+        price: 1800,
+        allergies: ''
+      },
+      {
+        ingredient_id: 9,
+        name: '아보카도',
+        img_url: 'https://www.subway.co.kr/upload/menu/img_toppping_02.png',
+        kcal: 100,
+        protein: 10,
+        fat: 10,
+        price: 1800,
+        allergies: ''
+      },
+      {
+        ingredient_id: 9,
+        name: '오믈렛',
+        img_url: 'https://www.subway.co.kr/upload/menu/img_toppping_02.png',
+        kcal: 100,
+        protein: 10,
+        fat: 10,
+        price: 1800,
+        allergies: ''
+      },
+      {
+        ingredient_id: 9,
+        name: '페퍼로니',
+        img_url: 'https://www.subway.co.kr/upload/menu/img_toppping_02.png',
+        kcal: 100,
+        protein: 10,
+        fat: 10,
+        price: 1800,
+        allergies: ''
+      },
+    ],
     veges: [
       {
         ingredient_id: 9,
@@ -234,6 +316,39 @@ export default({
         allergies: ''
       }
     ],
+    moreMeats:[
+      {
+        ingredient_id: 9,
+        name: 'k-바베큐',
+        img_url: 'https://www.subway.co.kr/images/menu/img_recipe_b01.jpg',
+        kcal: 100,
+        protein: 10,
+        fat: 10,
+        price: 0,
+        allergies: ''
+      },
+      {
+        ingredient_id: 9,
+        name: '스테이크치즈',
+        img_url: 'https://www.subway.co.kr/images/menu/img_recipe_b01.jpg',
+        kcal: 100,
+        protein: 10,
+        fat: 10,
+        price: 0,
+        allergies: ''
+      },
+      {
+        ingredient_id: 9,
+        name: '로티세리',
+        img_url: 'https://www.subway.co.kr/images/menu/img_recipe_b01.jpg',
+        kcal: 100,
+        protein: 10,
+        fat: 10,
+        price: 0,
+        allergies: ''
+      }
+    ],
+    selectedMoreMeats: null,
     selectedMenu: null,
     selectedSize: null,
     selectedBread: null,
@@ -250,8 +365,10 @@ export default({
     cheese: (state) => state.cheese,
     sauce: (state) => state.sauce,
     more: (state) => state.more,
-    
+    moreMeats: (state) => state.moreMeats,
 
+    selectedMoreMeats: (state) => state.selectedMoreMeats,
+    
     selectedMenu: (state) => state.selectedMenu,
 
     selectedSize: (state) => state.selectedSize,
@@ -282,7 +399,9 @@ export default({
 
     SET_SELECTEDMORE: (state, value) => state.selectedMore = value,
 
-    SET_SELECTEDVEGE: (state, value) => state.selectedVege = value
+    SET_SELECTEDVEGE: (state, value) => state.selectedVege = value,
+
+    SET_SELECTEDMOREMEATS: (state, value) => state.selectedMoreMeats = value,
   },
   actions: {
     // fetchMenus ({commit}, value) {
