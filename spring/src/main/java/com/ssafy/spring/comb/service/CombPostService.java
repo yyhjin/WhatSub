@@ -14,4 +14,6 @@ public interface CombPostService {
     CombinationPost findByCombinationPostId(int postId);
     int scoreUpdate(int postId, float scoreAvg);
     List<CombinationPost> findAllByMenuId (String menuId);
+    CombinationPost findByCombination_CombinationId(String combinationId);
+    CombinationPost findTopByOrderByLikesCntDescScoreAvgDesc();
 }

@@ -50,5 +50,15 @@ public class CombPostServiceImpl implements CombPostService {
         return combPostRepository.findAllByMenuId(menuId);
     }
 
+    @Override
+    public CombinationPost findByCombination_CombinationId(String combinationId) {
+        return combPostRepository.findByCombination_CombinationId(combinationId);
+    }
+
+    @Override
+    public CombinationPost findTopByOrderByLikesCntDescScoreAvgDesc() {
+        return combPostRepository.findTopByOrderByLikesCntDescScoreAvgDesc();
+    }
+
 
 }

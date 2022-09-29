@@ -22,4 +22,7 @@ public interface CombPostRepository extends JpaRepository<CombinationPost, Strin
     @Query("select p from CombinationPost p where substring(p.combination.combinationId,1,1) = :menuId")
     List<CombinationPost> findAllByMenuId(String menuId);
 
+    CombinationPost findByCombination_CombinationId(String combinationId);
+
+    CombinationPost findTopByOrderByLikesCntDescScoreAvgDesc();
 }

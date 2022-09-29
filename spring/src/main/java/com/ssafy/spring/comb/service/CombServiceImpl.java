@@ -25,17 +25,19 @@ public class CombServiceImpl implements CombService {
         comb.setSodium(dto.getSodium());
         comb.setFat(dto.getFat());
         comb.setSugar(dto.getSugar());
-        comb.setAllergies(dto.getAllergies());
         comb.setPrice(dto.getPrice());
 
-        comb.setSoft(dto.getSoft());
-        comb.setSalty(dto.getSalty());
-        comb.setChewy(dto.getChewy());
-        comb.setSour(dto.getSour());
-        comb.setSweet(dto.getSweet());
-        comb.setNutty(dto.getNutty());
-        comb.setSpicy(dto.getSpicy());
-        comb.setBland(dto.getBland());
+
+//        comb.setAllergies(dto.getAllergies());
+//
+//        comb.setSoft(dto.getSoft());
+//        comb.setSalty(dto.getSalty());
+//        comb.setChewy(dto.getChewy());
+//        comb.setSour(dto.getSour());
+//        comb.setSweet(dto.getSweet());
+//        comb.setNutty(dto.getNutty());
+//        comb.setSpicy(dto.getSpicy());
+//        comb.setBland(dto.getBland());
         return combRepository.save(comb);
     }
 
