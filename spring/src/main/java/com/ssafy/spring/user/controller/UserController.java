@@ -119,6 +119,15 @@ public class UserController {
         return new SuccessResponseResult(isDuplicate);
     }
 
+    @ApiOperation(value = "찜목록 조회", notes="찜목록 조회", httpMethod = "POST")
+    @PostMapping("/{userName}/dibs")
+    public SuccessResponseResult getDibList(@PathVariable String userName){
+        User user = userService.getUserByUserName(userName);
+        List<Dib> dibList = userService.getDibsByUserAndStateIsTrue(user);
+
+        return new SuccessResponseResult(dibList);
+    }
+
     @ApiOperation(value = "찜목록과 작성한 꿀조합 조회", notes="찜목록과 작성한 꿀조합 조회", httpMethod = "POST")
     @PostMapping("/{userName}/list")
     public SuccessResponseResult getDibNcombList(@PathVariable String userName){
