@@ -13,7 +13,8 @@ export default {
         price : 7000,
         kcal : 100.5,
         protein : 30.2,
-        fat : 3.5
+        fat : 3.5,
+        allergies: ''
       },
       {
         menu_id : 2,
@@ -24,7 +25,8 @@ export default {
         price : 7000,
         kcal : 100.5,
         protein : 30.2,
-        fat : 3.5
+        fat : 3.5,
+        allergies: ''
       },
       {
         menu_id : 3,
@@ -35,7 +37,8 @@ export default {
         price : 7000,
         kcal : 100.5,
         protein : 30.2,
-        fat : 3.5
+        fat : 3.5,
+        allergies: ''
       },
       {
         menu_id : 4,
@@ -46,7 +49,8 @@ export default {
         price : 7000,
         kcal : 100.5,
         protein : 30.2,
-        fat : 3.5
+        fat : 3.5,
+        allergies: ''
       },
       {
         menu_id : 5,
@@ -57,7 +61,8 @@ export default {
         price : 7000,
         kcal : 100.5,
         protein : 30.2,
-        fat : 3.5
+        fat : 3.5,
+        allergies: ''
       },
       {
         menu_id : 6,
@@ -68,7 +73,8 @@ export default {
         price : 7000,
         kcal : 100.5,
         protein : 30.2,
-        fat : 3.5
+        fat : 3.5,
+        allergies: ''
       },
       {
         menu_id : 7,
@@ -79,10 +85,9 @@ export default {
         price : 7000,
         kcal : 100.5,
         protein : 30.2,
-        fat : 3.5
+        fat : 3.5,
+        allergies: ''
       },
-    ],
-    veges: [
       {
         menu_id : 8,
         img_url : 'https://www.subway.co.kr/upload/menu/Steak-&-Cheese_20211231095455613.png',
@@ -92,7 +97,8 @@ export default {
         price : 7000,
         kcal : 100.5,
         protein : 30.2,
-        fat : 3.5
+        fat : 3.5,
+        allergies: ''
       },
       {
         menu_id : 9,
@@ -103,19 +109,9 @@ export default {
         price : 7000,
         kcal : 100.5,
         protein : 30.2,
-        fat : 3.5
+        fat : 3.5,
+        allergies: ''
       },
-      {
-        menu_id : 10,
-        img_url : 'https://www.subway.co.kr/upload/menu/Steak-&-Cheese_20211231095455613.png',
-        menu_name : '스테이크&치즈',
-        ingredient : '스테이크 1스쿱, 치즈 2장',
-        menu_desc : '스테이크에 치즈 넣은 샌드위치',
-        price : 7000,
-        kcal : 100.5,
-        protein : 30.2,
-        fat : 3.5
-      },    
     ],
     breads: [
       {
@@ -363,6 +359,12 @@ export default {
     selectedStore: (state) => state.selectedStore,
     
     menus : (state) => state.menus,
+    sauce : (state) => state.sauce,
+    breads : (state) => state.breads,
+    cheese : (state) => state.cheese,
+    more : (state) => state.more,
+    veges : (state) => state.veges,
+    moreMeats : (state) => state.moreMeats,
 
     selectedMenu: (state) => state.selectedMenu,
 
@@ -376,7 +378,9 @@ export default {
 
     selectedMore: (state) => state.selectedMore,
 
-    selectedVege: (state) => state.selectedVege
+    selectedVege: (state) => state.selectedVege,
+
+    selectedMoreMeat: (state) => state.selectedMoreMeat,
 
   },
   mutations: {
