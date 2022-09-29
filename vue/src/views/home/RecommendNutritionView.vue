@@ -142,8 +142,8 @@
           </v-col>
         </v-row>
       </div>
-      <div class="mt-10" align="center">
-        <v-btn class="main_btn" width="200" small elevation="0" rounded @click="goNutriResult"
+      <div class="mt-5" align="center">
+        <v-btn class="main_btn" width="200" elevation="0" rounded @click="goNutriResult"
           >추천 받기</v-btn
         >
       </div>

@@ -22,7 +22,7 @@
         <combi-info-nutrition :combi-list-item="combiListItem"></combi-info-nutrition>
       </v-card-text>
       <v-card-actions class="pl-5 pb-5">
-        <h3>총&nbsp; {{ combiListItem.price }}원</h3>
+        <div style="font-size: 18px; font-weight: 900">총&nbsp; {{ combiListItem.price }}원</div>
         <v-spacer></v-spacer>
         <v-btn class="main_btn" width="180" elevation="0" rounded @click="goOrderCombi"
           >주문하러 가기</v-btn
