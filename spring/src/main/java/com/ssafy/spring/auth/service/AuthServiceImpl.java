@@ -5,7 +5,6 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.ssafy.spring.auth.dto.KakaoTokenInfo;
 import com.ssafy.spring.auth.dto.KakaoUserInfo;
-import com.ssafy.spring.config.PropertyConfig;
 import com.ssafy.spring.util.JWTUtil;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -15,7 +14,6 @@ import org.springframework.stereotype.Service;
 import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.util.Properties;
 
 @Service
 public class AuthServiceImpl implements AuthService {
@@ -41,7 +39,7 @@ public class AuthServiceImpl implements AuthService {
             BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(conn.getOutputStream()));
             String sb = "grant_type=authorization_code" +
                     "&client_id=" + clientId + // REST_API_KEY 입력
-                    "&redirect_uri=http://localhost:8081/api/v1/auth/login" + // 인가코드 받은 redirect_uri 입력
+                    "&redirect_uri=http://localhost:8080/signup" + // 인가코드 받은 redirect_uri 입력(프론트와 동일)
                     "&code=" + code;
             bw.write(sb);
             bw.flush();
@@ -98,12 +96,12 @@ public class AuthServiceImpl implements AuthService {
 
             int responseCode = conn.getResponseCode();
             String line;
-            StringBuffer result;
+            StringBuilder result;
 
             // 결과가 200이면 성공
             if(responseCode == 200){
-                BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
-                result = new StringBuffer();
+                BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream(), "UTF-8")); //닉네임 한글 깨짐 방지
+                result = new StringBuilder();
 
                 while((line = br.readLine()) != null){
                     result.append(line);

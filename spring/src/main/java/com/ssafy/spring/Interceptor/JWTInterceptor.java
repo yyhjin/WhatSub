@@ -26,6 +26,7 @@ public class JWTInterceptor implements HandlerInterceptor {
                 return true;
             }else {
 //                throw new NotValidateAccessToken();
+                System.out.println("유효하지 않은 토큰입니다");
             }
         }
         throw new Exception("유효하지 않은 접근입니다.");

@@ -62,22 +62,22 @@ public class UserController {
         return new SuccessResponseResult();
     }
 
-    @ApiOperation(value = "일반 회원가입", notes="회원가입에 성공하면 success, 아니면 fail", httpMethod = "POST")
-    @PostMapping("/signup")
-    public SuccessResponseResult signUp(@RequestBody UserRequest.SignUpRequest request){
-        User user = User.builder()
-                .email(request.getEmail())
-                .gender(request.getGender())
-                .birthYear(request.getBirthYear())
-                .userName(request.getUserName())
-                .profileImg(request.getProfileImg())
-                .build();
-
-        // 회원가입 로직
-        userService.save(user);
-        String userName = user.getUserName();
-        return new SuccessResponseResult(userName);
-    }
+//    @ApiOperation(value = "일반 회원가입", notes="회원가입에 성공하면 success, 아니면 fail", httpMethod = "POST")
+//    @PostMapping("/signup")
+//    public SuccessResponseResult signUp(@RequestBody UserRequest.SignUpRequest request){
+//        User user = User.builder()
+//                .email(request.getEmail())
+//                .gender(request.getGender())
+//                .birthYear(request.getBirthYear())
+//                .userName(request.getUserName())
+//                .profileImg(request.getProfileImg())
+//                .build();
+//
+//        // 회원가입 로직
+//        userService.save(user);
+//        String userName = user.getUserName();
+//        return new SuccessResponseResult(userName);
+//    }
     
 
 //    @ApiOperation(value = "일반 로그인", notes="로그인에 성공하면 username 반환", httpMethod = "POST")
