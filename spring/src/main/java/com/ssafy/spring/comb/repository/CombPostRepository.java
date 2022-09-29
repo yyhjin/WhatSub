@@ -25,4 +25,8 @@ public interface CombPostRepository extends JpaRepository<CombinationPost, Strin
     CombinationPost findByCombination_CombinationId(String combinationId);
 
     CombinationPost findTopByOrderByLikesCntDescScoreAvgDesc();
+
+    List<CombinationPost> findAllByOrderByScoreAvgDesc();
+
+    List<CombinationPost> findAllByOrderByCreatedAtDesc();
 }

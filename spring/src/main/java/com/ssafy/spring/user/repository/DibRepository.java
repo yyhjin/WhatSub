@@ -10,4 +10,6 @@ import java.util.List;
 @Transactional
 public interface DibRepository extends JpaRepository<Dib, Integer> {
     List<Dib> getDibsByUserAndStateIsTrue(User user);
+
+    Dib findByCombinationPostIdAndAndUser_UserId(int postId, int userId);
 }
