@@ -24,7 +24,7 @@ public class UserResponse {
     @Data
     @AllArgsConstructor
     public static class GetDibNcombListResponse{
-        List<Dib> dibList;
+        List<DibDto> dibList;
         List<Combination> combinationList;
     }
 }
