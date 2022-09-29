@@ -55,12 +55,13 @@ export default {
 <style scoped>
 .body {
   width: 100vw;
+  padding-top: 36px;
 }
 .top {
-  margin-top: 10px;
-  margin-bottom: 10px;
-  position:relative;
+  top: 0;
+  /* position:relative; */
   width: 100%;
+  background: white;
 }
 .row {
   width: 100%;

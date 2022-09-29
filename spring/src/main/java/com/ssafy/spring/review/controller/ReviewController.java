@@ -51,11 +51,7 @@ public class ReviewController {
         }
         avg /= reviews.size();
         avg = Math.round(avg*10)/10.0f;
-
-        System.out.println("================================"+avg);
-
         combPostService.scoreUpdate(request.getCombinationPostId(), avg);
-
 
         return new SuccessResponseResult();
     }
@@ -68,12 +64,34 @@ public class ReviewController {
                 .build();
 
         reviewService.update(review, reviewId);
+
+        // 게시글 평점 업데이트
+        List<Review> reviews = reviewService.getReviewList(request.getCombinationPostId());
+        float avg = 0;
+        for (int i = 0; i < reviews.size(); i++) {
+            avg += reviews.get(i).getScore();
+        }
+        avg /= reviews.size();
+        avg = Math.round(avg*10)/10.0f;
+        combPostService.scoreUpdate(request.getCombinationPostId(), avg);
+
         return new SuccessResponseResult();
     }
     @ApiOperation(value = "리뷰 삭제", notes="리뷰를 삭제한다", httpMethod = "DELETE")
     @DeleteMapping("/review/{reviewId}")
-    public SuccessResponseResult delete(@PathVariable int reviewId){
+    public SuccessResponseResult delete(@PathVariable int reviewId, @RequestParam int postId){
         reviewService.delete(reviewId);
+
+        // 게시글 평점 업데이트
+        List<Review> reviews = reviewService.getReviewList(postId);
+        float avg = 0;
+        for (int i = 0; i < reviews.size(); i++) {
+            avg += reviews.get(i).getScore();
+        }
+        avg /= reviews.size();
+        avg = Math.round(avg*10)/10.0f;
+        combPostService.scoreUpdate(postId, avg);
+
         return new SuccessResponseResult();
     }
 

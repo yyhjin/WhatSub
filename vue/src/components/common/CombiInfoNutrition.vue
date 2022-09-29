@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h3 style="color: black; font-size: 15px">영양정보</h3>
+    <div style="color: black; font-size: 17px; font-weight: 900">영양정보</div>
     {{ combiListItem.nutri }}
   </div>
 </template>

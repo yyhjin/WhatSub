@@ -13,16 +13,18 @@ public class CombDto {
     private float sodium;
     private float fat;
     private float sugar;
-    private String allergies;
     private int price;
 
-    private int soft;
-    private int salty;
-    private int chewy;
-    private int sour;
-    private int sweet;
-    private int nutty;
-    private int spicy;
-    private int bland;
+
+//    private String allergies;
+//
+//    private int soft;
+//    private int salty;
+//    private int chewy;
+//    private int sour;
+//    private int sweet;
+//    private int nutty;
+//    private int spicy;
+//    private int bland;
 
 }
