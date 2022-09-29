@@ -50,6 +50,7 @@ public class CombinationPost {
     @JsonRawValue
     private String statistics;
 
+
     @OneToMany(mappedBy = "combinationPost")
     private List<Review> reviews = new ArrayList<>();
 

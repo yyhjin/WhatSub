@@ -1,5 +1,6 @@
 package com.ssafy.spring.comb.controller;
 
+import com.ssafy.spring.SuccessResponseResult;
 import com.ssafy.spring.comb.dto.CombDto;
 import com.ssafy.spring.comb.dto.CombPostRequest;
 import com.ssafy.spring.comb.dto.CombPostResponse;
@@ -53,18 +54,34 @@ public class CombPostController {
     @ApiOperation(value = "조합 생성", notes = "주문 시 기존에 없는 조합일 경우 해당 조합을 저장한다.", httpMethod = "POST")
     @PostMapping
     @Transactional
-    public ResponseEntity<String> createComb(@RequestBody CombDto combination) {
+    public SuccessResponseResult createComb(@RequestBody CombDto combination) {
 
         Combination newcomb = combService.save(combination);
 
-        return new ResponseEntity(newcomb.getCombinationId(), HttpStatus.OK);
+        return new SuccessResponseResult();
+    }
+
+
+    @ApiOperation(value = "게시판 등록 여부", notes = "해당 조합이 꿀조합 게시판에 있는지 확인한다.\n있으면 해당 게시글 번호 반환 / 없으면 -1 반환", httpMethod = "GET")
+    @GetMapping("/exist/{combinationId}")
+    public SuccessResponseResult checkPostExist(@PathVariable String combinationId) {
+
+        CombinationPost post = combPostService.findByCombination_CombinationId(combinationId);
+        int postId;
+
+        if(post == null)
+            postId = -1;
+        else
+            postId = post.getCombinationPostId();
+
+        return new SuccessResponseResult(postId);
     }
 
 
     @ApiOperation(value = "꿀조합 게시글 등록", notes = "꿀조합 게시판에 글을 등록한다.", httpMethod = "POST")
     @PostMapping("/board")
     @Transactional
-    public ResponseEntity<Integer> createCombPost(@RequestPart(value = "combPostRequest") CombPostRequest combPostRequest, @RequestPart(value = "file", required = false) MultipartFile file) {
+    public SuccessResponseResult createCombPost(@RequestPart(value = "combPostRequest") CombPostRequest combPostRequest, @RequestPart(value = "file", required = false) MultipartFile file) {
 
         Combination comb = combService.findByCombinationId(combPostRequest.getCombinationId());
         User user = userService.getUserByUserId(combPostRequest.getUserId());
@@ -80,13 +97,13 @@ public class CombPostController {
 
         CombinationPost newPost = combPostService.save(comb, user, imgurl, combPostRequest);
         
-        return new ResponseEntity(newPost.getCombinationPostId(), HttpStatus.OK);
+        return new SuccessResponseResult();
     }
 
 
     @ApiOperation(value = "게시글 조회", notes = "해당 게시글의 정보들을 조회한다.", httpMethod = "GET")
     @GetMapping("/{combinationPostId}")
-    public ResponseEntity<CombPostResponse.PostDetailResponse> getPostDetail(@PathVariable int combinationPostId) {
+    public SuccessResponseResult getPostDetail(@PathVariable int combinationPostId) {
 
         CombPostResponse.PostDetailResponse response = new CombPostResponse.PostDetailResponse();
 
@@ -109,12 +126,12 @@ public class CombPostController {
 
         response.setReviews(reviewList);
 
-        return new ResponseEntity(response, HttpStatus.OK);
+        return new SuccessResponseResult(response);
     }
 
     @ApiOperation(value = "메뉴로 조회", notes = "해당하는 메뉴의 게시글 목록을 조회한다.", httpMethod = "GET")
     @GetMapping("/menu/{menuId}")
-    public ResponseEntity<List<CombPostResponse.PostResponse>> getPostByMenu(@PathVariable String menuId) {
+    public SuccessResponseResult getPostByMenu(@PathVariable String menuId) {
 
         List<CombPostResponse.PostResponse> posts = new ArrayList<>();
 
@@ -135,7 +152,26 @@ public class CombPostController {
             posts.add(response);
         }
 
-        return new ResponseEntity(posts, HttpStatus.OK);
+        return new SuccessResponseResult(posts);
+    }
+
+    @ApiOperation(value = "Best 게시글 조회", notes = "Best 게시글의 정보들을 조회한다.", httpMethod = "GET")
+    @GetMapping("/best")
+    public SuccessResponseResult getBestPost() {
+
+        CombPostResponse.PostResponse response = new CombPostResponse.PostResponse();
+
+        CombinationPost post = combPostService.findTopByOrderByLikesCntDescScoreAvgDesc();
+
+        response.setCombination(post.getCombination());
+        response.setCombName(post.getCombName());
+        response.setCombinationPostId(post.getCombinationPostId());
+        response.setCreatedAt(post.getCreatedAt());
+        response.setImgUrl(post.getImgUrl());
+        response.setLikesCnt(post.getLikesCnt());
+        response.setScoreAvg(post.getScoreAvg());
+
+        return new SuccessResponseResult(response);
     }
 
 }
