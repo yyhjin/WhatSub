@@ -19,21 +19,21 @@
             <div class="imgwrap">
               <img src="@/assets/bread.png" alt="">
             </div>
-            <div class="in_title">{{ selectedMenu.menu_name }}</div>
+            <div class="in_title">{{ bread_name }}</div>
             <div class="imgwrap">
               <img src="@/assets/cheese.png" alt="">
             </div>
-            <div class="in_title">{{ selectedMenu.menu_name }}</div>
+            <div class="in_title">{{ cheese_name }}</div>
           </div>
           <div class="in_row">
             <div class="imgwrap">
               <img src="@/assets/vege.png" alt="">
             </div>
-            <div class="in_title">{{ selectedMenu.menu_name }}</div>
+            <div class="in_title">{{ vege_name }}</div>
             <div class="imgwrap">
               <img src="@/assets/sauce.png" alt="">
             </div>
-            <div class="in_title">{{ selectedMenu.menu_name }}</div>
+            <div class="in_title">{{ sauce_name }}</div>
           </div>
         </div>
 
@@ -41,17 +41,17 @@
           <div class="imgwrap plus">
               <img src="@/assets/plus.png" alt="">
             </div>
-            <div class="in_title plus_title">{{ selectedMenu.menu_name }}</div>
+            <div class="in_title plus_title">{{ more_name }}</div>
         </div>
         <div class="nutr">
           <div class="kcal">
-            칼로리 : {{ }}
+            칼로리 : {{ calorie }}
           </div>
           <div class="protein">
-            단백질 : {{ }}
+            단백질 : {{ protein }}
           </div>
           <div class="fat">
-            지방 : {{ }}
+            지방 : {{ fat }}
           </div>
         </div>
       </v-card>
@@ -66,13 +66,13 @@
       <div>수량</div>
       <div class="cnt_input">
         <v-icon
-          slot="append"
+          slot="append" @click="down"
         >
           mdi-minus
         </v-icon>
-        <div class="value">1</div>
+        <div class="value">{{ cnt }}</div>
         <v-icon
-          slot="prepend"
+          slot="prepend" @click="up"
         >
           mdi-plus
         </v-icon>
@@ -80,7 +80,7 @@
     </div>
     <div class="bottom">
       <div class="total_price">
-        총 계산된 금액
+        총 {{ totalPrice }}원
       </div>
       
       <button class="order_btn main_btn">
@@ -107,15 +107,135 @@ export default {
   components: { ChooseBread, ChooseCheese, ChooseVege, ChooseMore, ChooseMoreMeat, ChooseSauce },
   name: 'OrderFourView',
 
-  computed: {
-    ...mapGetters(['selectedMenu', 'selectedBread', 'selectedCheese', 
-    'selectedSauce', 'selectedMore', 'selectedVege'])
+  data () {
+    return {
+      cnt:1
+    }
   },
 
+  computed: {
+    
+    bread_name () {
+      if (this.selectedBread === null) {
+        return '선택해주세요'
+      } else {
+        return this.selectedBread.name
+      }
+    },
+    cheese_name () {
+      if (this.selectedCheese === null) {
+        return '선택해주세요'
+      } else {
+        return this.selectedCheese.name
+      }
+    },
+    sauce_name () {
+      if (this.selectedSauce.length === 0) {
+        return '선택해주세요'
+      } else {
+        let sauces = ''
+        this.selectedSauce.forEach(sauce => {
+          sauces += sauce.name + ','
+        })
+        return sauces
+      }
+    },
+    vege_name () {
+      if (this.selectedVege.length === 0) {
+        return '선택해주세요'
+      } else {
+        let veges = ''
+        this.selectedVege.forEach(vege => {
+          veges += vege.name + ','
+        })
+        return veges
+      }
+    },
+
+    more_name () {
+      let mores = ''
+      if (this.selectedMore.length === 0 && this.selectedMoreMeat === null) {
+        return '선택해주세요'
+      } else if (this.selectedMore.length !== 0 && this.selectedMoreMeat !== null) {
+        this.selectedMore.forEach(more => {
+          mores += more.name + ','
+        })
+        mores += this.selectedMoreMeat.name
+        return mores
+      } else if (this.selectedMore.length !== 0 && this.selectedMoreMeat === null) {
+        this.selectedMore.forEach(more => {
+          mores += more.name + ','
+        })
+        return mores
+      } else {
+        mores += this.selectedMoreMeat.name
+        return mores
+      }
+    },
+    ...mapGetters(['selectedMenu', 'selectedBread', 'selectedCheese', 
+    'selectedSauce', 'selectedMore', 'selectedVege', 'selectedMoreMeat']),
+
+    calorie () {
+      let kcal = 0
+      
+      kcal += (this.selectedMenu === null ? 0:this.selectedMenu.kcal) + (this.selectedBread === null ? 0:this.selectedBread.kcal) 
+      + (this.selectedCheese === null ? 0:this.selectedCheese.kcal) + (this.selectedMoreMeat === null ? 0:this.selectedMoreMeat.kcal)
+      this.selectedMore.forEach(each => kcal += each.kcal)
+      this.selectedVege.forEach(each => kcal += each.kcal)
+      this.selectedSauce.forEach(each => kcal += each.kcal)
+      
+      return kcal
+    },
+
+    protein () {
+      let protein = 0
+      
+      protein += (this.selectedMenu === null ? 0:this.selectedMenu.protein) + (this.selectedBread === null ? 0:this.selectedBread.protein) 
+      + (this.selectedCheese === null ? 0:this.selectedCheese.protein) + (this.selectedMoreMeat === null ? 0:this.selectedMoreMeat.protein)
+      this.selectedMore.forEach(each => protein += each.protein)
+      this.selectedVege.forEach(each => protein += each.protein)
+      this.selectedSauce.forEach(each => protein += each.protein)
+      
+      return protein
+    },
+
+    fat () {
+      let fat = 0
+      
+      fat += (this.selectedMenu === null ? 0:this.selectedMenu.fat) + (this.selectedBread === null ? 0:this.selectedBread.fat) 
+      + (this.selectedCheese === null ? 0:this.selectedCheese.fat) + (this.selectedMoreMeat === null ? 0:this.selectedMoreMeat.fat)
+      this.selectedMore.forEach(each => fat += each.fat)
+      this.selectedVege.forEach(each => fat += each.fat)
+      this.selectedSauce.forEach(each => fat += each.fat)
+      
+      return fat
+    },
+
+    totalPrice () {
+      let price = 0
+      price += (this.selectedMenu === null ? 0:this.selectedMenu.price) + (this.selectedBread === null ? 0:this.selectedBread.price) 
+      + (this.selectedCheese === null ? 0:this.selectedCheese.price) + (this.selectedMoreMeat === null ? 0:this.selectedMoreMeat.price)
+      this.selectedMore.forEach(each => price += each.price)
+      this.selectedVege.forEach(each => price += each.price)
+      this.selectedSauce.forEach(each => price += each.price)
+
+      return price
+    }
+  },
   methods: {
     goBack() {
       this.$router.go(-1);
     },
+
+    up () {
+      this.cnt += 1
+    },
+
+    down () {
+      if (this.cnt > 0) {
+        this.cnt -= 1
+      }
+    }
   }
 }
 </script>

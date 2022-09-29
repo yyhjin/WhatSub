@@ -1,17 +1,30 @@
 <template>
   <div class="sauce">
-    <input type="checkbox" name="sauce" class="multiChoose" @click="selectVege">
+    <input type="checkbox" name="sauce" class="multiChoose" @click="select($event, sa)">
     <div class="title">{{ sa.name }}</div>
     <div class="price">+{{ sa.price }}원</div>
   </div>
 </template>
 
 <script>
+import { mapActions } from 'vuex'
 export default {
   name: 'SauceItem',
 
   props: {
     sa:Object
+  },
+
+  methods: {
+    ...mapActions(['selectSauce', 'removeSauce']),
+
+    select (event, sauce) {
+      if (event.target.checked) {
+        this.selectSauce(sauce)
+      } else {
+        this.removeSauce(sauce)
+      }
+    }
   }
 }
 </script>
@@ -39,5 +52,9 @@ export default {
   
   border: 8px solid  #D9D9D9;
   margin-right: 5px;
+}
+.multiChoose:checked{
+  accent-color: #239347;
+  
 }
 </style>

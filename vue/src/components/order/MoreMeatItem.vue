@@ -1,18 +1,39 @@
 <template>
   <div class="moreMeat">
-    <button class="oneChoose" @click="selectBread"></button>
+    <button class="oneChoose moreMeatChoose" @click="select($event, moreMeat)"></button>
     <div class="title">{{ moreMeat.name }}</div>
     <div class="price">+{{ moreMeat.price }}원</div>
   </div>
 </template>
 
 <script>
+import { mapActions, mapGetters } from 'vuex'
 export default {
   name: 'MoreMeatItem',
 
   props: {
     moreMeat: Object
+  },
+
+  computed: {
+    ...mapGetters(['selectedMoreMeat'])
+  },
+
+  methods: {
+    ...mapActions(['selectMoreMeat', 'removeMoreMeat']),
+    select (event, moreMeat) {
+      document.querySelectorAll('.moreMeatChoose').forEach(each => {
+        each.classList.remove('checked')
+        })
+      if (moreMeat === this.selectedMoreMeat) {
+        this.selectMoreMeat(null)
+      } else {
+        event.target.classList.add('checked')
+        this.selectMoreMeat(moreMeat)
+      }
+    }
   }
+
 }
 </script>
 
@@ -39,6 +60,10 @@ export default {
 }
 .title {
   width: 70%;
+}
+.checked {
+  border-color: #239347;
+  background-color: #f4c41f;
 }
 
 </style>

@@ -348,14 +348,14 @@ export default({
         allergies: ''
       }
     ],
-    selectedMoreMeats: null,
+    selectedMoreMeat: null,
     selectedMenu: null,
     selectedSize: null,
     selectedBread: null,
     selectedCheese: null,
-    selectedSauce: null,
-    selectedMore: null,
-    selectedVege: null
+    selectedSauce: [],
+    selectedMore: [],
+    selectedVege: []
 
   },
   getters: {
@@ -367,7 +367,7 @@ export default({
     more: (state) => state.more,
     moreMeats: (state) => state.moreMeats,
 
-    selectedMoreMeats: (state) => state.selectedMoreMeats,
+    selectedMoreMeat: (state) => state.selectedMoreMeat,
     
     selectedMenu: (state) => state.selectedMenu,
 
@@ -395,13 +395,34 @@ export default({
 
     SET_SELECTEDCHEESE: (state, value) => state.selectedCheese = value,
 
-    SET_SELECTEDSAUCE: (state, value) => state.selectedSauce = value,
+    
+    SET_SELECTEDSAUCE: (state, value) => state.selectedSauce.push(value),
 
-    SET_SELECTEDMORE: (state, value) => state.selectedMore = value,
+    REMOVE_SELECTEDSAUCE: (state, value) => {
+      state.selectedSauce = state.selectedSauce.filter(sauce => 
+         sauce !== value 
+      )
+    },
+    
+    SET_SELECTEDMORE: (state, value) => state.selectedMore.push(value),
 
-    SET_SELECTEDVEGE: (state, value) => state.selectedVege = value,
+    REMOVE_SELECTEDMORE: (state, value) => {
+      state.selectedMore = state.selectedMore.filter(more => 
+         more !== value 
+      )
+    },
+    
+    SET_SELECTEDVEGE: (state, value) => state.selectedVege.push(value),
+    
+    REMOVE_SELECTEDVEGE: (state, value) => {
+      state.selectedVege = state.selectedVege.filter(vege => 
+         vege !== value 
+      )
+    },
 
-    SET_SELECTEDMOREMEATS: (state, value) => state.selectedMoreMeats = value,
+    COMBINE_SELECTEDMORE: (state, value) => state.selectedMore = state.selectedMore + value,
+
+    SET_SELECTEDMOREMEAT: (state, value) => state.selectedMoreMeat = value,
   },
   actions: {
     // fetchMenus ({commit}, value) {
@@ -418,7 +439,45 @@ export default({
 
     selectSize({ commit }, value) {
       commit('SET_SELECTEDSIZE', value)
-    }
+    },
+
+    selectBread({ commit }, value) {
+      commit('SET_SELECTEDBREAD', value)
+    },
+
+    selectCheese({ commit }, value) {
+      commit('SET_SELECTEDCHEESE', value)
+    },
+
+    selectVege({ commit }, value) {
+      commit('SET_SELECTEDVEGE', value)
+    },
+
+    removeVege({ commit }, value) {
+      commit('REMOVE_SELECTEDVEGE', value)
+    },
+
+    selectMore({ commit }, value) {
+      commit('SET_SELECTEDMORE', value)
+    },
+
+    removeMore({ commit }, value) {
+      commit('REMOVE_SELECTEDMORE', value)
+    },
+
+    selectMoreMeat({ commit }, value) {
+      commit('SET_SELECTEDMOREMEAT', value)
+    },
+
+    selectSauce({ commit }, value) {
+      commit('SET_SELECTEDSAUCE', value)
+    },
+
+    removeSauce({ commit }, value) {
+      commit('REMOVE_SELECTEDSAUCE', value)
+    },
+
+    
   },
 
 })
