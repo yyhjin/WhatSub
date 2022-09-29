@@ -1,6 +1,6 @@
 <template>
   <div>
-    <v-card align="center" height="120" width="100">
+    <v-card align="center" height="120" width="100" elevation="0">
       <div class="pa-1">
         <v-avatar color="grey lighten-1" size="60" tile><img src="" alt="rank image" /></v-avatar>
       </div>

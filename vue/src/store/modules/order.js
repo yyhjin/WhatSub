@@ -1,9 +1,8 @@
 // import axios from "axios";
 
-
-
-export default({
+export default {
   state: {
+    selectedStore: null,
     menus: [
       {
         menu_id : 1,
@@ -82,6 +81,8 @@ export default({
         protein : 30.2,
         fat : 3.5
       },
+    ],
+    veges: [
       {
         menu_id : 8,
         img_url : 'https://www.subway.co.kr/upload/menu/Steak-&-Cheese_20211231095455613.png',
@@ -359,16 +360,10 @@ export default({
 
   },
   getters: {
-    menus : (state) => state.menus,
-    breads: (state) => state.breads,
-    veges: (state) => state.veges,
-    cheese: (state) => state.cheese,
-    sauce: (state) => state.sauce,
-    more: (state) => state.more,
-    moreMeats: (state) => state.moreMeats,
-
-    selectedMoreMeat: (state) => state.selectedMoreMeat,
+    selectedStore: (state) => state.selectedStore,
     
+    menus : (state) => state.menus,
+
     selectedMenu: (state) => state.selectedMenu,
 
     selectedSize: (state) => state.selectedSize,
@@ -385,9 +380,9 @@ export default({
 
   },
   mutations: {
-    SET_MENUS : (state, value) => state.menus = value,
+    SET_SELECTEDSTORE: (state, value) => (state.selectedStore = value),
 
-    SET_SELECTEDMENU : (state, value) => state.selectedMenu = value,
+    SET_MENUS: (state, value) => (state.menus = value),
 
     SET_SELECTEDSIZE : (state, value) => state.selectedSize = value,
 
@@ -423,6 +418,10 @@ export default({
     COMBINE_SELECTEDMORE: (state, value) => state.selectedMore = state.selectedMore + value,
 
     SET_SELECTEDMOREMEAT: (state, value) => state.selectedMoreMeat = value,
+    
+    SET_SELECTEDMENU: (state, value) => (state.selectedMenu = value),
+
+    
   },
   actions: {
     // fetchMenus ({commit}, value) {
@@ -432,9 +431,12 @@ export default({
 
     //   })
     // },
+    selectStore({ commit }, value) {
+      commit("SET_SELECTEDSTORE", value);
+    },
 
     selectMenu({ commit }, value) {
-      commit('SET_SELECTEDMENU', value)
+      commit("SET_SELECTEDMENU", value);
     },
 
     selectSize({ commit }, value) {
@@ -479,5 +481,4 @@ export default({
 
     
   },
-
-})
+};

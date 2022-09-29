@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="top">
+    <div class="top" style="background-color: white">
       <v-row>
         <v-col cols="3">
           <v-btn @click="goBack" icon><v-icon>mdi-arrow-left</v-icon></v-btn>
@@ -40,7 +40,7 @@ export default {
 
 <style scoped>
 .top {
-  margin: 10px;
+  padding: 10px;
   position: fixed;
   width: 100%;
 }

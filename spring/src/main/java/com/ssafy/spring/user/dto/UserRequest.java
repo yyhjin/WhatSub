@@ -1,5 +1,6 @@
 package com.ssafy.spring.user.dto;
 
+import lombok.Builder;
 import lombok.Data;
 
 import java.util.List;
@@ -14,7 +15,6 @@ public class UserRequest {
 
     @Data
     public static class SignUpRequest{
-        private int userId;
 //        private String authId;
         private String email;
         private String gender;

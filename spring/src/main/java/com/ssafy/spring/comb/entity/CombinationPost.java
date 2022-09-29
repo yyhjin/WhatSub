@@ -2,6 +2,7 @@ package com.ssafy.spring.comb.entity;
 
 import com.fasterxml.jackson.annotation.JsonRawValue;
 import com.ssafy.spring.review.entity.Review;
+import com.ssafy.spring.user.entity.User;
 import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.ColumnDefault;
@@ -22,16 +23,22 @@ public class CombinationPost {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int combinationPostId;
 
-    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "combination_id")
     private Combination combination;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name="user_id")
+    private User user;
 
     private String combName;
 
     private String content;
 
-    @Column(nullable = false)
     private String imgUrl;
+
+    @ColumnDefault("0")
+    private float scoreAvg;
 
     @ColumnDefault("0")
     private int likesCnt;
@@ -43,6 +50,11 @@ public class CombinationPost {
     @JsonRawValue
     private String statistics;
 
+
     @OneToMany(mappedBy = "combinationPost")
     private List<Review> reviews = new ArrayList<>();
+
+    public void scoreUpdate(float scoreAvg) {
+        this.scoreAvg = scoreAvg;
+    }
 }
