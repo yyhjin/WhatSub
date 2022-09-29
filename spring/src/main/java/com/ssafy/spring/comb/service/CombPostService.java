@@ -16,4 +16,7 @@ public interface CombPostService {
     List<CombinationPost> findAllByMenuId (String menuId);
     CombinationPost findByCombination_CombinationId(String combinationId);
     CombinationPost findTopByOrderByLikesCntDescScoreAvgDesc();
+    List<CombinationPost> findAllByOrderByScoreAvgDesc();
+    List<CombinationPost> findAllByOrderByCreatedAtDesc();
+    int likescntUpdate(CombinationPost post, int likesCnt);
 }

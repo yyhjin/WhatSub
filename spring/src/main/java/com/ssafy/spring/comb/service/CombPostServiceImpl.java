@@ -40,6 +40,7 @@ public class CombPostServiceImpl implements CombPostService {
     }
 
     @Transactional
+    @Override
     public int scoreUpdate(int postId, float scoreAvg) {
         CombinationPost post = combPostRepository.findByCombinationPostId(postId);
         post.scoreUpdate(scoreAvg);
@@ -58,6 +59,23 @@ public class CombPostServiceImpl implements CombPostService {
     @Override
     public CombinationPost findTopByOrderByLikesCntDescScoreAvgDesc() {
         return combPostRepository.findTopByOrderByLikesCntDescScoreAvgDesc();
+    }
+
+    @Override
+    public List<CombinationPost> findAllByOrderByScoreAvgDesc() {
+        return combPostRepository.findAllByOrderByScoreAvgDesc();
+    }
+
+    @Override
+    public List<CombinationPost> findAllByOrderByCreatedAtDesc() {
+        return combPostRepository.findAllByOrderByCreatedAtDesc();
+    }
+
+    @Transactional
+    @Override
+    public int likescntUpdate(CombinationPost post, int likesCnt) {
+        post.likescntUpdate(likesCnt);
+        return post.getCombinationPostId();
     }
 
 

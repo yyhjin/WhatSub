@@ -25,6 +25,9 @@ public class Dib {
     private int combinationPostId;
 
     @NotNull
-    @ColumnDefault("true")
-    private boolean state;
+    private boolean state = true;
+
+    public void stateUpdate(boolean state) {
+        this.state = state;
+    }
 }
