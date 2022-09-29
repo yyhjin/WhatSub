@@ -2,11 +2,13 @@
   <div>
     <v-container>
       <v-row align="center">
-        <v-col cols="2">
+        <v-col cols="1">
           <v-avatar size="45" color="#d9d9d9" @click="goProfile"></v-avatar>
         </v-col>
-        <v-col cols="6">
-          <div style="font-size: 13px" @click="goProfile">김계란 | 2022-09-28 &nbsp;16:26</div>
+        <v-col class="ml-5" cols="8">
+          <div style="font-size: 13px" @click="goProfile">
+            김계란김계란김 | 2022-09-28 &nbsp;16:26
+          </div>
           <div>
             <v-rating
               v-model="rating"
@@ -19,9 +21,9 @@
             ></v-rating>
           </div>
         </v-col>
-        <v-col align="center">
-          <div style="font-size: 13px">
-            <span style="color: grey" @click="udpateReview">수정&nbsp;&nbsp; </span>
+        <v-col class="pa-0 ml-n2" align="center">
+          <div style="font-size: 12px">
+            <span style="color: grey" @click="udpateReview">수정&nbsp; </span>
             <span style="color: red" @click="deleteReview">삭제</span>
           </div>
         </v-col>
@@ -31,7 +33,7 @@
       <br />
       <br />
     </v-card>
-    <v-card height="4" width="360" elevation="0" style="background-color: #d9d9d9">&nbsp;</v-card>
+    <v-card height="1" width="360" elevation="0" style="background-color: #d9d9d9">&nbsp;</v-card>
   </div>
 </template>
 
