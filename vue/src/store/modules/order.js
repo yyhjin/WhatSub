@@ -4,7 +4,117 @@ import api from "@/api/api"
 export default {
   state: {
     selectedStore: localStorage.getItem('store') || null,
-    menus: [],
+    basket: JSON.parse(localStorage.getItem('basket')) || [],
+    menus: [
+      {
+        menu_id : 1,
+        img_url : 'https://www.subway.co.kr/upload/menu/Steak-&-Cheese_20211231095455613.png',
+        menu_name : '스테이크&치즈',
+        ingredient : '스테이크 1스쿱, 치즈 2장',
+        menu_desc : '스테이크에 치즈 넣은 샌드위치',
+        price : 7000,
+        kcal : 100.5,
+        protein : 30.2,
+        fat : 3.5,
+        allergies: ''
+      },
+      {
+        menu_id : 2,
+        img_url : 'https://www.subway.co.kr/upload/menu/Steak-&-Cheese_20211231095455613.png',
+        menu_name : '스테이크&치즈',
+        ingredient : '스테이크 1스쿱, 치즈 2장',
+        menu_desc : '스테이크에 치즈 넣은 샌드위치',
+        price : 7000,
+        kcal : 100.5,
+        protein : 30.2,
+        fat : 3.5,
+        allergies: ''
+      },
+      {
+        menu_id : 3,
+        img_url : 'https://www.subway.co.kr/upload/menu/Steak-&-Cheese_20211231095455613.png',
+        menu_name : '스테이크&치즈',
+        ingredient : '스테이크 1스쿱, 치즈 2장',
+        menu_desc : '스테이크에 치즈 넣은 샌드위치',
+        price : 7000,
+        kcal : 100.5,
+        protein : 30.2,
+        fat : 3.5,
+        allergies: ''
+      },
+      {
+        menu_id : 4,
+        img_url : 'https://www.subway.co.kr/upload/menu/Steak-&-Cheese_20211231095455613.png',
+        menu_name : '스테이크&치즈',
+        ingredient : '스테이크 1스쿱, 치즈 2장',
+        menu_desc : '스테이크에 치즈 넣은 샌드위치',
+        price : 7000,
+        kcal : 100.5,
+        protein : 30.2,
+        fat : 3.5,
+        allergies: ''
+      },
+      {
+        menu_id : 5,
+        img_url : 'https://www.subway.co.kr/upload/menu/Steak-&-Cheese_20211231095455613.png',
+        menu_name : '스테이크&치즈',
+        ingredient : '스테이크 1스쿱, 치즈 2장',
+        menu_desc : '스테이크에 치즈 넣은 샌드위치',
+        price : 7000,
+        kcal : 100.5,
+        protein : 30.2,
+        fat : 3.5,
+        allergies: ''
+      },
+      {
+        menu_id : 6,
+        img_url : 'https://www.subway.co.kr/upload/menu/Steak-&-Cheese_20211231095455613.png',
+        menu_name : '스테이크&치즈',
+        ingredient : '스테이크 1스쿱, 치즈 2장',
+        menu_desc : '스테이크에 치즈 넣은 샌드위치',
+        price : 7000,
+        kcal : 100.5,
+        protein : 30.2,
+        fat : 3.5,
+        allergies: ''
+      },
+      {
+        menu_id : 7,
+        img_url : 'https://www.subway.co.kr/upload/menu/Steak-&-Cheese_20211231095455613.png',
+        menu_name : '스테이크&치즈',
+        ingredient : '스테이크 1스쿱, 치즈 2장',
+        menu_desc : '스테이크에 치즈 넣은 샌드위치',
+        price : 7000,
+        kcal : 100.5,
+        protein : 30.2,
+        fat : 3.5,
+        allergies: ''
+      },
+      {
+        menu_id : 8,
+        img_url : 'https://www.subway.co.kr/upload/menu/Steak-&-Cheese_20211231095455613.png',
+        menu_name : '스테이크&치즈',
+        ingredient : '스테이크 1스쿱, 치즈 2장',
+        menu_desc : '스테이크에 치즈 넣은 샌드위치',
+        price : 7000,
+        kcal : 100.5,
+        protein : 30.2,
+        fat : 3.5,
+        allergies: ''
+      },
+      {
+        menu_id : 9,
+        img_url : 'https://www.subway.co.kr/upload/menu/Steak-&-Cheese_20211231095455613.png',
+        menu_name : '스테이크&치즈',
+        ingredient : '스테이크 1스쿱, 치즈 2장',
+        menu_desc : '스테이크에 치즈 넣은 샌드위치',
+        price : 7000,
+        kcal : 100.5,
+        protein : 30.2,
+        fat : 3.5,
+        allergies: ''
+      },
+    ],
     breads: [
       {
         ingredient_id: 1,
@@ -249,7 +359,7 @@ export default {
   },
   getters: {
     selectedStore: (state) => state.selectedStore,
-    
+    basket: (state) => state.basket,
     menus : (state) => state.menus,
     sauce : (state) => state.sauce,
     breads : (state) => state.breads,
@@ -329,7 +439,13 @@ export default {
     
     SET_SELECTEDMENU: (state, value) => (state.selectedMenu = value),
 
-    
+    UP_CNT: (state, value) => (state.basket[value].cnt += 1),
+
+    DOWN_CNT: (state, value) => {
+      if (state.basket[value].cnt > 0){
+        (state.basket[value].cnt -= 1)
+      }
+    }
   },
   actions: {
     fetchMenus ({commit}) {
@@ -400,6 +516,14 @@ export default {
 
     removeSauce({ commit }, value) {
       commit('REMOVE_SELECTEDSAUCE', value)
+    },
+
+    up ({ commit }, index) {
+      commit('UP_CNT', index)
+    },
+
+    down ({ commit }, index) {
+      commit('DOWN_CNT', index)   
     },
 
     
