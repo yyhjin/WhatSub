@@ -60,7 +60,7 @@
         </div>
       </div>
     </div>
-    <div v-else>
+    <div v-if="value">
       <div class="main_card">
         <recommend-personal></recommend-personal>
       </div>
@@ -80,9 +80,10 @@ export default {
   components: { RecommendPersonal, RecommendSubti },
   data() {
     return {
-      vlaue: false,
+      value: false,
     };
   },
+  methods: {},
 };
 </script>
 
