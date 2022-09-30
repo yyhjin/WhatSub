@@ -32,4 +32,6 @@ public interface CombPostRepository extends JpaRepository<CombinationPost, Strin
     List<CombinationPost> findAllByOrderByCreatedAtDesc();
 
     List<CombinationPost> findAllByUser(User user);
+
+    List<CombinationPost> findTop30ByOrderByLikesCntDescScoreAvgDesc();
 }
