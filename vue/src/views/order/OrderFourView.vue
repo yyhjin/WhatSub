@@ -1,5 +1,6 @@
 <template>
   <div class="body"> 
+    <alert-order></alert-order>
     <div class="top">
       <v-row>
         <v-col cols="4">
@@ -86,9 +87,7 @@
       <button class="order_btn main_btn" @click.prevent="setBasket">
         장바구니
       </button>
-      <button class="order_btn green_btn" @click.prevent="setOrder">
-        바로 주문
-      </button>
+      
       
     </div>
   </div>
@@ -102,9 +101,10 @@ import ChooseMore from '../../components/order/ChooseMore.vue';
 import ChooseMoreMeat from '../../components/order/ChooseMoreMeat.vue';
 import ChooseSauce from '../../components/order/ChooseSauce.vue';
 import ChooseVege from '../../components/order/ChooseVege.vue';
+import AlertOrder from '@/components/order/AlertOrder'
 
 export default {
-  components: { ChooseBread, ChooseCheese, ChooseVege, ChooseMore, ChooseMoreMeat, ChooseSauce },
+  components: { AlertOrder, ChooseBread, ChooseCheese, ChooseVege, ChooseMore, ChooseMoreMeat, ChooseSauce },
   name: 'OrderFourView',
 
   data () {
@@ -252,10 +252,9 @@ export default {
         'cnt' : this.cnt,
         'price' : this.totalPrice
       }
-      console.log(bas)
-      console.log(order)
+      
       bas.push(order)
-      console.log(bas)
+      
       localStorage.setItem('basket', JSON.stringify(bas))
       localStorage.setItem('menu', null)
       localStorage.setItem('size', null)
@@ -265,7 +264,11 @@ export default {
       localStorage.setItem('bread', null)
       localStorage.setItem('cheese', null)
       localStorage.setItem('moremeat', null)
-      this.$router.replace('/ordertwo')
+      
+
+      const modal = document.querySelector('.modal')
+      modal.style.display = 'block'
+      document.body.style.overflow = 'hidden'
     },
 
     setOrder () {
@@ -277,14 +280,26 @@ export default {
 
 <style scoped>
 .body {
+  /* position: relative; */
   padding-top: 360px;
   padding-bottom: 40px;
+  
+  
+}
+.body::after{
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  
 }
 .top {
   top: 0;
   /* position:relative; */
   width: 100%;
   background: white;
+  
+  
 }
 .row {
   width: 100%;
