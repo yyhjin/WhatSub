@@ -33,14 +33,13 @@
 <script>
 import OrderDetail from '../../components/common/OrderDetail.vue'
 import BottomNav from '@/components/common/BottomNav.vue'
+import { mapGetters } from 'vuex'
 export default {
   components: { OrderDetail, BottomNav },
   name: 'OrderCheckView',
 
   computed: {
-    basket () {
-      return JSON.parse(localStorage.getItem('basket'))
-    }
+    ...mapGetters(['basket'])
   },
 
   unmounted() {

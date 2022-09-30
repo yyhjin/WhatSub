@@ -1,12 +1,12 @@
 <template>
   <div class="container" @click.prevent="select($event, menu)">
     <div class="imgwrap">
-      <img :src="menu.img_url" alt="">
+      <img :src="menu.imgUrl" alt="">
     </div>
     <div class="content">
-      <div class="title">{{ menu.menu_name }}
+      <div class="title">{{ menu.menuName }}
       </div>
-      <div class="ingred">{{ menu.ingredient }}
+      <div class="ingred">{{ menu.ingredients }}
       </div>
     </div>
     <div class="price">{{ menu.price }}원
