@@ -2,7 +2,7 @@
 
 export default {
   state: {
-    selectedStore: null,
+    selectedStore: localStorage.getItem('store') || null,
     menus: [
       {
         menu_id : 1,
@@ -345,14 +345,14 @@ export default {
         allergies: ''
       }
     ],
-    selectedMoreMeat: null,
-    selectedMenu: null,
-    selectedSize: null,
-    selectedBread: null,
-    selectedCheese: null,
-    selectedSauce: [],
-    selectedMore: [],
-    selectedVege: []
+    selectedMoreMeat: JSON.parse(localStorage.getItem('moremeat')) || null,
+    selectedMenu: JSON.parse(localStorage.getItem('menu')) || null,
+    selectedSize: JSON.parse(localStorage.getItem('size')) || null,
+    selectedBread: JSON.parse(localStorage.getItem('bread')) || null,
+    selectedCheese: JSON.parse(localStorage.getItem('cheese')) || null,
+    selectedSauce: JSON.parse(localStorage.getItem('sauce')) || [],
+    selectedMore: JSON.parse(localStorage.getItem('more')) || [],
+    selectedVege: JSON.parse(localStorage.getItem('vege')) || [],
 
   },
   getters: {
@@ -395,28 +395,40 @@ export default {
     SET_SELECTEDCHEESE: (state, value) => state.selectedCheese = value,
 
     
-    SET_SELECTEDSAUCE: (state, value) => state.selectedSauce.push(value),
+    SET_SELECTEDSAUCE: (state, value) => {
+      state.selectedSauce.push(value)
+      localStorage.setItem('sauce', JSON.stringify(state.selectedSauce))
+    },
 
     REMOVE_SELECTEDSAUCE: (state, value) => {
       state.selectedSauce = state.selectedSauce.filter(sauce => 
          sauce !== value 
       )
+      localStorage.setItem('sauce', JSON.stringify(state.selectedSauce))
     },
     
-    SET_SELECTEDMORE: (state, value) => state.selectedMore.push(value),
+    SET_SELECTEDMORE: (state, value) => {
+      state.selectedMore.push(value)
+      localStorage.setItem('more', JSON.stringify(state.selectedMore))
+    },
 
     REMOVE_SELECTEDMORE: (state, value) => {
       state.selectedMore = state.selectedMore.filter(more => 
          more !== value 
       )
+      localStorage.setItem('more', JSON.stringify(state.selectedMore))
     },
     
-    SET_SELECTEDVEGE: (state, value) => state.selectedVege.push(value),
+    SET_SELECTEDVEGE: (state, value) => {
+      state.selectedVege.push(value)
+      localStorage.setItem('vege', JSON.stringify(state.selectedVege))
+    },
     
     REMOVE_SELECTEDVEGE: (state, value) => {
       state.selectedVege = state.selectedVege.filter(vege => 
          vege !== value 
       )
+      localStorage.setItem('vege', JSON.stringify(state.selectedVege))
     },
 
     COMBINE_SELECTEDMORE: (state, value) => state.selectedMore = state.selectedMore + value,
@@ -437,26 +449,32 @@ export default {
     // },
     selectStore({ commit }, value) {
       commit("SET_SELECTEDSTORE", value);
+      localStorage.setItem('store', JSON.stringify(value))
     },
 
     selectMenu({ commit }, value) {
       commit("SET_SELECTEDMENU", value);
+      localStorage.setItem('menu', JSON.stringify(value))
     },
 
     selectSize({ commit }, value) {
       commit('SET_SELECTEDSIZE', value)
+      localStorage.setItem('size', JSON.stringify(value))
     },
 
     selectBread({ commit }, value) {
       commit('SET_SELECTEDBREAD', value)
+      localStorage.setItem('bread', JSON.stringify(value))
     },
 
     selectCheese({ commit }, value) {
       commit('SET_SELECTEDCHEESE', value)
+      localStorage.setItem('cheese', JSON.stringify(value))
     },
 
     selectVege({ commit }, value) {
       commit('SET_SELECTEDVEGE', value)
+      
     },
 
     removeVege({ commit }, value) {
@@ -465,6 +483,7 @@ export default {
 
     selectMore({ commit }, value) {
       commit('SET_SELECTEDMORE', value)
+      
     },
 
     removeMore({ commit }, value) {
@@ -473,6 +492,7 @@ export default {
 
     selectMoreMeat({ commit }, value) {
       commit('SET_SELECTEDMOREMEAT', value)
+      localStorage.setItem('moremeat', JSON.stringify(value))
     },
 
     selectSauce({ commit }, value) {

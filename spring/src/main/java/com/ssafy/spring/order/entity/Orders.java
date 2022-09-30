@@ -1,6 +1,9 @@
 package com.ssafy.spring.order.entity;
 
 import com.ssafy.spring.user.entity.User;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
 import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
@@ -8,6 +11,9 @@ import javax.validation.constraints.NotBlank;
 import java.sql.Timestamp;
 import java.util.Date;
 
+@AllArgsConstructor
+@Getter
+@Builder
 @Entity
 public class Orders {
 
@@ -28,4 +34,5 @@ public class Orders {
     @CreationTimestamp
     private Timestamp orderedAt;
 
+    public Orders() {}
 }

@@ -10,5 +10,5 @@ sudo docker run -it -d -p 80:80 -p 443:443 -v /etc/letsencrypt/:/etc/letsencrypt
 echo "Run Vue-Nginx Container"
 sudo docker run -it -d --rm -p 8000:8000  --name django whatsub/django
 echo "Run Django Container"
-sudo docker run -it -d --rm -p 8080:8080  --name spring whatsub/spring
+sudo docker run -it -d --rm -p 8081:8081  --name spring whatsub/spring
 echo "Run Spring Container"

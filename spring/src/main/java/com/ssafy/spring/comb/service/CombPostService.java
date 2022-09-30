@@ -21,4 +21,5 @@ public interface CombPostService {
     int likescntUpdate(CombinationPost post, int likesCnt);
 
     List<CombinationPost> findAllByUser(User user);
+
 }

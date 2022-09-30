@@ -1,5 +1,6 @@
 <template>
   <div class="body"> 
+    <alert-order></alert-order>
     <div class="top">
       <v-row>
         <v-col cols="4">
@@ -83,12 +84,10 @@
         총 {{ totalPrice }}원
       </div>
       
-      <button class="order_btn main_btn">
+      <button class="order_btn main_btn" @click.prevent="setBasket">
         장바구니
       </button>
-      <button class="order_btn green_btn">
-        바로 주문
-      </button>
+      
       
     </div>
   </div>
@@ -102,9 +101,10 @@ import ChooseMore from '../../components/order/ChooseMore.vue';
 import ChooseMoreMeat from '../../components/order/ChooseMoreMeat.vue';
 import ChooseSauce from '../../components/order/ChooseSauce.vue';
 import ChooseVege from '../../components/order/ChooseVege.vue';
+import AlertOrder from '@/components/order/AlertOrder'
 
 export default {
-  components: { ChooseBread, ChooseCheese, ChooseVege, ChooseMore, ChooseMoreMeat, ChooseSauce },
+  components: { AlertOrder, ChooseBread, ChooseCheese, ChooseVege, ChooseMore, ChooseMoreMeat, ChooseSauce },
   name: 'OrderFourView',
 
   data () {
@@ -172,7 +172,7 @@ export default {
         return mores
       }
     },
-    ...mapGetters(['selectedMenu', 'selectedBread', 'selectedCheese', 
+    ...mapGetters(['selectedStore', 'selectedMenu', 'selectedBread', 'selectedCheese', 
     'selectedSauce', 'selectedMore', 'selectedVege', 'selectedMoreMeat']),
 
     calorie () {
@@ -235,6 +235,44 @@ export default {
       if (this.cnt > 0) {
         this.cnt -= 1
       }
+    },
+
+    setBasket () {
+      const bas = JSON.parse(localStorage.getItem('basket')) || []
+      let order = {
+        'store': this.selectedStore,
+        'menu' : this.selectedMenu,
+        'size' : this.selectedSize,
+        'vege' : this.selectedVege,
+        'more' : this.selectedMore,
+        'sauce' : this.selectedSauce,
+        'moremeat' : this.selectedMoreMeat,
+        'bread' : this.selectedBread,
+        'cheese' : this.selectedCheese,
+        'cnt' : this.cnt,
+        'price' : this.totalPrice
+      }
+      
+      bas.push(order)
+      
+      localStorage.setItem('basket', JSON.stringify(bas))
+      localStorage.setItem('menu', null)
+      localStorage.setItem('size', null)
+      localStorage.setItem('vege', null)
+      localStorage.setItem('more', null)
+      localStorage.setItem('sauce', null)
+      localStorage.setItem('bread', null)
+      localStorage.setItem('cheese', null)
+      localStorage.setItem('moremeat', null)
+      
+
+      const modal = document.querySelector('.modal')
+      modal.style.display = 'block'
+      document.body.style.overflow = 'hidden'
+    },
+
+    setOrder () {
+      this.$router.push('/ordercheck')
     }
   }
 }
@@ -242,14 +280,26 @@ export default {
 
 <style scoped>
 .body {
+  /* position: relative; */
   padding-top: 360px;
   padding-bottom: 40px;
+  
+  
+}
+.body::after{
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  
 }
 .top {
   top: 0;
   /* position:relative; */
   width: 100%;
   background: white;
+  
+  
 }
 .row {
   width: 100%;
