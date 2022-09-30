@@ -1,15 +1,17 @@
 package com.ssafy.spring.user.controller;
 
 import com.ssafy.spring.SuccessResponseResult;
+import com.ssafy.spring.comb.dto.CombPostDto;
 import com.ssafy.spring.comb.dto.IngredientDto;
-import com.ssafy.spring.comb.entity.CombinationPost;
 import com.ssafy.spring.comb.entity.Ingredient;
 import com.ssafy.spring.comb.service.CombPostService;
 import com.ssafy.spring.comb.service.IngredientService;
 import com.ssafy.spring.exception.NoSuchUserException;
+import com.ssafy.spring.user.dto.CollectionDto;
 import com.ssafy.spring.user.dto.DibDto;
 import com.ssafy.spring.user.dto.UserRequest;
 import com.ssafy.spring.user.dto.UserResponse;
+import com.ssafy.spring.user.entity.Collection;
 import com.ssafy.spring.user.entity.Excluded;
 import com.ssafy.spring.user.entity.User;
 import com.ssafy.spring.user.service.ExcludedService;
@@ -33,9 +35,6 @@ public class UserController {
 
     @Autowired
     private UserService userService;
-
-    @Autowired
-    private CombPostService combPostService;
 
     @Autowired
     private ExcludedService excludedService;
@@ -165,14 +164,20 @@ public class UserController {
             throw new NoSuchUserException();
         }
 
+        List<CollectionDto> collectionList = user.getCollections().stream()
+                .map(CollectionDto::new)
+                .collect(toList());
+
         List<DibDto> dibList = userService.getDibsByUserAndStateIsTrue(user).stream()
                 .map(DibDto::new)
                 .collect(toList());
-//        List<CombinationPost> combList = combPostService.findAllByUser(user);
-        List<CombinationPost> combList = null;
 
-//        UserResponse.GetDibNcombListResponse response = new UserResponse.GetDibNcombListResponse(dibList, combinationList);
-        return new SuccessResponseResult(combList);
+        List<CombPostDto> combPostList = user.getCombinationPosts().stream()
+                .map(CombPostDto::new)
+                .collect(toList());
+
+        UserResponse.GetDibNcombListResponse response = new UserResponse.GetDibNcombListResponse(collectionList, dibList, combPostList);
+        return new SuccessResponseResult(response);
     }
 
     @ApiOperation(value = "subti 등록", notes="subti 결과를 DB에 등록", httpMethod = "POST")
