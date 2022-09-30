@@ -22,5 +22,4 @@ public interface CombPostService {
 
     List<CombinationPost> findAllByUser(User user);
 
-    List<CombinationPost> findTop30ByOrderByLikesCntDescScoreAvgDesc();
 }

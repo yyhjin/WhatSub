@@ -83,10 +83,5 @@ public class CombPostServiceImpl implements CombPostService {
         return combPostRepository.findAllByUser(user);
     }
 
-    @Override
-    public List<CombinationPost> findTop30ByOrderByLikesCntDescScoreAvgDesc() {
-        return combPostRepository.findTop30ByOrderByLikesCntDescScoreAvgDesc();
-    }
-
 
 }
