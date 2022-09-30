@@ -11,15 +11,42 @@
         <span>10~15분</span>정도 소요될 예정이에요.
       </p>
     </div>
-    <order-detail></order-detail>
+    <div class="store">
+      서브웨이 역삼점
+    </div>
+    <div class="orderCheck">
+      주문내역
+      <order-detail :bas="bas" v-for="(bas, index) in basket" :key="index"></order-detail>
+    </div>
+    <div class="checkStore">
+      예상 시간에 맞춰 매장에 방문해주세요!
+      <div align="center" class="order_btn">
+        <v-btn class="main_btn" width="185" small elevation="0" rounded >픽업 매장 확인하기</v-btn>
+      </div>
+    </div>
+    <div class="bottom">
+      <bottom-nav></bottom-nav>
+    </div>
   </div>
 </template>
 
 <script>
 import OrderDetail from '../../components/common/OrderDetail.vue'
+import BottomNav from '@/components/common/BottomNav.vue'
 export default {
-  components: { OrderDetail },
-  name: 'OrderCheckView'
+  components: { OrderDetail, BottomNav },
+  name: 'OrderCheckView',
+
+  computed: {
+    basket () {
+      return JSON.parse(localStorage.getItem('basket'))
+    }
+  },
+
+  unmounted() {
+    localStorage.clear()
+  }
+  
 }
 </script>
 
@@ -39,6 +66,7 @@ export default {
   color: #f4c41f;
   font-weight: bold;
 }
+
 .time{
   height: 150px;
   width: 100%;
@@ -54,5 +82,29 @@ p {
 span {
   font-size: 30px;
   color: red;
+}
+.store{
+  height: 50px;
+  width: 100%;
+  background-color: #F5F5F5;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 2px;
+}
+.orderCheck{
+  width: 100%;
+  height: 300px;
+  overflow: scroll;
+  background-color: #F5F5F5;
+  text-align: center;
+}
+.checkStore {
+  margin-top: 20px;
+  height: 60px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
 }
 </style>
