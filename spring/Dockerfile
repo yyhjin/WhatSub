@@ -5,5 +5,5 @@ RUN ./gradlew clean build
 
 FROM openjdk:17-alpine 
 COPY --from=builder /var/jenkins_home/workspace/whatsub/spring/build/libs/*.jar whatsub.jar
-EXPOSE 8080
+EXPOSE 8081
 ENTRYPOINT ["java", "-jar", "whatsub.jar"]
