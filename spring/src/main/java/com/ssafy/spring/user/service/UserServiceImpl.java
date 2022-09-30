@@ -1,5 +1,6 @@
 package com.ssafy.spring.user.service;
 
+import com.ssafy.spring.comb.dto.IngredientDto;
 import com.ssafy.spring.user.entity.Dib;
 import com.ssafy.spring.user.entity.User;
 import com.ssafy.spring.user.repository.DibRepository;
@@ -7,7 +8,7 @@ import com.ssafy.spring.user.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
+import java.util.*;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -51,5 +52,23 @@ public class UserServiceImpl implements UserService {
     @Override
     public List<Dib> getDibsByUserAndStateIsTrue(User user) {
         return dibRepository.getDibsByUserAndStateIsTrue(user);
+    }
+
+    @Override
+    public Set<String> getExcludedIngredientId(List<String> vegetables, List<String> allergies, List<IngredientDto> ingredientDtoList) {
+        Set<String> excludedIngredientIds = new HashSet<>(vegetables);
+
+        for(IngredientDto ingredientDto : ingredientDtoList){
+            List<String> ingredientAllergies = Arrays.asList(ingredientDto.getAllergies().split(","));
+
+            for(String allergy : allergies){
+                if(ingredientAllergies.contains(allergy)) {
+                    excludedIngredientIds.add(ingredientDto.getIngredientId());
+                    break;
+                }
+            }
+        }
+
+        return excludedIngredientIds;
     }
 }

@@ -24,4 +24,5 @@ public class Excluded {
     @ManyToOne
     @JoinColumn(name = "ingredient_id")
     private Ingredient ingredient;
+
 }
