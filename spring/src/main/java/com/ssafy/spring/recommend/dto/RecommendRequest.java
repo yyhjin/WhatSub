@@ -7,9 +7,11 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class RecommendRequest {
 
-    private String combinationId;
-    private int userId;
-    private String combName;
-    private String content;
+    private float kcalMin;
+    private float kcalMax;
+    private float proteinMin;
+    private float proteinMax;
+    private float sodiumMin;
+    private float sodiumMax;
 
 }
