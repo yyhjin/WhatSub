@@ -1,4 +1,4 @@
-
+import order from './order'
 
 const HOST = 'http://127.0.0.1:8000/api/v1/'
 // const KAKAOHOST = "https://kauth.kakao.com"
@@ -16,5 +16,5 @@ export default {
     // username으로 프로필 제공
     profile: username => HOST + ACCOUNTS + 'profile/' + username + '/',
   },
- 
+  order: order
 }

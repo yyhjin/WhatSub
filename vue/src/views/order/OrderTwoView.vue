@@ -19,7 +19,7 @@
 import MenuList from '@/components/order/MenuList.vue'
 import { mapGetters } from 'vuex';
 
-// import { mapActions } from 'vuex';
+import { mapActions } from 'vuex';
 
 export default {
   name: 'OrderTwoView',
@@ -31,7 +31,7 @@ export default {
   },
 
   methods: {
-    // ...mapActions(['fetchMenus']),
+    ...mapActions(['fetchMenus']),
    goBack() {
       this.$router.go(-1);
     },
@@ -42,10 +42,14 @@ export default {
       } else {
         this.$router.push({path:'orderthree'})
       }
-    }
+    },
 
   },
 
+
+  mounted () {
+    this.fetchMenus()
+  },
   created () {
     // this.fetchMenus()
   }

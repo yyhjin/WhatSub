@@ -1,118 +1,10 @@
-// import axios from "axios";
+import axios from "axios";
+import api from "@/api/api"
 
 export default {
   state: {
     selectedStore: localStorage.getItem('store') || null,
-    menus: [
-      {
-        menu_id : 1,
-        img_url : 'https://www.subway.co.kr/upload/menu/Steak-&-Cheese_20211231095455613.png',
-        menu_name : '스테이크&치즈',
-        ingredient : '스테이크 1스쿱, 치즈 2장',
-        menu_desc : '스테이크에 치즈 넣은 샌드위치',
-        price : 7000,
-        kcal : 100.5,
-        protein : 30.2,
-        fat : 3.5,
-        allergies: ''
-      },
-      {
-        menu_id : 2,
-        img_url : 'https://www.subway.co.kr/upload/menu/Steak-&-Cheese_20211231095455613.png',
-        menu_name : '스테이크&치즈',
-        ingredient : '스테이크 1스쿱, 치즈 2장',
-        menu_desc : '스테이크에 치즈 넣은 샌드위치',
-        price : 7000,
-        kcal : 100.5,
-        protein : 30.2,
-        fat : 3.5,
-        allergies: ''
-      },
-      {
-        menu_id : 3,
-        img_url : 'https://www.subway.co.kr/upload/menu/Steak-&-Cheese_20211231095455613.png',
-        menu_name : '스테이크&치즈',
-        ingredient : '스테이크 1스쿱, 치즈 2장',
-        menu_desc : '스테이크에 치즈 넣은 샌드위치',
-        price : 7000,
-        kcal : 100.5,
-        protein : 30.2,
-        fat : 3.5,
-        allergies: ''
-      },
-      {
-        menu_id : 4,
-        img_url : 'https://www.subway.co.kr/upload/menu/Steak-&-Cheese_20211231095455613.png',
-        menu_name : '스테이크&치즈',
-        ingredient : '스테이크 1스쿱, 치즈 2장',
-        menu_desc : '스테이크에 치즈 넣은 샌드위치',
-        price : 7000,
-        kcal : 100.5,
-        protein : 30.2,
-        fat : 3.5,
-        allergies: ''
-      },
-      {
-        menu_id : 5,
-        img_url : 'https://www.subway.co.kr/upload/menu/Steak-&-Cheese_20211231095455613.png',
-        menu_name : '스테이크&치즈',
-        ingredient : '스테이크 1스쿱, 치즈 2장',
-        menu_desc : '스테이크에 치즈 넣은 샌드위치',
-        price : 7000,
-        kcal : 100.5,
-        protein : 30.2,
-        fat : 3.5,
-        allergies: ''
-      },
-      {
-        menu_id : 6,
-        img_url : 'https://www.subway.co.kr/upload/menu/Steak-&-Cheese_20211231095455613.png',
-        menu_name : '스테이크&치즈',
-        ingredient : '스테이크 1스쿱, 치즈 2장',
-        menu_desc : '스테이크에 치즈 넣은 샌드위치',
-        price : 7000,
-        kcal : 100.5,
-        protein : 30.2,
-        fat : 3.5,
-        allergies: ''
-      },
-      {
-        menu_id : 7,
-        img_url : 'https://www.subway.co.kr/upload/menu/Steak-&-Cheese_20211231095455613.png',
-        menu_name : '스테이크&치즈',
-        ingredient : '스테이크 1스쿱, 치즈 2장',
-        menu_desc : '스테이크에 치즈 넣은 샌드위치',
-        price : 7000,
-        kcal : 100.5,
-        protein : 30.2,
-        fat : 3.5,
-        allergies: ''
-      },
-      {
-        menu_id : 8,
-        img_url : 'https://www.subway.co.kr/upload/menu/Steak-&-Cheese_20211231095455613.png',
-        menu_name : '스테이크&치즈',
-        ingredient : '스테이크 1스쿱, 치즈 2장',
-        menu_desc : '스테이크에 치즈 넣은 샌드위치',
-        price : 7000,
-        kcal : 100.5,
-        protein : 30.2,
-        fat : 3.5,
-        allergies: ''
-      },
-      {
-        menu_id : 9,
-        img_url : 'https://www.subway.co.kr/upload/menu/Steak-&-Cheese_20211231095455613.png',
-        menu_name : '스테이크&치즈',
-        ingredient : '스테이크 1스쿱, 치즈 2장',
-        menu_desc : '스테이크에 치즈 넣은 샌드위치',
-        price : 7000,
-        kcal : 100.5,
-        protein : 30.2,
-        fat : 3.5,
-        allergies: ''
-      },
-    ],
+    menus: [],
     breads: [
       {
         ingredient_id: 1,
@@ -440,13 +332,20 @@ export default {
     
   },
   actions: {
-    // fetchMenus ({commit}, value) {
-    //   axios({
-    //     method: 'get',
-    //     url: '',
+    fetchMenus ({commit}) {
+      console.log(api.order.order.menu)
+      
+      axios({
+        method: 'get',
+        url: api.order.order.menu
+      }).then(res => {
+        console.log(res)
+        commit('SET_MENUS', res.data.data)
+      }).catch(err => {
+        console.error(err)
+      })
+    },
 
-    //   })
-    // },
     selectStore({ commit }, value) {
       commit("SET_SELECTEDSTORE", value);
       localStorage.setItem('store', JSON.stringify(value))
