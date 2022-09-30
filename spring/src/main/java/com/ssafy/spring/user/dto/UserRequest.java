@@ -15,12 +15,13 @@ public class UserRequest {
 
     @Data
     public static class SignUpRequest{
-//        private String authId;
+        private int userId;
         private String email;
         private String gender;
         private int birthYear;
-        private String userName;
-        private String profileImg;
+        private boolean isDiet;
+//        private String userName;
+//        private String profileImg;
     }
 
     @Data
