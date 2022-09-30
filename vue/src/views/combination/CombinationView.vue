@@ -6,7 +6,9 @@
     <div class="pt-15 pl-5 pr-5 pb-3">
       <h3 style="font-size: 22px; float: left">꿀조합 추천</h3>
       <v-spacer></v-spacer>
-      <v-btn class="green_btn" height="32" rounded style="float: right">꿀조합 등록</v-btn>
+      <v-btn class="green_btn" height="32" rounded style="float: right" @click="goOrderDetail"
+        >꿀조합 등록</v-btn
+      >
       <div class="mt-6">
         <div class="pt-8 ml-n2 mb-n10">
           <h2 style="position: relative; z-index: 2; transform: rotate(-35deg); width: 10px">
@@ -86,6 +88,11 @@ export default {
     goCombiDetail() {
       this.$router.push({
         name: "combinationdetail",
+      });
+    },
+    goOrderDetail() {
+      this.$router.push({
+        name: "orderdetail",
       });
     },
   },

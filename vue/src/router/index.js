@@ -73,6 +73,7 @@ const routes = [
     path: "/orderdetail",
     name: "orderdetail",
     component: OrderDetailView,
+    props: true,
   },
   {
     path: "/registcombination",
@@ -83,6 +84,7 @@ const routes = [
     path: "/registreview",
     name: "registreview",
     component: RegistReviewView,
+    props: true,
   },
   {
     path: "/zzim",
@@ -169,6 +171,7 @@ const routes = [
     path: "/mypage",
     name: "mypage",
     component: MyPageView,
+    props: true,
   },
   
 ]
