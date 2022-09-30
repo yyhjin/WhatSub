@@ -9,19 +9,19 @@
     <div>
       <recommend-comb-list :combi-list="combiList"></recommend-comb-list>
     </div>
-    <div class="ml-5 mr-5">
+    <div class="ml-3 mr-3">
       <v-row>
-        <v-col>
+        <v-col class="pa-0 pt-1 pl-5 pb-5">
           <v-btn class="main_btn" elevation="0" rounded @click="goTodayReco">오늘의 추천</v-btn>
         </v-col>
-        <v-col>
+        <v-col class="pa-0 pt-1 pr-5">
           <v-btn class="main_btn" elevation="0" rounded @click="goNutriReco"
             >영양정보로 추천 받기</v-btn
           >
         </v-col>
       </v-row>
     </div>
-    <div class="mt-8" align="center"><h2>광고</h2></div>
+    <div align="center"><v-img height="130" src="@/assets/subway_ad.jpg"></v-img></div>
     <div class="bottom">
       <bottom-nav></bottom-nav>
     </div>

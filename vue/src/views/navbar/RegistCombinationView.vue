@@ -75,6 +75,11 @@ export default {
       items: ["조합정보", "영양정보"],
     };
   },
+  methods: {
+    goBack() {
+      this.$router.go(-1);
+    },
+  },
 };
 </script>
 
