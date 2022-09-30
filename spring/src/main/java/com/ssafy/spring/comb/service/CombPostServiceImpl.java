@@ -78,5 +78,10 @@ public class CombPostServiceImpl implements CombPostService {
         return post.getCombinationPostId();
     }
 
+    @Override
+    public List<CombinationPost> findAllByUser(User user) {
+        return combPostRepository.findAllByUser(user);
+    }
+
 
 }
