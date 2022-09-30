@@ -1,4 +1,5 @@
-// import axios from "axios";
+import axios from "axios";
+import api from "@/api/api"
 
 export default {
   state: {
@@ -447,13 +448,20 @@ export default {
     }
   },
   actions: {
-    // fetchMenus ({commit}, value) {
-    //   axios({
-    //     method: 'get',
-    //     url: '',
+    fetchMenus ({commit}) {
+      console.log(api.order.order.menu)
+      
+      axios({
+        method: 'get',
+        url: api.order.order.menu
+      }).then(res => {
+        console.log(res)
+        commit('SET_MENUS', res.data.data)
+      }).catch(err => {
+        console.error(err)
+      })
+    },
 
-    //   })
-    // },
     selectStore({ commit }, value) {
       commit("SET_SELECTEDSTORE", value);
       localStorage.setItem('store', JSON.stringify(value))
