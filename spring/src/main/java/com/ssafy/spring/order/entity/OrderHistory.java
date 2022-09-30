@@ -1,10 +1,12 @@
 package com.ssafy.spring.order.entity;
 
 import com.ssafy.spring.comb.entity.Combination;
+import lombok.Builder;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 
+@Builder
 @Entity
 public class OrderHistory {
 
@@ -21,4 +23,8 @@ public class OrderHistory {
     private Combination combination;
 
     private int count;
+
+    private String gender;
+    private int birthYear;
+    private String subti;
 }
