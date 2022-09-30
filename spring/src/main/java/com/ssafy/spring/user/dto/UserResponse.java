@@ -1,7 +1,6 @@
 package com.ssafy.spring.user.dto;
 
-import com.ssafy.spring.comb.entity.Combination;
-import com.ssafy.spring.user.entity.Dib;
+import com.ssafy.spring.comb.dto.CombPostDto;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -23,8 +22,9 @@ public class UserResponse {
 
     @Data
     @AllArgsConstructor
-    public static class GetDibNcombListResponse{
-        List<DibDto> dibList;
-        List<Combination> combinationList;
+    public static class GetDibNcombListResponse {
+        List<CollectionDto> collections;
+        List<DibDto> dibs;
+        List<CombPostDto> combinations;
     }
 }

@@ -24,15 +24,12 @@ public class User {
 
     private String authId;
 
-//    @Column(nullable = false)
     private String email;
 
-//    @Column(nullable = false)
     private String gender;
 
     private int birthYear;
 
-    //    @Column(unique = true, nullable = false)
     @Column(unique = true)
     private String userName;
 
@@ -48,6 +45,9 @@ public class User {
 
     @OneToMany(mappedBy = "user")
     private List<CombinationPost> combinationPosts = new ArrayList<>();
+
+    @OneToMany(mappedBy = "user")
+    private List<Collection> collections = new ArrayList<>();
 
     public void updateInfo(UserRequest.SignUpRequest request){
         this.email = request.getEmail();
