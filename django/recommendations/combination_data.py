@@ -9,7 +9,9 @@ def fill_df(df_ingredients,df_menus,df_combination,total):
     columns = df_combination.columns[1:]
     df = pd.DataFrame(index=total, columns=columns)
     cnt = 0
-    for i, row in df[:1000].iterrows():
+    n = -300000
+    m = -200000
+    for i, row in df[n:m].iterrows():
         allergies = set()
         bland = chewy = fat = kcal = nutty = price = protein = salty =sodium = soft = sour = spicy = sugar = sweet = 0
         img_url = ''
@@ -56,10 +58,10 @@ def fill_df(df_ingredients,df_menus,df_combination,total):
         df.at[i, 'sugar'] = sugar
         df.at[i, 'sweet'] = sweet
         cnt+=1
-        if cnt % 100 == 0:
+        if cnt % 1000 == 0:
             print(cnt)  
-    print(df[:5])
-    df[:1000].to_csv("C:\\Users\\SSAFY\\Desktop\\df.csv",sep=',',na_rep='NaN',encoding="utf-8-sig")
+    # print(df[:5])
+    df[n:m].to_csv("C:\\Users\\SSAFY\\Desktop\\df.csv",sep=',',na_rep='NaN',encoding="utf-8-sig")
     pass
 
 def make_combinations(ingredients,menus,combination):
