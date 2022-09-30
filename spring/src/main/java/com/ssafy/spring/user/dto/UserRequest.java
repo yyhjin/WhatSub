@@ -2,6 +2,7 @@ package com.ssafy.spring.user.dto;
 
 import lombok.Builder;
 import lombok.Data;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -20,8 +21,8 @@ public class UserRequest {
         private String gender;
         private int birthYear;
         private boolean isDiet;
-//        private String userName;
-//        private String profileImg;
+        private String userName;
+        private MultipartFile profileImg;
     }
 
     @Data
