@@ -1,15 +1,15 @@
 package com.ssafy.spring.user.controller;
 
 import com.ssafy.spring.SuccessResponseResult;
-import com.ssafy.spring.comb.entity.Combination;
+import com.ssafy.spring.comb.dto.IngredientDto;
 import com.ssafy.spring.comb.entity.CombinationPost;
 import com.ssafy.spring.comb.entity.Ingredient;
 import com.ssafy.spring.comb.service.CombPostService;
+import com.ssafy.spring.comb.service.IngredientService;
 import com.ssafy.spring.exception.NoSuchUserException;
 import com.ssafy.spring.user.dto.DibDto;
 import com.ssafy.spring.user.dto.UserRequest;
 import com.ssafy.spring.user.dto.UserResponse;
-import com.ssafy.spring.user.entity.Dib;
 import com.ssafy.spring.user.entity.Excluded;
 import com.ssafy.spring.user.entity.User;
 import com.ssafy.spring.user.service.ExcludedService;
@@ -19,7 +19,9 @@ import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 import static java.util.stream.Collectors.toList;
 
@@ -37,6 +39,9 @@ public class UserController {
 
     @Autowired
     private ExcludedService excludedService;
+
+    @Autowired
+    private IngredientService ingredientService;
 
     // 더미 데이터 생성 api
     @ApiOperation(value = "더미 데이터 생성", notes="임시 유저 데이터 5000개 삽입", httpMethod = "GET")
@@ -194,22 +199,31 @@ public class UserController {
             throw new NoSuchUserException();
         }
 
-        List<Integer> vegetables = request.getVegetables();
+        List<String> vegetables = request.getVegetables();
         List<String> allergies = request.getAllergies();
 
-        // 알레르기 및 제외 재료 로직
-        //1. 알레르기 정보가 포함된 재료들을 가져옴
-        List<Ingredient> ingredientList = null;
+        // 알레르기 정보가 포함된 재료들을 가져옴
+        List<IngredientDto> ingredientDtoList = ingredientService.findByAllergiesContainsIn(allergies);
 
+        // 알레르기 정보를 포함하여 유저가 못 먹는 재료 id를 추출
+        Set<String> excludedIngredientIds = userService.getExcludedIngredientId(vegetables, allergies, ingredientDtoList);
+        List<String> excludedIngredientIdsList = new ArrayList<>(excludedIngredientIds);
 
-        //2. 현재 유저가 못먹는 재료를 삽입
-        Excluded excluded = new Excluded();
-        excluded.setUser(user);
+        List<Ingredient> ingredientList = ingredientService.findByIngredientIdIn(excludedIngredientIdsList);
+        List<Excluded> excludedList = new ArrayList<>();
 
         for(Ingredient ingredient : ingredientList){
-            excluded.setIngredient(ingredient);
-            excludedService.save(excluded);
+            // 유저가 못먹는 재료를 삽입
+            Excluded excluded = Excluded.builder()
+                            .user(user)
+                            .ingredient(ingredient)
+                            .build();
+            // save < saveAll의 성능 차이
+//            excludedService.save(excluded);
+            excludedList.add(excluded);
         }
+
+        excludedService.saveAll(excludedList);
 
         return new SuccessResponseResult();
     }
