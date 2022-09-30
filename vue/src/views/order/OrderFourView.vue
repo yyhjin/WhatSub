@@ -83,10 +83,10 @@
         총 {{ totalPrice }}원
       </div>
       
-      <button class="order_btn main_btn">
+      <button class="order_btn main_btn" @click.prevent="setBasket">
         장바구니
       </button>
-      <button class="order_btn green_btn">
+      <button class="order_btn green_btn" @click.prevent="setOrder">
         바로 주문
       </button>
       
@@ -172,7 +172,7 @@ export default {
         return mores
       }
     },
-    ...mapGetters(['selectedMenu', 'selectedBread', 'selectedCheese', 
+    ...mapGetters(['selectedStore', 'selectedMenu', 'selectedBread', 'selectedCheese', 
     'selectedSauce', 'selectedMore', 'selectedVege', 'selectedMoreMeat']),
 
     calorie () {
@@ -235,6 +235,41 @@ export default {
       if (this.cnt > 0) {
         this.cnt -= 1
       }
+    },
+
+    setBasket () {
+      const bas = JSON.parse(localStorage.getItem('basket')) || []
+      let order = {
+        'store': this.selectedStore,
+        'menu' : this.selectedMenu,
+        'size' : this.selectedSize,
+        'vege' : this.selectedVege,
+        'more' : this.selectedMore,
+        'sauce' : this.selectedSauce,
+        'moremeat' : this.selectedMoreMeat,
+        'bread' : this.selectedBread,
+        'cheese' : this.selectedCheese,
+        'cnt' : this.cnt,
+        'price' : this.totalPrice
+      }
+      console.log(bas)
+      console.log(order)
+      bas.push(order)
+      console.log(bas)
+      localStorage.setItem('basket', JSON.stringify(bas))
+      localStorage.setItem('menu', null)
+      localStorage.setItem('size', null)
+      localStorage.setItem('vege', null)
+      localStorage.setItem('more', null)
+      localStorage.setItem('sauce', null)
+      localStorage.setItem('bread', null)
+      localStorage.setItem('cheese', null)
+      localStorage.setItem('moremeat', null)
+      this.$router.replace('/ordertwo')
+    },
+
+    setOrder () {
+      this.$router.push('/ordercheck')
     }
   }
 }
