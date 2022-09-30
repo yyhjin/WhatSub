@@ -6,11 +6,9 @@ import com.ssafy.spring.comb.dto.CombPostRequest;
 import com.ssafy.spring.comb.dto.CombPostResponse;
 import com.ssafy.spring.comb.entity.Combination;
 import com.ssafy.spring.comb.entity.CombinationPost;
+import com.ssafy.spring.comb.entity.Ingredient;
 import com.ssafy.spring.comb.entity.Menu;
-import com.ssafy.spring.comb.service.CombPostService;
-import com.ssafy.spring.comb.service.CombService;
-import com.ssafy.spring.comb.service.MenuService;
-import com.ssafy.spring.comb.service.S3Service;
+import com.ssafy.spring.comb.service.*;
 import com.ssafy.spring.review.dto.ReviewResponse;
 import com.ssafy.spring.review.entity.Review;
 import com.ssafy.spring.review.service.ReviewService;
@@ -25,7 +23,9 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 
@@ -41,8 +41,9 @@ public class CombPostController {
     private final S3Service s3Service;
     private final ReviewService reviewService;
     private final DibService dibService;
+    private final IngredientService ingredientService;
 
-    public CombPostController(CombService combService, CombPostService combPostService, UserService userService, MenuService menuService, S3Service s3Service, ReviewService reviewService, DibService dibService) {
+    public CombPostController(CombService combService, CombPostService combPostService, UserService userService, MenuService menuService, S3Service s3Service, ReviewService reviewService, DibService dibService, IngredientService ingredientService) {
         this.combService = combService;
         this.combPostService = combPostService;
         this.userService = userService;
@@ -50,6 +51,7 @@ public class CombPostController {
         this.s3Service = s3Service;
         this.reviewService = reviewService;
         this.dibService = dibService;
+        this.ingredientService = ingredientService;
     }
 
 
@@ -58,7 +60,85 @@ public class CombPostController {
     @Transactional
     public SuccessResponseResult createComb(@RequestBody CombDto combination) {
 
-        Combination newcomb = combService.save(combination);
+        Combination newcomb = new Combination();
+        newcomb.setCombinationId(combination.getCombinationId());
+        newcomb.setKcal(combination.getKcal());
+        newcomb.setProtein(combination.getProtein());
+        newcomb.setSodium(combination.getSodium());
+        newcomb.setFat(combination.getFat());
+        newcomb.setSugar(combination.getSugar());
+        newcomb.setPrice(combination.getPrice());
+
+        // 재료 하나하나 반영해서 더할 변수
+        Set<String> set = new HashSet<>();
+        String allergies = "";
+        int soft = 0;
+        int salty = 0;
+        int chewy = 0;
+        int sour = 0;
+        int sweet = 0;
+        int nutty = 0;
+        int spicy = 0;
+        int bland = 0;
+
+        // 조합 식별자 구분하여 저장
+        String menuId = combination.getCombinationId().substring(0,1);
+        String list = combination.getCombinationId().substring(1);
+        String[] ingredients = new String[list.length()/2];
+        for (int i = 0, j = 0; j < list.length()/2; i += 2, j++) {
+            ingredients[j] = list.substring(i, i+2);
+        }
+
+        // 메뉴 영양정보, 알러지 더하기
+        Menu menu = menuService.getMenuByMenuId(menuId);
+
+        String[] menu_aller = menu.getAllergies().split(",");
+        for (int i = 0; i < menu_aller.length; i++) {
+            set.add(menu_aller[i]);
+        }
+
+        soft += menu.getSoft();
+        salty += menu.getSalty();
+        chewy += menu.getChewy();
+        sour += menu.getSour();
+        sweet += menu.getSweet();
+        nutty += menu.getNutty();
+        spicy += menu.getSpicy();
+        bland += menu.getBland();
+
+        // 재료 영양정보, 알러지 더하기
+        for (int i = 0; i < ingredients.length; i++) {
+            Ingredient ingredient = ingredientService.findByIngredientId(ingredients[i]);
+
+            String[] ingre_aller = menu.getAllergies().split(",");
+            for (int j = 0; j < ingre_aller.length; j++) {
+                set.add(ingre_aller[j]);
+            }
+
+            soft += menu.getSoft();
+            salty += menu.getSalty();
+            chewy += menu.getChewy();
+            sour += menu.getSour();
+            sweet += menu.getSweet();
+            nutty += menu.getNutty();
+            spicy += menu.getSpicy();
+            bland += menu.getBland();
+        }
+
+        // set에 있는 알러지 정보들 string으로 묶기
+        allergies = String.join(",", set);
+
+        newcomb.setAllergies(allergies);
+        newcomb.setSoft(soft);
+        newcomb.setSalty(salty);
+        newcomb.setChewy(chewy);
+        newcomb.setSour(sour);
+        newcomb.setSweet(sweet);
+        newcomb.setNutty(nutty);
+        newcomb.setSpicy(spicy);
+        newcomb.setBland(bland);
+
+        combService.save(newcomb);
 
         return new SuccessResponseResult();
     }
