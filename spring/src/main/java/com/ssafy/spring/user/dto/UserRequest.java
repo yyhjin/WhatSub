@@ -32,7 +32,7 @@ public class UserRequest {
     @Data
     public static class ExcludeRequest{
         private List<Integer> vegetables;
-        private List<Integer> allergies;
+        private List<String> allergies;
     }
 }
 

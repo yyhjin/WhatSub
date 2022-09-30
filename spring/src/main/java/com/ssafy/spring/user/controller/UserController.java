@@ -3,13 +3,16 @@ package com.ssafy.spring.user.controller;
 import com.ssafy.spring.SuccessResponseResult;
 import com.ssafy.spring.comb.entity.Combination;
 import com.ssafy.spring.comb.entity.CombinationPost;
+import com.ssafy.spring.comb.entity.Ingredient;
 import com.ssafy.spring.comb.service.CombPostService;
 import com.ssafy.spring.exception.NoSuchUserException;
 import com.ssafy.spring.user.dto.DibDto;
 import com.ssafy.spring.user.dto.UserRequest;
 import com.ssafy.spring.user.dto.UserResponse;
 import com.ssafy.spring.user.entity.Dib;
+import com.ssafy.spring.user.entity.Excluded;
 import com.ssafy.spring.user.entity.User;
+import com.ssafy.spring.user.service.ExcludedService;
 import com.ssafy.spring.user.service.UserService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -31,6 +34,9 @@ public class UserController {
 
     @Autowired
     private CombPostService combPostService;
+
+    @Autowired
+    private ExcludedService excludedService;
 
     // 더미 데이터 생성 api
     @ApiOperation(value = "더미 데이터 생성", notes="임시 유저 데이터 5000개 삽입", httpMethod = "GET")
@@ -166,9 +172,12 @@ public class UserController {
 
     @ApiOperation(value = "subti 등록", notes="subti 결과를 DB에 등록", httpMethod = "POST")
     @PostMapping("/subti")
-    public SuccessResponseResult setSubti(@RequestBody UserRequest.SetSubtiRequest request) {
+    public SuccessResponseResult setSubti(@RequestBody UserRequest.SetSubtiRequest request) throws NoSuchUserException {
         int userId = request.getUserId();
         User user = userService.getUserByUserId(userId);
+        if(user == null){
+            throw new NoSuchUserException();
+        }
 
         String subti = request.getSubti();
         user.setSubti(subti);
@@ -186,11 +195,21 @@ public class UserController {
         }
 
         List<Integer> vegetables = request.getVegetables();
-        List<Integer> allergies = request.getAllergies();
+        List<String> allergies = request.getAllergies();
 
         // 알레르기 및 제외 재료 로직
+        //1. 알레르기 정보가 포함된 재료들을 가져옴
+        List<Ingredient> ingredientList = null;
 
 
+        //2. 현재 유저가 못먹는 재료를 삽입
+        Excluded excluded = new Excluded();
+        excluded.setUser(user);
+
+        for(Ingredient ingredient : ingredientList){
+            excluded.setIngredient(ingredient);
+            excludedService.save(excluded);
+        }
 
         return new SuccessResponseResult();
     }
