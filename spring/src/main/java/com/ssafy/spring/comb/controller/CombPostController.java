@@ -6,11 +6,9 @@ import com.ssafy.spring.comb.dto.CombPostRequest;
 import com.ssafy.spring.comb.dto.CombPostResponse;
 import com.ssafy.spring.comb.entity.Combination;
 import com.ssafy.spring.comb.entity.CombinationPost;
+import com.ssafy.spring.comb.entity.Ingredient;
 import com.ssafy.spring.comb.entity.Menu;
-import com.ssafy.spring.comb.service.CombPostService;
-import com.ssafy.spring.comb.service.CombService;
-import com.ssafy.spring.comb.service.MenuService;
-import com.ssafy.spring.comb.service.S3Service;
+import com.ssafy.spring.comb.service.*;
 import com.ssafy.spring.review.dto.ReviewResponse;
 import com.ssafy.spring.review.entity.Review;
 import com.ssafy.spring.review.service.ReviewService;
@@ -25,7 +23,9 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 
@@ -41,8 +41,9 @@ public class CombPostController {
     private final S3Service s3Service;
     private final ReviewService reviewService;
     private final DibService dibService;
+    private final IngredientService ingredientService;
 
-    public CombPostController(CombService combService, CombPostService combPostService, UserService userService, MenuService menuService, S3Service s3Service, ReviewService reviewService, DibService dibService) {
+    public CombPostController(CombService combService, CombPostService combPostService, UserService userService, MenuService menuService, S3Service s3Service, ReviewService reviewService, DibService dibService, IngredientService ingredientService) {
         this.combService = combService;
         this.combPostService = combPostService;
         this.userService = userService;
@@ -50,6 +51,7 @@ public class CombPostController {
         this.s3Service = s3Service;
         this.reviewService = reviewService;
         this.dibService = dibService;
+        this.ingredientService = ingredientService;
     }
 
 
@@ -58,7 +60,7 @@ public class CombPostController {
     @Transactional
     public SuccessResponseResult createComb(@RequestBody CombDto combination) {
 
-        Combination newcomb = combService.save(combination);
+        combService.save(combination);
 
         return new SuccessResponseResult();
     }
