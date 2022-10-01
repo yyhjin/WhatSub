@@ -83,28 +83,6 @@ public class UserController {
         return new SuccessResponseResult();
     }
 
-//    @ApiOperation(value = "설문조사 내용 업데이트", notes="회원가입에 성공하면 success, 아니면 fail", httpMethod = "POST")
-//    @PostMapping("/signup")
-//    public SuccessResponseResult signUp(@RequestBody UserRequest.SignUpRequest request) throws NoSuchUserException {
-//        User user = userService.getUserByUserId(request.getUserId());
-//
-//        if(user == null){
-//            throw new NoSuchUserException();
-//        }
-//
-//        user.updateInfo(request);
-////        user = User.builder()
-////                .email(request.getEmail())
-////                .gender(request.getGender())
-////                .birthYear(request.getBirthYear())
-////                .userName(request.getUserName())
-////                .profileImg(request.getProfileImg())
-////                .build();
-//        userService.save(user);
-//        String userName = user.getUserName();
-//        return new SuccessResponseResult(userName);
-//    }
-
     @ApiOperation(value = "설문조사 내용 업데이트", notes="회원가입에 성공하면 success, 아니면 fail", httpMethod = "POST")
     @PostMapping("/signup")
     // formData 받기
@@ -133,15 +111,6 @@ public class UserController {
         String userName = user.getUserName();
         return new SuccessResponseResult(userName);
     }
-
-//    @ApiOperation(value = "일반 로그인", notes="로그인에 성공하면 username 반환", httpMethod = "POST")
-//    @PostMapping("/login")
-//    public SuccessResponseResult login(@RequestBody UserRequest.LoginRequest request){
-//
-//        // 로그인 로직
-//
-//        return new SuccessResponseResult();
-//    }
 
     @ApiOperation(value = "유저 정보 조회", notes="userName을 통해 유저 정보 조회(남자: 0, 여자: 1)", httpMethod = "GET")
     @GetMapping("/{userName}")

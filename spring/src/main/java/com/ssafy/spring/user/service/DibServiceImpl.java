@@ -21,7 +21,6 @@ public class DibServiceImpl implements DibService {
 
     @Override
     public Dib findByCombinationPost_CombinationPostIdAndUser_UserId(int postId, int userId) {
-//        return dibRepository.findByCombinationPostIdAndAndUser_UserId(postId, userId);
         return dibRepository.findByCombinationPost_CombinationPostIdAndUser_UserId(postId, userId);
     }
 
