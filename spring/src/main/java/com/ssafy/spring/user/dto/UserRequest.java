@@ -20,7 +20,6 @@ public class UserRequest {
         private String email;
         private String gender;
         private int birthYear;
-        private boolean isDiet;
         private String userName;
         private MultipartFile profileImg;
     }
@@ -32,6 +31,7 @@ public class UserRequest {
 
     @Data
     public static class ExcludeRequest{
+        private boolean isDiet;
         private List<String> vegetables;
         private List<String> allergies;
     }

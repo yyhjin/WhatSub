@@ -235,6 +235,10 @@ public class UserController {
             throw new NoSuchUserException();
         }
 
+        // 다이어트 여부 저장
+        user.setDiet(request.isDiet());
+        userService.save(user);
+
         List<String> vegetables = request.getVegetables();
         List<String> allergies = request.getAllergies();
 
