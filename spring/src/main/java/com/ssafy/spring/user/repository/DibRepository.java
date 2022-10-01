@@ -12,6 +12,4 @@ public interface DibRepository extends JpaRepository<Dib, Integer> {
     List<Dib> getDibsByUserAndStateIsTrue(User user);
 
     Dib findByCombinationPost_CombinationPostIdAndUser_UserId(int combinationPostId, int userId);
-
-//    Dib findByCombinationPostIdAndAndUser_UserId(int postId, int userId);
 }

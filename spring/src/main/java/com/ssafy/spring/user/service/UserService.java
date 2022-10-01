@@ -23,7 +23,4 @@ public interface UserService {
     List<Dib> getDibsByUserAndStateIsTrue(User user);
 
     Set<String> getExcludedIngredientId(List<String> vegetables, List<String> allergies, List<IngredientDto> ingredientDtoList);
-    
-    // 매달 랭킹에 따른 컬렉션을 갱신하기 위함
-
 }

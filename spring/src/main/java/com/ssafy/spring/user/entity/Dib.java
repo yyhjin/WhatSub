@@ -22,9 +22,6 @@ public class Dib {
     @JoinColumn(name = "user_id")
     private User user;
 
-//    @NotNull
-//    private int combinationPostId;
-
     @ManyToOne
     @JoinColumn(name = "combination_post_id")
     private CombinationPost combinationPost;
