@@ -7,7 +7,11 @@ const ORDER = 'order/'
 
 export default {
   order: {
-    menu: () => HOST + ORDER + 'menu/'
+    makeorder: () => HOST + ORDER ,
+    menu: () => HOST + ORDER + 'menu/',
+    ingredient: () => HOST + ORDER + 'ingredient/',
+    store: () => HOST + ORDER + 'store/',
+    read:(username) => HOST + ORDER + `${username}`,
   },
  
 }
