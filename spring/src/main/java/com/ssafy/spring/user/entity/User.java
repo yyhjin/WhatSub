@@ -53,6 +53,5 @@ public class User {
         this.email = request.getEmail();
         this.gender = request.getGender();
         this.birthYear = request.getBirthYear();
-        this.isDiet = request.isDiet();
     }
 }

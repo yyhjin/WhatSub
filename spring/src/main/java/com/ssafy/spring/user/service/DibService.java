@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface DibService {
 
-    Dib findByCombinationPostIdAndAndUser_UserId(int postId, int userId);
+    Dib findByCombinationPost_CombinationPostIdAndUser_UserId(int postId, int userId);
 
     void save(Dib dib);
 

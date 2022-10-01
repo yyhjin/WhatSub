@@ -217,7 +217,7 @@ public class CombPostController {
     @Transactional
     public SuccessResponseResult createCombPost(@RequestParam int combPostId, @RequestParam int userId) {
 
-        Dib dib = dibService.findByCombinationPostIdAndAndUser_UserId(combPostId, userId);
+        Dib dib = dibService.findByCombinationPost_CombinationPostIdAndUser_UserId(combPostId, userId);
         CombinationPost post = combPostService.findByCombinationPostId(combPostId);
 
         // 아예 데이터가 없으면 생성, 게시글 좋아요 수 ++
@@ -225,7 +225,8 @@ public class CombPostController {
             Dib newdib = new Dib();
             User user = userService.getUserByUserId(userId);
 
-            newdib.setCombinationPostId(combPostId);
+//            newdib.setCombinationPostId(combPostId);
+            newdib.setCombinationPost(post);
             newdib.setUser(user);
             dibService.save(newdib);
             combPostService.likescntUpdate(post, post.getLikesCnt()+1);
