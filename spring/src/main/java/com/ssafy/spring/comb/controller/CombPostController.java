@@ -6,7 +6,6 @@ import com.ssafy.spring.SuccessResponseResult;
 import com.ssafy.spring.comb.dto.CombDto;
 import com.ssafy.spring.comb.dto.CombPostRequest;
 import com.ssafy.spring.comb.dto.CombPostResponse;
-import com.ssafy.spring.comb.dto.StatisticsDto;
 import com.ssafy.spring.comb.entity.Combination;
 import com.ssafy.spring.comb.entity.CombinationPost;
 import com.ssafy.spring.comb.entity.Menu;
@@ -31,7 +30,9 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 
@@ -266,10 +267,32 @@ public class CombPostController {
 
         for(int i = 0; i < posts.size(); i++) {
             // 저장할 통계 데이터
-            StatisticsDto statistics = new StatisticsDto();
-            StatisticsDto.Gender gender = new StatisticsDto.Gender();
-            StatisticsDto.Age age = new StatisticsDto.Age();
-            StatisticsDto.Subti subti = new StatisticsDto.Subti();
+            Map<String, Integer> map = new HashMap<>();
+            map.put("male", 0);
+            map.put("female", 0);
+            map.put("teenager", 0);
+            map.put("twenties", 0);
+            map.put("thirties", 0);
+            map.put("forties", 0);
+            map.put("fifties", 0);
+            map.put("sixties", 0);
+            map.put("LSAH", 0);
+            map.put("LSAM", 0);
+            map.put("LSEH", 0);
+            map.put("LSEM", 0);
+            map.put("LCAH", 0);
+            map.put("LCAM", 0);
+            map.put("LCEH", 0);
+            map.put("LCEM", 0);
+            map.put("ISAH", 0);
+            map.put("ISAM", 0);
+            map.put("ISEH", 0);
+            map.put("ISEM", 0);
+            map.put("ICAH", 0);
+            map.put("ICAM", 0);
+            map.put("ICEH", 0);
+            map.put("ICEM", 0);
+
 
             // 통계 저장할 게시글
             CombinationPost curPost = posts.get(i);
@@ -286,43 +309,25 @@ public class CombPostController {
                 String user_subti = curOrder.getSubti();
 
                 // 성별 count
-                if(user_gender.equals("0")) gender.setMale(gender.getMale()+1);
-                else if(user_gender.equals("1")) gender.setFemale(gender.getFemale()+1);
+                if(user_gender.equals("0")) map.put("male", map.get("male")+1);
+                else if(user_gender.equals("1")) map.put("female", map.get("female")+1);
 
                 //나이 count
-                if(user_age<20) age.setTeenager(age.getTeenager()+1);
-                else if(user_age<30) age.setTwenties(age.getTwenties()+1);
-                else if(user_age<40) age.setThirties(age.getThirties()+1);
-                else if(user_age<50) age.setForties(age.getForties()+1);
-                else if(user_age<60) age.setFifties(age.getFifties()+1);
-                else if(user_age>=60) age.setSixties(age.getSixties()+1);
+                if(user_age<20) map.put("teenager", map.get("teenager")+1);
+                else if(user_age<30) map.put("twenties", map.get("twenties")+1);
+                else if(user_age<40) map.put("thirties", map.get("thirties")+1);
+                else if(user_age<50) map.put("forties", map.get("forties")+1);
+                else if(user_age<60) map.put("fifties", map.get("fifties")+1);
+                else if(user_age>=60) map.put("sixties", map.get("sixties")+1);
 
                 // SUBTI count
-                if(user_subti.equals("LSAH")) subti.setLSAH(subti.getLSAH()+1);
-                else if(user_subti.equals("LSAM")) subti.setLSAM(subti.getLSAM()+1);
-                else if(user_subti.equals("LSEH")) subti.setLSEH(subti.getLSEH()+1);
-                else if(user_subti.equals("LSEM")) subti.setLSEM(subti.getLSEM()+1);
-                else if(user_subti.equals("LCAH")) subti.setLCAH(subti.getLCAH()+1);
-                else if(user_subti.equals("LCAM")) subti.setLCAM(subti.getLCAM()+1);
-                else if(user_subti.equals("LCEH")) subti.setLCEH(subti.getLCEH()+1);
-                else if(user_subti.equals("LCEM")) subti.setLCEM(subti.getLCEM()+1);
-                else if(user_subti.equals("ISAH")) subti.setISAH(subti.getISAH()+1);
-                else if(user_subti.equals("ISAM")) subti.setISAM(subti.getISAM()+1);
-                else if(user_subti.equals("ISEH")) subti.setISEH(subti.getISEH()+1);
-                else if(user_subti.equals("ISEM")) subti.setISEM(subti.getISEM()+1);
-                else if(user_subti.equals("ICAH")) subti.setICAH(subti.getICAH()+1);
-                else if(user_subti.equals("ICAM")) subti.setICAM(subti.getICAM()+1);
-                else if(user_subti.equals("ICEH")) subti.setICEH(subti.getICEH()+1);
-                else if(user_subti.equals("ICEM")) subti.setICEM(subti.getICEM()+1);
+                map.put(user_subti, map.get(user_subti)+1);
+
             }
 
-            statistics.setGender(gender);
-            statistics.setAge(age);
-            statistics.setSubti(subti);
-
-            // object를 json string 형태로 변환
+            // map을 json string 형태로 변환
             ObjectMapper objectMapper = new ObjectMapper();
-            String statisticsJson = objectMapper.writeValueAsString(statistics);
+            String statisticsJson = objectMapper.writeValueAsString(map);
 
             // 게시글에 통계 저장
             combPostService.statisticsUpdate(curPost, statisticsJson);
