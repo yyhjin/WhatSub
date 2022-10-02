@@ -164,14 +164,18 @@ export default{
         price: 8400,
       },
     ],
+    combiListByOthers:[],
   },
   getters: {
     sandList: (state) => state.sandList,
+    combiListByOthers: (state) => state.combiListByOthers,
   },
   mutations: {
+    SET_COMBI_LIST_BY_OTHERS: (state, combiListByOthers) => (state.combiListByOthers = combiListByOthers),
   },
   actions: {
+    getCombiListByOthers() {
+      
+    }
   },
-  modules: {
-  }
 }
