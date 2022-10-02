@@ -18,5 +18,6 @@ public interface CombPostService {
     List<CombinationPost> findAllByOrderByScoreAvgDesc();
     List<CombinationPost> findAllByOrderByCreatedAtDesc();
     int likescntUpdate(CombinationPost post, int likesCnt);
+    void statisticsUpdate(CombinationPost post, String statistics);
 
 }

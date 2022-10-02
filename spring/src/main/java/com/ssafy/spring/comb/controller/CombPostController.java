@@ -1,14 +1,18 @@
 package com.ssafy.spring.comb.controller;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.ssafy.spring.SuccessResponseResult;
 import com.ssafy.spring.comb.dto.CombDto;
 import com.ssafy.spring.comb.dto.CombPostRequest;
 import com.ssafy.spring.comb.dto.CombPostResponse;
+import com.ssafy.spring.comb.dto.StatisticsDto;
 import com.ssafy.spring.comb.entity.Combination;
 import com.ssafy.spring.comb.entity.CombinationPost;
-import com.ssafy.spring.comb.entity.Ingredient;
 import com.ssafy.spring.comb.entity.Menu;
 import com.ssafy.spring.comb.service.*;
+import com.ssafy.spring.order.entity.OrderHistory;
+import com.ssafy.spring.order.service.OrderHistoryService;
 import com.ssafy.spring.review.dto.ReviewResponse;
 import com.ssafy.spring.review.entity.Review;
 import com.ssafy.spring.review.service.ReviewService;
@@ -18,20 +22,23 @@ import com.ssafy.spring.user.service.DibService;
 import com.ssafy.spring.user.service.UserService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import org.springframework.scheduling.annotation.Async;
+import org.springframework.scheduling.annotation.EnableAsync;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 import java.util.stream.Collectors;
 
 
 @Api(value = "꿀조합 게시판", tags={"combination post-controller"})
 @RestController
 @RequestMapping("/comb")
+@EnableAsync
 public class CombPostController {
 
     private final CombService combService;
@@ -42,8 +49,9 @@ public class CombPostController {
     private final ReviewService reviewService;
     private final DibService dibService;
     private final IngredientService ingredientService;
+    private final OrderHistoryService orderHistoryService;
 
-    public CombPostController(CombService combService, CombPostService combPostService, UserService userService, MenuService menuService, S3Service s3Service, ReviewService reviewService, DibService dibService, IngredientService ingredientService) {
+    public CombPostController(CombService combService, CombPostService combPostService, UserService userService, MenuService menuService, S3Service s3Service, ReviewService reviewService, DibService dibService, IngredientService ingredientService, OrderHistoryService orderHistoryService) {
         this.combService = combService;
         this.combPostService = combPostService;
         this.userService = userService;
@@ -52,6 +60,7 @@ public class CombPostController {
         this.reviewService = reviewService;
         this.dibService = dibService;
         this.ingredientService = ingredientService;
+        this.orderHistoryService = orderHistoryService;
     }
 
 
@@ -244,6 +253,81 @@ public class CombPostController {
         }
 
         return new SuccessResponseResult();
+    }
+
+
+    @ApiOperation(value = "게시글 통계 갱신", notes = "하루에 한 번씩 모든 게시글에 대한 통계를 갱신하여 저장한다.", httpMethod = "GET")
+    @GetMapping("/statistics")
+    @Scheduled(cron = "0 0 12 * * *")
+    @Async
+    public void updatePostStatistics() throws JsonProcessingException {
+
+        List<CombinationPost> posts = combPostService.findAllByOrderByCreatedAtDesc();
+
+        for(int i = 0; i < posts.size(); i++) {
+            // 저장할 통계 데이터
+            StatisticsDto statistics = new StatisticsDto();
+            StatisticsDto.Gender gender = new StatisticsDto.Gender();
+            StatisticsDto.Age age = new StatisticsDto.Age();
+            StatisticsDto.Subti subti = new StatisticsDto.Subti();
+
+            // 통계 저장할 게시글
+            CombinationPost curPost = posts.get(i);
+
+            List<OrderHistory> orders = orderHistoryService.findAllByCombination_CombinationId(curPost.getCombination().getCombinationId());
+
+            for (int j = 0; j < orders.size(); j++) {
+                OrderHistory curOrder = orders.get(j);
+
+                LocalDate now = LocalDate.now();
+
+                String user_gender = curOrder.getGender();
+                int user_age = now.getYear() - curOrder.getBirthYear() + 1;
+                String user_subti = curOrder.getSubti();
+
+                // 성별 count
+                if(user_gender.equals("0")) gender.setMale(gender.getMale()+1);
+                else if(user_gender.equals("1")) gender.setFemale(gender.getFemale()+1);
+
+                //나이 count
+                if(user_age<20) age.setTeenager(age.getTeenager()+1);
+                else if(user_age<30) age.setTwenties(age.getTwenties()+1);
+                else if(user_age<40) age.setThirties(age.getThirties()+1);
+                else if(user_age<50) age.setForties(age.getForties()+1);
+                else if(user_age<60) age.setFifties(age.getFifties()+1);
+                else if(user_age>=60) age.setSixties(age.getSixties()+1);
+
+                // SUBTI count
+                if(user_subti.equals("LSAH")) subti.setLSAH(subti.getLSAH()+1);
+                else if(user_subti.equals("LSAM")) subti.setLSAM(subti.getLSAM()+1);
+                else if(user_subti.equals("LSEH")) subti.setLSEH(subti.getLSEH()+1);
+                else if(user_subti.equals("LSEM")) subti.setLSEM(subti.getLSEM()+1);
+                else if(user_subti.equals("LCAH")) subti.setLCAH(subti.getLCAH()+1);
+                else if(user_subti.equals("LCAM")) subti.setLCAM(subti.getLCAM()+1);
+                else if(user_subti.equals("LCEH")) subti.setLCEH(subti.getLCEH()+1);
+                else if(user_subti.equals("LCEM")) subti.setLCEM(subti.getLCEM()+1);
+                else if(user_subti.equals("ISAH")) subti.setISAH(subti.getISAH()+1);
+                else if(user_subti.equals("ISAM")) subti.setISAM(subti.getISAM()+1);
+                else if(user_subti.equals("ISEH")) subti.setISEH(subti.getISEH()+1);
+                else if(user_subti.equals("ISEM")) subti.setISEM(subti.getISEM()+1);
+                else if(user_subti.equals("ICAH")) subti.setICAH(subti.getICAH()+1);
+                else if(user_subti.equals("ICAM")) subti.setICAM(subti.getICAM()+1);
+                else if(user_subti.equals("ICEH")) subti.setICEH(subti.getICEH()+1);
+                else if(user_subti.equals("ICEM")) subti.setICEM(subti.getICEM()+1);
+            }
+
+            statistics.setGender(gender);
+            statistics.setAge(age);
+            statistics.setSubti(subti);
+
+            // object를 json string 형태로 변환
+            ObjectMapper objectMapper = new ObjectMapper();
+            String statisticsJson = objectMapper.writeValueAsString(statistics);
+
+            // 게시글에 통계 저장
+            combPostService.statisticsUpdate(curPost, statisticsJson);
+        }
+
     }
 }
 

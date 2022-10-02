@@ -76,4 +76,10 @@ public class CombPostServiceImpl implements CombPostService {
         post.likescntUpdate(likesCnt);
         return post.getCombinationPostId();
     }
+
+    @Transactional
+    @Override
+    public void statisticsUpdate(CombinationPost post, String statistics) {
+        post.statisticsUpdate(statistics);
+    }
 }

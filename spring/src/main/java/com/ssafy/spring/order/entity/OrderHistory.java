@@ -1,13 +1,19 @@
 package com.ssafy.spring.order.entity;
 
 import com.ssafy.spring.comb.entity.Combination;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 
 @Builder
 @Entity
+@Getter
+@NoArgsConstructor
+@AllArgsConstructor
 public class OrderHistory {
 
     @Id

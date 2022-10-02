@@ -57,5 +57,6 @@ public class CombinationPost {
     public void scoreUpdate(float scoreAvg) {
         this.scoreAvg = scoreAvg;
     }
-    public void likescntUpdate(int likesCnt) {this.likesCnt = likesCnt; }
+    public void likescntUpdate(int likesCnt) { this.likesCnt = likesCnt; }
+    public void statisticsUpdate(String statistics) { this.statistics = statistics; }
 }
