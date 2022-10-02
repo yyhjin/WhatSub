@@ -163,8 +163,8 @@ public class RecommendController {
 
 
     @ApiOperation(value = "SUBTI 기반 추천 목록 조회", notes = "사용자와 같은 SUBTI를 가진 사람들이 가장 많이 먹은 조합을 조회한다.", httpMethod = "GET")
-    @GetMapping("/subti")
-    public SuccessResponseResult getCombBySubti(String subti) throws JsonProcessingException {
+    @GetMapping("/subti/{subti}")
+    public SuccessResponseResult getCombBySubti(@PathVariable String subti) throws JsonProcessingException {
 
         // 게시판 전체 목록 가져오기
         List<CombinationPost> posts = combPostService.findAllByOrderByCreatedAtDesc();
