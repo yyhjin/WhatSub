@@ -5,353 +5,21 @@ export default {
   state: {
     selectedStore: localStorage.getItem('store') || null,
     basket: JSON.parse(localStorage.getItem('basket')) || [],
-    menus: [
-      {
-        menu_id : 1,
-        img_url : 'https://www.subway.co.kr/upload/menu/Steak-&-Cheese_20211231095455613.png',
-        menu_name : '스테이크&치즈',
-        ingredient : '스테이크 1스쿱, 치즈 2장',
-        menu_desc : '스테이크에 치즈 넣은 샌드위치',
-        price : 7000,
-        kcal : 100.5,
-        protein : 30.2,
-        fat : 3.5,
-        allergies: ''
-      },
-      {
-        menu_id : 2,
-        img_url : 'https://www.subway.co.kr/upload/menu/Steak-&-Cheese_20211231095455613.png',
-        menu_name : '스테이크&치즈',
-        ingredient : '스테이크 1스쿱, 치즈 2장',
-        menu_desc : '스테이크에 치즈 넣은 샌드위치',
-        price : 7000,
-        kcal : 100.5,
-        protein : 30.2,
-        fat : 3.5,
-        allergies: ''
-      },
-      {
-        menu_id : 3,
-        img_url : 'https://www.subway.co.kr/upload/menu/Steak-&-Cheese_20211231095455613.png',
-        menu_name : '스테이크&치즈',
-        ingredient : '스테이크 1스쿱, 치즈 2장',
-        menu_desc : '스테이크에 치즈 넣은 샌드위치',
-        price : 7000,
-        kcal : 100.5,
-        protein : 30.2,
-        fat : 3.5,
-        allergies: ''
-      },
-      {
-        menu_id : 4,
-        img_url : 'https://www.subway.co.kr/upload/menu/Steak-&-Cheese_20211231095455613.png',
-        menu_name : '스테이크&치즈',
-        ingredient : '스테이크 1스쿱, 치즈 2장',
-        menu_desc : '스테이크에 치즈 넣은 샌드위치',
-        price : 7000,
-        kcal : 100.5,
-        protein : 30.2,
-        fat : 3.5,
-        allergies: ''
-      },
-      {
-        menu_id : 5,
-        img_url : 'https://www.subway.co.kr/upload/menu/Steak-&-Cheese_20211231095455613.png',
-        menu_name : '스테이크&치즈',
-        ingredient : '스테이크 1스쿱, 치즈 2장',
-        menu_desc : '스테이크에 치즈 넣은 샌드위치',
-        price : 7000,
-        kcal : 100.5,
-        protein : 30.2,
-        fat : 3.5,
-        allergies: ''
-      },
-      {
-        menu_id : 6,
-        img_url : 'https://www.subway.co.kr/upload/menu/Steak-&-Cheese_20211231095455613.png',
-        menu_name : '스테이크&치즈',
-        ingredient : '스테이크 1스쿱, 치즈 2장',
-        menu_desc : '스테이크에 치즈 넣은 샌드위치',
-        price : 7000,
-        kcal : 100.5,
-        protein : 30.2,
-        fat : 3.5,
-        allergies: ''
-      },
-      {
-        menu_id : 7,
-        img_url : 'https://www.subway.co.kr/upload/menu/Steak-&-Cheese_20211231095455613.png',
-        menu_name : '스테이크&치즈',
-        ingredient : '스테이크 1스쿱, 치즈 2장',
-        menu_desc : '스테이크에 치즈 넣은 샌드위치',
-        price : 7000,
-        kcal : 100.5,
-        protein : 30.2,
-        fat : 3.5,
-        allergies: ''
-      },
-      {
-        menu_id : 8,
-        img_url : 'https://www.subway.co.kr/upload/menu/Steak-&-Cheese_20211231095455613.png',
-        menu_name : '스테이크&치즈',
-        ingredient : '스테이크 1스쿱, 치즈 2장',
-        menu_desc : '스테이크에 치즈 넣은 샌드위치',
-        price : 7000,
-        kcal : 100.5,
-        protein : 30.2,
-        fat : 3.5,
-        allergies: ''
-      },
-      {
-        menu_id : 9,
-        img_url : 'https://www.subway.co.kr/upload/menu/Steak-&-Cheese_20211231095455613.png',
-        menu_name : '스테이크&치즈',
-        ingredient : '스테이크 1스쿱, 치즈 2장',
-        menu_desc : '스테이크에 치즈 넣은 샌드위치',
-        price : 7000,
-        kcal : 100.5,
-        protein : 30.2,
-        fat : 3.5,
-        allergies: ''
-      },
-    ],
-    breads: [
-      {
-        ingredient_id: 1,
-        name: '허니오트',
-        img_url: 'https://www.subway.co.kr/images/menu/img_recipe_b01.jpg',
-        kcal: 100,
-        protein: 10,
-        fat: 10,
-        price: 0,
-        allergies: ''
-      },
-      {
-        ingredient_id: 2,
-        name: '하티',
-        img_url: 'https://www.subway.co.kr/images/menu/img_recipe_b01.jpg',
-        kcal: 100,
-        protein: 10,
-        fat: 10,
-        price: 0,
-        allergies: ''
-      },
-      {
-        ingredient_id: 3,
-        name: '위트',
-        img_url: 'https://www.subway.co.kr/images/menu/img_recipe_b01.jpg',
-        kcal: 100,
-        protein: 10,
-        fat: 10,
-        price: 0,
-        allergies: ''
-      },
-      {
-        ingredient_id: 4,
-        name: '파마산 오레가노',
-        img_url: 'https://www.subway.co.kr/images/menu/img_recipe_b01.jpg',
-        kcal: 100,
-        protein: 10,
-        fat: 10,
-        price: 0,
-        allergies: ''
-      },
-      {
-        ingredient_id: 5,
-        name: '화이트',
-        img_url: 'https://www.subway.co.kr/images/menu/img_recipe_b01.jpg',
-        kcal: 100,
-        protein: 10,
-        fat: 10,
-        price: 0,
-        allergies: ''
-      },
-      {
-        ingredient_id: 6,
-        name: '플렛 브래드',
-        img_url: 'https://www.subway.co.kr/images/menu/img_recipe_b01.jpg',
-        kcal: 100,
-        protein: 10,
-        fat: 10,
-        price: 0,
-        allergies: ''
-      },
-    ],
-    cheese: [
-      {
-        ingredient_id: 7,
-        name: '아메리칸 치즈',
-        img_url: 'https://www.subway.co.kr/images/menu/img_recipe_b01.jpg',
-        kcal: 100,
-        protein: 10,
-        fat: 10,
-        price: 0,
-        allergies: ''
-      },
-      {
-        ingredient_id: 8,
-        name: '슈레드 치즈',
-        img_url: 'https://www.subway.co.kr/images/menu/img_recipe_b01.jpg',
-        kcal: 100,
-        protein: 10,
-        fat: 10,
-        price: 0,
-        allergies: ''
-      },
-      {
-        ingredient_id: 9,
-        name: '모짜렐라 치즈',
-        img_url: 'https://www.subway.co.kr/images/menu/img_recipe_b01.jpg',
-        kcal: 100,
-        protein: 10,
-        fat: 10,
-        price: 0,
-        allergies: ''
-      }
-    ],
-    sauce: [
-      {
-        ingredient_id: 9,
-        name: '렌치',
-        img_url: 'https://www.subway.co.kr/upload/menu/img_toppping_02.png',
-        kcal: 100,
-        protein: 10,
-        fat: 10,
-        price: 0,
-        allergies: ''
-      },
-      {
-        ingredient_id: 9,
-        name: '후추',
-        img_url: 'https://www.subway.co.kr/upload/menu/img_toppping_02.png',
-        kcal: 100,
-        protein: 10,
-        fat: 10,
-        price: 0,
-        allergies: ''
-      },
-      {
-        ingredient_id: 9,
-        name: '올리브오일',
-        img_url: 'https://www.subway.co.kr/upload/menu/img_toppping_02.png',
-        kcal: 100,
-        protein: 10,
-        fat: 10,
-        price: 0,
-        allergies: ''
-      },
-    ],
-    more: [
-      {
-        ingredient_id: 9,
-        name: '에그마요',
-        img_url: 'https://www.subway.co.kr/upload/menu/img_toppping_02.png',
-        kcal: 100,
-        protein: 10,
-        fat: 10,
-        price: 1800,
-        allergies: ''
-      },
-      {
-        ingredient_id: 9,
-        name: '베이컨',
-        img_url: 'https://www.subway.co.kr/upload/menu/img_toppping_02.png',
-        kcal: 100,
-        protein: 10,
-        fat: 10,
-        price: 1800,
-        allergies: ''
-      },
-      {
-        ingredient_id: 9,
-        name: '아보카도',
-        img_url: 'https://www.subway.co.kr/upload/menu/img_toppping_02.png',
-        kcal: 100,
-        protein: 10,
-        fat: 10,
-        price: 1800,
-        allergies: ''
-      },
-      {
-        ingredient_id: 9,
-        name: '오믈렛',
-        img_url: 'https://www.subway.co.kr/upload/menu/img_toppping_02.png',
-        kcal: 100,
-        protein: 10,
-        fat: 10,
-        price: 1800,
-        allergies: ''
-      },
-      {
-        ingredient_id: 9,
-        name: '페퍼로니',
-        img_url: 'https://www.subway.co.kr/upload/menu/img_toppping_02.png',
-        kcal: 100,
-        protein: 10,
-        fat: 10,
-        price: 1800,
-        allergies: ''
-      },
-    ],
-    veges: [
-      {
-        ingredient_id: 9,
-        name: '양상추',
-        img_url: 'https://www.subway.co.kr/images/menu/img_recipe_b01.jpg',
-        kcal: 100,
-        protein: 10,
-        fat: 10,
-        price: 0,
-        allergies: ''
-      },
-      {
-        ingredient_id: 9,
-        name: '양파',
-        img_url: 'https://www.subway.co.kr/images/menu/img_recipe_b01.jpg',
-        kcal: 100,
-        protein: 10,
-        fat: 10,
-        price: 0,
-        allergies: ''
-      }
-    ],
-    moreMeats:[
-      {
-        ingredient_id: 9,
-        name: 'k-바베큐',
-        img_url: 'https://www.subway.co.kr/images/menu/img_recipe_b01.jpg',
-        kcal: 100,
-        protein: 10,
-        fat: 10,
-        price: 0,
-        allergies: ''
-      },
-      {
-        ingredient_id: 9,
-        name: '스테이크치즈',
-        img_url: 'https://www.subway.co.kr/images/menu/img_recipe_b01.jpg',
-        kcal: 100,
-        protein: 10,
-        fat: 10,
-        price: 0,
-        allergies: ''
-      },
-      {
-        ingredient_id: 9,
-        name: '로티세리',
-        img_url: 'https://www.subway.co.kr/images/menu/img_recipe_b01.jpg',
-        kcal: 100,
-        protein: 10,
-        fat: 10,
-        price: 0,
-        allergies: ''
-      }
-    ],
+    menus: [],
+    breads: [],
+    cheese: [],
+    moreCheese: [],
+    sauce: [],
+    more: [],
+    veges: [],
+    moreMeats: [],
     selectedMoreMeat: JSON.parse(localStorage.getItem('moremeat')) || null,
     selectedMenu: JSON.parse(localStorage.getItem('menu')) || null,
     selectedSize: JSON.parse(localStorage.getItem('size')) || null,
     selectedBread: JSON.parse(localStorage.getItem('bread')) || null,
+    
     selectedCheese: JSON.parse(localStorage.getItem('cheese')) || null,
+    selectedMoreCheese: JSON.parse(localStorage.getItem('morecheese')) || null,
     selectedSauce: JSON.parse(localStorage.getItem('sauce')) || [],
     selectedMore: JSON.parse(localStorage.getItem('more')) || [],
     selectedVege: JSON.parse(localStorage.getItem('vege')) || [],
@@ -367,6 +35,7 @@ export default {
     more : (state) => state.more,
     veges : (state) => state.veges,
     moreMeats : (state) => state.moreMeats,
+    moreCheese : (state) => state.moreCheese,
 
     selectedMenu: (state) => state.selectedMenu,
 
@@ -375,6 +44,8 @@ export default {
     selectedBread: (state) => state.selectedBread,
 
     selectedCheese: (state) => state.selectedCheese,
+
+    selectedMoreCheese: (state) => state.selectedMoreCheese,
 
     selectedSauce: (state) => state.selectedSauce,
 
@@ -389,6 +60,15 @@ export default {
     SET_SELECTEDSTORE: (state, value) => (state.selectedStore = value),
 
     SET_MENUS: (state, value) => (state.menus = value),
+    SET_SAUCE : (state, value) => state.sauce = value,
+    SET_BREADS : (state, value) => state.breads = value,
+    SET_CHEESE : (state, value) => state.cheese = value,
+    SET_MORE : (state, value) => state.more = value,
+    SET_VEGES : (state, value) => state.veges = value,
+    SET_MOREMEATS : (state, value) => state.moreMeats = value,
+    SET_MORECHEESE : (state, value) => state.moreCheese = value,
+    SET_BASKET: (state, value) => state.basket = value,
+
 
     SET_SELECTEDSIZE : (state, value) => state.selectedSize = value,
 
@@ -396,6 +76,7 @@ export default {
 
     SET_SELECTEDCHEESE: (state, value) => state.selectedCheese = value,
 
+    SET_SELECTEDMORECHEESE: (state, value) => state.selectedMoreCheese = value,
     
     SET_SELECTEDSAUCE: (state, value) => {
       state.selectedSauce.push(value)
@@ -449,17 +130,72 @@ export default {
   },
   actions: {
     fetchMenus ({commit}) {
-      console.log(api.order.order.menu)
-      
       axios({
+        url: api.order.order.menu(),
         method: 'get',
-        url: api.order.order.menu
+        // headers:getters.authHeader
       }).then(res => {
-        console.log(res)
         commit('SET_MENUS', res.data.data)
       }).catch(err => {
         console.error(err)
       })
+    },
+
+    fetchIngredient ({ commit }) {
+      axios({
+        url: api.order.order.ingredient(),
+        method: 'get',
+        // headers:getters.authHeader
+      }).then(res => {
+        const data = res.data.data
+        let breads= []
+        let cheese= []
+        let sauce= []
+        let more= []
+        let veges= []
+        let moreMeats= []
+        let moreCheese = []
+
+        data.forEach(each => {
+          switch (each.category){
+          case "빵": 
+            breads.push(each)
+            break;
+          case "치즈추가":  
+            moreCheese.push(each)
+            break;
+          case "치즈":
+            cheese.push(each)
+            break;
+          case "야채":
+            veges.push(each)
+            break;
+          case "소스":
+            sauce.push(each)
+            break;
+          case "추가":
+            more.push(each)
+            break;
+          case "미트추가":
+            moreMeats.push(each)
+            break;
+          }
+        })
+        commit('SET_SAUCE', sauce)
+        commit('SET_BREADS', breads)
+        commit('SET_CHEESE', cheese)
+        commit('SET_MORE', more)
+        commit('SET_VEGES', veges)
+        commit('SET_MOREMEATS', moreMeats)
+        commit('SET_MORECHEESE', moreCheese)
+      }).catch(err => {
+        console.error(err)
+      })
+    },
+
+    fetchBasket({ commit }) {
+      const value = JSON.parse(localStorage.getItem('basket'))
+      commit('SET_BASKET', value)
     },
 
     selectStore({ commit }, value) {
@@ -485,6 +221,11 @@ export default {
     selectCheese({ commit }, value) {
       commit('SET_SELECTEDCHEESE', value)
       localStorage.setItem('cheese', JSON.stringify(value))
+    },
+
+    selectMoreCheese({ commit }, value) {
+      commit('SET_SELECTEDMORECHEESE', value)
+      localStorage.setItem('morecheese', JSON.stringify(value))
     },
 
     selectVege({ commit }, value) {

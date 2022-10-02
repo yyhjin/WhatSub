@@ -4,7 +4,7 @@
       <div class="orderBox">
         <div class="menuCheck">
           <div class="name">
-            {{ bas.menu.menu_name}}
+            {{ bas.menu.menuName}}
           </div>
           <div class="cntPrice">
             <div class="cnt">
