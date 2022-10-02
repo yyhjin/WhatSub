@@ -51,6 +51,7 @@
 
 <script>
 import axios from 'axios'
+import api from '@/api/api'
 
 export default {
   name: 'SignupView',
@@ -83,7 +84,7 @@ export default {
       //axios로 요청보내서 검사
       axios({
         method: 'get',
-        url:'http://localhost:8081/whatsub/v1/user/check/'+username,
+        url: api.accounts.check(username),
       }).then(res => {
         if (res.data === false) {
           alert('가능')
@@ -147,7 +148,7 @@ export default {
     getToken () {
       axios({
         method:'get',
-        url:'http://localhost:8081/api/v1/auth/login',
+        url: api.accounts.login(),
         params:{
           code:this.code
         },
@@ -156,7 +157,7 @@ export default {
         if (res.data.data.result === 1) {
           this.$router.push('/')
         } else {
-          this.credentials.username = res.data.data.username
+          this.credentials.username = res.data.data.userName
         }
       })
       .catch(err => 
