@@ -192,7 +192,7 @@ export default {
   align-items: center;
 }
 .checked {
-  border: 5px solid #f4c41f;
+  border: 3px solid #f4c41f;
 }
 
 input[type='checkbox']:checked {
