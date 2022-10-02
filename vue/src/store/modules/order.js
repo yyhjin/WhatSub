@@ -67,7 +67,7 @@ export default {
     SET_VEGES : (state, value) => state.veges = value,
     SET_MOREMEATS : (state, value) => state.moreMeats = value,
     SET_MORECHEESE : (state, value) => state.moreCheese = value,
-
+    SET_BASKET: (state, value) => state.basket = value,
 
 
     SET_SELECTEDSIZE : (state, value) => state.selectedSize = value,
@@ -191,6 +191,11 @@ export default {
       }).catch(err => {
         console.error(err)
       })
+    },
+
+    fetchBasket({ commit }) {
+      const value = JSON.parse(localStorage.getItem('basket'))
+      commit('SET_BASKET', value)
     },
 
     selectStore({ commit }, value) {

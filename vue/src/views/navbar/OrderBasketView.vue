@@ -5,7 +5,7 @@
       장바구니
     </div>
     <div class="store">
-      서브웨이 역삼점 
+      서브웨이 {{ store.branchName }}점 
     </div>
     <div class="orderCheck">
       <order-basket :bas="bas" :index="index" v-for="(bas, index) in basket" :key="index"></order-basket>
@@ -25,7 +25,7 @@
 <script>
 import axios from 'axios'
 import api from "@/api/api"
-import { mapGetters } from 'vuex'
+import { mapActions, mapGetters } from 'vuex'
 // import OrderDetail from '../../components/common/OrderDetail.vue'
 import OrderBasket from '../../components/order/OrderBasket.vue'
 export default {
@@ -40,10 +40,15 @@ export default {
       let price = 0
       this.basket.forEach(bas => price += bas.price)
       return price
+    },
+
+    store () {
+      return this.basket[0].store
     }
   },
 
   methods: {
+    ...mapActions(['fetchBasket']),
     setOrder () {
       let combinationList = []
       this.basket.forEach(bas => {
@@ -109,7 +114,7 @@ export default {
       })
       })
       const data = {
-        "branchId": 0,
+        "branchId": this.store.branchId,
         "combinationList":combinationList,
         "orderPrice":this.totalPrice,
         "userId":1
@@ -126,6 +131,10 @@ export default {
       })
       this.$router.push('/ordercheck') // 요청 성공하면 주소 옮기는게 나을수도
     }
+  },
+
+  mounted () {
+    this.fetchBasket()
   }
 }
 </script>
