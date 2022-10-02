@@ -98,5 +98,6 @@ export default {
 .home_cover {
   background-color: white;
   opacity: 0.9;
+  top: 3;
 }
 </style>
