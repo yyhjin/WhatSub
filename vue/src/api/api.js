@@ -1,6 +1,6 @@
 import order from './order'
 
-const HOST = 'http://127.0.0.1:8000/api/v1/'
+const HOST = 'https://j7a105.p.ssafy.io/api/v1/'
 // const KAKAOHOST = "https://kauth.kakao.com"
 const ACCOUNTS = 'user/'
 

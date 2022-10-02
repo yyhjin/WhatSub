@@ -11,9 +11,9 @@
       <v-card class="currentState">
         <div class="menu">
           <div class="imgwrap">
-            <img :src="selectedMenu.img_url" alt="">
+            <img :src="selectedMenu.imgUrl" alt="">
           </div>
-          <div class="title">{{ selectedMenu.menu_name }}</div>
+          <div class="title">{{ selectedMenu.menuName }}</div>
         </div>
         <div class="ingred">
           <div class="in_row">
@@ -59,6 +59,7 @@
     </div>
     <choose-bread></choose-bread>
     <choose-cheese></choose-cheese>
+    <choose-more-cheese></choose-more-cheese>
     <choose-vege></choose-vege>
     <choose-more></choose-more>
     <choose-more-meat></choose-more-meat>
@@ -94,7 +95,7 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex';
+import { mapActions, mapGetters } from 'vuex';
 import ChooseBread from '../../components/order/ChooseBread.vue';
 import ChooseCheese from '../../components/order/ChooseCheese.vue';
 import ChooseMore from '../../components/order/ChooseMore.vue';
@@ -102,9 +103,10 @@ import ChooseMoreMeat from '../../components/order/ChooseMoreMeat.vue';
 import ChooseSauce from '../../components/order/ChooseSauce.vue';
 import ChooseVege from '../../components/order/ChooseVege.vue';
 import AlertOrder from '@/components/order/AlertOrder'
+import ChooseMoreCheese from '../../components/order/ChooseMoreCheese.vue';
 
 export default {
-  components: { AlertOrder, ChooseBread, ChooseCheese, ChooseVege, ChooseMore, ChooseMoreMeat, ChooseSauce },
+  components: { AlertOrder, ChooseBread, ChooseCheese, ChooseVege, ChooseMore, ChooseMoreMeat, ChooseSauce, ChooseMoreCheese },
   name: 'OrderFourView',
 
   data () {
@@ -114,7 +116,10 @@ export default {
   },
 
   computed: {
-    
+  
+    ...mapGetters(['selectedStore', 'selectedMenu', 'selectedBread', 'selectedCheese', 
+    'selectedSauce', 'selectedMore', 'selectedVege', 'selectedMoreMeat', 'selectedMoreCheese']),
+
     bread_name () {
       if (this.selectedBread === null) {
         return '선택해주세요'
@@ -122,6 +127,14 @@ export default {
         return this.selectedBread.name
       }
     },
+    moreCheese_name () {
+      if (this.selectedMoreCheese === null) {
+        return ''
+      } else {
+        return this.selectedCheese.name
+      }
+    },
+
     cheese_name () {
       if (this.selectedCheese === null) {
         return '선택해주세요'
@@ -129,6 +142,9 @@ export default {
         return this.selectedCheese.name
       }
     },
+
+    
+
     sauce_name () {
       if (this.selectedSauce.length === 0) {
         return '선택해주세요'
@@ -172,19 +188,18 @@ export default {
         return mores
       }
     },
-    ...mapGetters(['selectedStore', 'selectedMenu', 'selectedBread', 'selectedCheese', 
-    'selectedSauce', 'selectedMore', 'selectedVege', 'selectedMoreMeat']),
 
     calorie () {
       let kcal = 0
       
       kcal += (this.selectedMenu === null ? 0:this.selectedMenu.kcal) + (this.selectedBread === null ? 0:this.selectedBread.kcal) 
       + (this.selectedCheese === null ? 0:this.selectedCheese.kcal) + (this.selectedMoreMeat === null ? 0:this.selectedMoreMeat.kcal)
+      + (this.selectedMoreCheese === null ? 0:this.selectedMoreCheese.kcal)
       this.selectedMore.forEach(each => kcal += each.kcal)
       this.selectedVege.forEach(each => kcal += each.kcal)
       this.selectedSauce.forEach(each => kcal += each.kcal)
       
-      return kcal
+      return Math.ceil(kcal)
     },
 
     protein () {
@@ -192,11 +207,12 @@ export default {
       
       protein += (this.selectedMenu === null ? 0:this.selectedMenu.protein) + (this.selectedBread === null ? 0:this.selectedBread.protein) 
       + (this.selectedCheese === null ? 0:this.selectedCheese.protein) + (this.selectedMoreMeat === null ? 0:this.selectedMoreMeat.protein)
+      + (this.selectedMoreCheese === null ? 0:this.selectedMoreCheese.protein)
       this.selectedMore.forEach(each => protein += each.protein)
       this.selectedVege.forEach(each => protein += each.protein)
       this.selectedSauce.forEach(each => protein += each.protein)
       
-      return protein
+      return Math.ceil(protein)
     },
 
     fat () {
@@ -204,17 +220,19 @@ export default {
       
       fat += (this.selectedMenu === null ? 0:this.selectedMenu.fat) + (this.selectedBread === null ? 0:this.selectedBread.fat) 
       + (this.selectedCheese === null ? 0:this.selectedCheese.fat) + (this.selectedMoreMeat === null ? 0:this.selectedMoreMeat.fat)
+      + (this.selectedMoreCheese === null ? 0:this.selectedMoreCheese.fat)
       this.selectedMore.forEach(each => fat += each.fat)
       this.selectedVege.forEach(each => fat += each.fat)
       this.selectedSauce.forEach(each => fat += each.fat)
       
-      return fat
+      return Math.ceil(fat)
     },
 
     totalPrice () {
       let price = 0
       price += (this.selectedMenu === null ? 0:this.selectedMenu.price) + (this.selectedBread === null ? 0:this.selectedBread.price) 
       + (this.selectedCheese === null ? 0:this.selectedCheese.price) + (this.selectedMoreMeat === null ? 0:this.selectedMoreMeat.price)
+      + (this.selectedMoreCheese === null ? 0:this.selectedMoreCheese.price)
       this.selectedMore.forEach(each => price += each.price)
       this.selectedVege.forEach(each => price += each.price)
       this.selectedSauce.forEach(each => price += each.price)
@@ -223,6 +241,7 @@ export default {
     }
   },
   methods: {
+    ...mapActions(['fetchIngredient']),
     goBack() {
       this.$router.go(-1);
     },
@@ -274,6 +293,10 @@ export default {
     setOrder () {
       this.$router.push('/ordercheck')
     }
+  },
+
+  mounted () {
+    this.fetchIngredient()
   }
 }
 </script>
