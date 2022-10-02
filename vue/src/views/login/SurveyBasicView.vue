@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="body">
     <div class="title">
       기본 취향 파악
     </div>
@@ -104,11 +104,16 @@
       <button class="dietbtn" @click="changeDiet">식단 관리 중</button>
     </div>
     <v-btn class="main_btn next_btn" @click="next">다음</v-btn>
+    <div class="bottom">
+      <bottom-nav></bottom-nav>
+    </div>
   </div>
 </template>
 
 <script>
+import BottomNav from '../../components/common/BottomNav.vue'
 export default {
+  components: { BottomNav },
   name: 'SurveyBasicView',
 
   data () {
@@ -184,12 +189,19 @@ export default {
 </script>
 
 <style scoped>
+.body {
+  padding-bottom: 70px;
+  padding-top: 46px;
+}
 .title {
   height:46px;
   width: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
+  position: fixed;
+  top: 0;
+  background-color: white;
 }
 .checked {
   border: 3px solid #f4c41f;

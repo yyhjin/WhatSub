@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="body">
     <div class="title">
       썹bti
     </div>
@@ -172,12 +172,16 @@
       </div>
     </div>
     <v-btn class="main_btn" @click="submitSubti">완료</v-btn>
-    
+    <div class="bottom">
+      <bottom-nav></bottom-nav>
+    </div>
   </div>
 </template>
 
 <script>
+import BottomNav from '../../components/common/BottomNav.vue';
 export default {
+  components: { BottomNav },
   name: 'SurveySubtiView',
 
   data () {
@@ -206,12 +210,20 @@ export default {
 </script>
 
 <style scoped>
+.body {
+  padding-top: 46px;
+  padding-bottom: 60px;
+}
 .title {
   height:46px;
   width: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
+  position: fixed;
+  top: 0;
+  background-color: white;
+  z-index: 5;
 }
 .backbar {
   width: 90%;

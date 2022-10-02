@@ -45,6 +45,9 @@
         <v-btn class="main_btn" @click="signup">회원가입</v-btn>
       </v-form>
     </div>
+    <div class="botton">
+      <bottom-nav></bottom-nav>
+    </div>
     <div class="snow"></div>
   </div>
 </template>
@@ -52,8 +55,10 @@
 <script>
 import axios from 'axios'
 import api from '@/api/api'
+import BottomNav from '../../components/common/BottomNav.vue'
 
 export default {
+  components: { BottomNav },
   name: 'SignupView',
 
   data () {
@@ -212,6 +217,7 @@ export default {
   display: flex;
   align-items: center;
   overflow: hidden;
+  padding-bottom: 60px;
 }
 .body::after {
   content: "";
