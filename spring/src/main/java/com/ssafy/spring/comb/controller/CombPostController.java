@@ -239,6 +239,30 @@ public class CombPostController {
         response.setLikesCnt(post.getLikesCnt());
         response.setScoreAvg(post.getScoreAvg());
 
+        // 메뉴 정보
+        String menuId = post.getCombination().getCombinationId().substring(0,1);
+        Menu menu = menuService.getMenuByMenuId(menuId);
+        response.setMenuName(menu.getMenuName());
+
+        // 재료 정보
+        List<IngredientDto.ingredientResponse> ingredients = new ArrayList<>();
+
+        String list = post.getCombination().getCombinationId().substring(1);
+        for (int k = 0, j = 0; j < list.length()/2; k += 2, j++) {
+            IngredientDto.ingredientResponse ingredientResponse = new IngredientDto.ingredientResponse();
+            String ingredientId = list.substring(k, k+2);
+            Ingredient in = ingredientService.findByIngredientId(ingredientId);
+            ingredientResponse.setCategory(in.getCategory());
+            ingredientResponse.setName(in.getName());
+            ingredients.add(ingredientResponse);
+        }
+
+        response.setIngredients(ingredients);
+
+        // 리뷰
+        List<Review> reviews = reviewService.getReviewList(post.getCombinationPostId());
+        response.setReviewCnt(reviews.size());
+
         return new SuccessResponseResult(response);
     }
 
