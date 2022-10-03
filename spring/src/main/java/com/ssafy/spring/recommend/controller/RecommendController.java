@@ -15,10 +15,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 
 @Api(value = "메뉴 추천", tags={"recommend-controller"})
@@ -173,6 +170,7 @@ public class RecommendController {
         int maxCnt = 0;
         int maxIdx = -1;
 
+        String lower_subti = subti.toLowerCase();
         for (int i = 0; i < posts.size(); i++) {
             CombinationPost post = posts.get(i);
 
@@ -181,7 +179,7 @@ public class RecommendController {
             ObjectMapper objectMapper = new ObjectMapper();
             Map<String, Integer> map = objectMapper.readValue(statistics, Map.class);
 
-            int subtiCnt = map.get(subti);
+            int subtiCnt = map.get(lower_subti);
             if(subtiCnt > maxCnt) {
                 maxCnt = subtiCnt;
                 maxIdx = i;
