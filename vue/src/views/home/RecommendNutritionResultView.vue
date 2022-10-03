@@ -14,6 +14,10 @@
         >영양정보 다시 선택</v-btn
       >
     </div>
+    <br />
+    <br />
+    <br />
+    <br />
     <div class="bottom">
       <bottom-nav></bottom-nav>
     </div>
@@ -23,10 +27,15 @@
 <script>
 import BottomNav from "@/components/common/BottomNav.vue";
 import SandSmallList from "@/components/common/SandSmallList.vue";
+import { mapGetters } from "vuex";
 
 export default {
   name: "RecommendNutritionResultView",
   components: { BottomNav, SandSmallList },
+  computed: {
+    ...mapGetters(["combiListByNutri"]),
+  },
+  created() {},
   methods: {
     goBack() {
       this.$router.go(-1);
@@ -46,7 +55,7 @@ export default {
 }
 .result-view {
   padding-top: 70px;
-  padding-bottom: 50px;
+  padding-bottom: 10px;
   margin-left: 28px;
   margin-right: 28px;
 }

@@ -1,7 +1,7 @@
 <template>
   <div class="small_card">
     <v-row>
-      <v-col v-for="(SandListItem, index) in sandList" :key="index">
+      <v-col v-for="(SandListItem, index) in combiListByNutri" :key="index">
         <sand-small-list-item :sand-list-item="SandListItem"></sand-small-list-item>
       </v-col>
     </v-row>
@@ -10,36 +10,17 @@
 
 <script>
 import SandSmallListItem from "@/components/common/SandSmallListItem.vue";
+import { mapGetters } from "vuex";
 
 export default {
   name: "SandSmallList",
   data() {
-    return {
-      sandList: [
-        {
-          id: 1,
-          name: "sand1",
-        },
-        {
-          id: 2,
-          name: "sand2",
-        },
-        {
-          id: 3,
-          name: "sand3",
-        },
-        {
-          id: 4,
-          name: "sand4",
-        },
-        {
-          id: 5,
-          name: "sand5",
-        },
-      ],
-    };
+    return {};
   },
   components: { SandSmallListItem },
+  computed: {
+    ...mapGetters(["combiListByNutri"]),
+  },
 };
 </script>
 
