@@ -29,7 +29,7 @@ public class JWTInterceptor implements HandlerInterceptor {
                 return true;
             }else {
                 System.out.println("유효하지 않은 토큰!");
-                response.sendRedirect("/signup");
+                response.sendRedirect("/login");
 //                throw new NotValidateAccessTokenException();
             }
         }
