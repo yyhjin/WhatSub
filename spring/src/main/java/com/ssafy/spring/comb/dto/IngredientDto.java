@@ -1,9 +1,7 @@
 package com.ssafy.spring.comb.dto;
 
 import com.querydsl.core.annotations.QueryProjection;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
+import lombok.*;
 
 @Data
 @NoArgsConstructor
@@ -18,4 +16,9 @@ public class IngredientDto {
         this.allergies = allergies;
     }
 
+    @Data
+    public static class ingredientResponse {
+        private String category;
+        private String name;
+    }
 }
