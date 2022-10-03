@@ -34,7 +34,7 @@ export default {
   components: { OrderBasket },
 
   computed: {
-    ...mapGetters(['basket']),
+    ...mapGetters(['basket', 'selectedStore']),
 
     totalPrice () {
       let price = 0
@@ -43,7 +43,7 @@ export default {
     },
 
     store () {
-      return this.basket[0].store
+      return this.selectedStore
     }
   },
 

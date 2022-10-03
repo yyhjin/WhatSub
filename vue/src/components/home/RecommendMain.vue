@@ -1,5 +1,5 @@
 <template>
-  <div class="pt-8">
+  <div >
     <div v-if="!value" style="position: relative">
       <div class="pl-2" style="position: absolute; z-index: 2">
         <v-card class="home_cover myclass" height="350" width="344" elevation="5" outlined>
@@ -89,7 +89,9 @@ export default {
 
 <style>
 .main_card {
-  margin: 20px;
+  margin-left: 20px;
+  margin-right: 20px;
+  margin-bottom: 20px;
 }
 .myclass.v-sheet.v-card {
   border-color: #424242 !important;

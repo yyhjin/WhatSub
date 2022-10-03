@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div >
     <v-app-bar color="white" elevation="0">
       <router-link :to="{ name: 'home' }">
         <img class="navbar__logo" src="@/assets/logo_nav.png" alt="logo" />
@@ -13,6 +13,23 @@
         <v-icon>mdi-account-circle-outline</v-icon>
       </v-btn>
     </v-app-bar>
+    <div class="moreBtn">
+      <div class="id">
+        ssafy07
+      </div>
+      <div @click="goOrderDetail">
+        최근 주문 내역
+      </div>
+      <div @click="goZzim">
+        꿀조합 찜 목록
+      </div>
+      <div @click="goSub">
+        썹bti 재검사
+      </div>
+      <div class="logout" @click="logout">
+        로그아웃
+      </div>
+    </div>
     
   </div>
 </template>
@@ -41,12 +58,30 @@ export default {
         sideNav.classList.remove('active')
         this.check = !this.check
       }
+    },
+
+    goOrderDetail() {
+      this.$router.push({ name: "orderdetail"})
+    },
+    goZzim () {
+      this.$router.push({ name: "zzim"})
+    },
+    goSub () {
+      this.$router.push({ name: "surveysubti"})
+    },
+    logout() {
+
     }
   }
 };
 </script>
 
 <style>
+/* .top {
+  position: fixed;
+  width: 100%;
+  z-index: 4;
+} */
 .moreBtn {
   width: 150px;
   height: 200px;

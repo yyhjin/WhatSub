@@ -45,14 +45,20 @@
         <v-btn class="main_btn" @click="signup">회원가입</v-btn>
       </v-form>
     </div>
+    <div class="botton">
+      <bottom-nav></bottom-nav>
+    </div>
     <div class="snow"></div>
   </div>
 </template>
 
 <script>
 import axios from 'axios'
+import api from '@/api/api'
+import BottomNav from '../../components/common/BottomNav.vue'
 
 export default {
+  components: { BottomNav },
   name: 'SignupView',
 
   data () {
@@ -83,9 +89,10 @@ export default {
       //axios로 요청보내서 검사
       axios({
         method: 'get',
-        url:'http://localhost:8081/whatsub/v1/user/check/'+username,
+        url: api.accounts.check(username),
       }).then(res => {
-        if (res.data === false) {
+        console.log(res)
+        if (res.data.data === false) {
           alert('가능')
         } else {
           alert('있는 아이디')
@@ -98,8 +105,10 @@ export default {
       this.formData.append("gender", this.credentials.gender)
       this.formData.append("birthYear", this.credentials.birthYear)
       //formData를 axios로 서버로 보냄
-      
+      this.$store.dispatch('signup', this.formData)
+     
     },
+
     selectFile (input) {
       var reader = new FileReader();
       reader.onload = function(e) {
@@ -147,7 +156,7 @@ export default {
     getToken () {
       axios({
         method:'get',
-        url:'http://localhost:8081/api/v1/auth/login',
+        url: api.accounts.login(),
         params:{
           code:this.code
         },
@@ -156,7 +165,7 @@ export default {
         if (res.data.data.result === 1) {
           this.$router.push('/')
         } else {
-          this.credentials.username = res.data.data.username
+          this.credentials.username = res.data.data.userName
         }
       })
       .catch(err => 
@@ -211,6 +220,7 @@ export default {
   display: flex;
   align-items: center;
   overflow: hidden;
+  padding-bottom: 60px;
 }
 .body::after {
   content: "";

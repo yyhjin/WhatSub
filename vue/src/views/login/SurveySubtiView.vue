@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="body">
     <div class="title">
       썹bti
     </div>
@@ -34,7 +34,7 @@
     <div class="subti">
       <div class="question">
         <div class="statement">
-          <span>찐 감자를 먹을 때 소금보다는 설탕에 찍어 먹는 것을 선호한다.</span>
+          <span>파스타는 오일보다는 꾸덕한 크림파스타가 더 맛있다.</span>
         </div>
         <div class="decision">
           <div class="agree">동의</div>
@@ -54,7 +54,7 @@
     <div class="subti">
       <div class="question">
         <div class="statement">
-          <span>찐 감자를 먹을 때 소금보다는 설탕에 찍어 먹는 것을 선호한다.</span>
+          <span>부드러운 카스테라보다는 바게트를 더 선호한다.</span>
         </div>
         <div class="decision">
           <div class="agree">동의</div>
@@ -74,7 +74,7 @@
     <div class="subti">
       <div class="question">
         <div class="statement">
-          <span>찐 감자를 먹을 때 소금보다는 설탕에 찍어 먹는 것을 선호한다.</span>
+          <span>엽떡은 무조건 매운맛이다.</span>
         </div>
         <div class="decision">
           <div class="agree">동의</div>
@@ -94,7 +94,7 @@
     <div class="subti">
       <div class="question">
         <div class="statement">
-          <span>찐 감자를 먹을 때 소금보다는 설탕에 찍어 먹는 것을 선호한다.</span>
+          <span>팝콘은 고소하고 짭짤한 오리지날 보다는 달콤한 카라멜이 진리다.</span>
         </div>
         <div class="decision">
           <div class="agree">동의</div>
@@ -114,7 +114,7 @@
     <div class="subti">
       <div class="question">
         <div class="statement">
-          <span>찐 감자를 먹을 때 소금보다는 설탕에 찍어 먹는 것을 선호한다.</span>
+          <span>아메리카노보다는 휘핑크림 잔뜩 들어간 커피가 더 좋다.</span>
         </div>
         <div class="decision">
           <div class="agree">동의</div>
@@ -134,18 +134,18 @@
     <div class="subti">
       <div class="question">
         <div class="statement">
-          <span>찐 감자를 먹을 때 소금보다는 설탕에 찍어 먹는 것을 선호한다.</span>
+          <span>탕수육은 눅눅한 부먹보다 바삭한 찍먹이다.</span>
         </div>
         <div class="decision">
           <div class="agree">동의</div>
           <div class="radio">
-            <input type="radio" name="question6" value="1" v-model="question7" class="radiobtn mbbtn left">
-            <input type="radio" name="question6" value="2" v-model="question7" class="radiobtn bbtn left">
-            <input type="radio" name="question6" value="3" v-model="question7" class="radiobtn mbtn left">
-            <input type="radio" name="question6" value="4" v-model="question7" class="radiobtn sbtn">
-            <input type="radio" name="question6" value="5" v-model="question7" class="radiobtn mbtn right">
-            <input type="radio" name="question6" value="6" v-model="question7" class="radiobtn bbtn right">
-            <input type="radio" name="question6" value="7" v-model="question7" class="radiobtn mbbtn right">
+            <input type="radio" name="question7" value="1" v-model="question7" class="radiobtn mbbtn left">
+            <input type="radio" name="question7" value="2" v-model="question7" class="radiobtn bbtn left">
+            <input type="radio" name="question7" value="3" v-model="question7" class="radiobtn mbtn left">
+            <input type="radio" name="question7" value="4" v-model="question7" class="radiobtn sbtn">
+            <input type="radio" name="question7" value="5" v-model="question7" class="radiobtn mbtn right">
+            <input type="radio" name="question7" value="6" v-model="question7" class="radiobtn bbtn right">
+            <input type="radio" name="question7" value="7" v-model="question7" class="radiobtn mbbtn right">
           </div>
           <div class="disagree">비동의</div>
         </div>
@@ -154,42 +154,68 @@
     <div class="subti">
       <div class="question">
         <div class="statement">
-          <span>찐 감자를 먹을 때 소금보다는 설탕에 찍어 먹는 것을 선호한다.</span>
+          <span>불닭볶음면을 자주 즐겨 먹는다.</span>
         </div>
         <div class="decision">
           <div class="agree">동의</div>
           <div class="radio">
-            <input type="radio" name="question6" value="1" v-model="question8" class="radiobtn mbbtn left">
-            <input type="radio" name="question6" value="2" v-model="question8" class="radiobtn bbtn left">
-            <input type="radio" name="question6" value="3" v-model="question8" class="radiobtn mbtn left">
-            <input type="radio" name="question6" value="4" v-model="question8" class="radiobtn sbtn">
-            <input type="radio" name="question6" value="5" v-model="question8" class="radiobtn mbtn right">
-            <input type="radio" name="question6" value="6" v-model="question8" class="radiobtn bbtn right">
-            <input type="radio" name="question6" value="7" v-model="question8" class="radiobtn mbbtn right">
+            <input type="radio" name="question8" value="1" v-model="question8" class="radiobtn mbbtn left">
+            <input type="radio" name="question8" value="2" v-model="question8" class="radiobtn bbtn left">
+            <input type="radio" name="question8" value="3" v-model="question8" class="radiobtn mbtn left">
+            <input type="radio" name="question8" value="4" v-model="question8" class="radiobtn sbtn">
+            <input type="radio" name="question8" value="5" v-model="question8" class="radiobtn mbtn right">
+            <input type="radio" name="question8" value="6" v-model="question8" class="radiobtn bbtn right">
+            <input type="radio" name="question8" value="7" v-model="question8" class="radiobtn mbbtn right">
           </div>
           <div class="disagree">비동의</div>
         </div>
       </div>
     </div>
     <v-btn class="main_btn" @click="submitSubti">완료</v-btn>
-    
+    <div class="bottom">
+      <bottom-nav></bottom-nav>
+    </div>
   </div>
 </template>
 
 <script>
+import BottomNav from '../../components/common/BottomNav.vue';
+import api from '@/api/api'
+import axios from 'axios'
+import { mapGetters } from 'vuex'
 export default {
+  components: { BottomNav },
   name: 'SurveySubtiView',
 
   data () {
     return {
-      question1 : null,
-      question2 : null,
-      question3 : null,
-      question4 : null,
-      question5 : null,
-      question6 : null,
-      question7 : null,
-      question8 : null
+      question1 : 0,
+      question2 : 0,
+      question3 : 0,
+      question4 : 0,
+      question5 : 0,
+      question6 : 0,
+      question7 : 0,
+      question8 : 0
+    }
+  },
+
+  computed: {
+    ...mapGetters(['authHeader', 'currentUser']),
+    lvi () {
+      return (parseInt(this.question2) + parseInt(this.question6)) >= 8 ? "I":"L"
+    },
+    svc () {
+      return (parseInt(this.question3) + parseInt(this.question7)) >= 8 ? "C":"S"
+    },
+    ave () {
+      return (parseInt(this.question1) + parseInt(this.question5)) >= 8 ? "E":"A"
+    },
+    hvm () {
+      return (parseInt(this.question4) + parseInt(this.question8)) >= 8 ? "H":"M"
+    },
+    subti () {
+      return this.lvi + this.svc + this.ave + this.hvm
     }
   },
 
@@ -200,18 +226,44 @@ export default {
 
     submitSubti () {
       //axios로 섭티에 대한 정보 백으로 보내기 => 잘 넘어갔으면 홈으로 보내기
+      if (this.question1 !== 0 && this.question2 !== 0 && this.question3 !== 0 && this.question4 !== 0 &&
+      this.question5 !== 0 && this.question6 !== 0 && this.question7 !== 0 && this.question8 !== 0) {
+        axios({
+          url: api.accounts.subti(),
+          methods: 'post',
+          data: {
+            "subti": this.subti,
+            "userId": this.currentUser.userId,
+          },
+          // headers: this.authHeader
+        }).then( res => {
+          console.log(res)
+        }).catch( err => {
+          console.error(err)
+        })
+      } else {
+        alert('문항을 모두 기입해주세요')
+      }
     }
   }
 }
 </script>
 
 <style scoped>
+.body {
+  padding-top: 46px;
+  padding-bottom: 60px;
+}
 .title {
   height:46px;
   width: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
+  position: fixed;
+  top: 0;
+  background-color: white;
+  z-index: 5;
 }
 .backbar {
   width: 90%;
@@ -283,6 +335,13 @@ h5 {
 .sbtn {
   height: 15px;
   width: 15px;
+  border-color: yellowgreen;
+  
+}
+.sbtn:checked {
+  accent-color: yellowgreen;
+  border-color: yellowgreen
+  
 }
 .left {
   appearance: none;
