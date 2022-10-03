@@ -126,11 +126,13 @@ const routes = [
     path: "/combination",
     name: "combination",
     component: CombinationView,
+    props: true,
   },
   {
     path: "/combinationdetail",
     name: "combinationdetail",
     component: CombinationDetailView,
+    props: true,
   },
 
   //order

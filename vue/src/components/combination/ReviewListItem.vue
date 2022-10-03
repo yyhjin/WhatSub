@@ -7,7 +7,7 @@
         </v-col>
         <v-col class="ml-5" cols="8">
           <div style="font-size: 13px" @click="goProfile">
-            김계란김계란김 | 2022-09-28 &nbsp;16:26
+            {{ combiReviewItem.userId }} | {{ createDate }}
           </div>
           <div>
             <v-rating
@@ -29,21 +29,31 @@
         </v-col>
       </v-row>
     </v-container>
-    <v-card elevation="0" class="mb-5 mr-10 ml-10">
-      <br />
-      <br />
+    <v-card elevation="0" class="mb-5 mr-10 ml-10 mt-2">
+      <div style="font-size: 14px">
+        {{ combiReviewItem.content }}
+      </div>
     </v-card>
     <v-card height="1" width="360" elevation="0" style="background-color: #d9d9d9">&nbsp;</v-card>
   </div>
 </template>
 
 <script>
+import dayjs from "dayjs";
+
 export default {
   name: "ReviewListItem",
   data() {
     return {
-      rating: 5,
+      rating: this.combiReviewItem.score,
+      createDate: "",
     };
+  },
+  props: {
+    combiReviewItem: Object,
+  },
+  created() {
+    this.createDate = dayjs(this.combiReviewItem.createdAt).format("YYYY-MM-DD HH:mm");
   },
   methods: {
     udpateReview() {

@@ -10,7 +10,7 @@
     </div>
     <div align="center" class="pt-13">
       <v-rating
-        v-model="rating"
+        v-model="combiDetail.scoreAvg"
         color="yellow darken-2"
         background-color="yellow darken-2"
         size="27"
@@ -18,22 +18,40 @@
         hover
         readonly
       ></v-rating>
-      <div>{{ rating }}</div>
+      <div>{{ combiDetail.scoreAvg }}</div>
       <v-img height="100" width="250" src="" alt="sandwitch"></v-img>
-      <div class="ml-30">
-        <div class="left"><h2 style="font-size: 18px">단백질 보충원</h2></div>
+      <v-container>
+        <v-row align="center">
+          <v-col class="pa-0" align="center">
+            <span style="font-size: 18px; font-weight: bold"
+              >{{ combiDetail.combName }}&nbsp;&nbsp;&nbsp;
+            </span>
+            <v-icon v-if="!isliked" color="grey" size="30" @click="clickHeart"
+              >mdi-heart-outline</v-icon
+            >
+            <v-icon v-if="isliked" color="red" size="30" @click="clickHeart">mdi-heart</v-icon>
+            <span style="font-size: 13px">{{ combiDetail.likesCnt }}</span>
+          </v-col>
+        </v-row>
+      </v-container>
+      <!-- <div class="ml-30">
+        <div class="left">
+          <h2 style="font-size: 18px">{{ combiDetail.combName }}</h2>
+        </div>
         <div class="left ml-2 mt-n1">
           <v-icon v-if="!isliked" color="red" size="30" @click="clickHeart"
             >mdi-heart-outline</v-icon
           >
           <v-icon v-if="isliked" color="red" size="30" @click="clickHeart">mdi-heart</v-icon>
         </div>
-      </div>
-      <div class="ma-4 pt-6 pb-3">
-        <div style="font-size: 15px">헬창들을 위한 터키 아보카도 베이컨 샌드위치를 즐겨보세요!</div>
+      </div> -->
+      <div class="ma-4 pb-3">
+        <div style="font-size: 15px">{{ combiDetail.content }}</div>
       </div>
       <div class="ml-14 mb-5">
-        <div class="left pt-1" style="font-size: 18px; font-weight: 900">7400원</div>
+        <div class="left pt-1" style="font-size: 18px; font-weight: 900">
+          {{ combiDetail.combination.price | comma }}원
+        </div>
         <v-spacer></v-spacer>
         <v-btn
           class="main_btn left ml-5"
@@ -58,8 +76,12 @@
             <v-avatar size="45" color="#d9d9d9"></v-avatar>
           </v-col>
           <v-col>
-            <div><div style="font-size: 14px">김계란</div></div>
-            <div><div style="font-size: 13px">2022-09-28</div></div>
+            <div>
+              <div style="font-size: 14px">{{ combiDetail.userName }}</div>
+            </div>
+            <div>
+              <div style="font-size: 13px">{{ createDate }}</div>
+            </div>
           </v-col>
         </v-row>
       </div>
@@ -76,12 +98,12 @@
         <v-tab-item v-for="item in items" :key="item">
           <v-card class="mb-3" v-if="item == '조합정보'" flat>
             <div class="pt-4 pl-6 pr-6">
-              <combi-detail-info></combi-detail-info>
+              <combi-detail-info :combi-detail="combiDetail"></combi-detail-info>
             </div>
           </v-card>
           <v-card class="mb-3" v-else-if="item == '영양정보'" flat>
             <div class="pt-4 pl-6 pr-6">
-              <combi-nutrition-info></combi-nutrition-info>
+              <combi-nutrition-info :combi-detail="combiDetail.combination"></combi-nutrition-info>
             </div>
           </v-card>
           <v-card v-else flat height="200">
@@ -94,7 +116,7 @@
     </div>
     <v-card height="4" width="360" elevation="0" style="background-color: #d9d9d9">&nbsp;</v-card>
     <div>
-      <review-list></review-list>
+      <review-list :combi-review="combiDetail.reviews"></review-list>
     </div>
     <div class="bottom">
       <bottom-nav></bottom-nav>
@@ -108,19 +130,38 @@ import CombiDetailInfo from "@/components/combination/detailTab/CombiDetailInfo.
 import CombiNutritionInfo from "@/components/combination/detailTab/CombiNutritionInfo.vue";
 import CombiStatistic from "@/components/combination/detailTab/CombiStatistic.vue";
 import ReviewList from "@/components/combination/ReviewList.vue";
+import { mapActions, mapGetters } from "vuex";
+import dayjs from "dayjs";
 
 export default {
   name: "CombinationDetailView",
   components: { BottomNav, CombiDetailInfo, CombiNutritionInfo, CombiStatistic, ReviewList },
   data() {
     return {
-      rating: 5,
       isliked: false,
       tab: null,
       items: ["조합정보", "영양정보", "분석정보"],
+      createDate: "",
     };
   },
+  props: {
+    combinationPostId: String,
+  },
+  computed: {
+    ...mapGetters(["combiDetail"]),
+  },
+  filters: {
+    comma(val) {
+      return String(val).replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    },
+  },
+  created() {
+    //combinationPostId 로 api 검색
+    this.getCombiDetail({ combinationPostId: this.combinationPostId });
+    this.createDate = dayjs(this.combiDetail.createdAt).format("YYYY-MM-DD HH:mm");
+  },
   methods: {
+    ...mapActions(["getCombiDetail"]),
     goBack() {
       this.$router.go(-1);
     },
