@@ -27,27 +27,34 @@
                   src="https://cdn.vuetifyjs.com/images/cards/foster.jpg"
                 ></v-img
               ></v-avatar>
-              <div class="mt-1"><h6 style="font-size: 15px; font-weight: bold">JMT 치킨</h6></div>
-              <div><h6 style="font-size: 13px; font-weight: 400">7,400원</h6></div>
+              <div class="mt-1">
+                <h6 style="font-size: 15px; font-weight: bold">{{ bestCombi.combName }}</h6>
+              </div>
+              <div>
+                <h6 style="font-size: 13px; font-weight: 400">
+                  {{ bestCombi.combination.price | comma }}원
+                </h6>
+              </div>
             </v-col>
             <v-col>
               <div class="mt-1 ml-n4" @click="goCombiDetail">
                 <h6 style="font-size: 14px; font-weight: 500">
-                  메뉴: 치킨 슬라이스<br />추가재료: 아보카도<br />소스: 머스타드
+                  메뉴: {{ bestCombi.menuName }}<br />추가재료: {{ bestCombi.ingredients.name
+                  }}<br />소스: 머스타드
                 </h6>
               </div>
               <div class="mt-4 ml-n3">
                 <v-icon size="20" color="yellow darken-2">mdi-star</v-icon>
-                <span style="font-size: small"> 5</span>
+                <span style="font-size: small">{{ bestCombi.scoreAvg }}</span>
                 <v-icon class="ml-2" size="17" color="green darken-2">mdi-message-outline</v-icon>
-                <span style="font-size: small"> 20</span>
+                <span style="font-size: small"> {{ bestCombi.reviewCnt }}</span>
                 <v-icon v-if="!isliked" class="ml-6" size="30" color="grey" @click="clickHeart"
                   >mdi-heart-outline</v-icon
                 >
                 <v-icon v-if="isliked" class="ml-6" size="30" color="red" @click="clickHeart"
                   >mdi-heart</v-icon
                 >
-                <span style="font-size: small"> 20</span>
+                <span style="font-size: small"> {{ bestCombi.likesCnt }}</span>
               </div>
             </v-col>
           </v-row>
@@ -68,6 +75,7 @@
 import TopNav from "@/components/common/TopNav.vue";
 import BottomNav from "@/components/common/BottomNav.vue";
 import CombiList from "@/components/combination/CombiList.vue";
+import { mapActions, mapGetters } from "vuex";
 
 export default {
   name: "CombinationView",
@@ -77,7 +85,19 @@ export default {
       isliked: true,
     };
   },
+  computed: {
+    ...mapGetters(["bestCombi"]),
+  },
+  created() {
+    this.getBestCombi();
+  },
+  filters: {
+    comma(val) {
+      return String(val).replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    },
+  },
   methods: {
+    ...mapActions(["getBestCombi"]),
     clickHeart() {
       if (this.isliked) {
         this.isliked = false;
@@ -88,6 +108,9 @@ export default {
     goCombiDetail() {
       this.$router.push({
         name: "combinationdetail",
+        params: {
+          combinationPostId: this.bestCombi.combinationPostId,
+        },
       });
     },
     goOrderDetail() {

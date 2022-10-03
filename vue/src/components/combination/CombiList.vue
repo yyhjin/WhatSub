@@ -13,21 +13,40 @@
             outlined
           ></v-select
         ></v-col>
-        <v-col class="mt-3" align="right" style="float: right">최신순</v-col>
+        <v-col
+          class="pa-0 mt-9 ml-n2"
+          align="right"
+          style="float: right; font-size: 14px"
+          @click="sortByRating"
+          >평점순</v-col
+        >
+        <v-col
+          class="pa-0 mt-9 ml-n1"
+          align="center"
+          style="float: left; font-size: 14px"
+          @click="sortByDate"
+          >최신순</v-col
+        >
       </v-row>
     </v-container>
-    <div class="big_card" v-for="sandListItem in scrollSandList" :key="sandListItem.id">
+    <div
+      class="big_card"
+      v-for="sandListItem in scrollSandList"
+      :key="sandListItem.combinationPostId"
+    >
       <combi-list-item :combi-list-item="sandListItem"></combi-list-item>
     </div>
     <div v-if="scrollSandList.length" v-observe-visibility="handleScrolledToBottom"></div>
+    <br />
+    <br />
   </div>
 </template>
 
 <script>
 import CombiListItem from "@/components/combination/CombiListItem.vue";
-import { mapGetters } from "vuex";
 import Vue from "vue";
 import VueObserveVisibility from "vue-observe-visibility";
+import { mapActions, mapGetters } from "vuex";
 
 Vue.use(VueObserveVisibility);
 
@@ -38,18 +57,42 @@ export default {
     return {
       scrollSandList: [],
       page: 1,
-      items: ["에그마요", "스테이크&치즈"],
+      items: [
+        "K-바비큐",
+        "로스트 치킨",
+        "로티세리 바비큐 치킨",
+        "머쉬룸",
+        "베지",
+        "비엘티",
+        "쉬림프",
+        "스테이크&치즈",
+        "스파이시 이탈리안",
+        "써브웨이 클럽",
+        "에그마요",
+        "이탈리안 비엠티",
+        "참치",
+        "치킨 데리야끼",
+        "치킨 베이컨 아보카도",
+        "치킨 슬라이스",
+        "터키",
+        "터키 베이컨 아보카도",
+        "풀드 포크 바비큐",
+        "햄",
+      ],
     };
   },
   computed: {
-    ...mapGetters(["sandList"]),
+    ...mapGetters(["combiList"]),
   },
   created() {
-    console.log(this.sandList);
+    this.getCombiList({
+      orderNo: 1,
+    });
+    console.log(this.combiList);
     this.homeToScroll();
   },
   methods: {
-    setfiltering() {},
+    ...mapActions(["getCombiList"]),
     handleScrolledToBottom(isVisible) {
       if (!isVisible) {
         return;
@@ -58,8 +101,21 @@ export default {
       this.homeToScroll();
     },
     homeToScroll() {
-      const nextPush = this.sandList.slice(5 * (this.page - 1), 5 * this.page);
+      const nextPush = this.combiList.slice(5 * (this.page - 1), 5 * this.page);
       this.scrollSandList.push(...nextPush);
+    },
+    setfiltering() {},
+    sortByRating() {
+      this.getCombiList({
+        orderNo: 0,
+      });
+      console.log(this.combiList);
+    },
+    sortByDate() {
+      this.getCombiList({
+        orderNo: 1,
+      });
+      console.log(this.combiList);
     },
   },
 };

@@ -166,15 +166,24 @@ export default{
     ],
     combiListByOthers: [],
     combiListByNutri: [],
+    bestCombi: {},
+    combiList: [],
+    combiDetail: {},
   },
   getters: {
     sandList: (state) => state.sandList,
     combiListByOthers: (state) => state.combiListByOthers,
     combiListByNutri: (state) => state.combiListByNutri,
+    bestCombi: (state) => state.bestCombi,
+    combiList: (state) => state.combiList,
+    combiDetail: (state) => state.combiDetail,
   },
   mutations: {
     SET_COMBI_LIST_BY_OTHERS: (state, combiListByOthers) => (state.combiListByOthers = combiListByOthers),
-    SET_COMBI_LIST_BY_NUTRI: (state, combiListByNutri) => (state.combiListByNutri = combiListByNutri)
+    SET_COMBI_LIST_BY_NUTRI: (state, combiListByNutri) => (state.combiListByNutri = combiListByNutri),
+    SET_BEST_COMBI: (state, bestCombi) =>(state.bestCombi = bestCombi),
+    SET_COMBI_LIST: (state, combiList) =>(state.combiList = combiList),
+    SET_COMBI_DETAIL: (state, combiDetail) =>(state.combiDetail = combiDetail),
   },
   actions: {
     getCombiListByOthers({commit}) {
@@ -184,7 +193,6 @@ export default{
       })
         .then((res) => {
           commit("SET_COMBI_LIST_BY_OTHERS", res.data.data);
-          console.log(res.data.data);
         })
         .catch((err) => console.log("getCombiListByOthers 에러", err));
     },
@@ -206,6 +214,44 @@ export default{
           console.log(res.data.data);
         })
         .catch((err) => console.log("getCombiListByNutri 에러", err));
-    }
+    },
+    getBestCombi({commit}) {
+      axios({
+        method: "get",
+        url: "https://j7a105.p.ssafy.io/api/v1/comb/best",
+      })
+        .then((res) => {
+          commit("SET_BEST_COMBI", res.data.data);
+        })
+        .catch((err) => console.log("getCombiListByOthers 에러", err));
+    },
+    getCombiDetail({commit}, {combinationPostId}) {
+      axios({
+        method: "get",
+        url: `https://j7a105.p.ssafy.io/api/v1/comb/${combinationPostId}`,
+        data: {
+          combinationPostId: combinationPostId,
+        }
+      })
+        .then((res) => {
+          commit("SET_COMBI_DETAIL", res.data.data);
+          console.log(res.data.data);
+        })
+        .catch((err) => console.log("getCombiDetail 에러", err));
+    },
+    getCombiList({commit}, {orderNo}) {
+      axios({
+        method: "get",
+        url: `https://j7a105.p.ssafy.io/api/v1/comb/order/${orderNo}`,
+        data: {
+          orderNo: orderNo,
+        }
+      })
+        .then((res) => {
+          commit("SET_COMBI_LIST", res.data.data);
+        })
+        .catch((err) => console.log("getCombiList 에러", err));
+    },
+
   },
 }

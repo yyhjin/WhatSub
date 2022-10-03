@@ -30,7 +30,9 @@
       </v-row>
       <v-row align="center">
         <v-col align="left" cols="5">알레르기 성분</v-col>
-        <v-col align="right" cols="7" style="color: #239347">우유, 돼지고기, 밀</v-col>
+        <v-col class="pa-0" align="right" cols="7" style="color: #239347">{{
+          combiListItem.allergies
+        }}</v-col>
       </v-row>
     </div>
   </div>

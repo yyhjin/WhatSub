@@ -65,7 +65,14 @@ export default {
     },
   },
   methods: {
-    goCombiDetail() {},
+    goCombiDetail() {
+      this.$router.push({
+        name: "combinationdetail",
+        params: {
+          combinationPostId: this.combiListItem.combinationPostId,
+        },
+      });
+    },
     goOrderCombi() {},
   },
 };

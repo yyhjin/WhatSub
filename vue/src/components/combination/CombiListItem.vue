@@ -11,30 +11,33 @@
             ></v-img
           ></v-avatar>
           <div class="mt-1">
-            <h6 style="font-size: 15px; font-weight: bold">{{ combiListItem.name }}</h6>
+            <h6 style="font-size: 15px; font-weight: bold">{{ combiListItem.combName }}</h6>
           </div>
           <div>
-            <h6 style="font-size: 13px; font-weight: 400">{{ combiListItem.price }}원</h6>
+            <h6 style="font-size: 13px; font-weight: 400">
+              {{ combiListItem.combination.price | comma }}원
+            </h6>
           </div>
         </v-col>
         <v-col>
           <div class="mt-1 ml-n4" @click="goCombiDetail">
             <h6 style="font-size: 14px; font-weight: 500">
-              메뉴: {{ combiListItem.basic }}<br />추가재료: 아보카도<br />소스: 머스타드
+              메뉴: {{ combiListItem.menuName }}<br />추가재료: {{ others[0] }}···<br />소스:
+              {{ sauce[0] }}···
             </h6>
           </div>
           <div class="mt-4 ml-n3">
             <v-icon size="20" color="yellow darken-2">mdi-star</v-icon>
-            <span style="font-size: small"> 5</span>
+            <span style="font-size: small"> {{ combiListItem.scoreAvg }}</span>
             <v-icon class="ml-2" size="17" color="green darken-2">mdi-message-outline</v-icon>
-            <span style="font-size: small"> 20</span>
+            <span style="font-size: small"> {{ combiListItem.reviewCnt }}</span>
             <v-icon v-if="!isliked" class="ml-6" size="30" color="grey" @click="clickHeart"
               >mdi-heart-outline</v-icon
             >
             <v-icon v-if="isliked" class="ml-6" size="30" color="red" @click="clickHeart"
               >mdi-heart</v-icon
             >
-            <span style="font-size: small"> 20</span>
+            <span style="font-size: small"> {{ combiListItem.likesCnt }}</span>
           </div>
         </v-col>
       </v-row>
@@ -51,7 +54,23 @@ export default {
   data() {
     return {
       isliked: false,
+      others: [],
+      sauce: [],
     };
+  },
+  filters: {
+    comma(val) {
+      return String(val).replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    },
+  },
+  created() {
+    for (let index = 0; index < this.combiListItem.ingredients.length; index++) {
+      if (this.combiListItem.ingredients[index].category == "추가재료") {
+        this.others.push(this.combiListItem.ingredients[index].name);
+      } else if (this.combiListItem.ingredients[index].category == "소스") {
+        this.sauce.push(this.combiListItem.ingredients[index].name);
+      }
+    }
   },
   methods: {
     clickHeart() {
@@ -64,6 +83,9 @@ export default {
     goCombiDetail() {
       this.$router.push({
         name: "combinationdetail",
+        params: {
+          combinationPostId: this.combiListItem.combinationPostId,
+        },
       });
     },
   },
