@@ -1,36 +1,40 @@
-//package com.ssafy.spring.interceptor;
-//
-//import com.ssafy.spring.exception.NotValidateAccessException;
-//import com.ssafy.spring.exception.NotValidateAccessTokenException;
-//import com.ssafy.spring.util.JWTUtil;
-//import org.springframework.beans.factory.annotation.Autowired;
-//import org.springframework.stereotype.Component;
-//import org.springframework.web.servlet.HandlerInterceptor;
-//
-//import javax.servlet.http.HttpServletRequest;
-//import javax.servlet.http.HttpServletResponse;
-//
-//@Component
-//public class JWTInterceptor implements HandlerInterceptor {
-//    private static final String HEADER_AUTH = "Authorization";
-//
-//    @Autowired
-//    private JWTUtil jwtUtil;
-//
-//    public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-//        if (request.getMethod().equals("OPTIONS")) {
-//            return true;
-//        }
-//        String token = request.getHeader(HEADER_AUTH);
-////        token = token.substring(7,token.length()); //Bearer 빼는 부분인듯
-//        if(token != null){
-//            if(jwtUtil.validateToken(token)){
-//                return true;
-//            }else {
+package com.ssafy.spring.interceptor;
+
+import com.ssafy.spring.util.JWTUtil;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Component;
+import org.springframework.web.servlet.HandlerInterceptor;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+@Component
+@RequiredArgsConstructor
+public class JWTInterceptor implements HandlerInterceptor {
+    private static final String HEADER_AUTH = "Authorization";
+    private final JWTUtil jwtUtil;
+
+    @Override
+    public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
+        if (request.getMethod().equals("OPTIONS")) {
+            return true;
+        }
+
+        String token = request.getHeader(HEADER_AUTH);
+        System.out.println("인터셉터에서 토큰 헤더 얻기 " + token);
+//        token = token.substring(7,token.length()); //Bearer 빼는 부분인듯
+        if(token != null){
+            if(jwtUtil.validateToken(token)){
+                System.out.println("토큰 인증 완료!");
+                return true;
+            }else {
+                System.out.println("유효하지 않은 토큰!");
+                response.sendRedirect("/login");
 //                throw new NotValidateAccessTokenException();
-//            }
-//        }
+            }
+        }
+        return false;
 //        throw new NotValidateAccessException();
-//    }
-//
-//}
+    }
+
+}
