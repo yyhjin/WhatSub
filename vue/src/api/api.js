@@ -18,7 +18,8 @@ export default {
     zzim: (username) => HOST + ACCOUNTS + `${username}/dibs`,
     exclude: (username) => HOST + ACCOUNTS + `${username}/exclude`,
     list: (username) => HOST + ACCOUNTS + `${username}/list`,
-    subti: () => HOST + ACCOUNTS + 'subti'
+    subti: () => HOST + ACCOUNTS + 'subti',
+    dib: (username)  => HOST + ACCOUNTS + `${username}/dibs`
 
   },
   order: order

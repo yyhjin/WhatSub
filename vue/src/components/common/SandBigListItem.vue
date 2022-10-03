@@ -1,6 +1,47 @@
 <template>
   <div>
-    <v-card class="sand_big_card">{{ SandListItem.name }}</v-card>
+    <v-card class="sand_big_card">
+      <v-row>
+        <v-col class="pa-0 mt-3 ml-3" cols="5" align="center" @click="goCombiDetail">
+          <v-avatar class="" height="70" width="100" tile
+            ><v-img
+              height="70"
+              width="100"
+              src="https://cdn.vuetifyjs.com/images/cards/foster.jpg"
+            ></v-img
+          ></v-avatar>
+          <div class="mt-1">
+            <h6 style="font-size: 15px; font-weight: bold">{{ sandListItem.combName }}</h6>
+          </div>
+          <div>
+            <h6 style="font-size: 13px; font-weight: 400">
+              {{ sandListItem.combination.price | comma }}원
+            </h6>
+          </div>
+        </v-col>
+        <v-col>
+          <div class="mt-1 ml-n4" @click="goCombiDetail">
+            <h6 style="font-size: 14px; font-weight: 500">
+              메뉴: {{ sandListItem.menuName }}<br />추가재료: {{ others[0] }}···<br />소스:
+              {{ sauce[0] }}···
+            </h6>
+          </div>
+          <div class="mt-4 ml-n3">
+            <v-icon size="20" color="yellow darken-2">mdi-star</v-icon>
+            <span style="font-size: small"> {{ sandListItem.scoreAvg }}</span>
+            <v-icon class="ml-2" size="17" color="green darken-2">mdi-message-outline</v-icon>
+            <span style="font-size: small"> {{ sandListItem.reviewCnt }}</span>
+            <v-icon v-if="!isliked" class="ml-6" size="30" color="grey" @click="clickHeart"
+              >mdi-heart-outline</v-icon
+            >
+            <v-icon v-if="isliked" class="ml-6" size="30" color="red" @click="clickHeart"
+              >mdi-heart</v-icon
+            >
+            <span style="font-size: small"> {{ sandListItem.likesCnt }}</span>
+          </div>
+        </v-col>
+      </v-row>
+    </v-card>
   </div>
 </template>
 
@@ -8,7 +49,7 @@
 export default {
   name: "SandBigListItem",
   props: {
-    SandListItem: Object,
+    sandListItem: Object,
   },
 };
 </script>

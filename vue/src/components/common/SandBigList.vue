@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="big_card" v-for="(SandListItem, index) in sandList" :key="index">
+    <div class="big_card" v-for="(SandListItem, index) in dibList" :key="index">
       <sand-big-list-item :sand-list-item="SandListItem"></sand-big-list-item>
     </div>
   </div>
@@ -8,35 +8,19 @@
 
 <script>
 import SandBigListItem from "@/components/common/SandBigListItem.vue";
+import { mapGetters } from 'vuex';
 
 export default {
   name: "SandBigList",
   data() {
     return {
-      sandList: [
-        {
-          id: 1,
-          name: "sand1",
-        },
-        {
-          id: 2,
-          name: "sand2",
-        },
-        {
-          id: 3,
-          name: "sand3",
-        },
-        {
-          id: 4,
-          name: "sand4",
-        },
-        {
-          id: 5,
-          name: "sand5",
-        },
-      ],
     };
   },
+
+  computed: {
+    ...mapGetters(['dibList'])
+  },
+
   components: { SandBigListItem },
 };
 </script>
