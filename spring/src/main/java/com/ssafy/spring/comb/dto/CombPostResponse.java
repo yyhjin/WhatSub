@@ -25,12 +25,12 @@ public class CombPostResponse {
         private String content;
         private int likesCnt;
         private Timestamp createdAt;
-        private String statistics;
+        private StatisticsDto statistics;
         private String imgUrl;
         private float scoreAvg;
         private List<ReviewResponse.ResponseDto> reviews = new ArrayList<>();
         private List<IngredientDto.ingredientResponse> ingredients = new ArrayList<>();
-        
+
     }
     @Data
     public static class PostResponse {
