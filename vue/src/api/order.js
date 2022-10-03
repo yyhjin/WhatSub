@@ -1,13 +1,17 @@
 
 
-const HOST = 'http://127.0.0.1:8000/api/v1/'
+const HOST = 'https://j7a105.p.ssafy.io/api/v1/'
 // const KAKAOHOST = "https://kauth.kakao.com"
 const ORDER = 'order/'
 
 
 export default {
   order: {
-    menu: () => HOST + ORDER + 'menu/'
+    makeorder: () => HOST + ORDER ,
+    menu: () => HOST + ORDER + 'menu/',
+    ingredient: () => HOST + ORDER + 'ingredient/',
+    store: () => HOST + ORDER + 'store/',
+    read:(username) => HOST + ORDER + `${username}`,
   },
  
 }

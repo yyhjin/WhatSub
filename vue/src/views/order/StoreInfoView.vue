@@ -1,47 +1,64 @@
 <template>
-  <div>
-    <div class="top" style="position: relative">
-      <top-nav></top-nav>
+  <div class="body">
+    <div class="top">
+      <v-btn  icon class="backbtn"><v-icon>mdi-arrow-left</v-icon></v-btn>
+      픽업 매장 위치
     </div>
-    <div>
-      <div align="center" style="height: 5vh"><h3>지점 선택</h3></div>
-      <search-store-map />
+    <div class="title">
+      {{ store.branchName }}
     </div>
-    <div style="padding: 10px">
-      <div v-if="selectedStore == null">지점을 선택해주세요</div>
-      <div v-else>
-        <v-row align="center" justify="center">
-          <v-col cols="8">
-            <h3>{{ selectedStore.branchName }}점</h3>
-            <div>{{ selectedStore.contactNo }}</div>
-            <div>{{ selectedStore.streetAddress }}</div>
-          </v-col>
-          <v-col cols="4" align="center">
-            <v-btn class="main_btn">주문하기</v-btn>
-          </v-col>
-        </v-row>
-      </div>
-    </div>
-    <div class="bottom">
-      <bottom-nav></bottom-nav>
-    </div>
+    <store-map 
+    :lat="store.lat"
+    :lng="store.lng"
+    :storeInfoList="[store]"></store-map>
   </div>
 </template>
 
 <script>
-import TopNav from "@/components/common/TopNav.vue";
-import SearchStoreMap from "../../components/order/SearchStoreMap.vue";
-import BottomNav from "@/components/common/BottomNav.vue";
-import { mapGetters } from "vuex";
-
+import { mapGetters } from 'vuex'
+import StoreMap from '../../components/common/StoreMap.vue'
 export default {
-  components: { SearchStoreMap, TopNav, BottomNav },
-  name: "StoreInfoView",
+  components: { StoreMap },
+  name: 'StoreInfo',
 
   computed: {
-    ...mapGetters(["selectedStore"]),
-  },
-};
+    ...mapGetters(['basket']),
+
+    store () {
+      return this.basket[0].store
+    },
+
+    
+  }
+}
 </script>
 
-<style></style>
+<style scoped>
+.body {
+  padding-top: 50px;
+  padding-bottom: 40px;
+}
+.top {
+  background-color: white;
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.backbtn {
+  position: absolute;
+  left: 0;
+}
+.title {
+  height: 50px;
+  display: flex;
+  align-items: center;
+  padding: 20px;
+  background-color: #f5f5f5;
+  font-size: 5px;
+  margin-bottom: 10px;
+}
+</style>

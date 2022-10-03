@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div id="map" style="height: 70vh"></div>
+    <div id="map" style="height: 70vh; width: 90%; margin: auto;"></div>
   </div>
 </template>
 
@@ -14,6 +14,7 @@ export default {
     lng: { type: Number, default: 127.036 },
     storeInfoList: { type: Array, default: () => [] },
     type: { type: Number, default: 0 },
+    
   },
 
   data() {
@@ -25,6 +26,7 @@ export default {
   mounted() {
     if (window.kakao && window.kakao.maps) {
       this.initMap();
+      
     } else {
       const script = document.createElement("script");
       /* global kakao */
@@ -32,7 +34,9 @@ export default {
       script.src = `//dapi.kakao.com/v2/maps/sdk.js?appkey=${process.env.VUE_APP_JAVASCRIPT_KEY}&autoload=false`;
       script.type = "text/javascript";
       document.head.appendChild(script);
+      
     }
+    // this.setMarkers(this.storeInfoList)
   },
 
   methods: {
@@ -111,6 +115,7 @@ export default {
       });
     },
   },
+  
 
   watch: {
     storeInfoList: function (nv) {

@@ -12,4 +12,4 @@ new Vue({
   render: h => h(App)
 }).$mount('#app')
 
-window.Kakao.init(process.env.VUE_APP_JAVASCRIPT_KEY)
+// window.Kakao.init(process.env.VUE_APP_JAVASCRIPT_KEY)

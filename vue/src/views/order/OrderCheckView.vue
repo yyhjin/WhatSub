@@ -12,7 +12,7 @@
       </p>
     </div>
     <div class="store">
-      서브웨이 역삼점
+      서브웨이 {{basket[0].store.branchName}}점
     </div>
     <div class="orderCheck">
       주문내역

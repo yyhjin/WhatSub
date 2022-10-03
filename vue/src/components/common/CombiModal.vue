@@ -22,7 +22,9 @@
         <combi-info-nutrition :combi-list-item="combiListItem"></combi-info-nutrition>
       </v-card-text>
       <v-card-actions class="pl-5 pb-5">
-        <div style="font-size: 18px; font-weight: 900">총&nbsp; {{ combiListItem.price }}원</div>
+        <div style="font-size: 18px; font-weight: 900">
+          총&nbsp; {{ combiListItem.price | comma }}원
+        </div>
         <v-spacer></v-spacer>
         <v-btn class="main_btn" width="180" elevation="0" rounded @click="goOrderCombi"
           >주문하러 가기</v-btn
@@ -55,6 +57,11 @@ export default {
       set(value) {
         this.$emit("input", value);
       },
+    },
+  },
+  filters: {
+    comma(val) {
+      return String(val).replace(/\B(?=(\d{3})+(?!\d))/g, ",");
     },
   },
   methods: {
