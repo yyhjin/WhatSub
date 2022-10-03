@@ -1,7 +1,6 @@
 package com.ssafy.spring.user.entity;
 
 import com.ssafy.spring.comb.entity.CombinationPost;
-import com.ssafy.spring.user.dto.UserRequest;
 import lombok.*;
 import org.hibernate.annotations.ColumnDefault;
 
@@ -24,15 +23,12 @@ public class User {
 
     private String authId;
 
-//    @Column(nullable = false)
     private String email;
 
-//    @Column(nullable = false)
     private String gender;
 
     private int birthYear;
 
-    //    @Column(unique = true, nullable = false)
     @Column(unique = true)
     private String userName;
 
@@ -49,10 +45,7 @@ public class User {
     @OneToMany(mappedBy = "user")
     private List<CombinationPost> combinationPosts = new ArrayList<>();
 
-    public void updateInfo(UserRequest.SignUpRequest request){
-        this.email = request.getEmail();
-        this.gender = request.getGender();
-        this.birthYear = request.getBirthYear();
-        this.isDiet = request.isDiet();
-    }
+    @OneToMany(mappedBy = "user")
+    private List<Collection> collections = new ArrayList<>();
+
 }

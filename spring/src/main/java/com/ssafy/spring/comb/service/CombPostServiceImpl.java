@@ -1,7 +1,6 @@
 package com.ssafy.spring.comb.service;
 
 import com.ssafy.spring.comb.dto.CombPostRequest;
-import com.ssafy.spring.comb.dto.CombPostResponse;
 import com.ssafy.spring.comb.entity.Combination;
 import com.ssafy.spring.comb.entity.CombinationPost;
 import com.ssafy.spring.comb.repository.CombPostRepository;
@@ -78,15 +77,9 @@ public class CombPostServiceImpl implements CombPostService {
         return post.getCombinationPostId();
     }
 
+    @Transactional
     @Override
-    public List<CombinationPost> findAllByUser(User user) {
-        return combPostRepository.findAllByUser(user);
+    public void statisticsUpdate(CombinationPost post, String statistics) {
+        post.statisticsUpdate(statistics);
     }
-
-    @Override
-    public List<CombinationPost> findTop30ByOrderByLikesCntDescScoreAvgDesc() {
-        return combPostRepository.findTop30ByOrderByLikesCntDescScoreAvgDesc();
-    }
-
-
 }

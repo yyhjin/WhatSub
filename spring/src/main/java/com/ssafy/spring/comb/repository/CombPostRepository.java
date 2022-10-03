@@ -1,11 +1,6 @@
 package com.ssafy.spring.comb.repository;
 
-import com.ssafy.spring.comb.dto.CombDto;
-import com.ssafy.spring.comb.dto.CombPostRequest;
-import com.ssafy.spring.comb.dto.CombPostResponse;
-import com.ssafy.spring.comb.entity.Combination;
 import com.ssafy.spring.comb.entity.CombinationPost;
-import com.ssafy.spring.user.entity.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
@@ -31,7 +26,11 @@ public interface CombPostRepository extends JpaRepository<CombinationPost, Strin
 
     List<CombinationPost> findAllByOrderByCreatedAtDesc();
 
-    List<CombinationPost> findAllByUser(User user);
-
     List<CombinationPost> findTop30ByOrderByLikesCntDescScoreAvgDesc();
+
+    @Query("select p from CombinationPost p where p.combination.kcal between :kcalMin and :kcalMax " +
+            "and p.combination.protein between :proteinMin and :proteinMax " +
+            "and p.combination.sodium between :sodiumMin and :sodiumMax")
+    List<CombinationPost> findAllByNutrition(float kcalMin, float kcalMax, float proteinMin, float proteinMax,
+                                             float sodiumMin, float sodiumMax);
 }

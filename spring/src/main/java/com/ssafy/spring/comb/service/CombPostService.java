@@ -2,7 +2,6 @@ package com.ssafy.spring.comb.service;
 
 
 import com.ssafy.spring.comb.dto.CombPostRequest;
-import com.ssafy.spring.comb.dto.CombPostResponse;
 import com.ssafy.spring.comb.entity.Combination;
 import com.ssafy.spring.comb.entity.CombinationPost;
 import com.ssafy.spring.user.entity.User;
@@ -19,8 +18,6 @@ public interface CombPostService {
     List<CombinationPost> findAllByOrderByScoreAvgDesc();
     List<CombinationPost> findAllByOrderByCreatedAtDesc();
     int likescntUpdate(CombinationPost post, int likesCnt);
+    void statisticsUpdate(CombinationPost post, String statistics);
 
-    List<CombinationPost> findAllByUser(User user);
-
-    List<CombinationPost> findTop30ByOrderByLikesCntDescScoreAvgDesc();
 }

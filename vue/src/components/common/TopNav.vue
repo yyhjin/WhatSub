@@ -6,23 +6,94 @@
       </router-link>
       <v-spacer></v-spacer>
 
-      <v-btn icon>
+      <v-btn icon @click="goBasket">
         <v-icon color="grey darken-1">mdi-cart-outline</v-icon>
       </v-btn>
-      <v-btn icon>
+      <v-btn icon @click="showMore">
         <v-icon>mdi-account-circle-outline</v-icon>
       </v-btn>
     </v-app-bar>
+    
   </div>
 </template>
 
 <script>
 export default {
   name: "TopNav",
+
+  data () {
+    return {
+      check: true
+    }
+  },
+
+  methods: {
+    goBasket () {
+      this.$router.push('/orderbasket')
+    },
+
+    showMore () {
+      const sideNav = document.querySelector('.moreBtn')
+      if (this.check) {
+        sideNav.classList.add('active')
+        this.check = !this.check
+        } else {
+        sideNav.classList.remove('active')
+        this.check = !this.check
+      }
+    }
+  }
 };
 </script>
 
 <style>
+.moreBtn {
+  width: 150px;
+  height: 200px;
+  border: 1px solid #239347;
+  background-color: white;
+  border-radius: 5px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-evenly;
+  position: fixed;
+  top: 56px;
+  right: 0;
+  opacity: 0;
+  
+  
+}
+.active {
+  opacity: 1;
+  animation: more 1s ;
+  z-index: 3;
+  
+}
+@keyframes more {
+  0% {
+    opacity: 0;
+    right: -150px;
+  }
+  100% {
+    right: 0px;
+    opacity: 1;
+  }
+}
+.id {
+  width: 100%;
+  border-bottom: 1px solid;
+  display: flex;
+  align-items: center;
+}
+.logout {
+  width: 100%;
+  border-top: 1px solid;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  
+}
 /* .class {
   margin: 0;
 }

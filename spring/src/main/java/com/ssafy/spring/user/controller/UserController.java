@@ -1,15 +1,16 @@
 package com.ssafy.spring.user.controller;
 
 import com.ssafy.spring.SuccessResponseResult;
-import com.ssafy.spring.comb.entity.Combination;
-import com.ssafy.spring.comb.entity.CombinationPost;
+import com.ssafy.spring.comb.dto.CombPostDto;
+import com.ssafy.spring.comb.dto.IngredientDto;
 import com.ssafy.spring.comb.entity.Ingredient;
-import com.ssafy.spring.comb.service.CombPostService;
+import com.ssafy.spring.comb.service.IngredientService;
+import com.ssafy.spring.comb.service.S3Service;
 import com.ssafy.spring.exception.NoSuchUserException;
+import com.ssafy.spring.user.dto.CollectionDto;
 import com.ssafy.spring.user.dto.DibDto;
 import com.ssafy.spring.user.dto.UserRequest;
 import com.ssafy.spring.user.dto.UserResponse;
-import com.ssafy.spring.user.entity.Dib;
 import com.ssafy.spring.user.entity.Excluded;
 import com.ssafy.spring.user.entity.User;
 import com.ssafy.spring.user.service.ExcludedService;
@@ -18,8 +19,11 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 import static java.util.stream.Collectors.toList;
 
@@ -33,10 +37,13 @@ public class UserController {
     private UserService userService;
 
     @Autowired
-    private CombPostService combPostService;
+    private ExcludedService excludedService;
 
     @Autowired
-    private ExcludedService excludedService;
+    private IngredientService ingredientService;
+
+    @Autowired
+    private S3Service s3Service;
 
     // 더미 데이터 생성 api
     @ApiOperation(value = "더미 데이터 생성", notes="임시 유저 데이터 5000개 삽입", httpMethod = "GET")
@@ -78,35 +85,32 @@ public class UserController {
 
     @ApiOperation(value = "설문조사 내용 업데이트", notes="회원가입에 성공하면 success, 아니면 fail", httpMethod = "POST")
     @PostMapping("/signup")
-    public SuccessResponseResult signUp(@RequestBody UserRequest.SignUpRequest request) throws NoSuchUserException {
-        User user = userService.getUserByUserId(request.getUserId());
+    // formData 받기
+    public SuccessResponseResult signUp(UserRequest.SignUpRequest formRequest) throws NoSuchUserException {
+        User user = userService.getUserByUserId(formRequest.getUserId());
 
         if(user == null){
             throw new NoSuchUserException();
         }
 
-        user.updateInfo(request);
-//        user = User.builder()
-//                .email(request.getEmail())
-//                .gender(request.getGender())
-//                .birthYear(request.getBirthYear())
-//                .userName(request.getUserName())
-//                .profileImg(request.getProfileImg())
-//                .build();
+        // 프로필 사진 저장 후 경로 리턴
+        List<MultipartFile> multipartFiles = new ArrayList<>();
+        multipartFiles.add(formRequest.getProfileImg());
+        String profileImgPath = s3Service.uploadFile(multipartFiles).get(0);
+
+        user = User.builder()
+                .userId(user.getUserId())
+                .email(formRequest.getEmail())
+                .gender(formRequest.getGender())
+                .birthYear(formRequest.getBirthYear())
+                .userName(formRequest.getUserName())
+                .profileImg(profileImgPath)
+                .build();
+
         userService.save(user);
         String userName = user.getUserName();
         return new SuccessResponseResult(userName);
     }
-    
-
-//    @ApiOperation(value = "일반 로그인", notes="로그인에 성공하면 username 반환", httpMethod = "POST")
-//    @PostMapping("/login")
-//    public SuccessResponseResult login(@RequestBody UserRequest.LoginRequest request){
-//
-//        // 로그인 로직
-//
-//        return new SuccessResponseResult();
-//    }
 
     @ApiOperation(value = "유저 정보 조회", notes="userName을 통해 유저 정보 조회(남자: 0, 여자: 1)", httpMethod = "GET")
     @GetMapping("/{userName}")
@@ -160,14 +164,20 @@ public class UserController {
             throw new NoSuchUserException();
         }
 
+        List<CollectionDto> collectionList = user.getCollections().stream()
+                .map(CollectionDto::new)
+                .collect(toList());
+
         List<DibDto> dibList = userService.getDibsByUserAndStateIsTrue(user).stream()
                 .map(DibDto::new)
                 .collect(toList());
-//        List<CombinationPost> combList = combPostService.findAllByUser(user);
-        List<CombinationPost> combList = null;
 
-//        UserResponse.GetDibNcombListResponse response = new UserResponse.GetDibNcombListResponse(dibList, combinationList);
-        return new SuccessResponseResult(combList);
+        List<CombPostDto> combPostList = user.getCombinationPosts().stream()
+                .map(CombPostDto::new)
+                .collect(toList());
+
+        UserResponse.GetDibNcombListResponse response = new UserResponse.GetDibNcombListResponse(collectionList, dibList, combPostList);
+        return new SuccessResponseResult(response);
     }
 
     @ApiOperation(value = "subti 등록", notes="subti 결과를 DB에 등록", httpMethod = "POST")
@@ -194,22 +204,35 @@ public class UserController {
             throw new NoSuchUserException();
         }
 
-        List<Integer> vegetables = request.getVegetables();
+        // 다이어트 여부 저장
+        user.setDiet(request.isDiet());
+        userService.save(user);
+
+        List<String> vegetables = request.getVegetables();
         List<String> allergies = request.getAllergies();
 
-        // 알레르기 및 제외 재료 로직
-        //1. 알레르기 정보가 포함된 재료들을 가져옴
-        List<Ingredient> ingredientList = null;
+        // 알레르기 정보가 포함된 재료들을 가져옴
+        List<IngredientDto> ingredientDtoList = ingredientService.findByAllergiesContainsIn(allergies);
 
+        // 알레르기 정보를 포함하여 유저가 못 먹는 재료 id를 추출
+        Set<String> excludedIngredientIds = userService.getExcludedIngredientId(vegetables, allergies, ingredientDtoList);
+        List<String> excludedIngredientIdsList = new ArrayList<>(excludedIngredientIds);
 
-        //2. 현재 유저가 못먹는 재료를 삽입
-        Excluded excluded = new Excluded();
-        excluded.setUser(user);
+        List<Ingredient> ingredientList = ingredientService.findByIngredientIdIn(excludedIngredientIdsList);
+        List<Excluded> excludedList = new ArrayList<>();
 
         for(Ingredient ingredient : ingredientList){
-            excluded.setIngredient(ingredient);
-            excludedService.save(excluded);
+            // 유저가 못먹는 재료를 삽입
+            Excluded excluded = Excluded.builder()
+                            .user(user)
+                            .ingredient(ingredient)
+                            .build();
+            // save < saveAll의 성능 차이
+//            excludedService.save(excluded);
+            excludedList.add(excluded);
         }
+
+        excludedService.saveAll(excludedList);
 
         return new SuccessResponseResult();
     }

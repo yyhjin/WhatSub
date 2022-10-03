@@ -1,8 +1,10 @@
-// import axios from "axios";
+import axios from "axios";
+import api from "@/api/api"
 
 export default {
   state: {
     selectedStore: localStorage.getItem('store') || null,
+    basket: JSON.parse(localStorage.getItem('basket')) || [],
     menus: [
       {
         menu_id : 1,
@@ -357,7 +359,7 @@ export default {
   },
   getters: {
     selectedStore: (state) => state.selectedStore,
-    
+    basket: (state) => state.basket,
     menus : (state) => state.menus,
     sauce : (state) => state.sauce,
     breads : (state) => state.breads,
@@ -437,16 +439,29 @@ export default {
     
     SET_SELECTEDMENU: (state, value) => (state.selectedMenu = value),
 
-    
+    UP_CNT: (state, value) => (state.basket[value].cnt += 1),
+
+    DOWN_CNT: (state, value) => {
+      if (state.basket[value].cnt > 0){
+        (state.basket[value].cnt -= 1)
+      }
+    }
   },
   actions: {
-    // fetchMenus ({commit}, value) {
-    //   axios({
-    //     method: 'get',
-    //     url: '',
+    fetchMenus ({commit}) {
+      console.log(api.order.order.menu)
+      
+      axios({
+        method: 'get',
+        url: api.order.order.menu
+      }).then(res => {
+        console.log(res)
+        commit('SET_MENUS', res.data.data)
+      }).catch(err => {
+        console.error(err)
+      })
+    },
 
-    //   })
-    // },
     selectStore({ commit }, value) {
       commit("SET_SELECTEDSTORE", value);
       localStorage.setItem('store', JSON.stringify(value))
@@ -501,6 +516,14 @@ export default {
 
     removeSauce({ commit }, value) {
       commit('REMOVE_SELECTEDSAUCE', value)
+    },
+
+    up ({ commit }, index) {
+      commit('UP_CNT', index)
+    },
+
+    down ({ commit }, index) {
+      commit('DOWN_CNT', index)   
     },
 
     
