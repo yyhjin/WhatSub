@@ -3,7 +3,7 @@ import api from "@/api/api"
 
 export default {
   state: {
-    selectedStore: localStorage.getItem('store') || null,
+    selectedStore: JSON.parse(localStorage.getItem('store')) || null,
     basket: JSON.parse(localStorage.getItem('basket')) || [],
     menus: [],
     breads: [],
