@@ -1,25 +1,6 @@
 <template>
   <div>
-    <div class="top">
-      <top-nav></top-nav>
-    </div>
-    <div class="moreBtn">
-      <div class="id">
-        ssafy07
-      </div>
-      <div @click="goOrderDetail">
-        최근 주문 내역
-      </div>
-      <div @click="goZzim">
-        꿀조합 찜 목록
-      </div>
-      <div @click="goSub">
-        썹bti 재검사
-      </div>
-      <div class="logout" @click="logout">
-        로그아웃
-      </div>
-    </div>
+    <top-nav></top-nav>
     <div>
       <recommend-main></recommend-main>
     </div>
@@ -117,18 +98,8 @@ export default {
     goNutriReco() {
       this.$router.push({ name: "recommendnutrition" });
     },
-    goOrderDetail() {
-      this.$router.push({ name: "orderdetail"})
-    },
-    goZzim () {
-      this.$router.push({ name: "zzim"})
-    },
-    goSub () {
-      this.$router.push({ name: "surveysubti"})
-    },
-    logout() {
-
-    }
+    
+   
 
   },
 };
@@ -136,11 +107,7 @@ export default {
 
 <style scoped>
 @import "@/scss/common.scss";
-.top {
-  position: fixed;
-  width: 100%;
-  z-index: 2;
-}
+
 .bottom {
   position: fixed;
   width: 100%;

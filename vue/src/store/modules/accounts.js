@@ -7,6 +7,7 @@ export default({
     currentUser: {},
     profile : {},
   },
+
   getters: {
     isLoggedIn : state => !!state.token,
     authHeader  (state) {
@@ -15,6 +16,7 @@ export default({
     profile: state => state.profile,
     currentUser : state => state.currentUser,
   },
+
   mutations: {
     SET_TOKEN (state, token) {
       state.token = token
@@ -85,25 +87,26 @@ export default({
         commit('SET_PROFILE', res.data)
       })
     },
-  //   signup ({ dispatch, commit }, formData) {
-  //     axios({
-  //       url : drf.accounts.signup(),
-  //       method : 'post',
-  //       data : formData,
-  //       // headers:{
-  //       //   'Content-Type':'multipart/form-data'
-  //       // }
-  //     })
-  //     .then(res => {
-  //       dispatch('saveToken', res.data.key)
-  //       dispatch('fetchCurrentUser')
-  //       router.push({name:'home'})    
-  //     })
-  //     .catch(err => {
-  //       console.error(err.response.data)
-  //       commit('SET_AUTH_ERROR', err.response.data)
-  //     })
-  // },
+
+    signup ({ dispatch }, formData) {
+      axios({
+        url : api.accounts.signup(),
+        method : 'post',
+        data : formData,
+        // headers:{
+        //   'Content-Type':'multipart/form-data'
+        // }
+      })
+      .then(res => {
+        dispatch('saveToken', res.data.key)
+        dispatch('fetchCurrentUser')
+        // router.push({name:'home'})    
+      })
+      .catch(err => {
+        console.error(err.response.data)
+        // commit('SET_AUTH_ERROR', err.response.data)
+      })
+  },
 
 }
 })

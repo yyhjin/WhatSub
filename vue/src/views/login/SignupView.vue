@@ -91,7 +91,8 @@ export default {
         method: 'get',
         url: api.accounts.check(username),
       }).then(res => {
-        if (res.data === false) {
+        console.log(res)
+        if (res.data.data === false) {
           alert('가능')
         } else {
           alert('있는 아이디')
@@ -104,8 +105,10 @@ export default {
       this.formData.append("gender", this.credentials.gender)
       this.formData.append("birthYear", this.credentials.birthYear)
       //formData를 axios로 서버로 보냄
-      
+      this.$store.dispatch('signup', this.formData)
+     
     },
+
     selectFile (input) {
       var reader = new FileReader();
       reader.onload = function(e) {
