@@ -79,9 +79,10 @@ const routes = [
     path: "/registcombination",
     name: "registcombination",
     component: RegistCombinationView,
+    props: true,
   },
   {
-    path: "/registreview",
+    path: "/registreview/:combinationPostId",
     name: "registreview",
     component: RegistReviewView,
     props: true,
