@@ -234,10 +234,10 @@ export default{
         })
         .catch((err) => console.log("getCombiListByOthers 에러", err));
     },
-    getCombiDetail({commit}, {combinationPostId}) {
+    getCombiDetail({commit}, {combinationPostId, userId}) {
       axios({
         method: "get",
-        url: `https://j7a105.p.ssafy.io/api/v1/comb/${combinationPostId}`,
+        url: `https://j7a105.p.ssafy.io/api/v1/comb/${combinationPostId}/${userId}`,
         // data: {
         //   combinationPostId: combinationPostId,
         // }

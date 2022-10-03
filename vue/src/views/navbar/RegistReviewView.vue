@@ -143,7 +143,7 @@ export default {
         }
       }).then(res => {
         console.log(res)
-        this.$router.push({name: "combinationdetail", params:{combinationPostId:this.combinationPostId}})
+        this.$router.push({name: "combinationdetail", params:{combinationPostId:this.combinationPostId, userId: this.profile.userId}})
       }).catch(err => {
         console.error('changeReview 에러', err)
       })
@@ -152,7 +152,7 @@ export default {
 
   mounted () {
     console.log(this.combinationPostId)
-    this.getCombiDetail({ combinationPostId: this.combinationPostId })
+    this.getCombiDetail({ combinationPostId: this.combinationPostId, userId:this.profile.userId })
     this.fetchProfile({username:this.username})
     axios({
       url: `https://j7a105.p.ssafy.io/api/v1/review/${this.combinationPostId}`,

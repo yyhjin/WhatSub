@@ -34,6 +34,7 @@
 import AlertCombi from "@/components/nav/AlertCombi.vue";
 import api from '@/api/api'
 import axios from 'axios'
+import { mapGetters } from 'vuex';
 export default {
   name: 'SandByOrder',
 
@@ -55,6 +56,7 @@ export default {
   },
 
   computed: {
+    ...mapGetters(['profile']),
     more () {
       let more = ''
       this.combination.ingredients.forEach(each => {
@@ -81,7 +83,7 @@ export default {
     isRegisted () {
       if (this.isRegisted) {
         axios({
-          url: api.comb.comb.read(this.combinationPostId),
+          url: api.comb.comb.read(this.combinationPostId, this.profile.userId),
           method:'get'
         }).then(res=> {
           this.imgUrl = res.data.data.imgUrl
