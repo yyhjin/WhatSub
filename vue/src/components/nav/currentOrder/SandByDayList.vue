@@ -9,6 +9,7 @@
         :index="index"
         :order-menu="orderMenus"
         @openModal="openModal"
+        :date="date"
       ></sand-by-day-list-item>
     </div>
     <v-card height="6" width="360" elevation="0" style="background-color: #d9d9d9">&nbsp;</v-card>

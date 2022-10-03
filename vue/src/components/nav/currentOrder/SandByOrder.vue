@@ -23,7 +23,7 @@
         </div>
         <v-btn class="green_btn" v-if="isRegisted" rounded small @click="goRegistForm">리뷰등록</v-btn>
         <v-btn class="green_btn" v-else rounded small @click="goRegistForm">조합등록</v-btn>
-        <v-btn class="main_btn" rounded small>상세보기</v-btn>
+        <!-- <v-btn class="main_btn" rounded small>상세보기</v-btn> -->
       </div>
     </v-card>
     <alert-combi :imgUrl="imgUrl" :name="name" :combinationId="combination.combinationId" :combi="combi"     :value="openAlert" @input="openAlert = $event"></alert-combi>
