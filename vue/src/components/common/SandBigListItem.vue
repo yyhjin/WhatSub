@@ -1,28 +1,35 @@
 <template>
   <div>
     <v-card class="sand_big_card">
-      <div class="first">
-        <div class="imgwrap">
-          <img :src="sand.imgUrl" alt="">
-        </div>
-        <div class="title">
-          {{ sand.combName }}
-        </div>
+      <div class="close">
+        <v-btn class="c_btn pa-0" text >
+          <v-icon>mdi-close</v-icon>
+        </v-btn>
       </div>
-      <div class="second">
-        <div class="ingre">
-          <div class="menu">
-            메뉴: {{ sand.menuName }}
+      <div class="content">
+        <div class="first">
+          <div class="imgwrap">
+            <img :src="sand.imgUrl" alt="">
           </div>
-          <div class="more">
-            추가재료: {{ more }}
-          </div>
-          <div class="sauce">
-            소스: {{ sauce }}
+          <div class="title">
+            {{ sand.combName }}
           </div>
         </div>
-        <v-btn class="green_btn" rounded small>바로주문</v-btn>
-        <v-btn class="main_btn" rounded small>상세보기</v-btn>
+        <div class="second">
+          <div class="ingre">
+            <div class="menu">
+              메뉴: {{ sand.menuName }}
+            </div>
+            <div class="more">
+              추가재료: {{ more }}
+            </div>
+            <div class="sauce">
+              소스: {{ sauce }}
+            </div>
+          </div>
+          <v-btn class="green_btn" rounded small>바로주문</v-btn>
+          <v-btn class="main_btn" rounded small>상세보기</v-btn>
+        </div>
       </div>
     </v-card>
     <combi-modal
@@ -120,12 +127,37 @@ export default {
 };
 </script>
 
-<style>
+<style >
 .sand_big_card {
   height: 140px;
-  width: 333px;
+  width: 90%;
+  margin: auto;
+  margin-bottom: 20px;
+  display: block;
 }
 .sand_big_card:last-child {
-  margin-bottom: 10px;
+  margin-bottom: 25px;
+}
+.close {
+  float: right;
+}
+.content {
+  display: flex;
+  height: 100%;
+}
+.first {
+  width: 40%;
+}
+.second {
+  width: 60%;
+}
+.imgwrap img {
+  display:block;
+	/* height:100%; */
+	width:auto;
+  object-fit: cover;
+}
+.imgwrap {
+  height: 60%;
 }
 </style>
