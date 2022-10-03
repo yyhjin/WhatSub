@@ -23,6 +23,7 @@ public class CombPostDto {
 
     public CombPostDto (CombinationPost combinationPost){
         this.combinationPostId = combinationPost.getCombinationPostId();
+        this.combination = combinationPost.getCombination();
         this.user = new UserDto(combinationPost.getUser());
         this.combName = combinationPost.getCombName();
         this.content = combinationPost.getContent();
