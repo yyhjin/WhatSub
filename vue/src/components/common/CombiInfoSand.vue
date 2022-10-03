@@ -10,15 +10,15 @@
         hover
         readonly
       ></v-rating>
-      <span>{{ combiListItem.score }}</span>
+      <span>{{ combiListItem.scoreAvg }}</span>
     </div>
     <v-img height="150" width="250" src="" alt="sandwitch"></v-img>
-    <h2 style="font-size: 18px">
-      {{ combiListItem.name }}
+    <h2 style="font-size: 16px">
+      {{ combiListItem.combName }}
     </h2>
-    <h3 style="color: grey">({{ combiListItem.basic }})</h3>
+    <h3 style="color: grey; font-size: 16px">({{ combiListItem.menuName }})</h3>
     <div class="ma-3">
-      <div style="font-size: 16px">{{ combiListItem.desc }}</div>
+      <div style="font-size: 15px">{{ combiListItem.content }}</div>
     </div>
   </div>
 </template>
@@ -28,7 +28,7 @@ export default {
   name: "CombiInfoSnad",
   data() {
     return {
-      rating: this.combiListItem.score,
+      rating: this.combiListItem.scoreAvg,
     };
   },
   props: {

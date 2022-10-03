@@ -1,4 +1,4 @@
-// import axios from "axios";
+import axios from "axios";
 
 export default{
   state: {
@@ -164,18 +164,48 @@ export default{
         price: 8400,
       },
     ],
-    combiListByOthers:[],
+    combiListByOthers: [],
+    combiListByNutri: [],
   },
   getters: {
     sandList: (state) => state.sandList,
     combiListByOthers: (state) => state.combiListByOthers,
+    combiListByNutri: (state) => state.combiListByNutri,
   },
   mutations: {
     SET_COMBI_LIST_BY_OTHERS: (state, combiListByOthers) => (state.combiListByOthers = combiListByOthers),
+    SET_COMBI_LIST_BY_NUTRI: (state, combiListByNutri) => (state.combiListByNutri = combiListByNutri)
   },
   actions: {
-    getCombiListByOthers() {
-      
+    getCombiListByOthers({commit}) {
+      axios({
+        method: "get",
+        url: "https://j7a105.p.ssafy.io/api/v1/recommendation/postrank",
+      })
+        .then((res) => {
+          commit("SET_COMBI_LIST_BY_OTHERS", res.data.data);
+          console.log(res.data.data);
+        })
+        .catch((err) => console.log("getCombiListByOthers 에러", err));
+    },
+    getCombiListByNutri({ commit }, {kcalMax, kcalMin, proteinMax, proteinMin, sodiumMax, sodiumMin}) {
+      axios({
+        method: "post",
+        url: "https://j7a105.p.ssafy.io/api/v1/recommendation/nutrition",
+        data: {
+          kcalMax: kcalMax,
+          kcalMin: kcalMin,
+          proteinMax: proteinMax,
+          proteinMin: proteinMin,
+          sodiumMax: sodiumMax,
+          sodiumMin: sodiumMin,
+        },
+      })
+        .then((res) => {
+          commit("SET_COMBI_LIST_BY_NUTRI", res.data.data);
+          console.log(res.data.data);
+        })
+        .catch((err) => console.log("getCombiListByNutri 에러", err));
     }
   },
 }

@@ -27,6 +27,7 @@
           :max-k="max_k"
           :min_k="min_k"
           v-model="range_k"
+          max="1000"
           :thumb-size="25"
           color="#239347"
           thumb-color="#239347"
@@ -36,7 +37,7 @@
           height="50"
         ></v-range-slider>
         <v-row>
-          <v-col cols="2">
+          <v-col cols="3">
             <v-text-field
               :value="range_k[0]"
               class="nut_text text-style mt-n2 pt-0"
@@ -48,7 +49,7 @@
             ></v-text-field>
           </v-col>
           <v-spacer></v-spacer>
-          <v-col cols="2">
+          <v-col cols="3">
             <v-text-field
               :value="range_k[1]"
               class="nut_text text-style mt-n2 pt-0"
@@ -76,7 +77,7 @@
           height="50"
         ></v-range-slider>
         <v-row>
-          <v-col cols="2">
+          <v-col cols="3">
             <v-text-field
               :value="range_g[0]"
               class="nut_text text-style mt-n2 pt-0"
@@ -88,7 +89,7 @@
             ></v-text-field>
           </v-col>
           <v-spacer></v-spacer>
-          <v-col cols="2">
+          <v-col cols="3">
             <v-text-field
               :value="range_g[1]"
               class="nut_text text-style mt-n2 pt-0"
@@ -107,6 +108,7 @@
           :max-m="max_m"
           :min_m="min_m"
           v-model="range_m"
+          max="1000"
           :thumb-size="25"
           color="#239347"
           thumb-color="#239347"
@@ -116,7 +118,7 @@
           height="50"
         ></v-range-slider>
         <v-row>
-          <v-col cols="2">
+          <v-col cols="3">
             <v-text-field
               :value="range_m[0]"
               class="nut_text text-style mt-n2 pt-0"
@@ -128,7 +130,7 @@
             ></v-text-field>
           </v-col>
           <v-spacer></v-spacer>
-          <v-col cols="2">
+          <v-col cols="3">
             <v-text-field
               :value="range_m[1]"
               class="nut_text text-style mt-n2 pt-0"
@@ -156,6 +158,7 @@
 
 <script>
 import BottomNav from "@/components/common/BottomNav.vue";
+import { mapActions, mapGetters } from "vuex";
 
 export default {
   name: "RecommendNutritionView",
@@ -166,20 +169,34 @@ export default {
     return {
       min_k: 0,
       max_k: 1000,
-      range_k: [0, 100],
+      range_k: [0, 1000],
       min_g: 0,
       max_g: 100,
       range_g: [0, 100],
       min_m: 0,
-      max_m: 100,
-      range_m: [0, 100],
+      max_m: 1000,
+      range_m: [0, 1000],
     };
   },
+  computed: {
+    ...mapGetters(["combiListByNutri"]),
+  },
   methods: {
+    ...mapActions(["getCombiListByNutri"]),
     goBack() {
       this.$router.go(-1);
     },
     goNutriResult() {
+      console.log(this.range_k[1] + "kcal max");
+      console.log(this.range_k[0] + "kcal min");
+      this.getCombiListByNutri({
+        kcalMax: this.range_k[1],
+        kcalMin: this.range_k[0],
+        proteinMax: this.range_g[1],
+        proteinMin: this.range_g[0],
+        sodiumMax: this.range_m[1],
+        sodiumMin: this.range_m[0],
+      });
       this.$router.push({ name: "recommendnutritionresult" });
     },
   },
@@ -197,7 +214,6 @@ export default {
 }
 .nut_text {
   font-size: 14px;
-  text-align: center;
 }
 .text-style >>> .v-input__slot::before {
   border-style: none !important;
