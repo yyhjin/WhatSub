@@ -13,7 +13,6 @@
         <v-icon>mdi-account-circle-outline</v-icon>
       </v-btn>
     </v-app-bar>
-    
   </div>
 </template>
 
@@ -21,28 +20,28 @@
 export default {
   name: "TopNav",
 
-  data () {
+  data() {
     return {
-      check: true
-    }
+      check: true,
+    };
   },
 
   methods: {
-    goBasket () {
-      this.$router.push('/orderbasket')
+    goBasket() {
+      this.$router.push("/orderbasket");
     },
 
-    showMore () {
-      const sideNav = document.querySelector('.moreBtn')
+    showMore() {
+      const sideNav = document.querySelector(".moreBtn");
       if (this.check) {
-        sideNav.classList.add('active')
-        this.check = !this.check
-        } else {
-        sideNav.classList.remove('active')
-        this.check = !this.check
+        sideNav.classList.add("active");
+        this.check = !this.check;
+      } else {
+        sideNav.classList.remove("active");
+        this.check = !this.check;
       }
-    }
-  }
+    },
+  },
 };
 </script>
 
@@ -61,14 +60,11 @@ export default {
   top: 56px;
   right: 0;
   opacity: 0;
-  
-  
 }
 .active {
   opacity: 1;
-  animation: more 1s ;
+  animation: more 1s;
   z-index: 3;
-  
 }
 @keyframes more {
   0% {
@@ -92,7 +88,6 @@ export default {
   display: flex;
   align-items: center;
   justify-content: center;
-  
 }
 /* .class {
   margin: 0;

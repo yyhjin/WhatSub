@@ -1,10 +1,13 @@
 <template>
-  <div>CombiStatistic</div>
+  <div>{{ combiDetail }}</div>
 </template>
 
 <script>
 export default {
   name: "CombiStatistic",
+  props: {
+    combiDetail: Object,
+  },
 };
 </script>
 

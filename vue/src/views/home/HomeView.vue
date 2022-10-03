@@ -3,22 +3,12 @@
     <div class="top">
       <top-nav></top-nav>
     </div>
-    <div class="moreBtn">
-      <div class="id">
-        ssafy07
-      </div>
-      <div @click="goOrderDetail">
-        최근 주문 내역
-      </div>
-      <div @click="goZzim">
-        꿀조합 찜 목록
-      </div>
-      <div @click="goSub">
-        썹bti 재검사
-      </div>
-      <div class="logout" @click="logout">
-        로그아웃
-      </div>
+    <div class="moreBtn mt-n2">
+      <div class="id">ssafy07</div>
+      <div @click="goOrderDetail">최근 주문 내역</div>
+      <div @click="goZzim">꿀조합 찜 목록</div>
+      <div @click="goSub">썹bti 재검사</div>
+      <div class="logout" @click="logout">로그아웃</div>
     </div>
     <div>
       <recommend-main></recommend-main>
@@ -118,18 +108,15 @@ export default {
       this.$router.push({ name: "recommendnutrition" });
     },
     goOrderDetail() {
-      this.$router.push({ name: "orderdetail"})
+      this.$router.push({ name: "orderdetail" });
     },
-    goZzim () {
-      this.$router.push({ name: "zzim"})
+    goZzim() {
+      this.$router.push({ name: "zzim" });
     },
-    goSub () {
-      this.$router.push({ name: "surveysubti"})
+    goSub() {
+      this.$router.push({ name: "surveysubti" });
     },
-    logout() {
-
-    }
-
+    logout() {},
   },
 };
 </script>

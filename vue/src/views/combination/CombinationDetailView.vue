@@ -19,7 +19,13 @@
         readonly
       ></v-rating>
       <div>{{ combiDetail.scoreAvg }}</div>
-      <v-img height="100" width="250" src="" alt="sandwitch"></v-img>
+      <v-img
+        class="shadow_img"
+        height="100"
+        width="200"
+        :src="combiDetail.imgUrl"
+        alt="sandwitch"
+      ></v-img>
       <v-container>
         <v-row align="center">
           <v-col class="pa-0" align="center">
@@ -108,7 +114,7 @@
           </v-card>
           <v-card v-else flat height="200">
             <div class="pt-4 pl-6 pr-6">
-              <combi-statistic></combi-statistic>
+              <combi-statistic :combi-detail="combiDetail.statistics"></combi-statistic>
             </div>
           </v-card>
         </v-tab-item>

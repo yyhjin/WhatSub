@@ -12,11 +12,17 @@
       ></v-rating>
       <span>{{ combiListItem.scoreAvg }}</span>
     </div>
-    <v-img height="150" width="250" src="" alt="sandwitch"></v-img>
+    <v-img
+      class="shadow_img"
+      height="150"
+      width="200"
+      :src="combiListItem.imgUrl"
+      alt="sandwitch"
+    ></v-img>
     <h2 style="font-size: 16px">
       {{ combiListItem.combName }}
     </h2>
-    <h3 style="color: grey; font-size: 16px">({{ combiListItem.menuName }})</h3>
+    <h3 class="mt-1" style="color: grey; font-size: 16px">({{ combiListItem.menuName }})</h3>
     <div class="ma-3">
       <div style="font-size: 15px">{{ combiListItem.content }}</div>
     </div>
