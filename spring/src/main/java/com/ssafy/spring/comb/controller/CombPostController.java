@@ -6,8 +6,10 @@ import com.ssafy.spring.SuccessResponseResult;
 import com.ssafy.spring.comb.dto.CombDto;
 import com.ssafy.spring.comb.dto.CombPostRequest;
 import com.ssafy.spring.comb.dto.CombPostResponse;
+import com.ssafy.spring.comb.dto.IngredientDto;
 import com.ssafy.spring.comb.entity.Combination;
 import com.ssafy.spring.comb.entity.CombinationPost;
+import com.ssafy.spring.comb.entity.Ingredient;
 import com.ssafy.spring.comb.entity.Menu;
 import com.ssafy.spring.comb.service.*;
 import com.ssafy.spring.order.entity.OrderHistory;
@@ -133,6 +135,35 @@ public class CombPostController {
         response.setImgUrl(post.getImgUrl());
         response.setScoreAvg(post.getScoreAvg());
 
+        // 메뉴 정보
+        String menuId = post.getCombination().getCombinationId().substring(0,1);
+        Menu menu = menuService.getMenuByMenuId(menuId);
+        response.setMenuName(menu.getMenuName());
+
+        System.out.println(post.getCombination().getCombinationId());
+        System.out.println(post.getCombination().getCombinationId().substring(0,1));
+        System.out.println(menu.getMenuName());
+        System.out.println(post.getCombination().getCombinationId().substring(1));
+
+
+        // 재료 정보
+        List<IngredientDto.ingredientResponse> ingredients = new ArrayList<>();
+
+        String list = post.getCombination().getCombinationId().substring(1);
+        //String[] ingredient = new String[list.length()/2];
+        for (int i = 0, j = 0; j < list.length()/2; i += 2, j++) {
+            IngredientDto.ingredientResponse ingredientResponse = new IngredientDto.ingredientResponse();
+            String ingredientId = list.substring(i, i+2);
+            Ingredient in = ingredientService.findByIngredientId(ingredientId);
+            ingredientResponse.setCategory(in.getCategory());
+            ingredientResponse.setName(in.getName());
+            ingredients.add(ingredientResponse);
+        }
+
+        response.setIngredients(ingredients);
+
+
+        // 리뷰
         List<Review> reviews = reviewService.getReviewList(combinationPostId);
         List<ReviewResponse.ResponseDto> reviewList = reviews.stream()
                 .map(Review::EntityToDto)
@@ -162,6 +193,29 @@ public class CombPostController {
             response.setImgUrl(current.getImgUrl());
             response.setLikesCnt(current.getLikesCnt());
             response.setScoreAvg(current.getScoreAvg());
+
+            // 메뉴 정보
+            Menu menu = menuService.getMenuByMenuId(menuId);
+            response.setMenuName(menu.getMenuName());
+
+            // 재료 정보
+            List<IngredientDto.ingredientResponse> ingredients = new ArrayList<>();
+
+            String ingreList = current.getCombination().getCombinationId().substring(1);
+            for (int k = 0, j = 0; j < ingreList.length()/2; k += 2, j++) {
+                IngredientDto.ingredientResponse ingredientResponse = new IngredientDto.ingredientResponse();
+                String ingredientId = ingreList.substring(k, k+2);
+                Ingredient in = ingredientService.findByIngredientId(ingredientId);
+                ingredientResponse.setCategory(in.getCategory());
+                ingredientResponse.setName(in.getName());
+                ingredients.add(ingredientResponse);
+            }
+
+            response.setIngredients(ingredients);
+
+            // 리뷰
+            List<Review> reviews = reviewService.getReviewList(current.getCombinationPostId());
+            response.setReviewCnt(reviews.size());
 
             posts.add(response);
         }
@@ -214,6 +268,30 @@ public class CombPostController {
             response.setImgUrl(current.getImgUrl());
             response.setLikesCnt(current.getLikesCnt());
             response.setScoreAvg(current.getScoreAvg());
+
+            // 메뉴 정보
+            String menuId = current.getCombination().getCombinationId().substring(0,1);
+            Menu menu = menuService.getMenuByMenuId(menuId);
+            response.setMenuName(menu.getMenuName());
+
+            // 재료 정보
+            List<IngredientDto.ingredientResponse> ingredients = new ArrayList<>();
+
+            String ingreList = current.getCombination().getCombinationId().substring(1);
+            for (int k = 0, j = 0; j < ingreList.length()/2; k += 2, j++) {
+                IngredientDto.ingredientResponse ingredientResponse = new IngredientDto.ingredientResponse();
+                String ingredientId = ingreList.substring(k, k+2);
+                Ingredient in = ingredientService.findByIngredientId(ingredientId);
+                ingredientResponse.setCategory(in.getCategory());
+                ingredientResponse.setName(in.getName());
+                ingredients.add(ingredientResponse);
+            }
+
+            response.setIngredients(ingredients);
+
+            // 리뷰
+            List<Review> reviews = reviewService.getReviewList(current.getCombinationPostId());
+            response.setReviewCnt(reviews.size());
 
             posts.add(response);
         }
