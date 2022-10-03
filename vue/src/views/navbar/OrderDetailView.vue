@@ -28,6 +28,7 @@
 <script>
 import BottomNav from "@/components/common/BottomNav.vue";
 import SandByDayList from "@/components/nav/currentOrder/SandByDayList.vue";
+import { mapActions, mapGetters } from 'vuex';
 
 export default {
   name: "OrderDetailView",
@@ -76,7 +77,18 @@ export default {
       ],
     };
   },
+
+  computed: {
+    ...mapGetters(['currentUser', 'order']),
+
+    // orderList () {
+
+
+    // }
+  },
+
   methods: {
+    ...mapActions(['fetchOrder']),
     goBack() {
       this.$router.go(-1);
     },
@@ -84,6 +96,10 @@ export default {
       this.openAlert = openAlert;
     },
   },
+
+  mounted () {
+    this.fetchOrder(this.currentUser.username)
+  }
 };
 </script>
 

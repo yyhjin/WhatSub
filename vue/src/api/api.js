@@ -19,7 +19,8 @@ export default {
     exclude: (username) => HOST + ACCOUNTS + `${username}/exclude`,
     list: (username) => HOST + ACCOUNTS + `${username}/list`,
     subti: () => HOST + ACCOUNTS + 'subti',
-    dib: (username)  => HOST + ACCOUNTS + `${username}/dibs`
+    dib: (username)  => HOST + ACCOUNTS + `${username}/dibs`,
+    
 
   },
   order: order
