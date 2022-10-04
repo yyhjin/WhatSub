@@ -21,7 +21,8 @@
             소스: {{ sauce }}
           </div>
         </div>
-        <v-btn class="green_btn" rounded small @click="goRegistForm">리뷰등록</v-btn>
+        <v-btn class="green_btn" v-if="isRegisted" rounded small @click="goRegistForm">리뷰등록</v-btn>
+        <v-btn class="green_btn" v-else rounded small @click="goRegistForm">조합등록</v-btn>
         <v-btn class="main_btn" rounded small>상세보기</v-btn>
       </div>
     </v-card>
@@ -99,7 +100,7 @@ export default {
 
       //리뷰 등록할 꿀조합이 있다면 리뷰 등록 화면으로 이동
       if (this.isRegisted) {
-        this.$router.push({ name: "registreview" });
+        this.$router.push({ name: "registreview", params: {combinationPostId: this.combinationPostId} });
       } else {
         //리뷰 등록할 꿀조합이 없다면 AlertCombi 띄워주기
         this.openAlert = true;

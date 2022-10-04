@@ -33,13 +33,12 @@ export default({
         })
       },
 
-      fetchOrder({ commit }, username) {
+      fetchOrder({ commit, getters }) {
         axios({
-          url: api.order.order.read("test1"),
+          url: api.order.order.read(getters.username),
           method: 'get',
           // headers: getters.authHeader
         }).then(res => {
-          console.log(username)
           console.log(res)
           commit('SET_ORDER', res.data.data)
         }).catch(err => {

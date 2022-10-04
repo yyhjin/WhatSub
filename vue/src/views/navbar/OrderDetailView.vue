@@ -85,7 +85,7 @@ export default {
   },
 
   mounted () {
-    this.fetchOrder(this.currentUser.username)
+    this.fetchOrder()
   }
 };
 </script>

@@ -90,7 +90,7 @@ export default({
         headers: getters.authHeader
       })
       .then( res => {
-        commit('SET_PROFILE', res.data)
+        commit('SET_PROFILE', res.data.data)
       })
     },
 

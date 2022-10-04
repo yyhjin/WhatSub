@@ -12,14 +12,14 @@
       <v-img
         height="100"
         width="250"
-        src="https://picsum.photos/350/165?random"
+        :src="combiDetail.imgUrl"
         alt="sandwitch"
       ></v-img>
-      <div class="pt-3"><h2 style="font-size: 17px">스테이크&치즈</h2></div>
+      <div class="pt-3"><h2 style="font-size: 17px">{{ combiDetail.combName }}</h2></div>
       <div class="ma-4 pt-1 pb-1">
-        <div style="font-size: 15px">헬창들을 위한 터키 아보카도 베이컨 샌드위치를 즐겨보세요!</div>
+        <div style="font-size: 15px">{{ combiDetail.content }}</div>
       </div>
-      <h3 class="pt-1 pb-8" style="font-size: 17px">5400원</h3>
+      <h3 class="pt-1 pb-8" style="font-size: 17px">{{ combiDetail.combination.price }}원</h3>
     </div>
     <v-card height="4" width="360" elevation="0" style="background-color: #d9d9d9">&nbsp;</v-card>
     <div>
@@ -33,12 +33,12 @@
         <v-tab-item v-for="item in items" :key="item">
           <v-card class="mb-3" v-if="item == '조합정보'" flat>
             <div class="pt-4 pl-6 pr-6">
-              <combi-detail-info></combi-detail-info>
+              <combi-detail-info :combi-detail="combiDetail"></combi-detail-info>
             </div>
           </v-card>
           <v-card class="mb-3" v-else flat>
             <div class="pt-4 pl-6 pr-6">
-              <combi-nutrition-info></combi-nutrition-info>
+              <combi-nutrition-info :combi-detail="combiDetail.combination"></combi-nutrition-info>
             </div>
           </v-card>
         </v-tab-item>
@@ -55,14 +55,13 @@
           size="35"
           half-increments
           hover
-          readonly
         ></v-rating>
       </div>
       <div style="font-size: 15px; font-weight: bold">리뷰 작성</div>
-      <v-textarea style="font-size: 15px" height="200" outlined solo></v-textarea>
+      <v-textarea style="font-size: 15px" height="200" outlined solo v-model="reviewContent"></v-textarea>
     </div>
     <div class="mt-n3" align="center">
-      <v-btn class="main_btn" style="font-size: 15px" width="200" small rounded>리뷰 등록</v-btn>
+      <v-btn class="main_btn" style="font-size: 15px" width="200" small rounded @click="registReview">리뷰 등록</v-btn>
     </div>
     <br />
     <br />
@@ -78,6 +77,8 @@
 import CombiDetailInfo from "@/components/combination/detailTab/CombiDetailInfo.vue";
 import CombiNutritionInfo from "@/components/combination/detailTab/CombiNutritionInfo.vue";
 import BottomNav from "@/components/common/BottomNav.vue";
+import { mapActions, mapGetters } from 'vuex';
+import axios from 'axios'
 
 export default {
   name: "RegistReviewView",
@@ -86,13 +87,53 @@ export default {
     CombiDetailInfo,
     CombiNutritionInfo,
   },
+  props: {
+    combinationPostId:Number
+  },
   data() {
     return {
       tab: null,
       items: ["조합정보", "영양정보"],
       rating: 5,
+      reviewContent: ''
     };
   },
+
+  computed: {
+    ...mapGetters(['combiDetail', 'profile', 'username'])
+  },
+
+  methods: {
+    ...mapActions(['getCombiDetail', 'fetchProfile']),
+
+    goBack() {
+      this.$router.go(-1);
+    },
+
+    registReview() {
+      axios({
+        url:'https://j7a105.p.ssafy.io/api/v1/review',
+        method: 'post',
+        data: {
+          "combinationPostId" : this.combinationPostId,
+          "content": this.reviewContent,
+          "score": this.rating,
+          "userId": this.profile.userId
+        }
+      }).then(res => {
+        console.log(res)
+        this.$router.push({name: "combinationdetail", params:{combinationPostId:this.combinationPostId}})
+      }).catch(err => {
+        console.error('registReview 에러', err)
+      })
+    }
+  },
+
+  mounted () {
+    console.log(this.combinationPostId)
+    this.getCombiDetail({ combinationPostId: this.combinationPostId })
+    this.fetchProfile({username:this.username})
+  }
 };
 </script>
 

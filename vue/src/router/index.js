@@ -81,7 +81,7 @@ const routes = [
     component: RegistCombinationView,
   },
   {
-    path: "/registreview",
+    path: "/registreview/:combinationPostId",
     name: "registreview",
     component: RegistReviewView,
     props: true,

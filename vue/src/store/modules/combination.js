@@ -229,9 +229,9 @@ export default{
       axios({
         method: "get",
         url: `https://j7a105.p.ssafy.io/api/v1/comb/${combinationPostId}`,
-        data: {
-          combinationPostId: combinationPostId,
-        }
+        // data: {
+        //   combinationPostId: combinationPostId,
+        // }
       })
         .then((res) => {
           commit("SET_COMBI_DETAIL", res.data.data);
