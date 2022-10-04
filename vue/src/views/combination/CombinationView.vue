@@ -18,7 +18,7 @@
       </div>
       <div class="">
         <v-card class="sand_big_card" style="position: relative; z-index: 1">
-          <v-row>
+          <v-row class="pt-4">
             <v-col class="pa-0 mt-3 ml-3" cols="5" align="center" @click="goCombiDetail">
               <v-img class="shadow_img" height="70" width="150" :src="bestCombi.imgUrl"></v-img>
               <div class="mt-1">
@@ -87,7 +87,7 @@ export default {
   created() {
     this.getBestCombi();
     for (let index = 0; index < this.bestCombi.ingredients.length; index++) {
-      if (this.bestCombi.ingredients[index].category == "추가재료") {
+      if (this.bestCombi.ingredients[index].category == "추가") {
         this.others.push(this.bestCombi.ingredients[index].name);
       } else if (this.bestCombi.ingredients[index].category == "소스") {
         this.sauce.push(this.bestCombi.ingredients[index].name);

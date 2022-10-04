@@ -6,7 +6,12 @@
           <h3 align="center">치킨 슬라이스</h3>
         </div>
         <div class="pt-3 pb-5" align="center">
-          <v-img height="110" width="200" src="https://picsum.photos/510/300?random"></v-img>
+          <v-img
+            class="shadow_img"
+            height="110"
+            width="200"
+            src="https://whatsub.s3.ap-northeast-2.amazonaws.com/SUBWAY/Sandwich/Chicken-Slice.png"
+          ></v-img>
         </div>
         <div align="center">
           <v-btn class="green_btn" width="210" elevation="0" small rounded @click="startTodayReco"

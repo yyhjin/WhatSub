@@ -1,7 +1,7 @@
 <template>
   <div class="mb-0">
     <v-card class="sand_big_card">
-      <v-row>
+      <v-row class="pt-4">
         <v-col class="pa-0 mt-3 ml-3" cols="5" align="center" @click="goCombiDetail">
           <v-img class="shadow_img" height="70" width="150" :src="combiListItem.imgUrl"></v-img>
           <div class="mt-1">
@@ -59,7 +59,7 @@ export default {
   },
   created() {
     for (let index = 0; index < this.combiListItem.ingredients.length; index++) {
-      if (this.combiListItem.ingredients[index].category == "추가재료") {
+      if (this.combiListItem.ingredients[index].category == "추가") {
         this.others.push(this.combiListItem.ingredients[index].name);
       } else if (this.combiListItem.ingredients[index].category == "소스") {
         this.sauce.push(this.combiListItem.ingredients[index].name);
