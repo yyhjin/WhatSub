@@ -30,6 +30,7 @@ public class CombPostResponse {
         private float scoreAvg;
         private List<ReviewResponse.ResponseDto> reviews = new ArrayList<>();
         private List<IngredientDto.ingredientResponse> ingredients = new ArrayList<>();
+        private int dib;
 
     }
     @Data
@@ -44,6 +45,7 @@ public class CombPostResponse {
         private float scoreAvg;
         private int reviewCnt;
         private List<IngredientDto.ingredientResponse> ingredients = new ArrayList<>();
+        private int dib;
 
     }
 }
