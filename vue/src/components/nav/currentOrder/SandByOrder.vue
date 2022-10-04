@@ -26,7 +26,7 @@
         <v-btn class="main_btn" rounded small>상세보기</v-btn>
       </div>
     </v-card>
-    <alert-combi :imgUrl="imgUrl" :name="name" :combinationId="combination.combinationId"      :value="openAlert" @input="openAlert = $event"></alert-combi>
+    <alert-combi :imgUrl="imgUrl" :name="name" :combinationId="combination.combinationId" :combi="combi"     :value="openAlert" @input="openAlert = $event"></alert-combi>
   </div>
 </template>
 
@@ -50,6 +50,7 @@ export default {
       imgUrl: this.combination.menu.imgUrl,
       name: this.combination.menu.menuName,
       menu: this.combination.menu.menuName,
+      combi: null
     };
   },
 
@@ -114,9 +115,12 @@ export default {
       method: 'get'
     }).then(res => {
       // console.log(res.data)
-      if (res.data.data !== -1) {
+      console.log(typeof(res.data.data))
+      if (typeof(res.data.data) === "number") {
         this.isRegisted = true
         this.combinationPostId = res.data.data
+      } else {
+        this.combi = res.data.data
       }
     }).catch(err => {
       console.error(err)

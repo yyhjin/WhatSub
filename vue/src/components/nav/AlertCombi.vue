@@ -22,6 +22,7 @@ export default {
     imgUrl: String,
     name: String,
     combinationId: String,
+    combi:Object
   },
   computed: {
     openAlert: {
@@ -36,7 +37,7 @@ export default {
   methods: {
     goRegistCombi() {
       this.$router.push({ name: "registcombination", params:{"imgUrl":this.imgUrl, 
-      "name":this.name, "combinationId":this.combinationId} });
+      "name":this.name, "combinationId":this.combinationId ,"combi":JSON.stringify(this.combi)} });
     },
   },
 };
