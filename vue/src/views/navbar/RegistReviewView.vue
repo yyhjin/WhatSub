@@ -61,7 +61,8 @@
       <v-textarea style="font-size: 15px" height="200" outlined solo v-model="reviewContent"></v-textarea>
     </div>
     <div class="mt-n3" align="center">
-      <v-btn class="main_btn" style="font-size: 15px" width="200" small rounded @click="registReview">리뷰 등록</v-btn>
+      <v-btn class="main_btn" style="font-size: 15px" width="200" v-if="!isreviewed" small rounded @click="registReview">리뷰 등록</v-btn>
+      <v-btn class="main_btn" style="font-size: 15px" width="200" v-else small rounded @click="changeReview">리뷰 수정</v-btn>
     </div>
     <br />
     <br />
@@ -95,7 +96,9 @@ export default {
       tab: null,
       items: ["조합정보", "영양정보"],
       rating: 5,
-      reviewContent: ''
+      reviewContent: '',
+      isreviewed: false,
+      reviewId: null
     };
   },
 
@@ -112,7 +115,7 @@ export default {
 
     registReview() {
       axios({
-        url:'https://j7a105.p.ssafy.io/api/v1/review',
+        url: 'https://j7a105.p.ssafy.io/api/v1/review',
         method: 'post',
         data: {
           "combinationPostId" : this.combinationPostId,
@@ -126,6 +129,24 @@ export default {
       }).catch(err => {
         console.error('registReview 에러', err)
       })
+    },
+
+    changeReview () {
+      axios({
+        url: `https://j7a105.p.ssafy.io/api/v1/review/${this.reviewId}`,
+        method: 'put',
+        data: {
+          "combinationPostId" : this.combinationPostId,
+          "content": this.reviewContent,
+          "score": this.rating,
+          "userId": this.profile.userId
+        }
+      }).then(res => {
+        console.log(res)
+        this.$router.push({name: "combinationdetail", params:{combinationPostId:this.combinationPostId}})
+      }).catch(err => {
+        console.error('changeReview 에러', err)
+      })
     }
   },
 
@@ -133,6 +154,19 @@ export default {
     console.log(this.combinationPostId)
     this.getCombiDetail({ combinationPostId: this.combinationPostId })
     this.fetchProfile({username:this.username})
+    axios({
+      url: `https://j7a105.p.ssafy.io/api/v1/review/${this.combinationPostId}`,
+      method: 'get'
+    }).then(res => {
+      res.data.data.forEach(each => {
+        if (each.userId === this.profile.userId) {
+          this.isreviewed = true
+          this.rating = each.score
+          this.reviewContent = each.content
+          this.reviewId = each.reviewId
+        }
+      })
+    })
   }
 };
 </script>
