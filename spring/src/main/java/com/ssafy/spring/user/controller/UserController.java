@@ -121,6 +121,7 @@ public class UserController {
         }
 
         UserResponse.GetUserResponse response = UserResponse.GetUserResponse.builder()
+                .userId(user.getUserId())
                 .email(user.getEmail())
                 .gender(user.getGender())
                 .birthYear(user.getBirthYear())

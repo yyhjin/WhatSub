@@ -11,6 +11,7 @@ public class UserResponse {
     @Data
     @Builder
     public static class GetUserResponse {
+        private int userId;
         private String email;
         private String gender;
         private int birthYear;
