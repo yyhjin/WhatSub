@@ -25,14 +25,27 @@
         <v-btn class="main_btn" rounded small>상세보기</v-btn>
       </div>
     </v-card>
+    <combi-modal
+      :combiListItem="sandListItem"
+      :value="dialogRecoCombi"
+      @input="dialogRecoCombi = $event"
+    ></combi-modal>
   </div>
 </template>
 
 <script>
+import CombiModal from "@/components/common/CombiModal.vue";
+
 export default {
   name: "SandBigListItem",
+  components: { CombiModal },
   props: {
     sandListItem: Object,
+  },
+  data() {
+    return {
+      dialogRecoCombi: false,
+    };
   },
 
   computed: {
