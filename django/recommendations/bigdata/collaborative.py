@@ -11,7 +11,7 @@ def get_data_frame(users, reviews, combination_posts):
     # print(df_review)
     # print(df_combination_posts)
     combination_post_dict = df_combination_posts.set_index('combination_post_id').T.to_dict('list') # combination_post_id : combination_id 딕셔너리
-
+    # print(combination_post_dict)
     # review 테이블에 combination_id 추가하고 post_id는 떨구고 
     df_review['combination_id']=df_review.apply(lambda x:  combination_post_dict[x['combination_post_id']][0],axis=1)
     df_review = df_review[['combination_id','user_id','score']]
