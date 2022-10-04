@@ -56,6 +56,7 @@
 import axios from 'axios'
 import api from '@/api/api'
 import BottomNav from '../../components/common/BottomNav.vue'
+import { mapActions } from 'vuex'
 
 export default {
   components: { BottomNav },
@@ -85,6 +86,7 @@ export default {
   },
 
   methods: {
+    ...mapActions(['saveToken', 'fetchCurrentUser']),
     checkId (username) {
       //axios로 요청보내서 검사
       axios({
@@ -162,6 +164,8 @@ export default {
         },
       }).then(res => {
         console.log(res)
+        this.saveToken(res.data.data.accessToken)
+        // this.fetchCurrentUser(res.data.data.userName)
         if (res.data.data.result === 1) {
           this.$router.push('/')
         } else {
