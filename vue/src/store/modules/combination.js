@@ -164,6 +164,7 @@ export default{
         price: 8400,
       },
     ],
+    sampleUserId: 1,
     userSubti: "icah",
     combiBasedIndividual: {},
     combiBasedSubti: {},
@@ -174,6 +175,7 @@ export default{
     combiDetail: {},
   },
   getters: {
+    sampleUserId: (state) => state.sampleUserId,
     userSubti: (state) => state.userSubti,
     combiListByOthers: (state) => state.combiListByOthers,
     combiListByNutri: (state) => state.combiListByNutri,
@@ -272,6 +274,20 @@ export default{
           console.log(res.data.data);
         })
         .catch((err) => console.log("getCombiBasedSubti 에러", err));
+    },
+    getCombiBasedIndividual({commit}, {userId}) {
+      axios({
+        method: "get",
+        url: `https://j7a105.p.ssafy.io/api/v1/recommendations/hybrid/${userId}`,
+        data: {
+          userId: userId,
+        }
+      })
+        .then((res) => {
+          commit("SET_COMBI_BASED_INDIVIDUAL", res.data.data);
+          console.log(res.data.data);
+        })
+        .catch((err) => console.log("getCombiBasedIndividual 에러", err));
     },
   },
 }

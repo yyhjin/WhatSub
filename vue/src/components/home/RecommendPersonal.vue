@@ -1,37 +1,55 @@
 <template>
   <div>
     <div align="center" style="font-size: 18px; font-weight: bold">개인 맞춤 추천</div>
-    <v-card class="home_cover home_card_b myclass2" elevation="5" outlined>
+    <v-card
+      class="home_cover home_card_b myclass2"
+      elevation="5"
+      outlined
+      @click.stop="dialogRecoCombi = true"
+    >
       <v-row class="pl-5 pt-7" align="center">
         <v-col class="pa-0" cols="4"
-          ><v-img height="100" width="120" src="@/assets/sample_sand1.png"></v-img
+          ><v-img class="shadow_img" height="90" :src="combiBasedIndividual.imgUrl"></v-img
         ></v-col>
-        <v-col cols="7" class="pa-0" align="center">
-          <div class="mb-2" style="font-weight: bold">치킨 슬라이스</div>
+        <v-col cols="7" class="pa-0 pl-5" align="center">
+          <div class="mb-2" style="font-weight: bold">{{ combiBasedIndividual.combName }}</div>
           <div style="font-size: 12px">
-            닭가슴살로 만든 치킨 슬라이스를<br />
-            담백하게 즐겨보세요.
+            {{ combiBasedIndividual.menuDesc }}
           </div>
         </v-col>
       </v-row>
     </v-card>
+    <combi-modal
+      :combi-list-item="combiBasedIndividual"
+      :value="dialogRecoCombi"
+      @input="dialogRecoCombi = $event"
+    ></combi-modal>
   </div>
 </template>
 
 <script>
 import { mapGetters, mapActions } from "vuex";
+import CombiModal from "@/components/common/CombiModal.vue";
 
 export default {
   name: "RecommendPersonal",
+  components: { CombiModal },
   data() {
-    return {};
+    return {
+      dialogRecoCombi: false,
+    };
   },
   computed: {
-    ...mapGetters([""]),
+    ...mapGetters(["combiBasedIndividual", "sampleUserId"]),
   },
-
+  created() {
+    console.log(this.sampleUserId);
+    this.getCombiBasedIndividual({
+      userId: this.sampleUserId,
+    });
+  },
   methods: {
-    ...mapActions([""]),
+    ...mapActions(["getCombiBasedIndividual"]),
   },
 };
 </script>

@@ -1,5 +1,7 @@
 <template>
-  <div>{{ combiDetail }}</div>
+  <div>
+    <canvas width="500" id="myChart"></canvas>
+  </div>
 </template>
 
 <script>
