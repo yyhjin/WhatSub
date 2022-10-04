@@ -164,6 +164,10 @@ export default{
         price: 8400,
       },
     ],
+    sampleUserId: 1,
+    userSubti: "icah",
+    combiBasedIndividual: {},
+    combiBasedSubti: {},
     combiListByOthers: [],
     combiListByNutri: [],
     bestCombi: {},
@@ -171,12 +175,15 @@ export default{
     combiDetail: {},
   },
   getters: {
-    sandList: (state) => state.sandList,
+    sampleUserId: (state) => state.sampleUserId,
+    userSubti: (state) => state.userSubti,
     combiListByOthers: (state) => state.combiListByOthers,
     combiListByNutri: (state) => state.combiListByNutri,
     bestCombi: (state) => state.bestCombi,
     combiList: (state) => state.combiList,
     combiDetail: (state) => state.combiDetail,
+    combiBasedIndividual: (state) => state.combiBasedIndividual,
+    combiBasedSubti: (state) => state.combiBasedSubti,
   },
   mutations: {
     SET_COMBI_LIST_BY_OTHERS: (state, combiListByOthers) => (state.combiListByOthers = combiListByOthers),
@@ -184,6 +191,8 @@ export default{
     SET_BEST_COMBI: (state, bestCombi) =>(state.bestCombi = bestCombi),
     SET_COMBI_LIST: (state, combiList) =>(state.combiList = combiList),
     SET_COMBI_DETAIL: (state, combiDetail) =>(state.combiDetail = combiDetail),
+    SET_COMBI_BASED_INDIVIDUAL: (state, combiBasedIndividual) =>(state.combiBasedIndividual = combiBasedIndividual),
+    SET_COMBI_BASED_SUNBTI: (state, combiBasedSubti) =>(state.combiBasedSubti = combiBasedSubti),
   },
   actions: {
     getCombiListByOthers({commit}) {
@@ -252,6 +261,32 @@ export default{
         })
         .catch((err) => console.log("getCombiList 에러", err));
     },
-
+    getCombiBasedSubti({commit}, {subti}) {
+      axios({
+        method: "get",
+        url: `https://j7a105.p.ssafy.io/api/v1/recommendation/subti/${subti}`,
+        data: {
+          subti: subti,
+        }
+      })
+        .then((res) => {
+          commit("SET_COMBI_BASED_SUNBTI", res.data.data);
+        })
+        .catch((err) => console.log("getCombiBasedSubti 에러", err));
+    },
+    getCombiBasedIndividual({commit}, {userId}) {
+      axios({
+        method: "get",
+        url: `https://j7a105.p.ssafy.io/api/v1/recommendations/hybrid/${userId}`,
+        data: {
+          userId: userId,
+        }
+      })
+        .then((res) => {
+          commit("SET_COMBI_BASED_INDIVIDUAL", res.data[0]);
+          console.log(res.data[0]);
+        })
+        .catch((err) => console.log("getCombiBasedIndividual 에러", err));
+    },
   },
 }

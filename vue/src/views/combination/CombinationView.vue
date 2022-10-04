@@ -20,13 +20,7 @@
         <v-card class="sand_big_card" style="position: relative; z-index: 1">
           <v-row>
             <v-col class="pa-0 mt-3 ml-3" cols="5" align="center" @click="goCombiDetail">
-              <v-avatar class="" height="70" width="100" tile
-                ><v-img
-                  height="70"
-                  width="100"
-                  src="https://cdn.vuetifyjs.com/images/cards/foster.jpg"
-                ></v-img
-              ></v-avatar>
+              <v-img class="shadow_img" height="70" width="150" :src="bestCombi.imgUrl"></v-img>
               <div class="mt-1">
                 <h6 style="font-size: 15px; font-weight: bold">{{ bestCombi.combName }}</h6>
               </div>
@@ -39,8 +33,8 @@
             <v-col>
               <div class="mt-1 ml-n4" @click="goCombiDetail">
                 <h6 style="font-size: 14px; font-weight: 500">
-                  메뉴: {{ bestCombi.menuName }}<br />추가재료: {{ bestCombi.ingredients.name
-                  }}<br />소스: 머스타드
+                  메뉴: {{ bestCombi.menuName }}<br />추가재료: {{ others[0] }}···<br />소스:
+                  {{ sauce[0] }}···
                 </h6>
               </div>
               <div class="mt-4 ml-n3">
@@ -83,6 +77,8 @@ export default {
   data() {
     return {
       isliked: true,
+      others: [],
+      sauce: [],
     };
   },
   computed: {
@@ -90,6 +86,13 @@ export default {
   },
   created() {
     this.getBestCombi();
+    for (let index = 0; index < this.bestCombi.ingredients.length; index++) {
+      if (this.bestCombi.ingredients[index].category == "추가재료") {
+        this.others.push(this.bestCombi.ingredients[index].name);
+      } else if (this.bestCombi.ingredients[index].category == "소스") {
+        this.sauce.push(this.bestCombi.ingredients[index].name);
+      }
+    }
   },
   filters: {
     comma(val) {

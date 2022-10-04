@@ -3,13 +3,7 @@
     <v-card class="sand_big_card">
       <v-row>
         <v-col class="pa-0 mt-3 ml-3" cols="5" align="center" @click="goCombiDetail">
-          <v-avatar class="" height="70" width="100" tile
-            ><v-img
-              height="70"
-              width="100"
-              src="https://cdn.vuetifyjs.com/images/cards/foster.jpg"
-            ></v-img
-          ></v-avatar>
+          <v-img class="shadow_img" height="70" width="150" :src="combiListItem.imgUrl"></v-img>
           <div class="mt-1">
             <h6 style="font-size: 15px; font-weight: bold">{{ combiListItem.combName }}</h6>
           </div>
