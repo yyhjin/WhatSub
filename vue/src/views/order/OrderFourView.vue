@@ -260,6 +260,9 @@ export default {
       if (this.selectedBread === null || this.selectedBread === undefined) {
         alert('빵을 골라주세요')
       }
+      if (this.selectedCheese === null || this.selectedCheese === undefined) {
+        alert('치즈를 골라주세요')
+      }
       
       
 
