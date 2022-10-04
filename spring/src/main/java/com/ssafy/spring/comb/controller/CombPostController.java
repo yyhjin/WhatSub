@@ -117,8 +117,8 @@ public class CombPostController {
 
 
     @ApiOperation(value = "게시글 조회", notes = "해당 게시글의 정보들을 조회한다.", httpMethod = "GET")
-    @GetMapping("/{combinationPostId}")
-    public SuccessResponseResult getPostDetail(@PathVariable int combinationPostId) throws JsonProcessingException {
+    @GetMapping("/{combinationPostId}/{userId}")
+    public SuccessResponseResult getPostDetail(@PathVariable int combinationPostId, @PathVariable int userId) throws JsonProcessingException {
 
         CombPostResponse.PostDetailResponse response = new CombPostResponse.PostDetailResponse();
 
@@ -175,12 +175,17 @@ public class CombPostController {
 
         response.setReviews(reviewList);
 
+        // 찜 여부
+        Dib dib = dibService.findByCombinationPost_CombinationPostIdAndUser_UserId(post.getCombinationPostId(), userId);
+        if(dib == null) response.setDib(0);
+        else response.setDib(1);
+
         return new SuccessResponseResult(response);
     }
 
     @ApiOperation(value = "메뉴로 게시글 목록 조회", notes = "해당하는 메뉴의 게시글 목록을 조회한다.", httpMethod = "GET")
-    @GetMapping("/menu/{menuId}")
-    public SuccessResponseResult getPostsByMenu(@PathVariable String menuId) {
+    @GetMapping("/menu/{menuId}/{userId}")
+    public SuccessResponseResult getPostsByMenu(@PathVariable String menuId, @PathVariable int userId) {
 
         List<CombPostResponse.PostResponse> posts = new ArrayList<>();
 
@@ -221,6 +226,11 @@ public class CombPostController {
             List<Review> reviews = reviewService.getReviewList(current.getCombinationPostId());
             response.setReviewCnt(reviews.size());
 
+            // 찜 여부
+            Dib dib = dibService.findByCombinationPost_CombinationPostIdAndUser_UserId(current.getCombinationPostId(), userId);
+            if(dib == null) response.setDib(0);
+            else response.setDib(1);
+
             posts.add(response);
         }
 
@@ -228,8 +238,8 @@ public class CombPostController {
     }
 
     @ApiOperation(value = "Best 게시글 조회", notes = "Best 게시글의 정보를 조회한다.\n좋아요 가장 많은 게시물, 같을 시 별점으로", httpMethod = "GET")
-    @GetMapping("/best")
-    public SuccessResponseResult getBestPost() {
+    @GetMapping("/best/{userId}")
+    public SuccessResponseResult getBestPost(@PathVariable int userId) {
 
         CombPostResponse.PostResponse response = new CombPostResponse.PostResponse();
 
@@ -267,13 +277,18 @@ public class CombPostController {
         List<Review> reviews = reviewService.getReviewList(post.getCombinationPostId());
         response.setReviewCnt(reviews.size());
 
+        // 찜 여부
+        Dib dib = dibService.findByCombinationPost_CombinationPostIdAndUser_UserId(post.getCombinationPostId(), userId);
+        if(dib == null) response.setDib(0);
+        else response.setDib(1);
+
         return new SuccessResponseResult(response);
     }
 
 
     @ApiOperation(value = "정렬 기준에 따라 게시글 목록 조회", notes = "선택한 정렬 기준에 따라 게시글 목록을 조회한다.\n0 : 별점순\n1 : 최신순", httpMethod = "GET")
-    @GetMapping("/order/{orderNo}")
-    public SuccessResponseResult getPostsOrderBy(@PathVariable int orderNo) {
+    @GetMapping("/order/{orderNo}/{userId}")
+    public SuccessResponseResult getPostsOrderBy(@PathVariable int orderNo, @PathVariable int userId) {
 
         List<CombPostResponse.PostResponse> posts = new ArrayList<>();
         List<CombinationPost> list = new ArrayList<>();
@@ -320,6 +335,11 @@ public class CombPostController {
             // 리뷰
             List<Review> reviews = reviewService.getReviewList(current.getCombinationPostId());
             response.setReviewCnt(reviews.size());
+
+            // 찜 여부
+            Dib dib = dibService.findByCombinationPost_CombinationPostIdAndUser_UserId(current.getCombinationPostId(), userId);
+            if(dib == null) response.setDib(0);
+            else response.setDib(1);
 
             posts.add(response);
         }
