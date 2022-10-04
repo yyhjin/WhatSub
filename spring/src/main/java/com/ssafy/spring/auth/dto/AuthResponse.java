@@ -8,6 +8,7 @@ public class AuthResponse {
     @Data
     @ToString
     public static class LoginResponse {
+        private int userId;
         private int result; // 1이면 기존 유저, 2이면 신규 유저
         private String userName;
         private String profileImage;
@@ -15,6 +16,7 @@ public class AuthResponse {
         private String accessToken;
 
         public LoginResponse(User user, int result, String accessToken){
+            this.userId = user.getUserId();
             this.result = result;
             this.userName = user.getUserName();
             this.profileImage = user.getProfileImg();

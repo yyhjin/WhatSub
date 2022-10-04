@@ -13,6 +13,7 @@ public class CombPostDto {
     private int combinationPostId;
     private Combination combination;
     private UserDto user;
+    private String menuName;
     private String combName;
     private String content;
     private String imgUrl;
