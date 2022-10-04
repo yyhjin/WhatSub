@@ -89,7 +89,9 @@ export default {
 
 <style>
 .main_card {
-  margin: 20px;
+  margin-left: 20px;
+  margin-right: 20px;
+  margin-bottom: 20px;
 }
 .myclass.v-sheet.v-card {
   border-color: #424242 !important;

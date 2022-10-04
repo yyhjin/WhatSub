@@ -24,9 +24,8 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = my_settings.SECRET_KEY
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
-
-ALLOWED_HOSTS = ['*','j7a105.p.ssafy.io']
+# DEBUG = True
+DEBUG = False
 
 
 # Application definition
@@ -37,6 +36,7 @@ INSTALLED_APPS = [
 
     # 3rd party
     'rest_framework',
+    'corsheaders',
 
     # native
     # 'django.contrib.admin',
@@ -48,8 +48,10 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    # 'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -133,3 +135,8 @@ STATIC_ROOT =  BASE_DIR / 'staticfiles' / 'rest_framework'
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# CORS_ORIGIN_WHITELIST = ['http://localhost:8080'] 
+# CORS_ALLOW_CREDENTIALS = True
+ALLOWED_HOSTS = ['*','j7a105.p.ssafy.io','localhost:8080']
+CORS_ORIGIN_ALLOW_ALL = True

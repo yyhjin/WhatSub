@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="body">
     <div class="title">
       기본 취향 파악
     </div>
@@ -46,31 +46,31 @@
         style="background-image: url(https://www.subway.co.kr/images/menu/img_recipe_v09.jpg);
               background-size: 100% 100%;">
         </button> -->
-        <input type="checkbox" class="vege" v-model="vege1"
+        <input type="checkbox" class="vege" v-model="vegetable.vege1"
         style="background-image: url(https://www.subway.co.kr/images/menu/img_recipe_v01.jpg);
               background-size: 100% 100%;">
-        <input type="checkbox" class="vege" v-model="vege2"
+        <input type="checkbox" class="vege" v-model="vegetable.vege2"
         style="background-image: url(https://www.subway.co.kr/images/menu/img_recipe_v02.jpg);
               background-size: 100% 100%;">
-        <input type="checkbox" class="vege" v-model="vege3"
+        <input type="checkbox" class="vege" v-model="vegetable.vege3"
         style="background-image: url(https://www.subway.co.kr/images/menu/img_recipe_v03.jpg);
               background-size: 100% 100%;">
-        <input type="checkbox" class="vege" v-model="vege4"
+        <input type="checkbox" class="vege" v-model="vegetable.vege4"
         style="background-image: url(https://www.subway.co.kr/images/menu/img_recipe_v04.jpg);
               background-size: 100% 100%;">
-        <input type="checkbox" class="vege" v-model="vege5"
+        <input type="checkbox" class="vege" v-model="vegetable.vege5"
         style="background-image: url(https://www.subway.co.kr/images/menu/img_recipe_v05.jpg);
               background-size: 100% 100%;">
-        <input type="checkbox" class="vege" v-model="vege6"
+        <input type="checkbox" class="vege" v-model="vegetable.vege6"
         style="background-image: url(https://www.subway.co.kr/images/menu/img_recipe_v06.jpg);
               background-size: 100% 100%;">
-        <input type="checkbox" class="vege" v-model="vege7"
+        <input type="checkbox" class="vege" v-model="vegetable.vege7"
         style="background-image: url(https://www.subway.co.kr/images/menu/img_recipe_v07.jpg);
               background-size: 100% 100%;">
-        <input type="checkbox" class="vege" v-model="vege8"
+        <input type="checkbox" class="vege" v-model="vegetable.vege8"
         style="background-image: url(https://www.subway.co.kr/images/menu/img_recipe_v08.jpg);
               background-size: 100% 100%;">
-        <input type="checkbox" class="vege" v-model="vege9"
+        <input type="checkbox" class="vege" v-model="vegetable.vege9"
         style="background-image: url(https://www.subway.co.kr/images/menu/img_recipe_v09.jpg);
               background-size: 100% 100%;">
               
@@ -104,19 +104,24 @@
       <button class="dietbtn" @click="changeDiet">식단 관리 중</button>
     </div>
     <v-btn class="main_btn next_btn" @click="next">다음</v-btn>
+    <div class="bottom">
+      <bottom-nav></bottom-nav>
+    </div>
   </div>
 </template>
 
 <script>
+import api from '@/api/api'
+import axios from 'axios'
+import BottomNav from '../../components/common/BottomNav.vue'
+import { mapGetters } from 'vuex'
 export default {
+  components: { BottomNav },
   name: 'SurveyBasicView',
 
   data () {
-    let vegetables = []
-    let allergies = []
     return {
-      allergies : allergies,
-      vegetables : vegetables,
+    vegetable:{
       vege1 : false,
       vege2 : false,
       vege3 : false,
@@ -126,7 +131,8 @@ export default {
       vege7 : false,
       vege8 : false,
       vege9 : false,
-
+    },
+    allergie: {
       allergie1 : false,
       allergie2 : false,
       allergie3 : false,
@@ -137,12 +143,53 @@ export default {
       allergie8 : false,
       allergie9 : false,
       allergie10 : false,
+    },
 
       isDiet : false
     }
   },
 
+  computed: {
+    ...mapGetters(['authHeader', 'currentUser']),
+    vegetables () {
+      let veges = []
+      const mapping = {
+        vege1 : "3a",
+        vege2 : "3b",
+        vege3 : "3c",
+        vege4 : "3d",
+        vege5 : "3e",
+        vege6 : "3f",
+        vege7 : "3g",
+        vege8 : "3h",
+        vege9 : "6c",
+      }
+      
+      for (let key in this.vegetable) {
+        if (this.vegetable[key]) {
+          veges.push(mapping[key])
+        }
+      }
+      return veges
+    },
 
+    allergies () {
+      let alls = []
+      for (let key in this.allergie) {
+        const i = key.slice(8)
+        const all = document.getElementById(`${i}`)
+        const text = all.innerText
+        console.log(text)
+        if (this.allergie[key]) {
+          alls.push(`${text}`)
+        }
+      }
+      return alls
+    }
+
+  },
+
+  
   methods: {
     goBack() {
       this.$router.go(-1);
@@ -162,11 +209,11 @@ export default {
     },
 
     changeAll (event) {
-      // console.log(this["allergie" + event.target.id])
+      console.log(this["allergie"]["allergie" + event.target.id])
       // console.log(event.target.id)
       // console.log(eval("this.allergie" + event.target.id))
-      this["allergie" + event.target.id] = !this["allergie" + event.target.id]
-      if (this["allergie" + event.target.id]) {
+      this["allergie"]["allergie" + event.target.id] = !this["allergie"]["allergie" + event.target.id]
+      if (this["allergie"]["allergie" + event.target.id]) {
         event.target.classList.add("checked")
       } else {
         event.target.classList.remove("checked")
@@ -176,6 +223,21 @@ export default {
     next () {
       //axios로 체크한거 백으로 요청 
       //다음 페이지로 넘기기
+      axios({
+        url: api.accounts.exclude(this.currentUser.username),
+        method: 'post',
+        data: {
+          "allergies" : this.allergies,
+          "diet" : this.isDiet,
+          "vegetables:": this.vegetables
+        },
+        // headers: geeters.authHeader
+      }).then(res => {
+        console.log(res)
+        this.$router.push({name:'surveysubti'})
+      }).catch(err => {
+        console.error(err)
+      })
     }
 
 
@@ -184,15 +246,22 @@ export default {
 </script>
 
 <style scoped>
+.body {
+  padding-bottom: 70px;
+  padding-top: 46px;
+}
 .title {
   height:46px;
   width: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
+  position: fixed;
+  top: 0;
+  background-color: white;
 }
 .checked {
-  border: 5px solid #f4c41f;
+  border: 3px solid #f4c41f;
 }
 
 input[type='checkbox']:checked {

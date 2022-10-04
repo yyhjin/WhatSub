@@ -9,10 +9,11 @@
       </v-row>
     </div>
     <div class="pt-12"></div>
-    <div align="center" v-for="OrderListByDay in OrderList" :key="OrderListByDay.orderId">
+    <div align="center" v-for="(OrderListByDay, date) in orderList" :key="date">
       <!-- v-for 전체 주문 -->
       <sand-by-day-list
         :order-list-by-day="OrderListByDay"
+        :date="date"
         @openModal="openModal"
       ></sand-by-day-list>
     </div>
@@ -28,6 +29,7 @@
 <script>
 import BottomNav from "@/components/common/BottomNav.vue";
 import SandByDayList from "@/components/nav/currentOrder/SandByDayList.vue";
+import { mapActions, mapGetters } from 'vuex';
 
 export default {
   name: "OrderDetailView",
@@ -35,48 +37,45 @@ export default {
   data() {
     return {
       openAlert: false,
-      OrderList: [
-        {
-          id: 1,
-          date: "2022-09-30",
-          menu: [
-            {
-              orderId: 1,
-              sand: "aaaa1",
-              price: 5400,
-            },
-            {
-              orderId: 2,
-              sand: "aaaa2",
-              price: 6400,
-            },
-            {
-              orderId: 3,
-              sand: "aaaa3",
-              price: 7400,
-            },
-          ],
-        },
-        {
-          id: 2,
-          date: "2022-09-29",
-          menu: [
-            {
-              orderId: 1,
-              sand: "bbbb1",
-              price: 5400,
-            },
-            {
-              orderId: 2,
-              sand: "bbbb2",
-              price: 6400,
-            },
-          ],
-        },
-      ],
+      
     };
   },
+
+  computed: {
+    ...mapGetters(['currentUser', 'order']),
+
+    orderList () {
+      let olist = {}
+      this.order.forEach(each => {
+        const i = each.orderedAt.indexOf("T")
+        const day = each.orderedAt.substr(0, i)
+        if (olist[day]) {
+          const or = {
+          "branchId" : each.branchId,
+          "combinationList" : each.combinationList,
+          "orderId" : each.orderId,
+          "orderPrice" : each.orderPrice,
+          "userId" : each.userId
+        }
+        olist[day].push(or)
+        } else {
+          olist[day] = []
+          const or = {
+            "branchId" : each.branchId,
+            "combinationList" : each.combinationList,
+            "orderId" : each.orderId,
+            "orderPrice" : each.orderPrice,
+            "userId" : each.userId
+          }
+          olist[day].push(or)
+          }
+      })
+      return olist
+    }
+  },
+
   methods: {
+    ...mapActions(['fetchOrder']),
     goBack() {
       this.$router.go(-1);
     },
@@ -84,6 +83,10 @@ export default {
       this.openAlert = openAlert;
     },
   },
+
+  mounted () {
+    this.fetchOrder(this.currentUser.username)
+  }
 };
 </script>
 

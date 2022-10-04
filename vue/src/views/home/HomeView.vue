@@ -123,11 +123,7 @@ export default {
 
 <style scoped>
 @import "@/scss/common.scss";
-.top {
-  position: fixed;
-  width: 100%;
-  z-index: 2;
-}
+
 .bottom {
   position: fixed;
   width: 100%;

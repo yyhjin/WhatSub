@@ -3,10 +3,7 @@ package com.ssafy.spring.comb.controller;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.ssafy.spring.SuccessResponseResult;
-import com.ssafy.spring.comb.dto.CombDto;
-import com.ssafy.spring.comb.dto.CombPostRequest;
-import com.ssafy.spring.comb.dto.CombPostResponse;
-import com.ssafy.spring.comb.dto.IngredientDto;
+import com.ssafy.spring.comb.dto.*;
 import com.ssafy.spring.comb.entity.Combination;
 import com.ssafy.spring.comb.entity.CombinationPost;
 import com.ssafy.spring.comb.entity.Ingredient;
@@ -119,7 +116,7 @@ public class CombPostController {
 
     @ApiOperation(value = "게시글 조회", notes = "해당 게시글의 정보들을 조회한다.", httpMethod = "GET")
     @GetMapping("/{combinationPostId}")
-    public SuccessResponseResult getPostDetail(@PathVariable int combinationPostId) {
+    public SuccessResponseResult getPostDetail(@PathVariable int combinationPostId) throws JsonProcessingException {
 
         CombPostResponse.PostDetailResponse response = new CombPostResponse.PostDetailResponse();
 
@@ -131,9 +128,14 @@ public class CombPostController {
         response.setContent(post.getContent());
         response.setCreatedAt(post.getCreatedAt());
         response.setLikesCnt(post.getLikesCnt());
-        response.setStatistics(post.getStatistics());
         response.setImgUrl(post.getImgUrl());
         response.setScoreAvg(post.getScoreAvg());
+
+        // Json string -> Object로 변환
+        String statistics = post.getStatistics();
+        ObjectMapper objectMapper = new ObjectMapper();
+        StatisticsDto statisticsDto = objectMapper.readValue(statistics, StatisticsDto.class);
+        response.setStatistics(statisticsDto);
 
         // 메뉴 정보
         String menuId = post.getCombination().getCombinationId().substring(0,1);
@@ -378,22 +380,22 @@ public class CombPostController {
             map.put("forties", 0);
             map.put("fifties", 0);
             map.put("sixties", 0);
-            map.put("LSAH", 0);
-            map.put("LSAM", 0);
-            map.put("LSEH", 0);
-            map.put("LSEM", 0);
-            map.put("LCAH", 0);
-            map.put("LCAM", 0);
-            map.put("LCEH", 0);
-            map.put("LCEM", 0);
-            map.put("ISAH", 0);
-            map.put("ISAM", 0);
-            map.put("ISEH", 0);
-            map.put("ISEM", 0);
-            map.put("ICAH", 0);
-            map.put("ICAM", 0);
-            map.put("ICEH", 0);
-            map.put("ICEM", 0);
+            map.put("lsah", 0);
+            map.put("lsam", 0);
+            map.put("lseh", 0);
+            map.put("lsem", 0);
+            map.put("lcah", 0);
+            map.put("lcam", 0);
+            map.put("lceh", 0);
+            map.put("lcem", 0);
+            map.put("isah", 0);
+            map.put("isam", 0);
+            map.put("iseh", 0);
+            map.put("isem", 0);
+            map.put("icah", 0);
+            map.put("icam", 0);
+            map.put("iceh", 0);
+            map.put("icem", 0);
 
 
             // 통계 저장할 게시글
@@ -423,7 +425,8 @@ public class CombPostController {
                 else if(user_age>=60) map.put("sixties", map.get("sixties")+1);
 
                 // SUBTI count
-                map.put(user_subti, map.get(user_subti)+1);
+                String subti = user_subti.toLowerCase();
+                map.put(subti, map.get(subti)+1);
 
             }
 
