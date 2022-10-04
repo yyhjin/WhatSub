@@ -26,8 +26,6 @@ SECRET_KEY = my_settings.SECRET_KEY
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['*','j7a105.p.ssafy.io','localhost:8080']
-
 
 # Application definition
 
@@ -52,7 +50,7 @@ MIDDLEWARE = [
     'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
-    'whitenoise.middleware.WhiteNoiseMiddleware',
+    # 'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -139,4 +137,5 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # CORS_ORIGIN_WHITELIST = ['http://localhost:8080'] 
 # CORS_ALLOW_CREDENTIALS = True
+ALLOWED_HOSTS = ['*','j7a105.p.ssafy.io','localhost:8080']
 CORS_ORIGIN_ALLOW_ALL = True
