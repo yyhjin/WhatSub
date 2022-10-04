@@ -26,7 +26,7 @@ SECRET_KEY = my_settings.SECRET_KEY
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['*','j7a105.p.ssafy.io']
+ALLOWED_HOSTS = ['*','j7a105.p.ssafy.io','localhost:8080']
 
 
 # Application definition
