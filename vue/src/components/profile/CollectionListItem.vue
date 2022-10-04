@@ -6,9 +6,9 @@
       </div>
       <div>
         <h5>
-          {{ collectionInfoItem.menu }}
+          {{ collectionItem.menuName }}
         </h5>
-        <h5>{{ collectionInfoItem.date }}&nbsp;&nbsp;{{ collectionInfoItem.rank }}위</h5>
+        <h5>{{ collectionItem.rankDate }}&nbsp;&nbsp;{{ collectionInfoItem.ranking }}위</h5>
       </div>
     </v-card>
   </div>
@@ -18,7 +18,7 @@
 export default {
   name: "CollectionListItem",
   props: {
-    collectionInfoItem: Object,
+    collectionItem: Object,
   },
 };
 </script>

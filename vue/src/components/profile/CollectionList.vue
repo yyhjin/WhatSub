@@ -2,8 +2,8 @@
   <div>
     <div class="pt-6 pl-6"><h4>My 컬렉션</h4></div>
     <div class="verti_combi no-scroll">
-      <div class="collec_card" v-for="(collectionInfoItem, index) in collectionInfo" :key="index">
-        <collection-list-item :collection-info-item="collectionInfoItem"></collection-list-item>
+      <div class="collec_card" v-for="(collectionItem, index) in myList.collections" :key="index">
+        <collection-list-item :collection-item="collectionItem"></collection-list-item>
       </div>
     </div>
     <div>
@@ -46,7 +46,10 @@ export default {
     };
   },
   props: {
-    collectionInfo: Array,
+    myList: Object,
+  },
+  created() {
+    console.log(this.myList);
   },
 };
 </script>

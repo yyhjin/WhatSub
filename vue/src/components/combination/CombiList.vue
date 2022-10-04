@@ -107,11 +107,12 @@ export default {
     };
   },
   computed: {
-    ...mapGetters(["combiList"]),
+    ...mapGetters(["combiList", "sampleUserId"]),
   },
   created() {
     this.getCombiList({
       orderNo: 1,
+      userId: this.sampleUserId,
     });
     console.log(this.combiList);
     this.homeToScroll();
@@ -138,12 +139,14 @@ export default {
     sortByRating() {
       this.getCombiList({
         orderNo: 0,
+        userId: this.sampleUserId,
       });
       console.log(this.combiList);
     },
     sortByDate() {
       this.getCombiList({
         orderNo: 1,
+        userId: this.sampleUserId,
       });
       console.log(this.combiList);
     },
