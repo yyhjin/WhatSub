@@ -19,7 +19,6 @@ def get_data_frame(users, reviews, combination_posts):
     # print(df_review,'\n')
     # print(list(set(df_review['combination_id'])))
     columns = list(set(df_review['combination_id']))
-
     # user_id 행 combination_id 열로 하는 거 빈 테이블 만들어놓고 review 순회하면서 채워넣고
     df = pd.DataFrame(index=df_user['user_id'],columns=columns) # 빈 테이블 생성
     for i, row in df_review.iterrows():
@@ -45,12 +44,26 @@ def get_cosine_similarity(df, user):
             not_scored.append(col)
     
     df = df[scored]
-    cosine_sim = cosine_similarity(df,df.loc[[user]])
+    # cosine_sim = cosine_similarity(df,df.loc[[user]])
+    msd_sim = []
+    for customer in df.index:
+        diff = count = 0
+        for col in scored:
+            if df.loc[customer][col] != 0:
+                diff += (df.loc[user][col]-df.loc[customer][col])**2
+                count += 1
+                # print(customer, df.loc[customer][col], diff, count)
+        sim_msd = 1/(1 + (diff/count)) if count != 0 else 0
+        # print(sim_msd) 
+        msd_sim.append(sim_msd)
+    # print(msd_sim[:10])
+    # print(df)
+    # print(df.loc[[user]])
     # print(f'--유저{user}와 다른 유저들의 코사인 유사도--')
     # print(cosine_sim)
     # print()
 
-    return not_scored, cosine_sim
+    return not_scored, msd_sim
 
 def get_expected_score(df,not_scored, cosine_sim, user): 
     
@@ -62,7 +75,7 @@ def get_expected_score(df,not_scored, cosine_sim, user):
     for sandwich in not_scored:
         weighted_score = total_sim = 0
         for score, sim  in zip(list(df[sandwich]),cosine_sim):
-            sim = sim[0]
+            # sim = sim[0]
             if score != 0 :
                 weighted_score += score*sim
                 total_sim += sim

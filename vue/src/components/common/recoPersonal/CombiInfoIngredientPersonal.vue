@@ -2,9 +2,9 @@
   <div class="pt-5">
     <div style="color: black; font-size: 15px; font-weight: 900">빵, 야채, 소스 정보</div>
     <div class="verti_combi no-scroll">
-      <div class="pa-2" v-for="(combiIngredient, index) in combiListItem.ingredient" :key="index">
+      <div class="pa-2" v-for="(combiIngredient, index) in combiListItem.ingredients" :key="index">
         <v-card class="pt-1" elevation="0" height="120" width="100" align="center">
-          <v-img height="65" width="100" :src="combiIngredient.imgUrl"></v-img>
+          <v-img height="65" width="100" :src="combiIngredient.img_url"></v-img>
           <div class="pt-2">
             {{ combiIngredient.name }}
           </div>
@@ -16,7 +16,7 @@
 
 <script>
 export default {
-  name: "CombiInfoIngredient",
+  name: "CombiInfoIngredientPersonal",
   props: {
     combiListItem: Object,
   },
