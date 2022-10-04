@@ -9,8 +9,8 @@
       </v-row>
     </div>
     <div class="content">
-      <v-card class="home_card_b box_btn" elevation="3" outlined @click="changeSize($event, '30')">30cm</v-card>
-      <v-card class="home_card_b box_btn" elevation="3" outlined @click="changeSize($event, '15')">15cm</v-card>
+      <v-card class="home_card_b box_btn size30" elevation="3"  outlined @click="changeSize($event, '30')">30cm</v-card>
+      <v-card class="home_card_b box_btn size15" elevation="3"  outlined @click="changeSize($event, '15')">15cm</v-card>
     </div>
     <div align="center" class="order_btn">
       <v-btn class="main_btn" width="185" small elevation="0" rounded @click="goNext">다음</v-btn>
@@ -37,7 +37,7 @@ export default {
     ...mapActions(['selectSize']),
 
     goBack() {
-      this.$router.go(-1);
+      this.$router.push({name:'ordertwo'});
     },
 
     changeSize (event, value) {
@@ -58,10 +58,18 @@ export default {
 
     goNext () {
       if (this.selectedSize === null || this.selectedSize === undefined) {
-        alert("메뉴를 선택해주세요")
+        alert("길이를 선택해주세요")
       } else {
         this.$router.push({path:'orderfour'})
       }
+    }
+  },
+
+  mounted () {
+    if (this.selectedSize === "15") {
+      document.querySelector(".size15").classList.add('select')
+    } else if (this.selectedSize === "30") {
+      document.querySelector(".size30").classList.add('select')
     }
   }
 }

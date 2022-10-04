@@ -1,30 +1,53 @@
 <template>
   <div class="sauce">
-    <input type="checkbox" name="sauce" class="multiChoose" @click="select($event, sa)">
+    <input type="checkbox" v-model="isSauce"  name="sauce" class="multiChoose" @click="select($event, sa)">
     <div class="title">{{ sa.name }}</div>
     <div class="price">+{{ sa.price }}원</div>
   </div>
 </template>
 
 <script>
-import { mapActions } from 'vuex'
+import { mapActions, mapGetters } from 'vuex'
 export default {
   name: 'SauceItem',
 
+  data () {
+    return {
+      isSauce:false
+    }
+  },
+
   props: {
     sa:Object
+  },
+
+  computed: {
+    ...mapGetters(['selectedSauce'])
   },
 
   methods: {
     ...mapActions(['selectSauce', 'removeSauce']),
 
     select (event, sauce) {
-      if (event.target.checked) {
-        this.selectSauce(sauce)
+      if (this.isSauce === false && this.selectedSauce.length === 3) {
+        alert('3개만 고르세요')
+        
       } else {
-        this.removeSauce(sauce)
+          if (event.target.checked) {
+            this.selectSauce(sauce)
+        } else {
+          this.removeSauce(sauce)
+        }
       }
     }
+  },
+
+  mounted () {
+    this.selectedSauce.forEach(each => {
+      if (each.ingredientId === this.sa.ingredientId) {
+        this.isSauce = true  
+      }
+    })
   }
 }
 </script>

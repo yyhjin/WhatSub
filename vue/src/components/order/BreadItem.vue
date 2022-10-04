@@ -7,12 +7,16 @@
 </template>
 
 <script>
-import { mapActions } from 'vuex'
+import { mapActions, mapGetters } from 'vuex'
 export default {
   name: 'BreadItem',
 
   props:{
     bread:Object
+  },
+
+  computed: {
+    ...mapGetters(['selectedBread'])
   },
 
   methods: {
@@ -24,6 +28,12 @@ export default {
       event.target.classList.add('checked')
       this.selectBread(bread)
 
+    }
+  },
+
+  mounted () {
+    if (this.bread.ingredientId === this.selectedBread.ingredientId) {
+      this.$el.childNodes[0].classList.add("checked")
     }
   }
 }

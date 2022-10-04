@@ -33,6 +33,12 @@ export default {
         this.selectMoreCheese(moreChe)
       }
     }
+  },
+
+  mounted () {
+    if (this.moreChe.ingredientId === this.selectedMoreCheese.ingredientId) {
+      this.$el.childNodes[0].classList.add("checked")
+    }
   }
 }
 </script>

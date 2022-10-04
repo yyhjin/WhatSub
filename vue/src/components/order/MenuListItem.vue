@@ -45,6 +45,12 @@ export default {
           select.classList.remove('select')
         })
     }
+  },
+
+  mounted () {
+    if (this.menu.menuId === this.selectedMenu.menuId) {
+      this.$el.classList.add('select')
+    }
   }
 }
 </script>
