@@ -4,7 +4,7 @@ import api from "@/api/api";
 export default({
     state: {
       dibList: [],
-      orderList: []
+      order: []
     },
 
     getters: {
@@ -19,13 +19,13 @@ export default({
     },
 
     actions: {
-      fetchDibList ({ commit }, username) {
+      fetchDibList ({ commit, getters } ) {
         axios({
-          url: api.accounts.dib("test1"),
+          url: api.accounts.dib(getters.username),
           method: 'post',
           // headers: getters.authHeader
         }).then(res => {
-          console.log(username)
+          console.log(getters.username)
           console.log(res)
           commit('SET_DIBLIST', res.data.data)
         }).catch(err => {
