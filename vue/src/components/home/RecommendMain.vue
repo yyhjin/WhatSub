@@ -1,5 +1,5 @@
 <template>
-  <div >
+  <div class="pt-9">
     <div v-if="!value" style="position: relative">
       <div class="pl-2" style="position: absolute; z-index: 2">
         <v-card class="home_cover myclass" height="350" width="344" elevation="5" outlined>
@@ -24,7 +24,7 @@
       <div class="main_card">
         <div>
           <div align="center" style="font-size: 18px; font-weight: bold">개인 맞춤 추천</div>
-          <v-card class="home_card_b myclass" elevation="3" outlined color="#f4c41f">
+          <v-card class="home_card_b myclass" elevation="5" outlined color="#f4c41f">
             <v-row class="pl-5 pt-7" align="center">
               <v-col class="pa-0" cols="4"
                 ><v-img height="100" width="120" src="@/assets/sample_sand1.png"></v-img
@@ -43,7 +43,7 @@
       <div class="main_card">
         <div>
           <div align="center" style="font-size: 18px; font-weight: bold">썹BTI 맞춤 추천</div>
-          <v-card class="home_card_b myclass" elevation="3" outlined color="#239347">
+          <v-card class="home_card_b myclass" elevation="5" outlined color="#239347">
             <v-row class="pl-5 pt-7" align="center">
               <v-col class="pa-0" cols="4"
                 ><v-img height="100" width="135" src="@/assets/sample_sand2.png"></v-img
@@ -80,7 +80,7 @@ export default {
   components: { RecommendPersonal, RecommendSubti },
   data() {
     return {
-      value: false,
+      value: true,
     };
   },
   methods: {},
@@ -95,7 +95,7 @@ export default {
 }
 .myclass.v-sheet.v-card {
   border-color: #424242 !important;
-  border-width: 1px;
+  border-width: 2px;
 }
 .home_cover {
   background-color: white;

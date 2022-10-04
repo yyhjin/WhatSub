@@ -9,8 +9,8 @@ def fill_df(df_ingredients,df_menus,df_combination,total):
     columns = df_combination.columns[1:]
     df = pd.DataFrame(index=total, columns=columns)
     cnt = 0
-    n = -300000
-    m = -200000
+    n = -10
+    m = -0
     for i, row in df[n:m].iterrows():
         allergies = set()
         bland = chewy = fat = kcal = nutty = price = protein = salty =sodium = soft = sour = spicy = sugar = sweet = 0

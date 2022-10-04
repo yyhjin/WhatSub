@@ -1,7 +1,7 @@
 import pandas as pd
 import random
 def make_response(result, combination_posts, ingredients, combinations, menus):
-    df_combination_posts = pd.DataFrame(list(combination_posts.values()))[['combination_id','comb_name','content']]
+    df_combination_posts = pd.DataFrame(list(combination_posts.values()))[['combination_id','comb_name','content', 'score_avg']]
     df_combinations = pd.DataFrame(list(combinations.values()))[['combination_id','kcal','protein','sodium','fat','sugar','allergies','price']]
     df_ingredients = pd.DataFrame(list(ingredients.values()))[['ingredient_id','category','name','img_url']]
     df_menus = pd.DataFrame(list(menus.values()))[['menu_id', 'menu_name', 'img_url']]
@@ -11,6 +11,7 @@ def make_response(result, combination_posts, ingredients, combinations, menus):
         partial['combination_id'] = sandwich
         partial['comb_name'] = df_combination_posts[df_combination_posts['combination_id']==sandwich]['comb_name'].values[0]
         partial['content'] =  df_combination_posts[df_combination_posts['combination_id']==sandwich]['content'].values[0]
+        partial['score_avg'] =  df_combination_posts[df_combination_posts['combination_id']==sandwich]['score_avg'].values[0]
         partial['kcal'] = df_combinations[df_combinations['combination_id']==sandwich]['kcal'].values[0]
         partial['protein'] = df_combinations[df_combinations['combination_id']==sandwich]['protein'].values[0]
         partial['sodium'] = df_combinations[df_combinations['combination_id']==sandwich]['sodium'].values[0]

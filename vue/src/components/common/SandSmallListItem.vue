@@ -1,9 +1,9 @@
 <template>
   <div>
     <v-card class="sand_small_card" align="center" @click.stop="dialogRecoCombi = true">
-      <v-img height="75" width="80"></v-img>
-      <h4 class="pt-2">{{ SandListItem.combName }}</h4>
-      <div style="font-size: 15px">{{ SandListItem.price | comma }}원</div>
+      <v-img class="shadow_img" :src="SandListItem.imgUrl"></v-img>
+      <h4 class="mt-n3">{{ SandListItem.combName }}</h4>
+      <div class="" style="font-size: 15px">{{ SandListItem.price | comma }}원</div>
     </v-card>
     <combi-modal
       :combi-list-item="SandListItem"
