@@ -19,6 +19,9 @@ export default {
       type: Boolean,
       required: true,
     },
+    imgUrl: String,
+    name: String,
+    combinationId: String,
   },
   computed: {
     openAlert: {
@@ -32,7 +35,8 @@ export default {
   },
   methods: {
     goRegistCombi() {
-      this.$router.push({ name: "registcombination" });
+      this.$router.push({ name: "registcombination", params:{"imgUrl":this.imgUrl, 
+      "name":this.name, "combinationId":this.combinationId} });
     },
   },
 };

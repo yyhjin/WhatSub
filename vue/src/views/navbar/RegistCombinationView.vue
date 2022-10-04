@@ -69,6 +69,11 @@ import CombiNutritionInfo from "@/components/combination/detailTab/CombiNutritio
 export default {
   name: "RegistCombinationView",
   components: { BottomNav, CombiDetailInfo, CombiNutritionInfo },
+  props: {
+    imgUrl: String,
+    name: String,
+    combinationId: String,
+  },
   data() {
     return {
       tab: null,

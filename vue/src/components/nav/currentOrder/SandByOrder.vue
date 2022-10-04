@@ -26,7 +26,7 @@
         <v-btn class="main_btn" rounded small>상세보기</v-btn>
       </div>
     </v-card>
-    <alert-combi :value="openAlert" @input="openAlert = $event"></alert-combi>
+    <alert-combi :imgUrl="imgUrl" :name="name" :combinationId="combination.combinationId"      :value="openAlert" @input="openAlert = $event"></alert-combi>
   </div>
 </template>
 
