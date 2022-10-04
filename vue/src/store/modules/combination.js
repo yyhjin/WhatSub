@@ -271,7 +271,6 @@ export default{
       })
         .then((res) => {
           commit("SET_COMBI_BASED_SUNBTI", res.data.data);
-          console.log(res.data.data);
         })
         .catch((err) => console.log("getCombiBasedSubti 에러", err));
     },
@@ -284,8 +283,8 @@ export default{
         }
       })
         .then((res) => {
-          commit("SET_COMBI_BASED_INDIVIDUAL", res.data.data);
-          console.log(res.data.data);
+          commit("SET_COMBI_BASED_INDIVIDUAL", res.data[0]);
+          console.log(res.data[0]);
         })
         .catch((err) => console.log("getCombiBasedIndividual 에러", err));
     },

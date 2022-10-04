@@ -112,7 +112,7 @@
               <combi-nutrition-info :combi-detail="combiDetail.combination"></combi-nutrition-info>
             </div>
           </v-card>
-          <v-card v-else flat height="200">
+          <v-card v-else flat>
             <div class="pt-4 pl-6 pr-6">
               <combi-statistic :combi-detail="combiDetail.statistics"></combi-statistic>
             </div>
