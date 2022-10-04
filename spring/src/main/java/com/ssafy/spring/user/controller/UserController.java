@@ -1,10 +1,14 @@
 package com.ssafy.spring.user.controller;
 
 import com.ssafy.spring.SuccessResponseResult;
+import com.ssafy.spring.comb.dto.CombDto;
 import com.ssafy.spring.comb.dto.CombPostDto;
 import com.ssafy.spring.comb.dto.IngredientDto;
+import com.ssafy.spring.comb.entity.Combination;
 import com.ssafy.spring.comb.entity.Ingredient;
+import com.ssafy.spring.comb.entity.Menu;
 import com.ssafy.spring.comb.service.IngredientService;
+import com.ssafy.spring.comb.service.MenuService;
 import com.ssafy.spring.comb.service.S3Service;
 import com.ssafy.spring.exception.NoSuchUserException;
 import com.ssafy.spring.user.dto.CollectionDto;
@@ -41,6 +45,9 @@ public class UserController {
 
     @Autowired
     private IngredientService ingredientService;
+
+    @Autowired
+    private MenuService menuService;
 
     @Autowired
     private S3Service s3Service;
@@ -153,6 +160,15 @@ public class UserController {
         List<DibDto> dibList = userService.getDibsByUserAndStateIsTrue(user).stream()
                 .map(DibDto::new)
                 .collect(toList());
+
+        for(DibDto dib : dibList){
+            CombPostDto combPostDto = dib.getCombinationPostDto();
+            Combination combination = combPostDto.getCombination();
+
+            String menuId = combination.getCombinationId().substring(0,1);
+            Menu menu = menuService.getMenuByMenuId(menuId);
+            combPostDto.setMenuName(menu.getMenuName());
+        }
 
         return new SuccessResponseResult(dibList);
     }
