@@ -154,7 +154,7 @@ export default {
     combinationPostId: String,
   },
   computed: {
-    ...mapGetters(["combiDetail"]),
+    ...mapGetters(["combiDetail", "sampleUserId"]),
   },
   filters: {
     comma(val) {
@@ -165,14 +165,19 @@ export default {
     //combinationPostId 로 api 검색
     this.getCombiDetail({ combinationPostId: this.combinationPostId });
     this.createDate = dayjs(this.combiDetail.createdAt).format("YYYY-MM-DD HH:mm");
+    //현재 로그인한 유저의 찜 목록(찜 목록 조회)에 해당 꿀조합이 있다면 빨간하트 표시
   },
   methods: {
-    ...mapActions(["getCombiDetail"]),
+    ...mapActions(["getCombiDetail", "updateZzimCombi"]),
     goBack() {
       this.$router.go(-1);
     },
     clickHeart() {
       if (this.isliked) {
+        this.updateZzimCombi({
+          combPostId: this.combinationPostId,
+          userId: this.sampleUserId,
+        });
         this.isliked = false;
       } else {
         this.isliked = true;

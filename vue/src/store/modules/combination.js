@@ -2,168 +2,168 @@ import axios from "axios";
 
 export default{
   state: {
-    sandList: [
-      {
-        id: 1,
-        name: "sand1",
-        basic: "에그마요",
-        score: 1.5,
-        desc: "닭가슴살로 만든 치키 슬라이스를 담백하게 즐겨보세요.",
-        nutri: 300,
-        ingre: ["플랫브래드", "오이1", "토마토1"],
-        price: 5400,
-      },
-      {
-        id: 2,
-        name: "sand2",
-        basic: "터키 베이컨 아보카도",
-        score: 2.5,
-        desc: "맛난 샌드위치2~",
-        nutri: 250,
-        ingre: "토마토2",
-        price: 6400,
-      },
-      {
-        id: 3,
-        name: "sand3",
-        score: 3.5,
-        desc: "맛난 샌드위치3~",
-        basic: "치킨 슬라이스",
-        nutri: 350,
-        ingre: "토마토3",
-        price: 7400,
-      },
-      {
-        id: 4,
-        name: "sand4",
-        basic: "스테이크&치즈",
-        score: 4.5,
-        desc: "맛난 샌드위치4~",
-        nutri: 450,
-        ingre: "토마토4",
-        price: 8400,
-      },
-      {
-        id: 5,
-        name: "sand5",
-        basic: "터키 베이컨 아보카도",
-        score: 5.5,
-        desc: "맛난 샌드위치5~",
-        nutri: 550,
-        ingre: "토마토5",
-        price: 9400,
-      },
-      {
-        id: 6,
-        name: "sand1",
-        basic: "에그마요",
-        score: 1.5,
-        desc: "닭가슴살로 만든 치키 슬라이스를 담백하게 즐겨보세요.",
-        nutri: 300,
-        ingre: ["플랫브래드", "오이1", "토마토1"],
-        price: 5400,
-      },
-      {
-        id: 7,
-        name: "sand2",
-        basic: "터키 베이컨 아보카도",
-        score: 2.5,
-        desc: "맛난 샌드위치2~",
-        nutri: 250,
-        ingre: "토마토2",
-        price: 6400,
-      },
-      {
-        id: 8,
-        name: "sand3",
-        score: 3.5,
-        desc: "맛난 샌드위치3~",
-        basic: "치킨 슬라이스",
-        nutri: 350,
-        ingre: "토마토3",
-        price: 7400,
-      },
-      {
-        id: 9,
-        name: "sand4",
-        basic: "스테이크&치즈",
-        score: 4.5,
-        desc: "맛난 샌드위치4~",
-        nutri: 450,
-        ingre: "토마토4",
-        price: 7400,
-      },
-      {
-        id: 10,
-        name: "sand1",
-        basic: "에그마요",
-        score: 1.5,
-        desc: "닭가슴살로 만든 치키 슬라이스를 담백하게 즐겨보세요.",
-        nutri: 300,
-        ingre: ["플랫브래드", "오이1", "토마토1"],
-        price: 5400,
-      },
-      {
-        id: 11,
-        name: "sand2",
-        basic: "터키 베이컨 아보카도",
-        score: 2.5,
-        desc: "맛난 샌드위치2~",
-        nutri: 250,
-        ingre: "토마토2",
-        price: 6400,
-      },
-      {
-        id: 12,
-        name: "sand3",
-        score: 3.5,
-        desc: "맛난 샌드위치3~",
-        basic: "치킨 슬라이스",
-        nutri: 350,
-        ingre: "토마토3",
-        price: 7400,
-      },
-      {
-        id: 13,
-        name: "sand4",
-        basic: "스테이크&치즈",
-        score: 4.5,
-        desc: "맛난 샌드위치4~",
-        nutri: 450,
-        ingre: "토마토4",
-        price: 9400,
-      },
-      {
-        id: 14,
-        name: "sand5",
-        basic: "터키 베이컨 아보카도",
-        score: 5.5,
-        desc: "맛난 샌드위치5~",
-        nutri: 550,
-        ingre: "토마토5",
-        price: 8400,
-      },
-      {
-        id: 15,
-        name: "sand5",
-        basic: "터키 베이컨 아보카도",
-        score: 5.5,
-        desc: "맛난 샌드위치5~",
-        nutri: 550,
-        ingre: "토마토5",
-        price: 8400,
-      },
-      {
-        id: 16,
-        name: "sand5",
-        basic: "터키 베이컨 아보카도",
-        score: 5.5,
-        desc: "맛난 샌드위치5~",
-        nutri: 550,
-        ingre: "토마토5",
-        price: 8400,
-      },
-    ],
+    // sandList: [
+    //   {
+    //     id: 1,
+    //     name: "sand1",
+    //     basic: "에그마요",
+    //     score: 1.5,
+    //     desc: "닭가슴살로 만든 치키 슬라이스를 담백하게 즐겨보세요.",
+    //     nutri: 300,
+    //     ingre: ["플랫브래드", "오이1", "토마토1"],
+    //     price: 5400,
+    //   },
+    //   {
+    //     id: 2,
+    //     name: "sand2",
+    //     basic: "터키 베이컨 아보카도",
+    //     score: 2.5,
+    //     desc: "맛난 샌드위치2~",
+    //     nutri: 250,
+    //     ingre: "토마토2",
+    //     price: 6400,
+    //   },
+    //   {
+    //     id: 3,
+    //     name: "sand3",
+    //     score: 3.5,
+    //     desc: "맛난 샌드위치3~",
+    //     basic: "치킨 슬라이스",
+    //     nutri: 350,
+    //     ingre: "토마토3",
+    //     price: 7400,
+    //   },
+    //   {
+    //     id: 4,
+    //     name: "sand4",
+    //     basic: "스테이크&치즈",
+    //     score: 4.5,
+    //     desc: "맛난 샌드위치4~",
+    //     nutri: 450,
+    //     ingre: "토마토4",
+    //     price: 8400,
+    //   },
+    //   {
+    //     id: 5,
+    //     name: "sand5",
+    //     basic: "터키 베이컨 아보카도",
+    //     score: 5.5,
+    //     desc: "맛난 샌드위치5~",
+    //     nutri: 550,
+    //     ingre: "토마토5",
+    //     price: 9400,
+    //   },
+    //   {
+    //     id: 6,
+    //     name: "sand1",
+    //     basic: "에그마요",
+    //     score: 1.5,
+    //     desc: "닭가슴살로 만든 치키 슬라이스를 담백하게 즐겨보세요.",
+    //     nutri: 300,
+    //     ingre: ["플랫브래드", "오이1", "토마토1"],
+    //     price: 5400,
+    //   },
+    //   {
+    //     id: 7,
+    //     name: "sand2",
+    //     basic: "터키 베이컨 아보카도",
+    //     score: 2.5,
+    //     desc: "맛난 샌드위치2~",
+    //     nutri: 250,
+    //     ingre: "토마토2",
+    //     price: 6400,
+    //   },
+    //   {
+    //     id: 8,
+    //     name: "sand3",
+    //     score: 3.5,
+    //     desc: "맛난 샌드위치3~",
+    //     basic: "치킨 슬라이스",
+    //     nutri: 350,
+    //     ingre: "토마토3",
+    //     price: 7400,
+    //   },
+    //   {
+    //     id: 9,
+    //     name: "sand4",
+    //     basic: "스테이크&치즈",
+    //     score: 4.5,
+    //     desc: "맛난 샌드위치4~",
+    //     nutri: 450,
+    //     ingre: "토마토4",
+    //     price: 7400,
+    //   },
+    //   {
+    //     id: 10,
+    //     name: "sand1",
+    //     basic: "에그마요",
+    //     score: 1.5,
+    //     desc: "닭가슴살로 만든 치키 슬라이스를 담백하게 즐겨보세요.",
+    //     nutri: 300,
+    //     ingre: ["플랫브래드", "오이1", "토마토1"],
+    //     price: 5400,
+    //   },
+    //   {
+    //     id: 11,
+    //     name: "sand2",
+    //     basic: "터키 베이컨 아보카도",
+    //     score: 2.5,
+    //     desc: "맛난 샌드위치2~",
+    //     nutri: 250,
+    //     ingre: "토마토2",
+    //     price: 6400,
+    //   },
+    //   {
+    //     id: 12,
+    //     name: "sand3",
+    //     score: 3.5,
+    //     desc: "맛난 샌드위치3~",
+    //     basic: "치킨 슬라이스",
+    //     nutri: 350,
+    //     ingre: "토마토3",
+    //     price: 7400,
+    //   },
+    //   {
+    //     id: 13,
+    //     name: "sand4",
+    //     basic: "스테이크&치즈",
+    //     score: 4.5,
+    //     desc: "맛난 샌드위치4~",
+    //     nutri: 450,
+    //     ingre: "토마토4",
+    //     price: 9400,
+    //   },
+    //   {
+    //     id: 14,
+    //     name: "sand5",
+    //     basic: "터키 베이컨 아보카도",
+    //     score: 5.5,
+    //     desc: "맛난 샌드위치5~",
+    //     nutri: 550,
+    //     ingre: "토마토5",
+    //     price: 8400,
+    //   },
+    //   {
+    //     id: 15,
+    //     name: "sand5",
+    //     basic: "터키 베이컨 아보카도",
+    //     score: 5.5,
+    //     desc: "맛난 샌드위치5~",
+    //     nutri: 550,
+    //     ingre: "토마토5",
+    //     price: 8400,
+    //   },
+    //   {
+    //     id: 16,
+    //     name: "sand5",
+    //     basic: "터키 베이컨 아보카도",
+    //     score: 5.5,
+    //     desc: "맛난 샌드위치5~",
+    //     nutri: 550,
+    //     ingre: "토마토5",
+    //     price: 8400,
+    //   },
+    // ],
     sampleUserId: 1,
     userSubti: "icah",
     combiBasedIndividual: {},
@@ -173,6 +173,7 @@ export default{
     bestCombi: {},
     combiList: [],
     combiDetail: {},
+    filteringMenu: [],
   },
   getters: {
     sampleUserId: (state) => state.sampleUserId,
@@ -184,6 +185,7 @@ export default{
     combiDetail: (state) => state.combiDetail,
     combiBasedIndividual: (state) => state.combiBasedIndividual,
     combiBasedSubti: (state) => state.combiBasedSubti,
+    filteringMenu: (state) => state.filteringMenu,
   },
   mutations: {
     SET_COMBI_LIST_BY_OTHERS: (state, combiListByOthers) => (state.combiListByOthers = combiListByOthers),
@@ -193,6 +195,7 @@ export default{
     SET_COMBI_DETAIL: (state, combiDetail) =>(state.combiDetail = combiDetail),
     SET_COMBI_BASED_INDIVIDUAL: (state, combiBasedIndividual) =>(state.combiBasedIndividual = combiBasedIndividual),
     SET_COMBI_BASED_SUNBTI: (state, combiBasedSubti) =>(state.combiBasedSubti = combiBasedSubti),
+    SET_FILTERING_MENU: (state, filteringMenu) =>(state.filteringMenu = filteringMenu),
   },
   actions: {
     getCombiListByOthers({commit}) {
@@ -284,9 +287,74 @@ export default{
       })
         .then((res) => {
           commit("SET_COMBI_BASED_INDIVIDUAL", res.data[0]);
-          console.log(res.data[0]);
+          console.log("dd", res.data[0]);
         })
         .catch((err) => console.log("getCombiBasedIndividual 에러", err));
     },
+    
+    deleteReview({commit}, {postId, reviewId}) {
+      axios({
+        method: "delete",
+        url: `https://j7a105.p.ssafy.io//api/v1/review/${reviewId}`,
+        data: {
+          postId: postId,
+          reviewId: reviewId,
+        }
+      })
+        .then(() => {
+          axios({
+            method: "get",
+            url: `https://j7a105.p.ssafy.io/api/v1/comb/${postId}`,
+            data: {
+              combinationPostId: postId,
+            }
+          })
+            .then((res) => {
+              commit("SET_COMBI_DETAIL", res.data.data);
+            })
+            .catch((err) => console.log("getCombiDetail 에러", err));
+        })
+        .catch((err) => console.log("deleteReview 에러", err));
+    },
+    getFilteringMenu({commit}, {menuId}) {
+      axios({
+        method: "get",
+        url: `https://j7a105.p.ssafy.io/api/v1/comb/menu/${menuId}`,
+        data: {
+          menuId: menuId,
+        }
+      })
+        .then((res) => {
+          commit("SET_COMBI_LIST", res.data.data);
+          console.log(res.data.data);
+        })
+        .catch((err) => console.log("getFilteringMenu 에러", err));
+    },
+    updateZzimCombi({commit}, {combPostId, userId}) {
+      axios({
+        method: "put",
+        url: `https://j7a105.p.ssafy.io/api/v1/comb/dib`,
+        data: {
+          combPostId: combPostId,
+          userId: userId,
+        }
+      })
+        .then(() => {
+          axios({
+            method: "get",
+            url: `https://j7a105.p.ssafy.io/api/v1/comb/${combPostId}`,
+            data: {
+              combinationPostId: combPostId,
+            }
+          })
+            .then((res) => {
+              commit("SET_COMBI_DETAIL", res.data.data);
+              console.log("찜한 후 렌더링", res.data.data);
+            })
+            .catch((err) => console.log("getCombiDetail 에러", err));
+        })
+        .catch((err) => console.log("updateZzimCombi 에러", err));
+    },
+
   },
 }
