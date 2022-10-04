@@ -16,13 +16,13 @@
       class="shadow_img"
       height="150"
       width="200"
-      :src="combiListItem.imgUrl"
+      :src="combiListItem.menu.img_url"
       alt="sandwitch"
     ></v-img>
     <h2 style="font-size: 16px">
-      {{ combiListItem.combName }}
+      {{ combiListItem.comb_name }}
     </h2>
-    <h3 class="mt-1" style="color: grey; font-size: 16px">({{ combiListItem.menuName }})</h3>
+    <h3 class="mt-1" style="color: grey; font-size: 16px">({{ combiListItem.menu.menu_name }})</h3>
     <div class="ma-3">
       <div style="font-size: 15px">{{ combiListItem.content }}</div>
     </div>
@@ -31,7 +31,7 @@
 
 <script>
 export default {
-  name: "CombiInfoSnad",
+  name: "CombiInfoSnadPersonal",
   data() {
     return {
       rating: this.combiListItem.scoreAvg,

@@ -2,10 +2,11 @@
   <div>
     <!-- v-for 날짜별 -->
     <div class="mt-3 mb-1">
-      <h4 class="ml-n20">{{ orderListByDay.date }}</h4>
+      <h4 class="ml-n20">{{ date }}</h4>
     </div>
-    <div v-for="orderMenus in orderListByDay.menu" :key="orderMenus.orderId">
+    <div v-for="(orderMenus, index) in orderListByDay" :key="orderMenus.orderId">
       <sand-by-day-list-item
+        :index="index"
         :order-menu="orderMenus"
         @openModal="openModal"
       ></sand-by-day-list-item>
@@ -21,7 +22,8 @@ export default {
   name: "SandByDayList",
   components: { SandByDayListItem },
   props: {
-    orderListByDay: Object,
+    orderListByDay: Array,
+    date: String
   },
   data() {
     return {};

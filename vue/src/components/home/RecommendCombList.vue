@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div align="center">다른 유저의 추천 꿀조합</div>
+    <div align="center" style="font-size: 18px; font-weight: bold">다른 유저의 추천 꿀조합</div>
     <div class="verti_combi no-scroll">
       <div class="combi_card" v-for="(combiListItem, index) in combiListByOthers" :key="index">
         <recommend-comb-list-item :combi-list-item="combiListItem"></recommend-comb-list-item>

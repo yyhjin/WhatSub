@@ -75,19 +75,21 @@ public class CombPostController {
     }
 
 
-    @ApiOperation(value = "게시판 등록 여부", notes = "해당 조합이 꿀조합 게시판에 있는지 확인한다.\n있으면 해당 게시글 번호 반환 / 없으면 -1 반환", httpMethod = "GET")
+    @ApiOperation(value = "게시판 등록 여부", notes = "해당 조합이 꿀조합 게시판에 있는지 확인한다.\n있으면 해당 게시글 번호 반환 / 없으면 해당 조합 정보 반환", httpMethod = "GET")
     @GetMapping("/exist/{combinationId}")
     public SuccessResponseResult checkPostExist(@PathVariable String combinationId) {
 
         CombinationPost post = combPostService.findByCombination_CombinationId(combinationId);
         int postId;
 
-        if(post == null)
-            postId = -1;
-        else
+        if(post == null) {
+            CombDto combDto = new CombDto(combService.findByCombinationId(combinationId));
+            return new SuccessResponseResult(combDto);
+        }
+        else {
             postId = post.getCombinationPostId();
-
-        return new SuccessResponseResult(postId);
+            return new SuccessResponseResult(postId);
+        }
     }
 
 
