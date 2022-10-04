@@ -86,7 +86,7 @@ export default {
   },
 
   methods: {
-    ...mapActions(['saveToken', 'fetchCurrentUser']),
+    ...mapActions(['saveToken', 'saveUserName']),
     checkId (username) {
       //axios로 요청보내서 검사
       axios({
@@ -165,6 +165,7 @@ export default {
       }).then(res => {
         console.log(res)
         this.saveToken(res.data.data.accessToken)
+        this.saveUserName(res.data.data.userName)
         // this.fetchCurrentUser(res.data.data.userName)
         if (res.data.data.result === 1) {
           this.$router.push('/')

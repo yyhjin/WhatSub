@@ -4,6 +4,7 @@ import api from "@/api/api";
 export default({
   state: {
     token : localStorage.getItem('token') || '',
+    userName: localStorage.getItem('userName') || '',
     currentUser: {},
     profile : {},
   },
@@ -13,6 +14,7 @@ export default({
     authHeader  (state) {
       return {Authorization: `Token ${state.token}`}
     },
+    userName: state => state.userName,
     profile: state => state.profile,
     currentUser : state => state.currentUser,
   },
@@ -21,6 +23,7 @@ export default({
     SET_TOKEN (state, token) {
       state.token = token
     },
+    SET_USERNAME : (state, userName) => state.userName = userName,
     SET_CURRENT_USER : (state, user) => state.currentUser = user,
     SET_PROFILE : (state, profile) => state.profile = profile,
   },
@@ -30,7 +33,10 @@ export default({
       commit('SET_TOKEN', token)
       
       localStorage.setItem('token', token)   // 새로고침 후에도 유지
-      
+    },
+    saveUserName ({ commit }, userName) {
+      commit('SET_USERNAME', userName)
+      localStorage.setItem('userName', userName)
     },
     removeToken ({ commit }) {
       
