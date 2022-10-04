@@ -127,6 +127,10 @@ public class UserController {
             throw new NoSuchUserException();
         }
 
+        List<CollectionDto> collectionDtoList = user.getCollections().stream()
+                .map(CollectionDto::new)
+                .collect(toList());
+
         UserResponse.GetUserResponse response = UserResponse.GetUserResponse.builder()
                 .userId(user.getUserId())
                 .email(user.getEmail())
@@ -136,6 +140,7 @@ public class UserController {
                 .profileImg(user.getProfileImg())
                 .subti(user.getSubti())
                 .isDiet(user.isDiet())
+                .collectionList(collectionDtoList)
                 .build();
 
         return new SuccessResponseResult(response);
@@ -168,6 +173,7 @@ public class UserController {
             String menuId = combination.getCombinationId().substring(0,1);
             Menu menu = menuService.getMenuByMenuId(menuId);
             combPostDto.setMenuName(menu.getMenuName());
+            combPostDto.setIngredients(userService.getIngredientList(combination.getCombinationId()));
         }
 
         return new SuccessResponseResult(dibList);

@@ -19,6 +19,7 @@ public class UserResponse {
         private String profileImg;
         private String subti;
         private boolean isDiet;
+        private List<CollectionDto> collectionList;
     }
 
     @Data

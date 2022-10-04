@@ -1,6 +1,8 @@
 package com.ssafy.spring.user.service;
 
 import com.ssafy.spring.comb.dto.IngredientDto;
+import com.ssafy.spring.comb.entity.Ingredient;
+import com.ssafy.spring.comb.repository.IngredientRepository;
 import com.ssafy.spring.user.entity.Dib;
 import com.ssafy.spring.user.entity.User;
 import com.ssafy.spring.user.repository.DibRepository;
@@ -18,6 +20,9 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     private DibRepository dibRepository;
+
+    @Autowired
+    private IngredientRepository ingredientRepository;
 
     @Override
     public void save(User user) {
@@ -70,5 +75,22 @@ public class UserServiceImpl implements UserService {
         }
 
         return excludedIngredientIds;
+    }
+
+    @Override
+    public List<IngredientDto.ingredientResponse> getIngredientList(String combinationId) {
+        List<IngredientDto.ingredientResponse> ingredients = new ArrayList<>();
+
+        String list = combinationId.substring(1);
+        for (int i = 0, j = 0; j < list.length()/2; i += 2, j++) {
+            IngredientDto.ingredientResponse ingredientResponse = new IngredientDto.ingredientResponse();
+            String ingredientId = list.substring(i, i+2);
+            Ingredient in = ingredientRepository.findByIngredientId(ingredientId);
+            ingredientResponse.setCategory(in.getCategory());
+            ingredientResponse.setName(in.getName());
+            ingredients.add(ingredientResponse);
+        }
+
+        return ingredients;
     }
 }

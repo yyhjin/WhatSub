@@ -23,4 +23,6 @@ public interface UserService {
     List<Dib> getDibsByUserAndStateIsTrue(User user);
 
     Set<String> getExcludedIngredientId(List<String> vegetables, List<String> allergies, List<IngredientDto> ingredientDtoList);
+
+    List<IngredientDto.ingredientResponse> getIngredientList(String combinationId);
 }

@@ -7,6 +7,8 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.List;
 
 @Getter @Setter
 public class CombPostDto {
@@ -21,6 +23,7 @@ public class CombPostDto {
     private int likesCnt;
     private Timestamp createdAt;
     private String statistics;
+    private List<IngredientDto.ingredientResponse> ingredients = new ArrayList<>();
 
     public CombPostDto (CombinationPost combinationPost){
         this.combinationPostId = combinationPost.getCombinationPostId();
