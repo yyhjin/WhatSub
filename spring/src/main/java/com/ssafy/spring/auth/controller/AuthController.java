@@ -44,7 +44,7 @@ public class AuthController {
         if(userService.existsByAuthId(authId)){
             user = userService.getUserByAuthId(authId);
 
-            String accessToken = jwtUtil.createToken(user.getEmail());
+            String accessToken = jwtUtil.createToken(user.getAuthId());
             loginResponse = new AuthResponse.LoginResponse(user, 1, accessToken);
         }
         else { // 새 회원이면 회원가입 및 로그인 시키고 2 리턴

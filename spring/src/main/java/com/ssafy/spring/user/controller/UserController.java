@@ -11,6 +11,7 @@ import com.ssafy.spring.comb.service.IngredientService;
 import com.ssafy.spring.comb.service.MenuService;
 import com.ssafy.spring.comb.service.S3Service;
 import com.ssafy.spring.exception.NoSuchUserException;
+import com.ssafy.spring.resolver.ClientIp;
 import com.ssafy.spring.user.dto.CollectionDto;
 import com.ssafy.spring.user.dto.DibDto;
 import com.ssafy.spring.user.dto.UserRequest;
@@ -19,6 +20,7 @@ import com.ssafy.spring.user.entity.Excluded;
 import com.ssafy.spring.user.entity.User;
 import com.ssafy.spring.user.service.ExcludedService;
 import com.ssafy.spring.user.service.UserService;
+import com.ssafy.spring.util.JWTUtil;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,10 +49,10 @@ public class UserController {
     private IngredientService ingredientService;
 
     @Autowired
-    private MenuService menuService;
+    private S3Service s3Service;
 
     @Autowired
-    private S3Service s3Service;
+    private JWTUtil jwtUtil;
 
     // 더미 데이터 생성 api
     @ApiOperation(value = "더미 데이터 생성", notes="임시 유저 데이터 5000개 삽입", httpMethod = "GET")
@@ -93,8 +95,9 @@ public class UserController {
     @ApiOperation(value = "설문조사 내용 업데이트", notes="회원가입에 성공하면 success, 아니면 fail", httpMethod = "POST")
     @PostMapping("/signup")
     // formData 받기
-    public SuccessResponseResult signUp(UserRequest.SignUpRequest formRequest) throws NoSuchUserException {
-        User user = userService.getUserByUserId(formRequest.getUserId());
+    public SuccessResponseResult signUp(UserRequest.SignUpRequest formRequest, @ClientIp String authId) throws NoSuchUserException {
+//        User user = userService.getUserByUserId(formRequest.getUserId());
+        User user = userService.getUserByAuthId(authId);
 
         if(user == null){
             throw new NoSuchUserException();
@@ -121,8 +124,17 @@ public class UserController {
 
     @ApiOperation(value = "유저 정보 조회", notes="userName을 통해 유저 정보 조회(남자: 0, 여자: 1)", httpMethod = "GET")
     @GetMapping("/{userName}")
-    public SuccessResponseResult getUser(@PathVariable String userName) throws NoSuchUserException {
-        User user = userService.getUserByUserName(userName);
+//    public SuccessResponseResult getUser(@PathVariable String userName, @RequestHeader("Authorization") String accessToken) throws NoSuchUserException {
+    public SuccessResponseResult getUser(@PathVariable String userName, @ClientIp String authId) throws NoSuchUserException {
+//        System.out.println("Accesstoken = " + accessToken);
+//        String authId = jwtUtil.getUserEmailFromJWT(accessToken);
+//        System.out.println("authId = " + authId);
+//        User user = userService.getUserByUserName(userName);
+
+
+//        System.out.println("Access Token = " + accessTokenHeader);
+        User user = userService.getUserByAuthId(authId);
+
         if(user == null){
             throw new NoSuchUserException();
         }
@@ -156,8 +168,10 @@ public class UserController {
 
     @ApiOperation(value = "찜목록 조회", notes="찜목록 조회", httpMethod = "POST")
     @PostMapping("/{userName}/dibs")
-    public SuccessResponseResult getDibList(@PathVariable String userName) throws NoSuchUserException {
-        User user = userService.getUserByUserName(userName);
+    public SuccessResponseResult getDibList(@PathVariable String userName, @ClientIp String authId) throws NoSuchUserException {
+//        User user = userService.getUserByUserName(userName);
+        User user = userService.getUserByAuthId(authId);
+
         if(user == null){
             throw new NoSuchUserException();
         }
@@ -173,8 +187,10 @@ public class UserController {
 
     @ApiOperation(value = "찜목록과 작성한 꿀조합 조회", notes="찜목록과 작성한 꿀조합 조회", httpMethod = "POST")
     @PostMapping("/{userName}/list")
-    public SuccessResponseResult getDibNcombList(@PathVariable String userName) throws NoSuchUserException {
-        User user = userService.getUserByUserName(userName);
+    public SuccessResponseResult getDibNcombList(@PathVariable String userName, @ClientIp String authId) throws NoSuchUserException {
+//        User user = userService.getUserByUserName(userName);
+        User user = userService.getUserByAuthId(authId);
+
         if(user == null){
             throw new NoSuchUserException();
         }
@@ -202,9 +218,10 @@ public class UserController {
 
     @ApiOperation(value = "subti 등록", notes="subti 결과를 DB에 등록", httpMethod = "POST")
     @PostMapping("/subti")
-    public SuccessResponseResult setSubti(@RequestBody UserRequest.SetSubtiRequest request) throws NoSuchUserException {
-        int userId = request.getUserId();
-        User user = userService.getUserByUserId(userId);
+    public SuccessResponseResult setSubti(@RequestBody UserRequest.SetSubtiRequest request, @ClientIp String authId) throws NoSuchUserException {
+//        int userId = request.getUserId();
+//        User user = userService.getUserByUserId(userId);
+        User user = userService.getUserByAuthId(authId);
         if(user == null){
             throw new NoSuchUserException();
         }
@@ -218,8 +235,10 @@ public class UserController {
 
     @ApiOperation(value = "제외 재료 등록", notes="등록이 완료되면 success, 아니면 fail", httpMethod = "POST")
     @PostMapping("/{userName}/exclude")
-    public SuccessResponseResult excludeIngredient(@PathVariable String userName, @RequestBody UserRequest.ExcludeRequest request) throws NoSuchUserException {
-        User user = userService.getUserByUserName(userName);
+    public SuccessResponseResult excludeIngredient(@PathVariable String userName, @ClientIp String authId, @RequestBody UserRequest.ExcludeRequest request) throws NoSuchUserException {
+//        User user = userService.getUserByUserName(userName);
+
+        User user = userService.getUserByAuthId(authId);
         if(user == null){
             throw new NoSuchUserException();
         }

@@ -56,8 +56,8 @@ public class JWTUtil {
     }
 
     // JWT 토큰에서 이메일 추출
-    public String getUserEmailFromJWT(String token) {
-//        token = BearerRemove(token); // Bearer 제거
+    public String getAuthIdByJWT(String token) {
+        token = BearerRemove(token); // Bearer 제거
         Claims claim = Jwts.parser()
                         .setSigningKey(secretKey.getBytes())
                         .parseClaimsJws(token)
@@ -67,12 +67,9 @@ public class JWTUtil {
     
     // JWT 토큰 유효성 검사
     public boolean validateToken(String token){
-        System.out.println("validate==================");
-
         try {
             token = this.BearerRemove(token);
             Jws<Claims> claims = Jwts.parser()
-//                    .setSigningKey(Base64.getEncoder().encodeToString(secretKey.getBytes()))
                     .setSigningKey(secretKey.getBytes())
                     .parseClaimsJws(token);
 
@@ -80,9 +77,7 @@ public class JWTUtil {
             if (claims.getBody().getExpiration().before(new Date())) {
                 return false;
             }
-            System.out.println(claims.getSignature());
-
-            System.out.println("파싱 성공!!");
+//            System.out.println(claims.getSignature());
             return true;
         } catch (SignatureException e){
             System.out.println("Invalid JWT Signature" + e);
