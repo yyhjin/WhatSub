@@ -166,15 +166,7 @@ public class UserController {
                 .map(DibDto::new)
                 .collect(toList());
 
-        for(DibDto dib : dibList){
-            CombPostDto combPostDto = dib.getCombinationPostDto();
-            Combination combination = combPostDto.getCombination();
-
-            String menuId = combination.getCombinationId().substring(0,1);
-            Menu menu = menuService.getMenuByMenuId(menuId);
-            combPostDto.setMenuName(menu.getMenuName());
-            combPostDto.setIngredients(userService.getIngredientList(combination.getCombinationId()));
-        }
+        dibList = userService.addMenuNameAndIngredientsToDib(dibList);
 
         return new SuccessResponseResult(dibList);
     }
@@ -195,9 +187,14 @@ public class UserController {
                 .map(DibDto::new)
                 .collect(toList());
 
+        dibList = userService.addMenuNameAndIngredientsToDib(dibList);
+
         List<CombPostDto> combPostList = user.getCombinationPosts().stream()
                 .map(CombPostDto::new)
                 .collect(toList());
+
+        combPostList = userService.addMenuNameAndIngredientsToCombPost(combPostList);
+
 
         UserResponse.GetDibNcombListResponse response = new UserResponse.GetDibNcombListResponse(collectionList, dibList, combPostList);
         return new SuccessResponseResult(response);

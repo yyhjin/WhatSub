@@ -1,14 +1,11 @@
 package com.ssafy.spring.review.controller;
 
-import com.ssafy.spring.comb.repository.CombPostRepository;
 import com.ssafy.spring.SuccessResponseResult;
 import com.ssafy.spring.comb.service.CombPostService;
 import com.ssafy.spring.review.dto.ReviewRequest;
 import com.ssafy.spring.review.dto.ReviewResponse;
 import com.ssafy.spring.review.entity.Review;
-import com.ssafy.spring.review.repository.ReviewRepository;
 import com.ssafy.spring.review.service.ReviewService;
-import com.ssafy.spring.user.repository.UserRepository;
 import com.ssafy.spring.user.service.UserService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;

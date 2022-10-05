@@ -21,8 +21,8 @@ public class JWTInterceptor implements HandlerInterceptor {
         }
 
         String token = request.getHeader(HEADER_AUTH);
-        System.out.println("인터셉터에서 토큰 헤더 얻기 " + token);
-//        token = token.substring(7,token.length()); //Bearer 빼는 부분인듯
+//        System.out.println("인터셉터에서 토큰 헤더 얻기 " + token);
+
         if(token != null){
             if(jwtUtil.validateToken(token)){
                 System.out.println("토큰 인증 완료!");

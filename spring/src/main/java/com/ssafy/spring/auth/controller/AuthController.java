@@ -33,12 +33,8 @@ public class AuthController {
     @ApiOperation(value = "카카오 로그인", notes="인가 코드를 주면 기존 유저는 1, 신규 유저는 회원가입 후 2 반환", httpMethod = "GET")
     @GetMapping("/login")
     public SuccessResponseResult kakakoLogin(@RequestParam String code, HttpServletResponse httpServletResponse){
-        System.out.println("로그인 함수 실행");
         KakaoTokenInfo kakaoTokenInfo = authService.getTokenByCode(code);
-        System.out.println("kakaoTokenInfo = " + kakaoTokenInfo);
-
         KakaoUserInfo kakaoUserInfo = authService.getUserByAccessToken(kakaoTokenInfo.getAccessToken());
-        System.out.println("kakaoUserInfo" + kakaoUserInfo);
 
         String authId = Long.toString(kakaoUserInfo.getId());
         User user;

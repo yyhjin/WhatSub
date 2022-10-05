@@ -41,12 +41,12 @@ public class JWTUtil {
         SignatureAlgorithm signatureAlgorithm = SignatureAlgorithm.HS256;
 
         return Jwts.builder()
-                .setHeaderParam(Header.TYPE, Header.JWT_TYPE)
+//                .setHeaderParam(Header.TYPE, Header.JWT_TYPE)
                 .setIssuer("doyeon")
                 .setIssuedAt(now)
                 .setExpiration(expiration)
                 .setSubject(subject) //토큰 제목(주로 이메일로 많이 사용)
-                .signWith(signatureAlgorithm, secretKey) //알고리즘, 시크릿 키
+                .signWith(signatureAlgorithm, secretKey.getBytes()) //알고리즘, 시크릿 키
                 .compact();
 //                .setClaims(claims)
 //                .setIssuedAt(now)
@@ -55,23 +55,33 @@ public class JWTUtil {
 //                .compact();
     }
 
-    // JWT 토큰에서 아이디 추출
-//    public String getUserIdFromJWT(String token) {
+    // JWT 토큰에서 이메일 추출
+    public String getUserEmailFromJWT(String token) {
 //        token = BearerRemove(token); // Bearer 제거
-//        Claims claim = Jwts.parser()
-//                        .setSigningKey(Base64.getEncoder().encodeToString(secretKey.getBytes()))
-//                        .parseClaimsJws(token)
-//                        .getBody();
-//        return claim.getSubject();
-//    }
+        Claims claim = Jwts.parser()
+                        .setSigningKey(secretKey.getBytes())
+                        .parseClaimsJws(token)
+                        .getBody();
+        return claim.getSubject();
+    }
     
     // JWT 토큰 유효성 검사
     public boolean validateToken(String token){
-        System.out.println("validate==================" + token);
+        System.out.println("validate==================");
 
         try {
-            Jwts.parser().setSigningKey(secretKey)
+            token = this.BearerRemove(token);
+            Jws<Claims> claims = Jwts.parser()
+//                    .setSigningKey(Base64.getEncoder().encodeToString(secretKey.getBytes()))
+                    .setSigningKey(secretKey.getBytes())
                     .parseClaimsJws(token);
+
+            // 만료 일자 확인
+            if (claims.getBody().getExpiration().before(new Date())) {
+                return false;
+            }
+            System.out.println(claims.getSignature());
+
             System.out.println("파싱 성공!!");
             return true;
         } catch (SignatureException e){

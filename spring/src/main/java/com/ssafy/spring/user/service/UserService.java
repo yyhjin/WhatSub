@@ -1,6 +1,8 @@
 package com.ssafy.spring.user.service;
 
+import com.ssafy.spring.comb.dto.CombPostDto;
 import com.ssafy.spring.comb.dto.IngredientDto;
+import com.ssafy.spring.user.dto.DibDto;
 import com.ssafy.spring.user.entity.Dib;
 import com.ssafy.spring.user.entity.User;
 
@@ -24,5 +26,9 @@ public interface UserService {
 
     Set<String> getExcludedIngredientId(List<String> vegetables, List<String> allergies, List<IngredientDto> ingredientDtoList);
 
-    List<IngredientDto.ingredientResponse> getIngredientList(String combinationId);
+    List<com.ssafy.spring.recommend.dto.IngredientDto> getIngredientList(String combinationId);
+
+    List<DibDto> addMenuNameAndIngredientsToDib(List<DibDto> dibList);
+
+    List<CombPostDto> addMenuNameAndIngredientsToCombPost(List<CombPostDto> combPostList);
 }

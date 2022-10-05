@@ -30,6 +30,7 @@ public class WebConfig implements WebMvcConfigurer {
 //        registry.addInterceptor(jwtInterceptor)
 //                .addPathPatterns("/**")
 //                .excludePathPatterns("/auth/**") //로그인 과정에 필요한 api 호출들 제외
+////                .excludePathPatterns("**/auth/**") //로그인 과정에 필요한 api 호출들 제외
 //                .excludePathPatterns("/swagger-resources/**", "/swagger-ui.html/**");
 
         // 설문 가입 여부 확인(미완)
