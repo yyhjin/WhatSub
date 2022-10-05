@@ -30,7 +30,10 @@ public class OrderHistory {
 
     private int count;
 
+    private int userId;
+    private String userName;
     private String gender;
     private int birthYear;
     private String subti;
+    private String menuId;
 }

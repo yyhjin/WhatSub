@@ -9,6 +9,7 @@ import com.ssafy.spring.comb.repository.MenuRepository;
 import com.ssafy.spring.order.dto.BranchDto;
 import com.ssafy.spring.order.dto.OrderRequest;
 import com.ssafy.spring.order.dto.OrderResponse;
+import com.ssafy.spring.order.entity.Branch;
 import com.ssafy.spring.order.entity.OrderHistory;
 import com.ssafy.spring.order.entity.Orders;
 import com.ssafy.spring.order.repository.BranchRepository;
@@ -42,6 +43,11 @@ public class OrderServiceImpl implements OrderService {
     private OrderHistoryRepository orderHistoryRepository;
     @Autowired
     private CombRepository combRepository;
+
+    @Override
+    public BranchDto getStoreInfo(int storeId) {
+        return new BranchDto(branchRepository.findById(storeId).orElseThrow());
+    }
 
     @Override
     public List<BranchDto> getStores(float minlat, float maxlat, float minlng, float maxlng) {
@@ -82,9 +88,12 @@ public class OrderServiceImpl implements OrderService {
                             .order(order)
                             .combination(combRepository.getReferenceById(comb.getCombinationId()))
                             .count(comb.getCount())
+                            .userId(user.getUserId())
+                            .userName(user.getUserName())
                             .gender(user.getGender())
                             .birthYear(user.getBirthYear())
-                            .subti(user.getSubti()).build());
+                            .subti(user.getSubti())
+                            .menuId(comb.getCombinationId().substring(0, 1)).build());
         });
         return new OrderResponse.orderDto(order);
     }
