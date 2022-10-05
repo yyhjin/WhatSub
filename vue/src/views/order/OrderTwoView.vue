@@ -16,22 +16,26 @@
 </template>
 
 <script>
-import MenuList from '@/components/order/MenuList.vue'
-import { mapGetters } from 'vuex';
+import MenuList from '@/components/order/MenuList.vue';
+import { mapGetters, mapActions } from 'vuex';
 
-import { mapActions } from 'vuex';
+
 
 export default {
   name: 'OrderTwoView',
 
   components: { MenuList },
 
+ 
+
   computed: {
     ...mapGetters(['selectedMenu'])
   },
 
   methods: {
-    ...mapActions(['fetchMenus']),
+    ...mapActions(['fetchMenus', 'selectMenu', 'selectBread', 'selectCheese', 'selectVege', 'selectSauce',
+    'selectMoreMeat', 'selectMore', 'selectMoreCheese']),
+
    goBack() {
       this.$router.push({name:'orderone'});
     },
@@ -46,11 +50,11 @@ export default {
 
   },
 
-  created () {
-    },
+  
   mounted () {
     // this.$router.go(0)
     this.fetchMenus()
+    
   },
  
 }
