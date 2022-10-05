@@ -17,12 +17,12 @@
         <v-tab-item v-for="item in items" :key="item">
           <v-card v-if="item == '꿀조합 목록'" flat>
             <div class="pt-4 pl-6 pr-6">
-              <sand-small-list></sand-small-list>
+              <sand-small-list :combi-list="myList.combinations"></sand-small-list>
             </div>
           </v-card>
           <v-card v-else flat>
             <div>
-              <sand-big-list></sand-big-list>
+              <sand-big-list :zzim-list="myList.dibs"></sand-big-list>
             </div>
           </v-card>
         </v-tab-item>
@@ -33,8 +33,8 @@
 
 <script>
 import CollectionListItem from "@/components/profile/CollectionListItem.vue";
-import SandSmallList from "@/components/common/SandSmallList.vue";
-import SandBigList from "@/components/common/SandBigList.vue";
+import SandSmallList from "@/components/common/mypage/SandSmallListMyCombi.vue";
+import SandBigList from "@/components/common/mypage/SandBigListMyPage.vue";
 import { mapGetters, mapActions } from "vuex";
 
 export default {
@@ -54,7 +54,7 @@ export default {
     this.getMyList({
       userName: this.sampleUserName,
     });
-    console.log(this.myList.collections);
+    console.log(this.myList.combinations);
   },
   methods: {
     ...mapActions(["getMyList"]),

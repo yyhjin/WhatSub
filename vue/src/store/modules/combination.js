@@ -167,6 +167,12 @@ export default{
     sampleUserId: 1,
     sampleUserName: "test1",
     userSubti: "icah",
+
+    first: "https://whatsub.s3.ap-northeast-2.amazonaws.com/default/gold.png",
+    second: "https://whatsub.s3.ap-northeast-2.amazonaws.com/default/silver.png",
+    third: "https://whatsub.s3.ap-northeast-2.amazonaws.com/default/bronze.png",
+    homin:"https://whatsub.s3.ap-northeast-2.amazonaws.com/default/homin.png",
+
     combiBasedIndividual: {},
     combiBasedSubti: {},
     combiListByOthers: [],
@@ -380,7 +386,7 @@ export default{
         }
       })
         .then((res) => {
-          commit("SET_MY_LIST", res.datadata);
+          commit("SET_MY_LIST", res.data.data);
           console.log("dd", res.data.data);
         })
         .catch((err) => console.log("getMyList 에러", err));

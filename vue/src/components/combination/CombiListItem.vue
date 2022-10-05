@@ -42,7 +42,6 @@ export default {
   },
   data() {
     return {
-      isliked: false,
       others: [],
       sauce: [],
     };
