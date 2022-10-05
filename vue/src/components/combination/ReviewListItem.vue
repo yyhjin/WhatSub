@@ -21,10 +21,9 @@
             ></v-rating>
           </div>
         </v-col>
-        <v-col class="pa-0 ml-n2" align="center">
-          <div style="font-size: 12px">
-            <span style="color: grey" @click="udpateReview">수정&nbsp; </span>
-            <span style="color: red" @click="deleteReview">삭제</span>
+        <v-col class="pa-0 ml-n2 mt-n4" align="center">
+          <div v-if="combiReviewItem.userId == sampleUserId" style="font-size: 12px">
+            <span style="color: red" @click="btnDeleteReview">삭제</span>
           </div>
         </v-col>
       </v-row>
@@ -40,6 +39,7 @@
 
 <script>
 import dayjs from "dayjs";
+import { mapActions, mapGetters } from "vuex";
 
 export default {
   name: "ReviewListItem",
@@ -52,15 +52,21 @@ export default {
   props: {
     combiReviewItem: Object,
   },
+  computed: {
+    ...mapGetters(["sampleUserId"]),
+  },
   created() {
     this.createDate = dayjs(this.combiReviewItem.createdAt).format("YYYY-MM-DD HH:mm");
   },
   methods: {
-    udpateReview() {
-      console.log("updateReview");
-    },
-    deleteReview() {
-      console.log("deleteReview");
+    ...mapActions(["deleteReview"]),
+    btnDeleteReview() {
+      if (confirm("삭제하시겠습니까?")) {
+        this.deleteReview({
+          postId: this.combiReviewItem.combinationPostId,
+          reviewId: this.combiReviewItem.reviewId,
+        });
+      }
     },
     goProfile() {
       this.$router.push({ name: "mypage" });

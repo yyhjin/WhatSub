@@ -2,8 +2,8 @@
   <div>
     <div class="pt-6 pl-6"><h4>My 컬렉션</h4></div>
     <div class="verti_combi no-scroll">
-      <div class="collec_card" v-for="(collectionInfoItem, index) in collectionInfo" :key="index">
-        <collection-list-item :collection-info-item="collectionInfoItem"></collection-list-item>
+      <div class="collec_card" v-for="(collectionItem, index) in myList.collections" :key="index">
+        <collection-list-item :collection-item="collectionItem"></collection-list-item>
       </div>
     </div>
     <div>
@@ -35,6 +35,7 @@
 import CollectionListItem from "@/components/profile/CollectionListItem.vue";
 import SandSmallList from "@/components/common/SandSmallList.vue";
 import SandBigList from "@/components/common/SandBigList.vue";
+import { mapGetters, mapActions } from "vuex";
 
 export default {
   name: "CollectionList",
@@ -45,8 +46,18 @@ export default {
       items: ["꿀조합 목록", "찜 목록"],
     };
   },
-  props: {
-    collectionInfo: Array,
+  props: {},
+  computed: {
+    ...mapGetters(["myList", "sampleUserName"]),
+  },
+  created() {
+    this.getMyList({
+      userName: this.sampleUserName,
+    });
+    console.log(this.myList.collections);
+  },
+  methods: {
+    ...mapActions(["getMyList"]),
   },
 };
 </script>

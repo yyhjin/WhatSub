@@ -6,7 +6,12 @@
           <h3 align="center">써브웨이 클럽</h3>
         </div>
         <div class="pt-3 pb-5" align="center">
-          <v-img height="110" width="200" src="https://picsum.photos/510/300?random"></v-img>
+          <v-img
+            class="shadow_img"
+            height="110"
+            width="200"
+            src="https://whatsub.s3.ap-northeast-2.amazonaws.com/SUBWAY/Sandwich/Subway-Club.png"
+          ></v-img>
         </div>
         <div align="center">
           <v-btn class="green_btn" width="220" elevation="0" small rounded @click="startTodayReco"
