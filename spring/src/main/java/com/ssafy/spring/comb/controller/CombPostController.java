@@ -9,6 +9,7 @@ import com.ssafy.spring.comb.entity.CombinationPost;
 import com.ssafy.spring.comb.entity.Ingredient;
 import com.ssafy.spring.comb.entity.Menu;
 import com.ssafy.spring.comb.service.*;
+import com.ssafy.spring.order.dto.OrderResponse;
 import com.ssafy.spring.order.entity.OrderHistory;
 import com.ssafy.spring.order.service.OrderHistoryService;
 import com.ssafy.spring.review.dto.ReviewResponse;
@@ -144,17 +145,10 @@ public class CombPostController {
         Menu menu = menuService.getMenuByMenuId(menuId);
         response.setMenuName(menu.getMenuName());
 
-        System.out.println(post.getCombination().getCombinationId());
-        System.out.println(post.getCombination().getCombinationId().substring(0,1));
-        System.out.println(menu.getMenuName());
-        System.out.println(post.getCombination().getCombinationId().substring(1));
-
-
         // 재료 정보
         List<IngredientDto.ingredientResponse> ingredients = new ArrayList<>();
 
         String list = post.getCombination().getCombinationId().substring(1);
-        //String[] ingredient = new String[list.length()/2];
         for (int i = 0, j = 0; j < list.length()/2; i += 2, j++) {
             IngredientDto.ingredientResponse ingredientResponse = new IngredientDto.ingredientResponse();
             String ingredientId = list.substring(i, i+2);
@@ -182,6 +176,26 @@ public class CombPostController {
 
         return new SuccessResponseResult(response);
     }
+
+
+    @ApiOperation(value = "게시글 재료 조회", notes = "해당 게시글의 재료 정보들을 조회한다.", httpMethod = "GET")
+    @GetMapping("/{combinationPostId}")
+    public SuccessResponseResult getPostIngredients(@PathVariable int combinationPostId) throws JsonProcessingException {
+
+        List<OrderResponse.IngredientDto> response = new ArrayList<>();
+
+        CombinationPost post = combPostService.findByCombinationPostId(combinationPostId);
+
+        String list = post.getCombination().getCombinationId().substring(1);
+        for (int i = 0, j = 0; j < list.length()/2; i += 2, j++) {
+            String ingredientId = list.substring(i, i+2);
+            OrderResponse.IngredientDto ingredientResponse = new OrderResponse.IngredientDto(ingredientService.findByIngredientId(ingredientId));
+            response.add(ingredientResponse);
+        }
+
+        return new SuccessResponseResult(response);
+    }
+
 
     @ApiOperation(value = "메뉴로 게시글 목록 조회", notes = "해당하는 메뉴의 게시글 목록을 조회한다.", httpMethod = "GET")
     @GetMapping("/menu/{menuId}/{userId}")
