@@ -13,4 +13,5 @@ public interface OrderService {
     List<OrderResponse.IngredientDto> getIngredientList();
     OrderResponse.orderDto order(OrderRequest.OrderDto orderRequest);
     List<OrderResponse.orderDto> getOrderHistory(String userName);
+    OrderResponse.orderDto getOrderInfo(int orderId);
 }

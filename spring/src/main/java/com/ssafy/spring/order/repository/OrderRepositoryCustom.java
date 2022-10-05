@@ -7,4 +7,5 @@ import java.util.List;
 
 public interface OrderRepositoryCustom {
     List<OrderResponse.orderDto> findOrderHistory(User user);
+    List<OrderResponse.orderDto> findOrderInfo(int orderId);
 }
