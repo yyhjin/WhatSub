@@ -125,6 +125,7 @@ public class CombPostController {
 
         CombinationPost post = combPostService.findByCombinationPostId(combinationPostId);
 
+
         response.setCombinationPostId(combinationPostId);
         response.setCombination(post.getCombination());
         response.setCombName(post.getCombName());
@@ -135,10 +136,15 @@ public class CombPostController {
         response.setScoreAvg(post.getScoreAvg());
 
         // Json string -> Object로 변환
-        String statistics = post.getStatistics();
-        ObjectMapper objectMapper = new ObjectMapper();
-        StatisticsDto statisticsDto = objectMapper.readValue(statistics, StatisticsDto.class);
-        response.setStatistics(statisticsDto);
+        if(post.getStatistics() != null) {
+            String statistics = post.getStatistics();
+            ObjectMapper objectMapper = new ObjectMapper();
+            StatisticsDto statisticsDto = objectMapper.readValue(statistics, StatisticsDto.class);
+            response.setStatistics(statisticsDto);
+        }
+        else {
+            response.setStatistics(new StatisticsDto());
+        }
 
         // 메뉴 정보
         String menuId = post.getCombination().getCombinationId().substring(0,1);
