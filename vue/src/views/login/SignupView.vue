@@ -103,10 +103,11 @@ export default {
     },
 
     signup () {
-      this.formData.append("username", this.credentials.username)
-      this.formData.append("gender", this.credentials.gender)
+      this.formData.append("userName", this.credentials.username)
+      this.formData.append("gender", 1)
       this.formData.append("birthYear", this.credentials.birthYear)
       //formData를 axios로 서버로 보냄
+      this.formData.append('email', '')
       this.$store.dispatch('signup', this.formData)
      
     },
@@ -119,7 +120,7 @@ export default {
     console.log(input)
     console.dir(input)
     reader.readAsDataURL(input);
-    this.formData.append('profile_img', input)
+    this.formData.append('profileImg', input)
   },
 
 
@@ -165,6 +166,7 @@ export default {
       }).then(res => {
         console.log(res)
         this.saveToken(res.data.data.accessToken)
+        // this.formData.append('userId', res.data.data.userId)
         this.saveUserName(res.data.data.userName)
         // this.fetchCurrentUser(res.data.data.userName)
         if (res.data.data.result === 1) {

@@ -94,14 +94,12 @@ export default({
       })
     },
 
-    signup ({ dispatch }, formData) {
+    signup ({ dispatch, getters }, formData) {
       axios({
         url : api.accounts.signup(),
         method : 'post',
         data : formData,
-        // headers:{
-        //   'Content-Type':'multipart/form-data'
-        // }
+        headers: getters.authHeader
       })
       .then(res => {
         dispatch('saveToken', res.data.key)
