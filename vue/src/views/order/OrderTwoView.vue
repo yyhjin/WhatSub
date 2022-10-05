@@ -33,8 +33,7 @@ export default {
   },
 
   methods: {
-    ...mapActions(['fetchMenus', 'selectMenu', 'selectBread', 'selectCheese', 'selectVege', 'selectSauce',
-    'selectMoreMeat', 'selectMore', 'selectMoreCheese']),
+    ...mapActions(['fetchMenus', ]),
 
    goBack() {
       this.$router.push({name:'orderone'});

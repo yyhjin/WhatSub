@@ -56,6 +56,11 @@ export default {
     }
   },
 
+
+  created () {
+
+  },
+
   mounted () {
     if (this.combinationPostId) {
       axios({
