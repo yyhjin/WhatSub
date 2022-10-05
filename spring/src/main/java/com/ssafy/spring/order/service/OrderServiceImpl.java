@@ -105,7 +105,7 @@ public class OrderServiceImpl implements OrderService {
         orderList.forEach(order -> {
             order.getCombinationList().forEach(comb -> {
                System.out.println(comb);
-                // 조합 식별자 구분하여 저장
+                // 조합 식별자 구분
                 String menuId = comb.getCombinationId().substring(0,1);
                 String list = comb.getCombinationId().substring(1);
                 for (int i = 0, j = 0; j < list.length()/2; i += 2, j++) {
@@ -116,6 +116,24 @@ public class OrderServiceImpl implements OrderService {
             System.out.println(order);
         });
         return orderList;
+    }
+
+    @Override
+    public OrderResponse.orderDto getOrderInfo(int orderId) {
+        System.out.println(orderId);
+        OrderResponse.orderDto order = orderRepository.findOrderInfo(orderId).get(0);
+        System.out.println(order);
+        order.getCombinationList().forEach(comb -> {
+            System.out.println(comb);
+            // 조합 식별자 구분하여 저장
+            String menuId = comb.getCombinationId().substring(0, 1);
+            String list = comb.getCombinationId().substring(1);
+            for (int i = 0, j = 0; j < list.length() / 2; i += 2, j++) {
+                comb.getIngredients().add(new OrderResponse.IngredientDto(ingredientRepository.findByIngredientId(list.substring(i, i + 2))));
+            }
+            comb.setMenu(new OrderResponse.MenuDto(menuRepository.findByMenuId(menuId)));
+        });
+        return order;
     }
 
     public Combination saveCombination(OrderRequest.CombinationDto combination) {

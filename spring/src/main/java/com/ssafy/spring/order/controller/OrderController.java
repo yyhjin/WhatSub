@@ -41,13 +41,19 @@ public class OrderController {
     }
 
     @ApiOperation(value = "주문 생성", notes="주문 내용을 DB에 저장한다.", httpMethod = "POST")
-    @PostMapping("/")
+    @PostMapping("")
     public SuccessResponseResult order(@RequestBody OrderRequest.OrderDto orderRequest) {
         return new SuccessResponseResult(orderService.order(orderRequest));
     }
 
+    @ApiOperation(value = "주문 조회", notes="유저의 최근 주문 내역을 조회한다.", httpMethod = "GET")
+    @GetMapping("/{orderId}")
+    public SuccessResponseResult getOrderHistory(@PathVariable int orderId) {
+        return new SuccessResponseResult(orderService.getOrderInfo(orderId));
+    }
+
     @ApiOperation(value = "주문 내역 조회", notes="유저의 최근 주문 내역을 조회한다.", httpMethod = "GET")
-    @GetMapping("/{userName}")
+    @GetMapping("/recent/{userName}")
     public SuccessResponseResult getOrderHistory(@PathVariable String userName) {
         return new SuccessResponseResult(orderService.getOrderHistory(userName));
     }
