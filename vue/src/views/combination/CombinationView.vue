@@ -77,10 +77,12 @@ export default {
     };
   },
   computed: {
-    ...mapGetters(["bestCombi"]),
+    ...mapGetters(["bestCombi", "sampleUserId"]),
   },
   created() {
-    this.getBestCombi();
+    this.getBestCombi({
+      userId: this.sampleUserId,
+    });
     for (let index = 0; index < this.bestCombi.ingredients.length; index++) {
       if (this.bestCombi.ingredients[index].category == "추가") {
         this.others.push(this.bestCombi.ingredients[index].name);
