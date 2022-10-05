@@ -23,8 +23,8 @@
 </template>
 
 <script>
-// import axios from 'axios'
-// import api from "@/api/api"
+import axios from 'axios'
+import api from "@/api/api"
 import { mapActions, mapGetters } from 'vuex'
 // import OrderDetail from '../../components/common/OrderDetail.vue'
 import OrderBasket from '../../components/order/OrderBasket.vue'
@@ -144,7 +144,7 @@ export default {
       }).then(res => {
         console.log(res)
         console.log(combinationList)
-        this.$router.push('/ordercheck') // 요청 성공하면 주소 옮기는게 나을수도
+        this.$router.push({name:'ordercheck', params:{orderId: res.data.data.orderId}}) // 요청 성공하면 주소 옮기는게 나을수도
       }).catch(err => {
         console.error(err)
         console.log(combinationList)
@@ -154,6 +154,7 @@ export default {
 
   mounted () {
     this.fetchBasket()
+    localStorage.removeItem('menu', 'more', 'vege', 'bread', 'sauce', 'size', 'moremeat', 'cheese', 'morecheese');
     
   }
 }

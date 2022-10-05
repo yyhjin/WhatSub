@@ -38,12 +38,17 @@ export default {
   components: { OrderDetail, BottomNav },
   name: 'OrderCheckView',
 
+  props: {
+    orderId:Number
+  },
+
   computed: {
     ...mapGetters(['basket'])
   },
 
-  unmounted() {
-    localStorage.clear()
+  mounted () {
+    // localStorage.removeItem('basket', 'morecheese')
+    
   }
   
 }
