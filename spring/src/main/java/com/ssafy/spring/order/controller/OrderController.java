@@ -22,6 +22,12 @@ public class OrderController {
         return new SuccessResponseResult(orderService.getStores(minlat, maxlat, minlng, maxlng));
     }
 
+    @ApiOperation(value = "지점 정보 조회", notes="해당 지역의 지점을 리스트를 반환한다.", httpMethod = "GET")
+    @GetMapping("/store/{storeId}")
+    public SuccessResponseResult getStoreInfo(int storeId) {
+        return new SuccessResponseResult(orderService.getStoreInfo(storeId));
+    }
+
     @ApiOperation(value = "메뉴 정보 조회", notes="메뉴 리스트를 반환한다.", httpMethod = "GET")
     @GetMapping("/menu")
     public SuccessResponseResult getMenuList() {

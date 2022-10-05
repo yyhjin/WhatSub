@@ -1,8 +1,9 @@
 package com.ssafy.spring.order.dto;
 
 import com.querydsl.core.annotations.QueryProjection;
+import com.ssafy.spring.order.entity.Branch;
+import lombok.Builder;
 import lombok.Getter;
-
 @Getter
 public class BranchDto {
     private int branchId;
@@ -20,5 +21,13 @@ public class BranchDto {
         this.contactNo = contactNo;
         this.lat = lat;
         this.lng = lng;
+    }
+    public BranchDto(Branch branch) {
+        this.branchId = branch.getBranchId();
+        this.branchName = branch.getBranchName();
+        this.streetAddress = branch.getStreetAddress();
+        this.contactNo = branch.getContactNo();
+        this.lat = branch.getLat();
+        this.lng = branch.getLng();
     }
 }
