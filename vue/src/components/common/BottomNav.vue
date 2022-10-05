@@ -39,13 +39,18 @@ export default {
     };
   },
   computed: {
-    ...mapGetters(["bottomValue"]),
+    ...mapGetters(["bottomValue", "sampleUserName"]),
   },
   methods: {
-    ...mapActions(["fetchBottomValue"]),
+    ...mapActions(["fetchBottomValue", "getMyList"]),
     routerPushes(icon) {
       router.push({ name: icon });
     },
+    // clickMyPage(userName) {
+    //   this.getMyList({
+    //     userName: userName,
+    //   });
+    // },
   },
   watch: {
     "$store.state.bottomValue": function () {},

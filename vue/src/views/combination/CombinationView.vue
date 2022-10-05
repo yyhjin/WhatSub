@@ -18,7 +18,7 @@
       </div>
       <div class="">
         <v-card class="sand_big_card" style="position: relative; z-index: 1">
-          <v-row>
+          <v-row class="pt-4">
             <v-col class="pa-0 mt-3 ml-3" cols="5" align="center" @click="goCombiDetail">
               <v-img class="shadow_img" height="70" width="150" :src="bestCombi.imgUrl"></v-img>
               <div class="mt-1">
@@ -42,12 +42,7 @@
                 <span style="font-size: small">{{ bestCombi.scoreAvg }}</span>
                 <v-icon class="ml-2" size="17" color="green darken-2">mdi-message-outline</v-icon>
                 <span style="font-size: small"> {{ bestCombi.reviewCnt }}</span>
-                <v-icon v-if="!isliked" class="ml-6" size="30" color="grey" @click="clickHeart"
-                  >mdi-heart-outline</v-icon
-                >
-                <v-icon v-if="isliked" class="ml-6" size="30" color="red" @click="clickHeart"
-                  >mdi-heart</v-icon
-                >
+                <v-icon class="ml-2" size="17" color="red">mdi-heart</v-icon>
                 <span style="font-size: small"> {{ bestCombi.likesCnt }}</span>
               </div>
             </v-col>
@@ -87,7 +82,7 @@ export default {
   created() {
     this.getBestCombi();
     for (let index = 0; index < this.bestCombi.ingredients.length; index++) {
-      if (this.bestCombi.ingredients[index].category == "추가재료") {
+      if (this.bestCombi.ingredients[index].category == "추가") {
         this.others.push(this.bestCombi.ingredients[index].name);
       } else if (this.bestCombi.ingredients[index].category == "소스") {
         this.sauce.push(this.bestCombi.ingredients[index].name);
@@ -101,13 +96,6 @@ export default {
   },
   methods: {
     ...mapActions(["getBestCombi"]),
-    clickHeart() {
-      if (this.isliked) {
-        this.isliked = false;
-      } else {
-        this.isliked = true;
-      }
-    },
     goCombiDetail() {
       this.$router.push({
         name: "combinationdetail",

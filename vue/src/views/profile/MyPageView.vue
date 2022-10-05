@@ -15,7 +15,7 @@
       </div>
     </div>
     <div>
-      <collection-list :collection-info="userInfo.collection"></collection-list>
+      <collection-list></collection-list>
     </div>
     <div class="bottom">
       <bottom-nav></bottom-nav>
@@ -27,6 +27,7 @@
 import TopNav from "@/components/common/TopNav.vue";
 import BottomNav from "@/components/common/BottomNav.vue";
 import CollectionList from "@/components/profile/CollectionList.vue";
+import { mapActions, mapGetters } from "vuex";
 
 export default {
   name: "MyPageView",
@@ -61,6 +62,15 @@ export default {
         ],
       },
     };
+  },
+  computed: {
+    ...mapGetters(["myList", "sampleUserName"]),
+  },
+  created() {
+    console.log(this.myList.collections.menuName);
+  },
+  methods: {
+    ...mapActions(["getMyList"]),
   },
 };
 </script>

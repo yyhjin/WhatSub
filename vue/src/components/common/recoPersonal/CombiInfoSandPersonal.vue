@@ -10,7 +10,7 @@
         hover
         readonly
       ></v-rating>
-      <span>{{ combiListItem.scoreAvg }}</span>
+      <span>{{ combiListItem.score_avg }}</span>
     </div>
     <v-img
       class="shadow_img"
@@ -34,7 +34,7 @@ export default {
   name: "CombiInfoSnadPersonal",
   data() {
     return {
-      rating: this.combiListItem.scoreAvg,
+      rating: this.combiListItem.score_avg,
     };
   },
   props: {
