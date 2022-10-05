@@ -309,26 +309,29 @@ export default{
         .catch((err) => console.log("getCombiBasedIndividual 에러", err));
     },
     
-    deleteReview({commit}, {postId, reviewId}) {
+    deleteReview({commit}, {postId, reviewId, userId}) {
       axios({
         method: "delete",
-        url: `https://j7a105.p.ssafy.io//api/v1/review/${reviewId}`,
+        //https://j7a105.p.ssafy.io/api/v1/review/26?postId=2
+        url: `https://j7a105.p.ssafy.io//api/v1/review/${reviewId}?postId=${postId}`,
         data: {
           postId: postId,
           reviewId: reviewId,
         }
       })
-        .then(() => {
+        .then((res) => {
+          commit("SET_COMBI_DETAIL", res.data.data);
           axios({
             method: "get",
-            url: `https://j7a105.p.ssafy.io/api/v1/comb/${postId}/${this.sampleUserId}`,
+            url: `https://j7a105.p.ssafy.io/api/v1/comb/${postId}/${userId}`,
             data: {
               combinationPostId: postId,
-              userId: this.sampleUserId
+              userId: userId
             }
           })
             .then((res) => {
               commit("SET_COMBI_DETAIL", res.data.data);
+              console.log(res.data.data);
             })
             .catch((err) => console.log("getCombiDetail 에러", err));
         })

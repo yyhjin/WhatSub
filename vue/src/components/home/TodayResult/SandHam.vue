@@ -38,6 +38,9 @@ export default {
   },
   methods: {
     ...mapActions(["getFilteringMenu"]),
+    goTodayReco() {
+      this.$router.go(0);
+    },
     goCombiTab() {
       this.getFilteringMenu({
         menuId: "a",

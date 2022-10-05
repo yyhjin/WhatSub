@@ -5,17 +5,17 @@
     </div>
     <div class="pt-20" align="center">
       <div class="pb-4">
-        <v-avatar color="grey lighten-1" size="80"
+        <v-avatar color="grey lighten-1" size="90"
           ><img
             src="https://whatsub.s3.ap-northeast-2.amazonaws.com/default/homin.png"
             alt="user image"
         /></v-avatar>
       </div>
       <div>
-        <h3>{{ profile.userName }}</h3>
+        <h3>{{ userInfo.nick }}</h3>
       </div>
       <div>
-        <h3>{{ profile.subti }}</h3>
+        <h3>{{ userInfo.subti }}</h3>
       </div>
     </div>
     <div>
