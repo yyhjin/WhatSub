@@ -1,14 +1,9 @@
 package com.ssafy.spring.user.service;
 
-import com.ssafy.spring.comb.entity.CombinationPost;
 import com.ssafy.spring.user.entity.Dib;
-import com.ssafy.spring.user.entity.User;
 import com.ssafy.spring.user.repository.DibRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.util.List;
 
 @Service
 public class DibServiceImpl implements DibService {

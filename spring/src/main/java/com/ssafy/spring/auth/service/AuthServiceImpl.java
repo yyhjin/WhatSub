@@ -39,8 +39,8 @@ public class AuthServiceImpl implements AuthService {
             BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(conn.getOutputStream()));
             String sb = "grant_type=authorization_code" +
                     "&client_id=" + clientId + // REST_API_KEY 입력
-                    "&redirect_uri=http://localhost:8080/signup" + // 인가코드 받은 redirect_uri 입력(프론트와 동일)
-//                    "&redirect_uri=http://localhost:8081/api/v1/auth/login" + // 백엔드 테스트용
+//                    "&redirect_uri=http://localhost:8080/signup" + // 인가코드 받은 redirect_uri 입력(프론트와 동일)
+                    "&redirect_uri=http://localhost:8081/api/v1/auth/login" + // 백엔드 테스트용
                     "&code=" + code;
             bw.write(sb);
             bw.flush();
