@@ -103,7 +103,7 @@ export default {
 
       //리뷰 등록할 꿀조합이 있다면 리뷰 등록 화면으로 이동
       if (this.isRegisted) {
-        this.$router.push({ name: "registreview", params: {combinationPostId: this.combinationPostId} });
+        this.$router.push({ name: "registreview", params: {combinationPostId: parseInt(this.combinationPostId)} });
       } else {
         //리뷰 등록할 꿀조합이 없다면 AlertCombi 띄워주기
         this.openAlert = true;

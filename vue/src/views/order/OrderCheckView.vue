@@ -21,7 +21,7 @@
     <div class="checkStore">
       예상 시간에 맞춰 매장에 방문해주세요!
       <div align="center" class="order_btn">
-        <v-btn class="main_btn" width="185" small elevation="0" rounded >픽업 매장 확인하기</v-btn>
+        <v-btn class="main_btn" width="185" small elevation="0" rounded @click.prevent="goStoreInfo">픽업 매장 확인하기</v-btn>
       </div>
     </div>
     <div class="bottom">
@@ -46,6 +46,12 @@ export default {
 
   computed: {
     ...mapGetters(['basket'])
+  },
+
+  methods: {
+    goStoreInfo () {
+      this.$router.push({name: 'storeinfo'})
+    }
   },
 
   mounted () {

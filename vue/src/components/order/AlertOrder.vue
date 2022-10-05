@@ -52,7 +52,7 @@ export default {
     setBasket () {
       const bas = JSON.parse(localStorage.getItem('basket')) || []
       let order = {
-        'store': this.selectedStore,
+        'store': this.store,
         'menu' : this.selectedMenu,
         'size' : this.selectedSize,
         'vege' : this.selectedVege,

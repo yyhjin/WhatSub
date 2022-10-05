@@ -144,7 +144,7 @@ export default {
       }).then(res => {
         localStorage.setItem('store', null)
         localStorage.setItem('basket', null)
-        this.resetBasket()
+        // this.resetBasket()
         this.resetStore()
         this.$router.push({name:'ordercheck', params:{orderId: res.data.data.orderId}}) // 요청 성공하면 주소 옮기는게 나을수도
       }).catch(err => {
