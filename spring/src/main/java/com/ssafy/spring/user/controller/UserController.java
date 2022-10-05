@@ -19,6 +19,7 @@ import com.ssafy.spring.user.entity.Excluded;
 import com.ssafy.spring.user.entity.User;
 import com.ssafy.spring.user.service.ExcludedService;
 import com.ssafy.spring.user.service.UserService;
+import com.ssafy.spring.util.JWTUtil;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,10 +48,10 @@ public class UserController {
     private IngredientService ingredientService;
 
     @Autowired
-    private MenuService menuService;
+    private S3Service s3Service;
 
     @Autowired
-    private S3Service s3Service;
+    private JWTUtil jwtUtil;
 
     // 더미 데이터 생성 api
     @ApiOperation(value = "더미 데이터 생성", notes="임시 유저 데이터 5000개 삽입", httpMethod = "GET")
@@ -121,7 +122,12 @@ public class UserController {
 
     @ApiOperation(value = "유저 정보 조회", notes="userName을 통해 유저 정보 조회(남자: 0, 여자: 1)", httpMethod = "GET")
     @GetMapping("/{userName}")
-    public SuccessResponseResult getUser(@PathVariable String userName) throws NoSuchUserException {
+    public SuccessResponseResult getUser(@PathVariable String userName, @RequestHeader("Authorization") String accessToken) throws NoSuchUserException {
+        System.out.println("Accesstoken = " + accessToken);
+        String authId = jwtUtil.getUserEmailFromJWT(accessToken);
+        System.out.println("authId = " + authId);
+
+
         User user = userService.getUserByUserName(userName);
         if(user == null){
             throw new NoSuchUserException();

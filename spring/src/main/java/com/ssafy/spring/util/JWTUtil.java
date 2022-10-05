@@ -57,7 +57,7 @@ public class JWTUtil {
 
     // JWT 토큰에서 이메일 추출
     public String getUserEmailFromJWT(String token) {
-//        token = BearerRemove(token); // Bearer 제거
+        token = BearerRemove(token); // Bearer 제거
         Claims claim = Jwts.parser()
                         .setSigningKey(secretKey.getBytes())
                         .parseClaimsJws(token)
