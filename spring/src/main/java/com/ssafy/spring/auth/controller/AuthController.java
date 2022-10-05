@@ -50,12 +50,13 @@ public class AuthController {
         else { // 새 회원이면 회원가입 및 로그인 시키고 2 리턴
             user = User.builder()
                     .authId(Long.toString(kakaoUserInfo.getId()))
-                    .userName(kakaoUserInfo.getNickname())
+//                    .userName(kakaoUserInfo.getNickname())
                     .profileImg(kakaoUserInfo.getProfileImage())
-//                    .refreshToken(kakaoTokenInfo.getRefreshToken())
                     .build();
             userService.save(user);
 
+            // DB에는 저장하지 않고 프론트에만 이름 리턴(칼럼 유니크 조건 때문)
+            user.setUserName(kakaoUserInfo.getNickname());
             String accessToken = jwtUtil.createToken(user.getEmail());
             loginResponse = new AuthResponse.LoginResponse(user, 2, accessToken);
         }
