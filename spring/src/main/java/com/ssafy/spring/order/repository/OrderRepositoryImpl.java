@@ -33,4 +33,14 @@ public class OrderRepositoryImpl implements OrderRepositoryCustom {
                 .transform(groupBy(orders.orderId).list(Projections.constructor(OrderResponse.orderDto.class, orders, list(Projections.constructor(OrderResponse.CombinationDto.class, combination.combinationId, combination.allergies, orderHistory.count)))));
 
     }
+
+    @Override
+    public List<OrderResponse.orderDto> findOrderInfo(int orderId) {
+        return queryFactory
+                .from(orderHistory)
+                .join(orderHistory.order, orders)
+                .join(orderHistory.combination, combination)
+                .where(orders.orderId.eq(orderId))
+                .transform(groupBy(orders.orderId).list(Projections.constructor(OrderResponse.orderDto.class, orders, list(Projections.constructor(OrderResponse.CombinationDto.class, combination.combinationId, combination.allergies, orderHistory.count)))));
+    }
 }
