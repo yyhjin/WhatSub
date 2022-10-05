@@ -380,13 +380,14 @@ export default{
         .catch((err) => console.log("updateZzimCombi 에러", err));
     },
     //유저 컬렉션, 꿀조합, 찜 목록 불러오기
-    getMyList({commit}, {userName}) {
+    getMyList({commit, getters}, {userName}) {
       axios({
         method: "post",
         url: `https://j7a105.p.ssafy.io/api/v1/user/${userName}/list`,
         data: {
           userName: userName,
-        }
+        },
+        header: getters.authHeader
       })
         .then((res) => {
           commit("SET_MY_LIST", res.data.data);
