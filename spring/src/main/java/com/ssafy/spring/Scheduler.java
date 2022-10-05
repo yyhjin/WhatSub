@@ -39,8 +39,21 @@ public class Scheduler {
         String menuName = "에그마요";
         int ranking = 1;
 
-        Calendar cal = Calendar.getInstance();
-        int year = 2022; int month = Calendar.OCTOBER; int day = 1;
+        Calendar cal = Calendar.getInstance(); // 현재 시간
+
+        int year, month, day;
+
+        if(cal.get(Calendar.MONTH) == Calendar.JANUARY){
+            year = cal.get(Calendar.YEAR) - 1;
+            month = Calendar.DECEMBER;
+        }
+        else{
+            year = cal.get(Calendar.YEAR);
+            month = cal.get(Calendar.MONTH);
+        }
+
+        day = 1;
+
         cal.set(year, month, day);
         Date rankDate = new Date(cal.getTimeInMillis());
 
