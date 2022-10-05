@@ -29,10 +29,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
 
 
@@ -96,14 +93,14 @@ public class CombPostController {
 
     @ApiOperation(value = "꿀조합 게시글 등록", notes = "꿀조합 게시판에 글을 등록한다.", httpMethod = "POST")
     @PostMapping("/board")
-    @Transactional
+    //@Transactional
     public SuccessResponseResult createCombPost(@RequestPart(value = "combPostRequest") CombPostRequest combPostRequest, @RequestPart(value = "file", required = false) MultipartFile file) {
 
         Combination comb = combService.findByCombinationId(combPostRequest.getCombinationId());
         User user = userService.getUserByUserId(combPostRequest.getUserId());
 
         String imgurl;
-        if(file.isEmpty()) {
+        if(Objects.isNull(file)) {
             String menuid = combPostRequest.getCombinationId().substring(0,1);
             Menu menu = menuService.getMenuByMenuId(menuid);
             imgurl = menu.getImgUrl();
