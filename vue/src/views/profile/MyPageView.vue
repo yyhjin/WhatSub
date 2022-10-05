@@ -15,7 +15,7 @@
       </div>
     </div>
     <div>
-      <collection-list :my-list="myList"></collection-list>
+      <collection-list></collection-list>
     </div>
     <div class="bottom">
       <bottom-nav></bottom-nav>

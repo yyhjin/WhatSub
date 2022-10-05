@@ -35,6 +35,7 @@
 import CollectionListItem from "@/components/profile/CollectionListItem.vue";
 import SandSmallList from "@/components/common/SandSmallList.vue";
 import SandBigList from "@/components/common/SandBigList.vue";
+import { mapGetters, mapActions } from "vuex";
 
 export default {
   name: "CollectionList",
@@ -45,11 +46,18 @@ export default {
       items: ["꿀조합 목록", "찜 목록"],
     };
   },
-  props: {
-    myList: Object,
+  props: {},
+  computed: {
+    ...mapGetters(["myList", "sampleUserName"]),
   },
   created() {
-    console.log(this.myList);
+    this.getMyList({
+      userName: this.sampleUserName,
+    });
+    console.log(this.myList.collections);
+  },
+  methods: {
+    ...mapActions(["getMyList"]),
   },
 };
 </script>

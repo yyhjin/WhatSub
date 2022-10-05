@@ -134,7 +134,13 @@ export default {
       console.log(this.selectedMenuId);
       this.getFilteringMenu({
         menuId: this.selectedMenuId,
+        userId: this.sampleUserId,
       });
+      this.getCombiList({
+        orderNo: 1,
+        userId: this.sampleUserId,
+      });
+      this.homeToScroll();
     },
     sortByRating() {
       this.getCombiList({
@@ -142,6 +148,11 @@ export default {
         userId: this.sampleUserId,
       });
       console.log(this.combiList);
+      this.getCombiList({
+        orderNo: 1,
+        userId: this.sampleUserId,
+      });
+      this.homeToScroll();
     },
     sortByDate() {
       this.getCombiList({
@@ -149,6 +160,11 @@ export default {
         userId: this.sampleUserId,
       });
       console.log(this.combiList);
+      this.getCombiList({
+        orderNo: 1,
+        userId: this.sampleUserId,
+      });
+      this.homeToScroll();
     },
   },
 };

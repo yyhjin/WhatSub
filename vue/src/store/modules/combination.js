@@ -381,7 +381,7 @@ export default{
       })
         .then((res) => {
           commit("SET_MY_LIST", res.datadata);
-          console.log("dd", typeof res.data.data);
+          console.log("dd", res.data.data);
         })
         .catch((err) => console.log("getMyList 에러", err));
     },
