@@ -24,7 +24,7 @@ public class OrderController {
 
     @ApiOperation(value = "지점 정보 조회", notes="해당 지역의 지점을 리스트를 반환한다.", httpMethod = "GET")
     @GetMapping("/store/{storeId}")
-    public SuccessResponseResult getStoreInfo(int storeId) {
+    public SuccessResponseResult getStoreInfo(@PathVariable int storeId) {
         return new SuccessResponseResult(orderService.getStoreInfo(storeId));
     }
 
