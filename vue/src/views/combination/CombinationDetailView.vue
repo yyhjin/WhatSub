@@ -156,6 +156,11 @@ export default {
   computed: {
     ...mapGetters(["combiDetail", "sampleUserId"]),
   },
+  // watch: {
+  //   "$store.state.combination.combiDetail": function () {
+  //     this.getCombiDetail({ combinationPostId: this.combinationPostId, userId: this.sampleUserId });
+  //   },
+  // },
   filters: {
     comma(val) {
       return String(val).replace(/\B(?=(\d{3})+(?!\d))/g, ",");

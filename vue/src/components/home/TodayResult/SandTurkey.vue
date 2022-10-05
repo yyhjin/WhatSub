@@ -14,7 +14,7 @@
           ></v-img>
         </div>
         <div align="center">
-          <v-btn class="green_btn" width="200" elevation="0" small rounded @click="startTodayReco"
+          <v-btn class="green_btn" width="200" elevation="0" small rounded @click="goCombiTab"
             >터키 꿀조합 보러가기</v-btn
           >
         </div>
@@ -29,11 +29,26 @@
 </template>
 
 <script>
+import { mapActions, mapGetters } from "vuex";
+
 export default {
   name: "SandTurkey",
+  computed: {
+    ...mapGetters(["sampleUserId"]),
+  },
   methods: {
+    ...mapActions(["getFilteringMenu"]),
     goTodayReco() {
       this.$router.go(0);
+    },
+    goCombiTab() {
+      this.getFilteringMenu({
+        menuId: "k",
+        userId: this.sampleUserId,
+      });
+      this.$router.push({
+        name: "combination",
+      });
     },
   },
 };

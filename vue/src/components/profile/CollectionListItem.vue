@@ -2,26 +2,54 @@
   <div>
     <v-card align="center" height="120" width="100" elevation="0">
       <div class="pa-1">
-        <v-avatar color="grey lighten-1" size="60" tile><img src="" alt="rank image" /></v-avatar>
+        <v-avatar size="70" tile
+          ><img
+            v-if="collectionItem.ranking == 1"
+            src="https://whatsub.s3.ap-northeast-2.amazonaws.com/default/gold.png"
+            alt="rank image"
+          />
+          <img
+            v-if="collectionItem.ranking == 2"
+            src="https://whatsub.s3.ap-northeast-2.amazonaws.com/default/silver.png"
+            alt="rank image"
+          />
+          <img
+            v-if="collectionItem.ranking == 3"
+            src="https://whatsub.s3.ap-northeast-2.amazonaws.com/default/bronze.png"
+            alt="rank image"
+          />
+        </v-avatar>
       </div>
       <div>
         <h5>
           {{ collectionItem.menuName }}
         </h5>
-        <h5>{{ collectionItem.rankDate }}&nbsp;&nbsp;{{ collectionItem.ranking }}위</h5>
+        <h5>{{ rankingDate }}<br />{{ collectionItem.ranking }}위</h5>
       </div>
     </v-card>
   </div>
 </template>
 
 <script>
+import dayjs from "dayjs";
+import { mapGetters } from "vuex";
+
 export default {
   name: "CollectionListItem",
+  data() {
+    return {
+      rankingDate: "",
+      collectionImg: {},
+    };
+  },
   props: {
     collectionItem: Object,
   },
+  computed: {
+    ...mapGetters([""]),
+  },
   created() {
-    console.log(this.collectionItem);
+    this.rankingDate = dayjs(this.collectionItem.rankDate).format("YYYY년 MM월");
   },
 };
 </script>

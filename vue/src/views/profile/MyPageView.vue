@@ -5,7 +5,11 @@
     </div>
     <div class="pt-20" align="center">
       <div class="pb-4">
-        <v-avatar color="grey lighten-1" size="80"><img src="" alt="user image" /></v-avatar>
+        <v-avatar color="grey lighten-1" size="90"
+          ><img
+            src="https://whatsub.s3.ap-northeast-2.amazonaws.com/default/homin.png"
+            alt="user image"
+        /></v-avatar>
       </div>
       <div>
         <h3>{{ userInfo.nick }}</h3>
@@ -64,13 +68,15 @@ export default {
     };
   },
   computed: {
-    ...mapGetters(["myList", "sampleUserName"]),
+    ...mapGetters(["profile", "sampleUserName"]),
   },
   created() {
-    console.log(this.myList.collections.menuName);
+    this.fetchProfile({
+      username: this.sampleUserName,
+    });
   },
   methods: {
-    ...mapActions(["getMyList"]),
+    ...mapActions(["fetchProfile"]),
   },
 };
 </script>

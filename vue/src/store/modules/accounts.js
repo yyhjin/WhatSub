@@ -12,7 +12,7 @@ export default({
   getters: {
     isLoggedIn : state => !!state.token,
     authHeader  (state) {
-      return {Authorization: `Token ${state.token}`}
+      return {Authorization: `Bearer ${state.token}`}
     },
     username: state => state.username,
     profile: state => state.profile,

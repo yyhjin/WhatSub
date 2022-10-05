@@ -1,9 +1,9 @@
 <template>
-  <div class="mb-0">
+  <div class="mb-n2">
     <v-card class="sand_big_card">
       <v-row class="pt-4">
         <v-col class="pa-0 mt-3 ml-3" cols="5" align="center" @click="goCombiDetail">
-          <v-img class="shadow_img" height="70" width="150" :src="combiListItem.imgUrl"></v-img>
+          <v-img class="shadow_img" height="72" width="130" :src="combiListItem.imgUrl"></v-img>
           <div class="mt-1">
             <h6 style="font-size: 15px; font-weight: bold">{{ combiListItem.combName }}</h6>
           </div>
@@ -14,7 +14,7 @@
           </div>
         </v-col>
         <v-col>
-          <div class="mt-1 ml-n4" @click="goCombiDetail">
+          <div class="mt-1 ml-n2" @click="goCombiDetail">
             <h6 style="font-size: 14px; font-weight: 500">
               메뉴: {{ combiListItem.menuName }}<br />추가재료: {{ others[0] }}···<br />소스:
               {{ sauce[0] }}···
@@ -42,7 +42,6 @@ export default {
   },
   data() {
     return {
-      isliked: false,
       others: [],
       sauce: [],
     };

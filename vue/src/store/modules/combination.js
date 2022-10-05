@@ -167,6 +167,12 @@ export default{
     sampleUserId: 1,
     sampleUserName: "test1",
     userSubti: "icah",
+
+    first: "https://whatsub.s3.ap-northeast-2.amazonaws.com/default/gold.png",
+    second: "https://whatsub.s3.ap-northeast-2.amazonaws.com/default/silver.png",
+    third: "https://whatsub.s3.ap-northeast-2.amazonaws.com/default/bronze.png",
+    homin:"https://whatsub.s3.ap-northeast-2.amazonaws.com/default/homin.png",
+
     combiBasedIndividual: {},
     combiBasedSubti: {},
     combiListByOthers: [],
@@ -303,26 +309,29 @@ export default{
         .catch((err) => console.log("getCombiBasedIndividual 에러", err));
     },
     
-    deleteReview({commit}, {postId, reviewId}) {
+    deleteReview({commit}, {postId, reviewId, userId}) {
       axios({
         method: "delete",
-        url: `https://j7a105.p.ssafy.io//api/v1/review/${reviewId}`,
+        //https://j7a105.p.ssafy.io/api/v1/review/26?postId=2
+        url: `https://j7a105.p.ssafy.io//api/v1/review/${reviewId}?postId=${postId}`,
         data: {
           postId: postId,
           reviewId: reviewId,
         }
       })
-        .then(() => {
+        .then((res) => {
+          commit("SET_COMBI_DETAIL", res.data.data);
           axios({
             method: "get",
-            url: `https://j7a105.p.ssafy.io/api/v1/comb/${postId}/${this.sampleUserId}`,
+            url: `https://j7a105.p.ssafy.io/api/v1/comb/${postId}/${userId}`,
             data: {
               combinationPostId: postId,
-              userId: this.sampleUserId
+              userId: userId
             }
           })
             .then((res) => {
               commit("SET_COMBI_DETAIL", res.data.data);
+              console.log(res.data.data);
             })
             .catch((err) => console.log("getCombiDetail 에러", err));
         })
@@ -371,16 +380,17 @@ export default{
         .catch((err) => console.log("updateZzimCombi 에러", err));
     },
     //유저 컬렉션, 꿀조합, 찜 목록 불러오기
-    getMyList({commit}, {userName}) {
+    getMyList({commit, getters}, {userName}) {
       axios({
         method: "post",
         url: `https://j7a105.p.ssafy.io/api/v1/user/${userName}/list`,
         data: {
           userName: userName,
-        }
+        },
+        header: getters.authHeader
       })
         .then((res) => {
-          commit("SET_MY_LIST", res.datadata);
+          commit("SET_MY_LIST", res.data.data);
           console.log("dd", res.data.data);
         })
         .catch((err) => console.log("getMyList 에러", err));
