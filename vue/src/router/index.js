@@ -141,6 +141,7 @@ const routes = [
     path: "/ordercheck",
     name: "ordercheck",
     component: OrderCheckView,
+    props: true
   },
   {
     path: "/orderone",

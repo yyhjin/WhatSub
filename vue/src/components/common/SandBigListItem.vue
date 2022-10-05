@@ -27,7 +27,7 @@
               소스: {{ sauce }}
             </div>
           </div>
-          <v-btn class="green_btn" rounded small>바로주문</v-btn>
+          <v-btn class="green_btn" rounded small @click.prevent="goOrder">바로주문</v-btn>
           <v-btn class="main_btn" rounded small>상세보기</v-btn>
         </div>
       </div>
@@ -53,6 +53,12 @@ export default {
     return {
       dialogRecoCombi: false,
     };
+  },
+
+  methods: {
+    goOrder() {
+      
+    }
   },
 
   computed: {

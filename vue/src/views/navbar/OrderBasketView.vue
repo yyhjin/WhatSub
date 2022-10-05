@@ -55,21 +55,26 @@ export default {
         const count = bas.cnt
         const price = bas.price
         let combinationId = ""
+        let comList = []
         let fat = 0
         let kcal = 0
         let protein = 0
         let sodium = 0
         let sugar = 0
+        let mId = ""
         
         for (let value in bas) {
-          // console.log(typeof(bas[value]))
+          if (value !== "store") {
+            // console.log(typeof(bas[value]))
           // console.log(Array.isArray(bas[value]))
           if (typeof(bas[value]) === 'object' && bas[value] !== null) {
             // console.log(bas[value])
             if (Array.isArray(bas[value])) {
               bas[value].forEach(each => {
                 // console.log(bas[value])
-                combinationId += each.ingredientId
+                // combinationId += each.ingredientId
+                comList.push(each.ingredientId)
+                // console.log(typeof(each.fat))
                 fat += each.fat
                 kcal += each.kcal
                 protein += each.protein
@@ -78,8 +83,8 @@ export default {
               })
             } else {
               if (value === 'menu') {
-                // console.log(bas[value])
-                combinationId += bas[value].menuId
+                // console.log(bas[value].fat)
+                mId += bas[value].menuId
                 fat += bas[value].fat
                 kcal += bas[value].kcal
                 protein += bas[value].protein
@@ -87,7 +92,9 @@ export default {
                 sugar += bas[value].sugar
               } else {
                 // console.log(bas[value])
-                combinationId += bas[value].ingredientId
+                // console.log(typeof(bas[value].fat))
+                // combinationId += bas[value].ingredientId
+                comList.push(bas[value].ingredientId)
                 fat += bas[value].fat
                 kcal += bas[value].kcal
                 protein += bas[value].protein
@@ -95,8 +102,17 @@ export default {
                 sugar += bas[value].sugar
               }
             }
+            }
           }
         }
+      
+      let new_comList = comList.sort()
+      // console.log(new_comList)
+      combinationId = mId + combinationId
+      for (let i=0; i<new_comList.length;i++) {
+        combinationId += new_comList[i]
+      }
+      // console.log(combinationId)
       fat = Math.ceil(fat)
       kcal = Math.ceil(kcal)
       protein = Math.ceil(protein)
@@ -119,6 +135,7 @@ export default {
         "orderPrice":this.totalPrice,
         "userId":1
       }
+      console.log(data)
       axios({
         url: api.order.order.makeorder(),
         method: 'post',
@@ -126,15 +143,19 @@ export default {
         // headers:getters.authHeader
       }).then(res => {
         console.log(res)
+        console.log(combinationList)
+        this.$router.push({name:'ordercheck', params:{orderId: res.data.data.orderId}}) // 요청 성공하면 주소 옮기는게 나을수도
       }).catch(err => {
         console.error(err)
+        console.log(combinationList)
       })
-      this.$router.push('/ordercheck') // 요청 성공하면 주소 옮기는게 나을수도
     }
   },
 
   mounted () {
     this.fetchBasket()
+    localStorage.removeItem('menu', 'more', 'vege', 'bread', 'sauce', 'size', 'moremeat', 'cheese', 'morecheese');
+    
   }
 }
 </script>

@@ -243,7 +243,7 @@ export default {
   methods: {
     ...mapActions(['fetchIngredient']),
     goBack() {
-      this.$router.go(-1);
+      this.$router.push({name: 'orderthree'});
     },
 
     up () {
@@ -257,6 +257,15 @@ export default {
     },
 
     setBasket () {
+      if (this.selectedBread === null || this.selectedBread === undefined) {
+        alert('빵을 골라주세요')
+      }
+      if (this.selectedCheese === null || this.selectedCheese === undefined) {
+        alert('치즈를 골라주세요')
+      }
+      
+      
+
       const bas = JSON.parse(localStorage.getItem('basket')) || []
       let order = {
         'store': this.selectedStore,

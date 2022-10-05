@@ -3,7 +3,7 @@ import api from "@/api/api"
 
 export default {
   state: {
-    selectedStore: localStorage.getItem('store') || null,
+    selectedStore: JSON.parse(localStorage.getItem('store')) || null,
     basket: JSON.parse(localStorage.getItem('basket')) || [],
     menus: [],
     breads: [],
@@ -85,7 +85,7 @@ export default {
 
     REMOVE_SELECTEDSAUCE: (state, value) => {
       state.selectedSauce = state.selectedSauce.filter(sauce => 
-         sauce !== value 
+         sauce.ingredientId !== value.ingredientId 
       )
       localStorage.setItem('sauce', JSON.stringify(state.selectedSauce))
     },
@@ -97,7 +97,7 @@ export default {
 
     REMOVE_SELECTEDMORE: (state, value) => {
       state.selectedMore = state.selectedMore.filter(more => 
-         more !== value 
+         more.ingredientId !== value.ingredientId 
       )
       localStorage.setItem('more', JSON.stringify(state.selectedMore))
     },
@@ -109,7 +109,7 @@ export default {
     
     REMOVE_SELECTEDVEGE: (state, value) => {
       state.selectedVege = state.selectedVege.filter(vege => 
-         vege !== value 
+         vege.ingredientId !== value.ingredientId 
       )
       localStorage.setItem('vege', JSON.stringify(state.selectedVege))
     },

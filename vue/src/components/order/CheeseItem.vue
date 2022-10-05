@@ -1,20 +1,24 @@
 <template>
-  <div>
-    <div class="cheese">
-      <button class="oneChoose cheeseChoose"  @click="select($event, chee)"></button>
-      <div class="title">{{ chee.name }}</div>
-      <div class="price">+{{ chee.price }}원</div>
-    </div>
+  
+  <div class="cheese">
+    <button class="oneChoose cheeseChoose"  @click="select($event, chee)"></button>
+    <div class="title">{{ chee.name }}</div>
+    <div class="price">+{{ chee.price }}원</div>
   </div>
+  
 </template>
 
 <script>
-import { mapActions } from 'vuex'
+import { mapActions, mapGetters } from 'vuex'
 export default {
   name: 'CheeseItem',
 
   props: {
     chee: Object
+  },
+
+  computed: {
+    ...mapGetters(['selectedCheese'])
   },
 
   methods: {
@@ -25,7 +29,12 @@ export default {
         })
       event.target.classList.add('checked')
       this.selectCheese(chee)
+    }
+  },
 
+  mounted () {
+    if (this.chee.ingredientId === this.selectedCheese.ingredientId) {
+      this.$el.childNodes[0].classList.add("checked")
     }
   }
 }

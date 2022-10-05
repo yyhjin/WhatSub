@@ -33,7 +33,7 @@ export default {
   methods: {
     ...mapActions(['fetchMenus']),
    goBack() {
-      this.$router.go(-1);
+      this.$router.push({name:'orderone'});
     },
     
     goNext () {
