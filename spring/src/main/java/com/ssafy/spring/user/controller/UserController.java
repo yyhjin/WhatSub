@@ -98,6 +98,7 @@ public class UserController {
     public SuccessResponseResult signUp(UserRequest.SignUpRequest formRequest, @ClientIp String authId) throws NoSuchUserException {
 //        User user = userService.getUserByUserId(formRequest.getUserId());
         User user = userService.getUserByAuthId(authId);
+        System.out.println("AuthId = " + authId);
 
         if(user == null){
             throw new NoSuchUserException();
