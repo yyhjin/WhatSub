@@ -12,6 +12,7 @@ export default {
     ingredient: () => HOST + ORDER + 'ingredient/',
     store: () => HOST + ORDER + 'store/',
     read: (username) => HOST + ORDER + `recent/${username}`,
+    readorder: (orderId) => HOST + ORDER + `${orderId}`
   },
  
 }

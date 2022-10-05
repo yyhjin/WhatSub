@@ -48,7 +48,7 @@ export default {
   },
 
   mounted () {
-    if (this.menu.menuId === this.selectedMenu.menuId) {
+    if (this.selectedMenu !== null && this.menu.menuId === this.selectedMenu.menuId) {
       this.$el.classList.add('select')
     }
   }
@@ -73,6 +73,7 @@ export default {
   height: 100%;
 }
 .content {
+  display: block;
   text-align: center;
 }
 .title {

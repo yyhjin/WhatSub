@@ -38,7 +38,7 @@ export default {
 
     totalPrice () {
       let price = 0
-      this.basket.forEach(bas => price += bas.price)
+      this.basket.forEach(bas => price += bas.price * bas.cnt)
       return price
     },
 
@@ -48,7 +48,7 @@ export default {
   },
 
   methods: {
-    ...mapActions(['fetchBasket']),
+    ...mapActions(['fetchBasket', 'resetBasket', 'resetStore']),
     setOrder () {
       let combinationList = []
       this.basket.forEach(bas => {
@@ -142,17 +142,20 @@ export default {
         data: data
         // headers:getters.authHeader
       }).then(res => {
-        console.log(res)
-        console.log(combinationList)
+        localStorage.setItem('store', null)
+        localStorage.setItem('basket', null)
+        this.resetBasket()
+        this.resetStore()
         this.$router.push({name:'ordercheck', params:{orderId: res.data.data.orderId}}) // 요청 성공하면 주소 옮기는게 나을수도
       }).catch(err => {
-        console.error(err)
-        console.log(combinationList)
+        console.error('makeorder 에러', err)
+        
       })
     }
   },
 
   mounted () {
+    // this.$router.go(0)
     this.fetchBasket()
     localStorage.removeItem('menu', 'more', 'vege', 'bread', 'sauce', 'size', 'moremeat', 'cheese', 'morecheese');
     

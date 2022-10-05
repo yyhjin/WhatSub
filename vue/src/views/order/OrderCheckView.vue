@@ -34,6 +34,8 @@
 import OrderDetail from '../../components/common/OrderDetail.vue'
 import BottomNav from '@/components/common/BottomNav.vue'
 import { mapGetters } from 'vuex'
+import axios from 'axios'
+import api from '@/api/api'
 export default {
   components: { OrderDetail, BottomNav },
   name: 'OrderCheckView',
@@ -47,7 +49,14 @@ export default {
   },
 
   mounted () {
-    // localStorage.removeItem('basket', 'morecheese')
+    axios({
+      url: api.order.order.readorder(this.orderId),
+      method: 'get'
+    }).then(res => {
+      console.log(res)
+    }).catch(err => {
+      console.log('orderread 오류', err)
+    })
     
   }
   

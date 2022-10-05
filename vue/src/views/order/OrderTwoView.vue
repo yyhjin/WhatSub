@@ -46,13 +46,13 @@ export default {
 
   },
 
-
+  created () {
+    },
   mounted () {
+    // this.$router.go(0)
     this.fetchMenus()
   },
-  created () {
-    // this.fetchMenus()
-  }
+ 
 }
 </script>
 
