@@ -53,6 +53,7 @@ export default({
       })
       .then(() => {
         dispatch('removeToken')
+        localStorage.removeItem('username')
         alert('로그아웃 성공!')
         // router.push({name:'login'})
       })
@@ -94,6 +95,7 @@ export default({
         headers: getters.authHeader
       })
       .then( res => {
+        console.log('fetchProfile 성공')
         commit('SET_PROFILE', res.data.data)
       })
       .catch( err=> {

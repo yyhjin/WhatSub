@@ -1,5 +1,7 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
+// import { dispatch } from 'vuex'
+import store from '@/store';
 
 //home
 import HomeView from "@/views/home/HomeView.vue";
@@ -39,6 +41,7 @@ import StoreInfoView from "@/views/order/StoreInfoView.vue";
 import MyPageView from "@/views/profile/MyPageView.vue";
 
 Vue.use(VueRouter)
+
 
 const routes = [
   //home
@@ -147,14 +150,45 @@ const routes = [
     path: "/orderone",
     name: "orderone",
     component: OrderOneView,
-    props: true
+    props: true,
+    beforeEnter: function(to, from, next) {
+      console.log(from.name)
+      console.log(to.name)
+      next()
+      if (from.name !== 'ordertwo' && from.name !== 'orderthree' && from.name !== 'orderfour' && from.name !== 'orderdetail') {
+        console.log(1)
+        localStorage.setItem('menu', null)
+        localStorage.setItem('size', null)
+        localStorage.setItem('vege', null)
+        localStorage.setItem('more', null)
+        localStorage.setItem('sauce', null)
+        localStorage.setItem('bread', null)
+        localStorage.setItem('cheese', null)
+        localStorage.setItem('moremeat', null)
+        localStorage.setItem('morecheese', null)
+        localStorage.setItem('store', null)
+    
+        store.dispatch('selectMenu', null)
+        store.dispatch('selectSize', null)
+        store.dispatch('selectBread', null)
+        store.dispatch('selectCheese', null)
+        store.dispatch('selectMoreCheese', null)
+        store.dispatch('resetMore')
+        store.dispatch('resetVege')
+        store.dispatch('resetSauce')
+        store.dispatch('selectMoreMeat', null)
+        store.dispatch('resetStore', null)
+        // store.dispatch('letCheck')
+        
+      } 
+    }
   },
   {
     path: "/ordertwo",
     name: "ordertwo",
     component: OrderTwoView,
     beforeEnter: function(to, from, next) {
-      if (from.name === 'orderone') {
+      if (from.name === 'orderone' || from.name === 'orderthree'|| from.name === 'orderfour') {
         next()
       } else {
         next({name:'orderone'})
@@ -166,7 +200,7 @@ const routes = [
     name: "orderthree",
     component: OrderThreeView,
     beforeEnter: function(to, from, next) {
-      if (from.name === 'ordertwo') {
+      if (from.name === 'orderone' || from.name === 'ordertwo'|| from.name === 'orderfour') {
         next()
       } else {
         next({name:'orderone'})
@@ -178,7 +212,7 @@ const routes = [
     name: "orderfour",
     component: OrderFourView,
     beforeEnter: function(to, from, next) {
-      if (from.name === 'orderthree') {
+      if (from.name === 'orderone' || from.name === 'ordertwo'|| from.name === 'orderthree') {
         next()
       } else {
         next({name:'orderone'})

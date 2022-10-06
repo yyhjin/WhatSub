@@ -11,11 +11,11 @@ export default {
     login: () => HOST + 'auth/login',
     // logout: () => HOST + ACCOUNTS + 'logout/',
     signup: () => HOST + ACCOUNTS + 'signup',
-    check: (username) => HOST + ACCOUNTS + 'check/' + username + '/',
+    check: (username) => HOST + ACCOUNTS + 'check/' + `${username}/`,
     // Token 으로 현재 user 판단
     // currentUserInfo: () => HOST + ACCOUNTS + 'user/',
     // username으로 프로필 제공
-    profile: (username) => HOST + ACCOUNTS + username + '/',
+    profile: (username) => HOST + ACCOUNTS + `${username}/`,
     zzim: (username) => HOST + ACCOUNTS + `${username}/dibs`,
     exclude: (username) => HOST + ACCOUNTS + `${username}/exclude`,
     list: (username) => HOST + ACCOUNTS + `${username}/list`,

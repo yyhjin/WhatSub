@@ -41,7 +41,7 @@ export default {
   components: { OrderBasket },
 
   computed: {
-    ...mapGetters(['basket', 'selectedStore']),
+    ...mapGetters(['basket', 'selectedStore', 'profile', 'username']),
 
     totalPrice () {
       let price = 0
@@ -58,7 +58,7 @@ export default {
   },
 
   methods: {
-    ...mapActions(['fetchBasket', 'resetBasket', 'resetStore']),
+    ...mapActions(['fetchBasket', 'resetBasket', 'resetStore' ,'fetchProfile']),
     setOrder () {
       let combinationList = []
       this.basket.forEach(bas => {
@@ -143,7 +143,7 @@ export default {
         "branchId": this.store.branchId,
         "combinationList":combinationList,
         "orderPrice":this.totalPrice,
-        "userId":1
+        "userId":this.profile.userId
       }
       console.log(data)
       axios({
@@ -165,7 +165,8 @@ export default {
   },
 
   mounted () {
-    // this.$router.go(0)
+    
+    this.fetchProfile({username: this.username})
     this.fetchBasket()
     localStorage.removeItem('menu', 'more', 'vege', 'bread', 'sauce', 'size', 'moremeat', 'cheese', 'morecheese');
     console.log(this.basket)

@@ -37,7 +37,7 @@ export default({
         axios({
           url: api.order.order.read(getters.username),
           method: 'get',
-          // headers: getters.authHeader
+          headers: getters.authHeader
         }).then(res => {
           console.log(res)
           commit('SET_ORDER', res.data.data)

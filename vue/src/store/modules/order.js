@@ -291,6 +291,10 @@ export default {
 
     resetBasket ({ commit }) {
       commit('RESET_BASKET')
-    }
+    },
+
+    // letCheck() {
+    //   console.log('!!!!!!!!')
+    // }
   },
 };
