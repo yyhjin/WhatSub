@@ -1,52 +1,51 @@
 <template>
   <div class="vege">
-    <input type="checkbox"  v-model="isVege" class="multiChoose" @click="select($event, vege)">
-    <div class="title">{{ vege.name }}</div>
+    <input type="checkbox" v-model="isVege" class="multiChoose" @click="select($event, vege)" />
+    <div class="title" style="font-size: 16px !important">{{ vege.name }}</div>
     <div class="price">+{{ vege.price }}원</div>
   </div>
-  
 </template>
 
 <script>
-import { mapActions, mapGetters } from 'vuex'
+import { mapActions, mapGetters } from "vuex";
 export default {
-  name: 'VegeItem',
+  name: "VegeItem",
 
-  data () {
+  data() {
     return {
-      isVege:false
-    }
+      isVege: false,
+    };
   },
 
-  props:{
-    vege:Object
+  props: {
+    vege: Object,
   },
 
   computed: {
-    ...mapGetters(['selectedVege'])
+    ...mapGetters(["selectedVege"]),
   },
 
   methods: {
-    ...mapActions(['selectVege', 'removeVege']),
+    ...mapActions(["selectVege", "removeVege"]),
 
-    select (event, vege) {
-      console.log(event.target)
+    select(event, vege) {
+      console.log(event.target);
       if (event.target.checked) {
-        this.selectVege(vege)
+        this.selectVege(vege);
       } else {
-        this.removeVege(vege) 
+        this.removeVege(vege);
       }
-    }
+    },
   },
 
-  mounted () {
-    this.selectedVege.forEach(each => {
+  mounted() {
+    this.selectedVege.forEach((each) => {
       if (each.ingredientId === this.vege.ingredientId) {
-        this.isVege = true  
+        this.isVege = true;
       }
-    })
-  }
-}
+    });
+  },
+};
 </script>
 
 <style scoped>
@@ -67,12 +66,12 @@ export default {
   width: 70%;
 }
 .multiChoose {
-  width: 25px;
-  height: 25px;
+  width: 20px;
+  height: 20px;
+  margin-left: 5px;
   margin-right: 5px;
 }
-.multiChoose:checked{
+.multiChoose:checked {
   accent-color: #239347;
-  
 }
 </style>

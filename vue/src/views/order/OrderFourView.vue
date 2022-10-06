@@ -17,7 +17,9 @@
           <div class="imgwrap">
             <img :src="selectedMenu.imgUrl" alt="" />
           </div>
-          <div class="title">{{ selectedMenu.menuName }}</div>
+          <div class="title" style="font-size: 17px !important; font-weight: bold">
+            {{ selectedMenu.menuName }}
+          </div>
         </div>
         <div class="ingred">
           <div class="in_row">
@@ -63,7 +65,7 @@
     <choose-more-meat></choose-more-meat>
     <choose-sauce></choose-sauce>
     <div class="cnt">
-      <div>수량</div>
+      <div style="font-size: 17px; font-weight: bold">수량</div>
       <div class="cnt_input">
         <v-icon slot="append" @click="down"> mdi-minus </v-icon>
         <div class="value">{{ cnt }}</div>
@@ -71,9 +73,11 @@
       </div>
     </div>
     <div class="bottom">
-      <div class="total_price">총 {{ totalPrice | comma }}원</div>
+      <div class="total_price" style="font-size: 17px; font-weight: bold">
+        총 {{ totalPrice | comma }}원
+      </div>
 
-      <button class="order_btn main_btn" @click.prevent="setBasket">장바구니</button>
+      <button class="order_btn main_btn" @click.prevent="setBasket">장바구니 담기</button>
     </div>
   </div>
 </template>
@@ -302,6 +306,7 @@ export default {
   /* position: relative; */
   padding-top: 360px;
   padding-bottom: 40px;
+  font-size: 15px;
 }
 .body::after {
   content: "";
@@ -322,7 +327,7 @@ export default {
   width: 90%;
   height: 300px;
   margin: auto;
-  margin-bottom: 10px;
+  margin-bottom: 12px;
 }
 .menu {
   width: 100%;
@@ -348,13 +353,14 @@ export default {
   height: 30px;
   margin-top: 10px;
   margin-bottom: 10px;
+  padding-left: 2px;
   display: flex;
   flex-direction: row;
   justify-content: space-evenly;
   align-items: center;
 }
 .in_title {
-  font-size: 10px;
+  font-size: 12px;
 }
 .addingred {
   height: 60px;
@@ -384,7 +390,8 @@ export default {
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  border-top: 1px solid;
+  border-top: 1px solid #a8a8a8;
+  padding-bottom: 8px;
 }
 /* .cnt::before {
   width:100%;
@@ -392,7 +399,7 @@ export default {
 } */
 .cnt_input {
   width: 150px;
-  height: 40px;
+  height: 35px;
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -401,7 +408,7 @@ export default {
   justify-content: space-between;
 }
 .bottom {
-  height: 40px;
+  height: 55px;
   position: fixed;
   bottom: 0;
   background: white;
@@ -413,8 +420,9 @@ export default {
   justify-content: space-evenly;
 }
 .order_btn {
-  width: 115px;
+  width: 150px;
   height: 30px;
   border-radius: 15px;
+  font-size: 14px;
 }
 </style>

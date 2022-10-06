@@ -1,5 +1,5 @@
 <template>
-  <div >
+  <div>
     <v-app-bar color="white" elevation="0">
       <router-link :to="{ name: 'home' }">
         <img class="navbar__logo" src="@/assets/logo_nav.png" alt="logo" />
@@ -14,29 +14,20 @@
       </v-btn>
     </v-app-bar>
     <div class="moreBtn">
-      <div class="id" >  
-        {{ profile.userName }}
+      <div class="id pl-2 pb-2">
+        <h4>{{ profile.userName }}</h4>
+        &nbsp;님
       </div>
-      <div @click="goOrderDetail">
-        최근 주문 내역
-      </div>
-      <div @click="goZzim">
-        꿀조합 찜 목록
-      </div>
-      <div @click="goSub">
-        썹bti 재검사
-      </div>
-      <div class="logout" @click="logout">
-        로그아웃
-      </div>
+      <div @click="goOrderDetail" style="font-size: 15px">최근 주문 내역</div>
+      <div @click="goSub" style="font-size: 15px">썹bti 재검사</div>
+      <div class="logout pt-2" @click="logout" style="font-size: 15px">로그아웃</div>
     </div>
-    
   </div>
 </template>
 
 <script>
-import router from '@/router'
-import { mapActions, mapGetters } from 'vuex';
+import router from "@/router";
+import { mapActions, mapGetters } from "vuex";
 export default {
   name: "TopNav",
 
@@ -47,19 +38,18 @@ export default {
   },
 
   computed: {
-    ...mapGetters(['profile', 'username'])
+    ...mapGetters(["profile", "username"]),
   },
-  
 
-  mounted () {
-    this.fetchProfile({username: this.username})
+  mounted() {
+    this.fetchProfile({ username: this.username });
   },
 
   methods: {
     // goProfile () {
     //   this.$router.push({ name:'mypage', params:{}})
     // },
-    ...mapActions(['removeToken', 'fetchProfile']),
+    ...mapActions(["removeToken", "fetchProfile"]),
     goBasket() {
       this.$router.push("/orderbasket");
     },
@@ -76,20 +66,20 @@ export default {
     },
 
     goOrderDetail() {
-      this.$router.push({ name: "orderdetail"})
+      this.$router.push({ name: "orderdetail" });
     },
-    goZzim () {
-      this.$router.push({ name: "zzim"})
+    goZzim() {
+      this.$router.push({ name: "zzim" });
     },
-    goSub () {
-      this.$router.push({ name: "surveysubti"})
+    goSub() {
+      this.$router.push({ name: "surveysubti" });
     },
     logout() {
-      this.removeToken()
-      alert('로그아웃 성공!')
-      router.push({name:'login'})
-    }
-  }
+      this.removeToken();
+      alert("로그아웃 성공!");
+      router.push({ name: "login" });
+    },
+  },
 };
 </script>
 
@@ -101,8 +91,8 @@ export default {
 } */
 .moreBtn {
   width: 150px;
-  height: 200px;
-  border: 1px solid #239347;
+  height: 160px;
+  border: 3px solid #239347;
   background-color: white;
   border-radius: 5px;
   display: flex;
@@ -125,7 +115,6 @@ export default {
   0% {
     opacity: 0;
     right: -150px;
-    
   }
   100% {
     right: 0px;
@@ -134,13 +123,15 @@ export default {
 }
 .id {
   width: 100%;
-  border-bottom: 1px solid;
+  border-bottom: 2px solid;
+  border-color: #d9d9d9;
   display: flex;
   align-items: center;
 }
 .logout {
   width: 100%;
-  border-top: 1px solid;
+  border-top: 2px solid;
+  border-color: #d9d9d9;
   display: flex;
   align-items: center;
   justify-content: center;

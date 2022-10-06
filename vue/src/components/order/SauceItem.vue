@@ -1,55 +1,61 @@
 <template>
   <div class="sauce">
-    <input type="checkbox" v-model="isSauce"  name="sauce" class="multiChoose" @click="select($event, sa)">
-    <div class="title">{{ sa.name }}</div>
+    <input
+      type="checkbox"
+      v-model="isSauce"
+      name="sauce"
+      class="multiChoose"
+      @click="select($event, sa)"
+    />
+    <div class="title" style="font-size: 16px !important">{{ sa.name }}</div>
     <div class="price">+{{ sa.price }}원</div>
   </div>
 </template>
 
 <script>
-import { mapActions, mapGetters } from 'vuex'
+import { mapActions, mapGetters } from "vuex";
 export default {
-  name: 'SauceItem',
+  name: "SauceItem",
 
-  data () {
+  data() {
     return {
-      isSauce:false
-    }
+      isSauce: false,
+    };
   },
 
   props: {
-    sa:Object
+    sa: Object,
   },
 
   computed: {
-    ...mapGetters(['selectedSauce'])
+    ...mapGetters(["selectedSauce"]),
   },
 
   methods: {
-    ...mapActions(['selectSauce', 'removeSauce']),
+    ...mapActions(["selectSauce", "removeSauce"]),
 
-    select (event, sauce) {
+    select(event, sauce) {
       if (this.isSauce === false && this.selectedSauce.length === 3) {
-        alert('3개만 고르세요')
-        event.target.checked = false
+        alert("3개만 고르세요");
+        event.target.checked = false;
       } else {
-          if (event.target.checked) {
-            this.selectSauce(sauce)
+        if (event.target.checked) {
+          this.selectSauce(sauce);
         } else {
-          this.removeSauce(sauce)
+          this.removeSauce(sauce);
         }
       }
-    }
+    },
   },
 
-  mounted () {
-    this.selectedSauce.forEach(each => {
+  mounted() {
+    this.selectedSauce.forEach((each) => {
       if (each.ingredientId === this.sa.ingredientId) {
-        this.isSauce = true  
+        this.isSauce = true;
       }
-    })
-  }
-}
+    });
+  },
+};
 </script>
 
 <style scoped>
@@ -70,14 +76,14 @@ export default {
   width: 70%;
 }
 .multiChoose {
-  width: 25px;
-  height: 25px;
-  
-  border: 8px solid  #D9D9D9;
+  width: 20px;
+  height: 20px;
+
+  border: 8px solid #d9d9d9;
+  margin-left: 5px;
   margin-right: 5px;
 }
-.multiChoose:checked{
+.multiChoose:checked {
   accent-color: #239347;
-  
 }
 </style>

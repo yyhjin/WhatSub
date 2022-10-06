@@ -8,9 +8,11 @@
         <v-col class="mt-1 ml-3"><h3>메뉴 선택</h3></v-col>
       </v-row>
     </div>
-    <menu-list></menu-list>
+    <div class="pt-14">
+      <menu-list></menu-list>
+    </div>
     <div align="center" class="order_btn">
-      <v-btn class="main_btn" width="185" small elevation="0" rounded @click="goNext"
+      <v-btn class="main_btn ma-3" width="185" small elevation="0" rounded @click="goNext"
         >주문하기</v-btn
       >
     </div>
@@ -61,11 +63,16 @@ export default {
   position: fixed;
   width: 100%;
 }
+
 .row {
   width: 100%;
 }
 .order_btn {
-  margin: 20px;
+  height: 52px;
+  position: fixed;
+  width: 100%;
+  bottom: 0;
+  background-color: white;
 }
 .select {
   border: 2px solid #239347;

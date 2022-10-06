@@ -13,9 +13,9 @@
         <div v-else>
           <v-row align="center" justify="center">
             <v-col cols="8">
-              <h4>{{ selectedStore.branchName }}점</h4>
+              <h4 style="font-size: 20px">{{ selectedStore.branchName }}점</h4>
               <div>{{ selectedStore.contactNo }}</div>
-              <div>{{ selectedStore.streetAddress }}</div>
+              <div style="font-size: 15px">{{ selectedStore.streetAddress }}</div>
             </v-col>
             <v-col cols="4" align="center">
               <v-btn class="main_btn" @click="nextOrder">주문하기</v-btn>
