@@ -77,11 +77,12 @@ export default {
     };
   },
   computed: {
-    ...mapGetters(["bestCombi", "sampleUserId"]),
+    ...mapGetters(["bestCombi", "profile"]),
   },
   created() {
+    this.fetchProfile();
     this.getBestCombi({
-      userId: this.sampleUserId,
+      userId: this.profile.userId,
     });
     for (let index = 0; index < this.bestCombi.ingredients.length; index++) {
       if (this.bestCombi.ingredients[index].category == "추가") {
@@ -97,7 +98,7 @@ export default {
     },
   },
   methods: {
-    ...mapActions(["getBestCombi"]),
+    ...mapActions(["getBestCombi", "fetchProfile"]),
     goCombiDetail() {
       this.$router.push({
         name: "combinationdetail",

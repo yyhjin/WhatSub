@@ -164,9 +164,6 @@ export default{
     //     price: 8400,
     //   },
     // ],
-    sampleUserId: 1,
-    sampleUserName: "test1",
-    userSubti: "lsah",
 
     first: "https://whatsub.s3.ap-northeast-2.amazonaws.com/default/gold.png",
     second: "https://whatsub.s3.ap-northeast-2.amazonaws.com/default/silver.png",
@@ -239,27 +236,29 @@ export default{
         })
         .catch((err) => console.log("getCombiListByNutri 에러", err));
     },
-    getBestCombi({commit}, {userId}) {
+    getBestCombi({commit, getters}, {userId}) {
       axios({
         method: "get",
         url: `https://j7a105.p.ssafy.io/api/v1/comb/best/${userId}`,
         data: {
           userId: userId,
-        }
+        },
+        headers: getters.authHeader
       })
         .then((res) => {
           commit("SET_BEST_COMBI", res.data.data);
         })
-        .catch((err) => console.log("getCombiListByOthers 에러", err));
+        .catch((err) => console.log("getBestCombi 에러", err));
     },
-    getCombiDetail({commit}, {combinationPostId, userId}) {
+    getCombiDetail({commit, getters}, {combinationPostId, userId}) {
       axios({
         method: "get",
         url: `https://j7a105.p.ssafy.io/api/v1/comb/${combinationPostId}/${userId}`,
         data: {
           combinationPostId: combinationPostId,
           userId: userId
-        }
+        },
+        headers: getters.authHeader
       })
         .then((res) => {
           commit("SET_COMBI_DETAIL", res.data.data);
@@ -267,14 +266,15 @@ export default{
         })
         .catch((err) => console.log("getCombiDetail 에러", err));
     },
-    getCombiList({commit}, {orderNo, userId}) {
+    getCombiList({commit, getters}, {orderNo, userId}) {
       axios({
         method: "get",
         url: `https://j7a105.p.ssafy.io/api/v1/comb/order/${orderNo}/${userId}`,
         data: {
           orderNo: orderNo,
           userId: userId
-        }
+        },
+        headers: getters.authHeader
       })
         .then((res) => {
           commit("SET_COMBI_LIST", res.data.data);
@@ -294,23 +294,24 @@ export default{
         })
         .catch((err) => console.log("getCombiBasedSubti 에러", err));
     },
-    getCombiBasedIndividual({commit}, {userId}) {
+    getCombiBasedIndividual({commit, getters}, {userId}) {
       axios({
         method: "get",
         url: `https://j7a105.p.ssafy.io/api/v1/recommendations/hybrid/${userId}`,
         data: {
           userId: userId,
         },
+        headers: getters.authHeader
       })
         .then((res) => {
           
           commit("SET_COMBI_BASED_INDIVIDUAL", res.data[0]);
-          console.log("dd", res.data[0]);
+          console.log("hybrid: ", res.data[0]);
         })
         .catch((err) => console.log("getCombiBasedIndividual 에러", err));
     },
     
-    deleteReview({commit}, {postId, reviewId, userId}) {
+    deleteReview({commit, getters}, {postId, reviewId, userId}) {
       axios({
         method: "delete",
         //https://j7a105.p.ssafy.io/api/v1/review/26?postId=2
@@ -328,7 +329,8 @@ export default{
             data: {
               combinationPostId: postId,
               userId: userId
-            }
+            },
+            headers: getters.authHeader
           })
             .then((res) => {
               commit("SET_COMBI_DETAIL", res.data.data);
@@ -338,14 +340,15 @@ export default{
         })
         .catch((err) => console.log("deleteReview 에러", err));
     },
-    getFilteringMenu({commit}, {menuId, userId}) {
+    getFilteringMenu({commit, getters}, {menuId, userId}) {
       axios({
         method: "get",
         url: `https://j7a105.p.ssafy.io/api/v1/comb/menu/${menuId}/${userId}`,
         data: {
           menuId: menuId,
           userId: userId
-        }
+        },
+        headers: getters.authHeader
       })
         .then((res) => {
           commit("SET_COMBI_LIST", res.data.data);
@@ -353,14 +356,15 @@ export default{
         })
         .catch((err) => console.log("getFilteringMenu 에러", err));
     },
-    updateZzimCombi({commit}, {combPostId, userId}) {
+    updateZzimCombi({commit, getters}, {combPostId, userId}) {
       axios({
         method: "put",
         url: `https://j7a105.p.ssafy.io/api/v1/comb/dib?combPostId=${combPostId}&userId=${userId}`,
         data: {
           combPostId: combPostId,
           userId: userId,
-        }
+        },
+        headers: getters.authHeader
       })
         .then((res) => {
           commit("SET_COMBI_DETAIL", res.data.data);
@@ -370,7 +374,8 @@ export default{
             data: {
               combinationPostId: combPostId,
               userId: userId
-            }
+            },
+            headers: getters.authHeader
           })
             .then((res) => {
               commit("SET_COMBI_DETAIL", res.data.data);
@@ -388,7 +393,7 @@ export default{
         data: {
           userName: userName,
         },
-        header: getters.authHeader
+        headers: getters.authHeader
       })
         .then((res) => {
           commit("SET_MY_LIST", res.data.data);

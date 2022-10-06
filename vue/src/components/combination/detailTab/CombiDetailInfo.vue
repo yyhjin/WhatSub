@@ -36,7 +36,9 @@
     </v-row>
     <v-row align="center">
       <v-col align="center" cols="4"> 추가재료 </v-col>
-      <v-col cols="8" align="center"> <h4>oo</h4> </v-col>
+      <v-col cols="8" align="center">
+        <div v-for="(additionItem, index) in addition" :key="index">{{ additionItem }}</div>
+      </v-col>
     </v-row>
   </div>
 </template>
@@ -53,6 +55,7 @@ export default {
       cheese: [],
       vege: [],
       sauce: [],
+      addition: [],
     };
   },
   created() {
@@ -65,6 +68,8 @@ export default {
         this.vege.push(this.combiDetail.ingredients[index].name);
       } else if (this.combiDetail.ingredients[index].category == "소스") {
         this.sauce.push(this.combiDetail.ingredients[index].name);
+      } else if (this.combiDetail.ingredients[index].category == "추가") {
+        this.addition.push(this.combiDetail.ingredients[index].name);
       }
     }
     console.log(this.vege);

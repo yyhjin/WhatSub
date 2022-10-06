@@ -84,9 +84,9 @@ export default {
     };
   },
   created() {
-    console.log(this.userSubti);
+    this.fetchProfile();
     this.getCombiBasedSubti({
-      subti: this.userSubti,
+      subti: this.profile.subti,
     });
     console.log(this.combiBasedSubti.ingredient.length);
     for (let index = 0; index < this.combiBasedSubti.ingredient.length; index++) {
@@ -105,10 +105,10 @@ export default {
     },
   },
   computed: {
-    ...mapGetters(["combiBasedSubti", "userSubti"]),
+    ...mapGetters(["combiBasedSubti", "profile"]),
   },
   methods: {
-    ...mapActions(["getCombiBasedSubti"]),
+    ...mapActions(["getCombiBasedSubti", "fetchProfile"]),
     changeCard() {
       this.isClicked = !this.isClicked;
     },

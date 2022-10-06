@@ -22,7 +22,7 @@
           </div>
         </v-col>
         <v-col class="pa-0 ml-n2 mt-n4" align="center">
-          <div v-if="combiReviewItem.userId == sampleUserId" style="font-size: 12px">
+          <div v-if="combiReviewItem.userId == profile.userId" style="font-size: 12px">
             <span style="color: red" @click="btnDeleteReview">삭제</span>
           </div>
         </v-col>
@@ -53,19 +53,20 @@ export default {
     combiReviewItem: Object,
   },
   computed: {
-    ...mapGetters(["sampleUserId"]),
+    ...mapGetters(["profile"]),
   },
   created() {
     this.createDate = dayjs(this.combiReviewItem.createdAt).format("YYYY-MM-DD HH:mm");
   },
   methods: {
-    ...mapActions(["deleteReview"]),
+    ...mapActions(["deleteReview", "fetchProfile"]),
     btnDeleteReview() {
       if (confirm("삭제하시겠습니까?")) {
+        this.fetchProfile();
         this.deleteReview({
           postId: this.combiReviewItem.combinationPostId,
           reviewId: this.combiReviewItem.reviewId,
-          userId: this.sampleUserId,
+          userId: this.profile.userId,
         });
       }
     },
