@@ -1,6 +1,6 @@
 <template>
   <div class="q_card">
-    <v-card height="250" width="250">
+    <v-card class="todayrecommendcard" height="250" width="250">
       <div class="pt-6">
         <div class="pa-7 pt-9 pb-9" height="100px" align="center">소고기 vs. 돼지고기</div>
         <div class="ml-8 mt-6">
@@ -37,4 +37,12 @@ export default {
 };
 </script>
 
-<style></style>
+<style>
+.q_card {
+  padding-left: 0px;
+  padding-top: 180px;
+}
+.q_card :first-child {
+  margin: auto;
+}
+</style>
