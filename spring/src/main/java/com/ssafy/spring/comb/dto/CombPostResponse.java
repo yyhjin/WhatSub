@@ -21,6 +21,7 @@ public class CombPostResponse {
     public static class PostDetailResponse {
         private int combinationPostId;
         private String userName;
+        private String userImg;
         private Combination combination;
         private String menuName;
         private String combName;

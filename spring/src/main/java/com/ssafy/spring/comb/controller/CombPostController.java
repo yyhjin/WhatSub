@@ -122,7 +122,6 @@ public class CombPostController {
 
         CombinationPost post = combPostService.findByCombinationPostId(combinationPostId);
 
-
         response.setCombinationPostId(combinationPostId);
         response.setCombination(post.getCombination());
         response.setCombName(post.getCombName());
@@ -131,6 +130,8 @@ public class CombPostController {
         response.setLikesCnt(post.getLikesCnt());
         response.setImgUrl(post.getImgUrl());
         response.setScoreAvg(post.getScoreAvg());
+        response.setUserName(post.getUser().getUserName());
+        response.setUserImg(post.getUser().getProfileImg());
 
         // Json string -> Object로 변환
         if(post.getStatistics() != null) {
