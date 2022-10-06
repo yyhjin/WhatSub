@@ -24,7 +24,7 @@
         class="myclass2_cover home_card_b_cover"
         elevation="0"
         outlined
-        style="position: absolute; width:100%;"
+        style="position: absolute"
       >
         <v-row class="pl-8 pt-6" align="center" @click="changeCard">
           <v-col class="pa-0" cols="12">
@@ -97,14 +97,13 @@ export default {
     },
   },
 
-  
   filters: {
     comma(val) {
       return String(val).replace(/\B(?=(\d{3})+(?!\d))/g, ",");
     },
   },
   methods: {
-    ...mapActions(["getCombiBasedIndividual",]),
+    ...mapActions(["getCombiBasedIndividual"]),
     changeCard() {
       this.isClicked = !this.isClicked;
     },

@@ -23,7 +23,7 @@
       <v-icon>mdi-cart-arrow-down</v-icon>
     </v-btn>
 
-    <v-btn class="clickBtn" @click="[routerPushes('mypage'), fetchBottomValue(5)]">
+    <v-btn class="clickBtn" @click="[routerPush('mypage', profile.userName), fetchBottomValue(5)]">
       <span>프로필</span>
       <v-icon>mdi-account</v-icon>
     </v-btn>
@@ -48,6 +48,9 @@ export default {
     ...mapActions(["fetchBottomValue", "getMyList", "getCombiList"]),
     routerPushes(icon) {
       router.push({ name: icon });
+    },
+    routerPush(icon, para) {
+      router.push({name:icon, params:{userName:para}})
     },
     // clickMyPage(userName) {
     //   this.getMyList({

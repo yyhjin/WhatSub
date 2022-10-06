@@ -227,10 +227,9 @@ const routes = [
   
   //profile
   {
-    path: "/mypage",
+    path: "/mypage/:userName",
     name: "mypage",
     component: MyPageView,
-    props: true,
   },
   
 ]
@@ -240,5 +239,27 @@ const router = new VueRouter({
   base: process.env.BASE_URL,
   routes
 })
+
+
+// router.beforeEach((to, from, next) => {
+//   // 이전 페이지에서 발생한 에러메시지 삭제
+  
+//   const { isLoggedIn } = store.getters
+
+//   const noAuthPages = ['login', 'signup']
+
+//   const isAuthRequired = !noAuthPages.includes(to.name)
+
+//   if (isAuthRequired && !isLoggedIn) {
+//     alert('Require Login. Redirecting..')
+//     next({ name: 'login' })
+//   } else {
+//     next()
+//   }
+
+//   if (!isAuthRequired && isLoggedIn) {
+//     next({ name: 'home' })
+//   }
+// })
 
 export default router

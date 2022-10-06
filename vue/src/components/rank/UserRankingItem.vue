@@ -1,21 +1,105 @@
 <template>
   <div class="main_card">
-    <v-card class="home_card_b" elevation="3" outlined>
-      <div class="imgwrap">
-        <img :src="sand.imgUrl" alt="">
-      </div>
-      <div class="rollingbanner">
-        <h3 >{{ sand.menuName }}</h3>
-        <div class="wrap">
-          <h5 class="current">{{sand.data[0].ranking}}위 {{ sand.data[0].userName }} {{ sand.data[0].cnt }}개</h5>
-          <h5 class="next">{{sand.data[1].ranking}}위 {{ sand.data[1].userName }} {{ sand.data[1].cnt }}개</h5>
-          <h5 class="prev">{{sand.data[1].ranking}}위 {{ sand.data[1].userName }} {{ sand.data[1].cnt }}개</h5>
-          <!-- <h5 class="prev">{{sand.rank4.ranking}}위 {{ sand.rank4.username }} {{ sand.rank4.cnt }}개</h5> -->
-        </div>
-      </div>
-    </v-card>
-    
-  
+    <!-- <v-card-title>
+        <h3 style="font-size: 20px">{{ sand.menuName }}</h3>
+      </v-card-title> -->
+    <!-- <div class="imgwrap">
+        <img :src="sand.imgUrl" alt="" />
+      </div> -->
+    <!-- <v-row>
+        <v-col class="pt-15" align="center"
+          ><v-img src="@/assets/collection/silver.png" width="50"></v-img>
+          <div>{{ sand.data[1].userName }}</div>
+          <div>{{ sand.data[1].cnt }}개</div></v-col
+        >
+        <v-col align="center"
+          ><v-img src="@/assets/collection/gold.png" width="50"></v-img
+          >{{ sand.data[0].userName }}</v-col
+        >
+        <v-col class="pt-15" align="center"
+          ><v-img src="@/assets/collection/bronze.png" width="50"></v-img
+          >{{ sand.data[2].userName }}</v-col
+        >
+      </v-row> -->
+    <!-- <v-expansion-panels v-model="panel" :disabled="disabled" multiple>
+      <v-expansion-panel>
+        <v-expansion-panel-header>
+          <v-img :src="sand.imgUrl" max-width="150" alt="" /> {{ sand.menuName }}
+        </v-expansion-panel-header>
+        <v-expansion-panel-content>
+          <v-row align="center">
+            <v-col>
+              <v-img src="@/assets/collection/gold.png" width="40"></v-img>
+            </v-col>
+            <v-col>
+              {{ sand.data[0].userName }}
+            </v-col>
+            <v-col>
+              {{ sand.data[0].cnt }}
+            </v-col>
+          </v-row>
+        </v-expansion-panel-content>
+        <v-expansion-panel-content> Some content </v-expansion-panel-content>
+        <v-expansion-panel-content> Some content </v-expansion-panel-content>
+      </v-expansion-panel>
+    </v-expansion-panels> -->
+    <v-expansion-panels focusable multiple>
+      <v-expansion-panel v-for="(sandItem, i) in sand" :key="i">
+        <v-expansion-panel-header style="font-size: 18px">
+          <v-row>
+            <v-col>
+              <div class="mb-5">
+                {{ sandItem.menuName }}
+              </div>
+              <br />
+              <br />
+            </v-col>
+          </v-row>
+          <div class="shadow_img mt-7 ml-100" style="position: absolute">
+            <v-img class="img_rank" :src="sandItem.imgUrl" max-width="120" alt="" />
+          </div>
+        </v-expansion-panel-header>
+        <v-expansion-panel-content>
+          <v-row class="mt-1" align="center">
+            <v-col cols="3" class="pa-0">
+              <!-- <v-avatar><v-img :src="sandItem.data[0].profileImg"></v-img></v-avatar> -->
+              <v-img src="@/assets/collection/gold.png" width="50"></v-img>
+            </v-col>
+            <v-col cols="6" align="left">
+              {{ sandItem.data[0].userName }}
+            </v-col>
+            <v-col align="right"> {{ sandItem.data[0].cnt }}개 </v-col>
+          </v-row>
+        </v-expansion-panel-content>
+        <v-divider></v-divider>
+        <v-expansion-panel-content>
+          <v-row class="mt-2" align="center">
+            <v-col cols="3" class="pa-0">
+              <v-img src="@/assets/collection/silver.png" width="50"></v-img>
+            </v-col>
+            <v-col cols="6" align="left">
+              {{ sandItem.data[1].userName }}
+            </v-col>
+            <v-col align="right"> {{ sandItem.data[1].cnt }}개 </v-col>
+          </v-row>
+        </v-expansion-panel-content>
+        <v-divider></v-divider>
+        <v-expansion-panel-content>
+          <v-row class="mt-2" align="center">
+            <v-col cols="3" class="pa-0">
+              <v-img src="@/assets/collection/bronze.png" width="50"></v-img>
+            </v-col>
+            <v-col cols="6" align="left">
+              {{ sandItem.data[2].userName }}
+            </v-col>
+            <v-col align="right"> {{ sandItem.data[2].cnt }}개 </v-col>
+          </v-row>
+        </v-expansion-panel-content>
+      </v-expansion-panel>
+    </v-expansion-panels>
+    <br />
+    <br />
+    <br />
   </div>
 </template>
 
@@ -25,114 +109,81 @@
 export default {
   name: "UserRankingItem",
 
-  props:{
+  props: {
     sand: Object,
-    index: Number
+    index: Number,
   },
 
   // components: { ModalRanking },
-  
 
-  methods : {
-    rollingCallback () {
-      //.prev 클래스 삭제
-        document.querySelectorAll('.rollingbanner .prev').forEach(selected => 
-        selected.classList.remove('prev'));
-
-        //.current -> .prev
-        let current = document.querySelectorAll('.rollingbanner .current');
-        current.forEach(selected => {
-          selected.classList.remove('current');
-          selected.classList.add('prev')
-          });
-
-        //.next -> .current
-        let next = document.querySelectorAll('.rollingbanner .next');
-        
-        //다음 목록 요소가 널인지 체크
-        next.forEach(selected => {
-          if(selected.nextElementSibling == null){
-            document.querySelectorAll('.rollingbanner .wrap h5:first-child').forEach(sel =>
-            sel.classList.add('next'));
-            
-          }else{
-            //목록 처음 요소를 다음 요소로 선택
-              selected.nextElementSibling.classList.add('next');
-          }
-          selected.classList.remove('next');
-          selected.classList.add('current');
-        })
-    }
-  },
-
-  mounted () {
-    window.addEventListener('load', ()=>{
-      window.setInterval(this.rollingCallback, 3000);
-    })
-  }
-}
+  methods: {},
+};
 </script>
 
 <style scoped>
 .main_card {
   margin: 20px;
   width: 90%;
-  height: 80px;
+  height: 250px;
 }
 .imgwrap img {
-  display:block;
-	height:100%;
-	width:auto;
+  display: block;
+  height: 110px;
+  width: auto;
 }
 .imgwrap {
-  height: 100%;
+  /* border-radius: 20px !important; */
+  /* height: 200px !important;
+  width: 200px !important; */
 }
 .home_card_b {
-  height:100%;
+  height: 100%;
   width: 100%;
-  display: flex;
+  /* display: flex; */
   flex-direction: row;
   justify-content: space-evenly;
   align-items: center;
 }
-.rollingbanner{
-    position: relative;
-    width: 380px;
-    height: 32px;
-    font-size: .875rem;
-    letter-spacing: -1px;
-    padding: 7px 15px;
-    box-sizing: border-box;
-    background-color: #f0f0f0;
-    border-radius: 16px;
+.rollingbanner {
+  position: relative;
+  width: 380px;
+  height: 300px;
+  font-size: 0.875rem;
+  letter-spacing: -1px;
+  padding: 7px 15px;
+  box-sizing: border-box;
+  background-color: #f0f0f0;
+  border-radius: 16px;
 }
-.rollingbanner > .title{
-    font-weight: bold;
-    float: left;
-    padding-right: 10px;
+.rollingbanner > .title {
+  font-weight: bold;
+  float: left;
+  padding-right: 10px;
 }
-.rollingbanner > .wrap{
-    position: relative;
-    width: auto;
-    height: 100%;
-    box-sizing: border-box;
-    overflow: hidden;
-} 
-.rollingbanner h5{
-    position: absolute;
-    top: -36px;
-    left: 0;
+.rollingbanner > .wrap {
+  position: relative;
+  width: auto;
+  height: 100%;
+  box-sizing: border-box;
+  overflow: hidden;
 }
-.rollingbanner h5.prev{
-    top: 36px;
-    transition: top 0.5s ease;
-}   
-.rollingbanner h5.current{
-    top: 0;
-    transition: top 0.5s ease;
+.rollingbanner h5 {
+  position: absolute;
+  top: -36px;
+  left: 0;
 }
-.rollingbanner h5.next{
-    top: -36px;
+.rollingbanner h5.prev {
+  top: 36px;
+  transition: top 0.5s ease;
 }
-
+.rollingbanner h5.current {
+  top: 0;
+  transition: top 0.5s ease;
+}
+.rollingbanner h5.next {
+  top: -36px;
+}
+.ml-100 {
+  margin-left: 120px;
+}
 </style>

@@ -48,14 +48,14 @@ public class RankingScheduler {
             month = cal.get(Calendar.MONTH);
         }
         day = 1;
-        cal.set(year, month, day, 0, 0, 0);
+        cal.set(year, month, day, 9, 0, 0);
         Date rankDate = new Date(cal.getTimeInMillis());
 
 
         List<Menu> menuList = menuRepository.findAll();
         menuList.forEach(menu -> {
             List<RankingData> rankingData = rankingRepository.findRankingData(menu.getMenuId()).stream().map(ranking ->
-                    RankingData.builder().userId(ranking.getUserId()).userName(ranking.getUserName()).cnt(ranking.getCnt()).ranking(ranking.getRanking()).build())
+                    RankingData.builder().userId(ranking.getUserId()).userName(ranking.getUserName()).cnt(ranking.getCnt()).ranking(ranking.getRanking()).profileImg(ranking.getProfileImg()).build())
                     .collect(Collectors.toList());
             rankingRepository.save(Ranking.builder()
                     .data(new Gson().toJson(rankingData))

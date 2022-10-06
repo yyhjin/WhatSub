@@ -3,12 +3,12 @@
     <v-container>
       <v-row align="center">
         <v-col cols="1">
-          <v-avatar size="45" color="#d9d9d9" @click="goProfile"
+          <v-avatar size="45" color="#d9d9d9" @click="goProfile(combiReviewItem.userName)"
             ><img :src="combiReviewItem.profileImg"
           /></v-avatar>
         </v-col>
         <v-col class="ml-5" cols="8">
-          <div style="font-size: 13px" @click="goProfile">
+          <div style="font-size: 13px" @click="goProfile(combiReviewItem.userName)">
             {{ combiReviewItem.userName }} | {{ createDate }}
           </div>
           <div>
@@ -72,8 +72,8 @@ export default {
         });
       }
     },
-    goProfile() {
-      this.$router.push({ name: "mypage" });
+    goProfile(username) {
+      this.$router.push({ name: "mypage", params:{userName:username} }).catch(() => {}  )
     },
   },
 };

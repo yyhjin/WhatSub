@@ -6,19 +6,19 @@
     <div class="pt-20" align="center">
       <div class="pb-4">
         <v-avatar color="grey lighten-1" size="90"
-          ><v-img :src="profile.profileImg" alt="user image"
+          ><v-img :src="pro.img" alt="user image"
         /></v-avatar>
       </div>
       <div>
-        <h3 style="font-size: 20px">{{ profile.userName }}</h3>
+        <h3 style="font-size: 20px">{{ pro.userName }}</h3>
       </div>
       <div>
         <span style="font-size: 13px; font-weight: bold">썹BTI: &nbsp; &nbsp;</span>
-        <span style="font-size: 18px; font-weight: bold">{{ profile.subti }}</span>
+        <span style="font-size: 18px; font-weight: bold">{{ pro.subti }}</span>
       </div>
     </div>
     <div>
-      <collection-list></collection-list>
+      <collection-list :pro="pro"></collection-list>
     </div>
     <div class="bottom">
       <bottom-nav></bottom-nav>
@@ -30,23 +30,38 @@
 import TopNav from "@/components/common/TopNav.vue";
 import BottomNav from "@/components/common/BottomNav.vue";
 import CollectionList from "@/components/profile/CollectionList.vue";
-import { mapActions, mapGetters } from "vuex";
+import axios from 'axios';
+// import { mapActions, mapGetters } from "vuex";
 
 export default {
   name: "MyPageView",
   components: { TopNav, BottomNav, CollectionList },
+  props:{
+    userName:String
+  },
   data() {
-    return {};
+    return {
+      pro : null
+    };
   },
-  computed: {
-    ...mapGetters(["profile"]),
+  // computed: {
+  //   profile () {
+
+  //   }
+  // },
+  mounted () {
+    axios({
+      url: `https://j7a105.p.ssafy.io/api/v1/user/${this.$route.params.userName}`,
+      method:'get',
+
+    }).then(res => {
+      console.log(res)
+      this.pro = res.data.data
+    })
   },
-  created() {
-    this.fetchProfile();
-  },
-  methods: {
-    ...mapActions(["fetchProfile"]),
-  },
+  // methods: {
+    
+  // },
 };
 </script>
 
