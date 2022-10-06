@@ -76,10 +76,12 @@
     <br />
     <v-card height="4" width="360" elevation="0" style="background-color: #d9d9d9">&nbsp;</v-card>
     <v-container class="ma-n1">
-      <div @click="goProfile">
+      <div>
         <v-row align="center">
           <v-col cols="2">
-            <v-avatar size="45" color="#d9d9d9"><img alt="" /></v-avatar>
+            <v-avatar size="45" color="#d9d9d9"
+              ><v-img :src="combiDetail.userImg" alt="user image"
+            /></v-avatar>
           </v-col>
           <v-col>
             <div>
@@ -198,9 +200,9 @@ export default {
         this.isliked = true;
       }
     },
-    goProfile() {
-      this.$router.push({ name: "mypage" });
-    },
+    // goProfile() {
+    //   this.$router.push({ name: "mypage" });
+    // },
 
     goOrderCombi() {
       this.$router.push({
