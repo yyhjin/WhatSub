@@ -5,7 +5,7 @@ import router from "@/router";
 export default({
   state: {
     token : localStorage.getItem('token') || '',
-    username: localStorage.getItem('username') || '',
+    username: localStorage.getItem('username') || '', //지워질 예정
     currentUser: {},
     profile : {},
   },
@@ -15,7 +15,7 @@ export default({
     authHeader  (state) {
       return {Authorization: `Bearer ${state.token}`}
     },
-    username: state => state.username,
+    username: state => state.username,  //지워질 예정
     profile: state => state.profile,
     currentUser : state => state.currentUser,
   },
@@ -24,7 +24,7 @@ export default({
     SET_TOKEN (state, token) {
       state.token = token
     },
-    SET_USERNAME : (state, username) => state.username = username,
+    SET_USERNAME : (state, username) => state.username = username,  //지워질 예정
     SET_CURRENT_USER : (state, user) => state.currentUser = user,
     SET_PROFILE : (state, profile) => state.profile = profile,
   },
@@ -35,7 +35,7 @@ export default({
       
       localStorage.setItem('token', token)   // 새로고침 후에도 유지
     },
-    saveUserName ({ commit }, username) {
+    saveUserName ({ commit }, username) {     //지워질 예정
       commit('SET_USERNAME', username)
       localStorage.setItem('username', username)
     },
