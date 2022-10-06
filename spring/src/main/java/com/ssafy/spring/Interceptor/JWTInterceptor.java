@@ -1,5 +1,7 @@
 package com.ssafy.spring.interceptor;
 
+import com.ssafy.spring.exception.NotValidateAccessException;
+import com.ssafy.spring.exception.NotValidateAccessTokenException;
 import com.ssafy.spring.util.JWTUtil;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
@@ -24,19 +26,12 @@ public class JWTInterceptor implements HandlerInterceptor {
 
         if(token != null){
             if(jwtUtil.validateToken(token)){
-                System.out.println("[ERROR]: validate token!");
                 return true;
             } else {
-                System.out.println("[ERROR]: not validate token!");
-                response.sendRedirect("https://j7a105.p.ssafy.io/login");
-                return false;
-//                throw new NotValidateAccessTokenException();
+                throw new NotValidateAccessTokenException();
             }
         }
-        System.out.println("[ERROR]: token is null!");
-        response.sendRedirect("https://j7a105.p.ssafy.io/login");
-        return false;
-//        throw new NotValidateAccessException();
+        throw new NotValidateAccessException();
     }
 
 }

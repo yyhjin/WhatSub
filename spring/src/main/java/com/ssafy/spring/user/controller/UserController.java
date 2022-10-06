@@ -1,14 +1,10 @@
 package com.ssafy.spring.user.controller;
 
 import com.ssafy.spring.SuccessResponseResult;
-import com.ssafy.spring.comb.dto.CombDto;
 import com.ssafy.spring.comb.dto.CombPostDto;
 import com.ssafy.spring.comb.dto.IngredientDto;
-import com.ssafy.spring.comb.entity.Combination;
 import com.ssafy.spring.comb.entity.Ingredient;
-import com.ssafy.spring.comb.entity.Menu;
 import com.ssafy.spring.comb.service.IngredientService;
-import com.ssafy.spring.comb.service.MenuService;
 import com.ssafy.spring.comb.service.S3Service;
 import com.ssafy.spring.exception.NoSuchUserException;
 import com.ssafy.spring.resolver.ClientIp;
@@ -96,7 +92,6 @@ public class UserController {
     @PostMapping("/signup")
     // formData 받기
     public SuccessResponseResult signUp(UserRequest.SignUpRequest formRequest, @ClientIp String authId) throws NoSuchUserException {
-//        User user = userService.getUserByUserId(formRequest.getUserId());
         User user = userService.getUserByAuthId(authId);
 
         if(user == null){
@@ -108,7 +103,7 @@ public class UserController {
         String profileImgPath;
 
         if(formRequest.getProfileImg() == null){
-            profileImgPath = "https://whatsub.s3.ap-northeast-2.amazonaws.com/5eb4a43f-3e2c-40ef-a8a8-6427e6b80850.jpg";
+            profileImgPath = "https://whatsub.s3.ap-northeast-2.amazonaws.com/default/p0.png";
         }
         else {
             multipartFiles.add(formRequest.getProfileImg());

@@ -1,5 +1,6 @@
 package com.ssafy.spring.interceptor;
 
+import com.ssafy.spring.exception.YetSignupUserException;
 import com.ssafy.spring.user.entity.User;
 import com.ssafy.spring.user.service.UserService;
 import com.ssafy.spring.util.JWTUtil;
@@ -21,15 +22,13 @@ public class SignupInterceptor implements HandlerInterceptor  {
 
 
     @Override
-    public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws IOException {
+    public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws YetSignupUserException {
         String accessToken = request.getHeader("Authorization");
         String authId = jwtUtil.getAuthIdByJWT(accessToken);
         User user = userService.getUserByAuthId(authId);
 
         if(user.getUserName() == null){
-            System.out.println("설문조사 안함!");
-            response.sendRedirect(request.getContextPath() + "/signup");
-            return false;
+            throw new YetSignupUserException();
         }
         return true;
     }
