@@ -20,6 +20,7 @@ public class ReviewResponse {
         private int score;
         private int combinationPostId;
         private int userId;
+        private String userName;
         private String profileImg;
 
     }
