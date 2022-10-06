@@ -89,13 +89,10 @@ export default {
       this.getCombiBasedSubti({
       subti: this.profile.subti,
     });
-    }
-  },
+    },
 
-  created() {
-    
-    console.log(this.combiBasedSubti.ingredient.length);
-    for (let index = 0; index < this.combiBasedSubti.ingredient.length; index++) {
+    combiBasedSubti () {
+      for (let index = 0; index < this.combiBasedSubti.ingredient.length; index++) {
       if (this.combiBasedSubti.ingredient[index].category == "빵") {
         this.bread.push(this.combiBasedSubti.ingredient[index].name);
       } else if (this.combiBasedSubti.ingredient[index].category == "치즈") {
@@ -104,6 +101,13 @@ export default {
         this.sauce.push(this.combiBasedSubti.ingredient[index].name);
       }
     }
+    }
+  },
+
+  created() {
+    
+    console.log(this.combiBasedSubti.ingredient.length);
+    
   },
   filters: {
     comma(val) {
