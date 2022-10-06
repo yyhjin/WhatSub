@@ -90,7 +90,9 @@ export default {
   },
   methods: {
     ...mapActions(["updateZzimCombi"]),
-    goOrder() {},
+    goOrder() {
+      this.$router.push({name:'orderone', params:{combinationPostId: this.sand.combinationPostId}})
+    },
     btnDeleteZzim() {
       if (confirm("삭제하시겠습니까?")) {
         this.updateZzimCombi({

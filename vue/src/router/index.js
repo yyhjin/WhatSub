@@ -2,6 +2,7 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 // import { dispatch } from 'vuex'
 import store from '@/store';
+import swal from 'sweetalert';
 
 //home
 import HomeView from "@/views/home/HomeView.vue";
@@ -241,25 +242,29 @@ const router = new VueRouter({
 })
 
 
-// router.beforeEach((to, from, next) => {
-//   // 이전 페이지에서 발생한 에러메시지 삭제
+router.beforeEach((to, from, next) => {
+  // 이전 페이지에서 발생한 에러메시지 삭제
   
-//   const { isLoggedIn } = store.getters
+  const { isLoggedIn } = store.getters
 
-//   const noAuthPages = ['login', 'signup']
+  const noAuthPages = ['login', 'signup']
 
-//   const isAuthRequired = !noAuthPages.includes(to.name)
+  const isAuthRequired = !noAuthPages.includes(to.name)
 
-//   if (isAuthRequired && !isLoggedIn) {
-//     alert('Require Login. Redirecting..')
-//     next({ name: 'login' })
-//   } else {
-//     next()
-//   }
+  if (isAuthRequired && !isLoggedIn) {
+    swal({
+      title: '로그인 필요!',
+      text: '로그인해주세요',
+      icon: 'fail'
+    })
+    next({ name: 'login' })
+  } else {
+    next()
+  }
 
-//   if (!isAuthRequired && isLoggedIn) {
-//     next({ name: 'home' })
-//   }
-// })
+  if (!isAuthRequired && isLoggedIn) {
+    next({ name: 'home' })
+  }
+})
 
 export default router
