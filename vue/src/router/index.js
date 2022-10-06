@@ -133,7 +133,7 @@ const routes = [
     props: true,
   },
   {
-    path: "/combinationdetail",
+    path: "/combinationdetail/:combinationPostId",
     name: "combinationdetail",
     component: CombinationDetailView,
     props: true,

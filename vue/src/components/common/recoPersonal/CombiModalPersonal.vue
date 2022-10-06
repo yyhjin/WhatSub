@@ -69,11 +69,16 @@ export default {
       this.$router.push({
         name: "combinationdetail",
         params: {
-          combinationPostId: this.combiListItem.combinationPostId,
+          combinationPostId: this.combiListItem.combination_post_id,
         },
       });
     },
-    goOrderCombi() {},
+    goOrderCombi() {
+      this.$router.push({
+        name: "orderone",
+        params: { combinationPostId: parseInt(this.combiListItem.combination_post_id) },
+      });
+    },
   },
 };
 </script>

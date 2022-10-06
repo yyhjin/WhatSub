@@ -168,10 +168,16 @@ export default {
       return String(val).replace(/\B(?=(\d{3})+(?!\d))/g, ",");
     },
   },
+  watch: {
+    profile (profile) {
+      this.getCombiDetail({ combinationPostId: this.combinationPostId, 
+      userId: profile.userId });
+    }
+  },
   created() {
     this.fetchProfile();
     //combinationPostId 로 api 검색
-    this.getCombiDetail({ combinationPostId: this.combinationPostId, userId: this.profile.userId });
+    
     if (this.combiDetail.dib == 1) {
       this.isliked = true;
     } else {

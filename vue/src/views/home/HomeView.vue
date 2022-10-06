@@ -49,7 +49,6 @@ export default {
 
   watch: {
     '$store.getters.profile' (profile) {
-      console.log('!')
       this.getCombiBasedIndividual({
       userId: profile.userId,
     }); 

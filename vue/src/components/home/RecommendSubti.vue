@@ -25,7 +25,7 @@
         class="myclass_cover home_card_b_cover"
         elevation="0"
         outlined
-        style="position: absolute"
+        style="position: absolute; width:100%;"
       >
         <v-row class="pl-8 pt-6" align="center" @click="changeCard">
           <v-col class="pa-0" cols="12" @click="changeCard">
