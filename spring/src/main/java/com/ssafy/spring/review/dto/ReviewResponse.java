@@ -1,6 +1,6 @@
 package com.ssafy.spring.review.dto;
 
-import com.ssafy.spring.review.entity.Review;
+import com.ssafy.spring.user.entity.User;
 import lombok.Builder;
 import lombok.Data;
 import lombok.Getter;
@@ -20,5 +20,7 @@ public class ReviewResponse {
         private int score;
         private int combinationPostId;
         private int userId;
+        private String profileImg;
+
     }
 }

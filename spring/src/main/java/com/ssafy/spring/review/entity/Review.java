@@ -47,6 +47,7 @@ public class Review {
                 .score(review.getScore())
                 .combinationPostId(review.getCombinationPost().getCombinationPostId())
                 .userId(review.getUser().getUserId())
+                .profileImg(review.getUser().getProfileImg())
                 .build();
     }
 }
