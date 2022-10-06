@@ -37,7 +37,7 @@ public class JWTUtil {
     // 토큰 생성
     public String createToken(String subject) {
         Date now = new Date();
-        Date expiration = new Date(now.getTime() + Duration.ofHours(1).toMillis()); //만료 기간 1시간
+        Date expiration = new Date(now.getTime() + Duration.ofHours(20).toMillis()); //만료 기간 1시간
         SignatureAlgorithm signatureAlgorithm = SignatureAlgorithm.HS256;
 
         return Jwts.builder()
