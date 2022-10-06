@@ -1,15 +1,13 @@
 <template>
   <div class="body">
-    <div class="title">
-      기본 취향 파악
-    </div>
+    <div class="title"><h4>기본 취향 파악</h4></div>
     <div class="backbar">
       <v-btn @click="goBack" icon><v-icon>mdi-arrow-left</v-icon></v-btn>
       <progress value="1" max="2"></progress>
     </div>
-    <div class="vegetable">
-      <h4>못먹거나 싫어하는 음식을 선택해 주세요</h4>
-      <div class="con" >
+    <div class="vegetable mt-3">
+      <h4>못먹거나 싫어하는 음식을 선택해 주세요.</h4>
+      <div class="con">
         <!-- <button class="vege"   @click="fetchVege"
         style="background-image: url(https://www.subway.co.kr/images/menu/img_recipe_v01.jpg);
               background-size: 100% 100%;">
@@ -46,39 +44,92 @@
         style="background-image: url(https://www.subway.co.kr/images/menu/img_recipe_v09.jpg);
               background-size: 100% 100%;">
         </button> -->
-        <input type="checkbox" class="vege" v-model="vegetable.vege1"
-        style="background-image: url(https://www.subway.co.kr/images/menu/img_recipe_v01.jpg);
-              background-size: 100% 100%;">
-        <input type="checkbox" class="vege" v-model="vegetable.vege2"
-        style="background-image: url(https://www.subway.co.kr/images/menu/img_recipe_v02.jpg);
-              background-size: 100% 100%;">
-        <input type="checkbox" class="vege" v-model="vegetable.vege3"
-        style="background-image: url(https://www.subway.co.kr/images/menu/img_recipe_v03.jpg);
-              background-size: 100% 100%;">
-        <input type="checkbox" class="vege" v-model="vegetable.vege4"
-        style="background-image: url(https://www.subway.co.kr/images/menu/img_recipe_v04.jpg);
-              background-size: 100% 100%;">
-        <input type="checkbox" class="vege" v-model="vegetable.vege5"
-        style="background-image: url(https://www.subway.co.kr/images/menu/img_recipe_v05.jpg);
-              background-size: 100% 100%;">
-        <input type="checkbox" class="vege" v-model="vegetable.vege6"
-        style="background-image: url(https://www.subway.co.kr/images/menu/img_recipe_v06.jpg);
-              background-size: 100% 100%;">
-        <input type="checkbox" class="vege" v-model="vegetable.vege7"
-        style="background-image: url(https://www.subway.co.kr/images/menu/img_recipe_v07.jpg);
-              background-size: 100% 100%;">
-        <input type="checkbox" class="vege" v-model="vegetable.vege8"
-        style="background-image: url(https://www.subway.co.kr/images/menu/img_recipe_v08.jpg);
-              background-size: 100% 100%;">
-        <input type="checkbox" class="vege" v-model="vegetable.vege9"
-        style="background-image: url(https://www.subway.co.kr/images/menu/img_recipe_v09.jpg);
-              background-size: 100% 100%;">
-              
+        <input
+          type="checkbox"
+          class="vege"
+          v-model="vegetable.vege1"
+          style="
+            background-image: url(https://www.subway.co.kr/images/menu/img_recipe_v01.jpg);
+            background-size: 100% 100%;
+          "
+        />
+        <input
+          type="checkbox"
+          class="vege"
+          v-model="vegetable.vege2"
+          style="
+            background-image: url(https://www.subway.co.kr/images/menu/img_recipe_v02.jpg);
+            background-size: 100% 100%;
+          "
+        />
+        <input
+          type="checkbox"
+          class="vege"
+          v-model="vegetable.vege3"
+          style="
+            background-image: url(https://www.subway.co.kr/images/menu/img_recipe_v03.jpg);
+            background-size: 100% 100%;
+          "
+        />
+        <input
+          type="checkbox"
+          class="vege"
+          v-model="vegetable.vege4"
+          style="
+            background-image: url(https://www.subway.co.kr/images/menu/img_recipe_v04.jpg);
+            background-size: 100% 100%;
+          "
+        />
+        <input
+          type="checkbox"
+          class="vege"
+          v-model="vegetable.vege5"
+          style="
+            background-image: url(https://www.subway.co.kr/images/menu/img_recipe_v05.jpg);
+            background-size: 100% 100%;
+          "
+        />
+        <input
+          type="checkbox"
+          class="vege"
+          v-model="vegetable.vege6"
+          style="
+            background-image: url(https://www.subway.co.kr/images/menu/img_recipe_v06.jpg);
+            background-size: 100% 100%;
+          "
+        />
+        <input
+          type="checkbox"
+          class="vege"
+          v-model="vegetable.vege7"
+          style="
+            background-image: url(https://www.subway.co.kr/images/menu/img_recipe_v07.jpg);
+            background-size: 100% 100%;
+          "
+        />
+        <input
+          type="checkbox"
+          class="vege"
+          v-model="vegetable.vege8"
+          style="
+            background-image: url(https://www.subway.co.kr/images/menu/img_recipe_v08.jpg);
+            background-size: 100% 100%;
+          "
+        />
+        <input
+          type="checkbox"
+          class="vege"
+          v-model="vegetable.vege9"
+          style="
+            background-image: url(https://www.subway.co.kr/images/menu/img_recipe_v09.jpg);
+            background-size: 100% 100%;
+          "
+        />
       </div>
-      <hr>
     </div>
-    <div class="allergie">
-      <h4>알레르기 유발하는 음식을 선택해주세요.</h4>
+    <v-divider class="mt-n5"></v-divider>
+    <div class="allergie pt-7">
+      <h4 class="pb-2">알레르기 유발하는 음식을 선택해주세요.</h4>
       <div class="allcon">
         <div class="allrow">
           <button class="aller" id="1" @click="changeAll">계란</button>
@@ -97,13 +148,14 @@
           <button class="aller" id="10" @click="changeAll">아황산</button>
         </div>
       </div>
-    <hr>
     </div>
-    <div class="diet">
-      <h4>식단 관리 중이라면 체크해주세요.</h4>
+    <v-divider class="mt-8"></v-divider>
+    <div class="diet pt-7">
+      <h4 class="pb-2">식단 관리 중이라면 체크해주세요.</h4>
       <button class="dietbtn" @click="changeDiet">식단 관리 중</button>
     </div>
-    <v-btn class="main_btn next_btn" @click="next">다음</v-btn>
+    <br />
+    <v-btn class="main_btn next_btn" small rounded @click="next">다음</v-btn>
     <div class="bottom">
       <bottom-nav></bottom-nav>
     </div>
@@ -111,143 +163,142 @@
 </template>
 
 <script>
-import api from '@/api/api'
-import axios from 'axios'
-import BottomNav from '../../components/common/BottomNav.vue'
-import { mapActions, mapGetters } from 'vuex'
+import api from "@/api/api";
+import axios from "axios";
+import BottomNav from "../../components/common/BottomNav.vue";
+import { mapActions, mapGetters } from "vuex";
 export default {
   components: { BottomNav },
-  name: 'SurveyBasicView',
+  name: "SurveyBasicView",
 
-  data () {
+  data() {
     return {
-    vegetable:{
-      vege1 : false,
-      vege2 : false,
-      vege3 : false,
-      vege4 : false,
-      vege5 : false,
-      vege6 : false,
-      vege7 : false,
-      vege8 : false,
-      vege9 : false,
-    },
-    allergie: {
-      allergie1 : false,
-      allergie2 : false,
-      allergie3 : false,
-      allergie4 : false,
-      allergie5 : false,
-      allergie6 : false,
-      allergie7 : false,
-      allergie8 : false,
-      allergie9 : false,
-      allergie10 : false,
-    },
+      vegetable: {
+        vege1: false,
+        vege2: false,
+        vege3: false,
+        vege4: false,
+        vege5: false,
+        vege6: false,
+        vege7: false,
+        vege8: false,
+        vege9: false,
+      },
+      allergie: {
+        allergie1: false,
+        allergie2: false,
+        allergie3: false,
+        allergie4: false,
+        allergie5: false,
+        allergie6: false,
+        allergie7: false,
+        allergie8: false,
+        allergie9: false,
+        allergie10: false,
+      },
 
-      isDiet : false
-    }
+      isDiet: false,
+    };
   },
 
   computed: {
-    ...mapGetters(['authHeader', 'profile']),
-    vegetables () {
-      let veges = []
+    ...mapGetters(["authHeader", "profile"]),
+    vegetables() {
+      let veges = [];
       const mapping = {
-        vege1 : "3a",
-        vege2 : "3b",
-        vege3 : "3c",
-        vege4 : "3d",
-        vege5 : "3e",
-        vege6 : "3f",
-        vege7 : "3g",
-        vege8 : "3h",
-        vege9 : "6c",
-      }
-      
+        vege1: "3a",
+        vege2: "3b",
+        vege3: "3c",
+        vege4: "3d",
+        vege5: "3e",
+        vege6: "3f",
+        vege7: "3g",
+        vege8: "3h",
+        vege9: "6c",
+      };
+
       for (let key in this.vegetable) {
         if (this.vegetable[key]) {
-          veges.push(mapping[key])
+          veges.push(mapping[key]);
         }
       }
-      return veges
+      return veges;
     },
 
-    allergies () {
-      let alls = []
+    allergies() {
+      let alls = [];
       for (let key in this.allergie) {
-        const i = key.slice(8)
-        const all = document.getElementById(`${i}`)
-        const text = all.innerText
-        console.log(text)
+        const i = key.slice(8);
+        const all = document.getElementById(`${i}`);
+        const text = all.innerText;
+        console.log(text);
         if (this.allergie[key]) {
-          alls.push(`${text}`)
+          alls.push(`${text}`);
         }
       }
-      return alls
-    }
-
+      return alls;
+    },
   },
 
   mounted() {
-    this.fetchProfile()
+    this.fetchProfile();
   },
-  
+
   methods: {
-    ...mapActions(['fetchProfile', 'authHeader']),
+    ...mapActions(["fetchProfile", "authHeader"]),
     goBack() {
       this.$router.go(-1);
     },
 
-    changeDiet (event) {
-      this.isDiet = !this.isDiet
+    changeDiet(event) {
+      this.isDiet = !this.isDiet;
       if (this.isDiet) {
-        console.log(this.isDiet)
-        console.log(event.target.classList)
-        event.target.classList.add("checked")
+        console.log(this.isDiet);
+        console.log(event.target.classList);
+        event.target.classList.add("checked");
       } else {
-        console.log(this.isDiet)
-        console.log(event.target.classList)
-        event.target.classList.remove("checked")
+        console.log(this.isDiet);
+        console.log(event.target.classList);
+        event.target.classList.remove("checked");
       }
     },
 
-    changeAll (event) {
-      console.log(this["allergie"]["allergie" + event.target.id])
+    changeAll(event) {
+      console.log(this["allergie"]["allergie" + event.target.id]);
       // console.log(event.target.id)
       // console.log(eval("this.allergie" + event.target.id))
-      this["allergie"]["allergie" + event.target.id] = !this["allergie"]["allergie" + event.target.id]
+      this["allergie"]["allergie" + event.target.id] =
+        !this["allergie"]["allergie" + event.target.id];
       if (this["allergie"]["allergie" + event.target.id]) {
-        event.target.classList.add("checked")
+        event.target.classList.add("checked");
       } else {
-        event.target.classList.remove("checked")
+        event.target.classList.remove("checked");
       }
     },
 
-    next () {
-      
-      //axios로 체크한거 백으로 요청 
+    next() {
+      //axios로 체크한거 백으로 요청
       //다음 페이지로 넘기기
       axios({
         url: api.accounts.exclude(this.profile.userName),
-        method: 'post',
+        method: "post",
         data: {
-          "allergies" : this.allergies,
-          "diet" : this.isDiet,
-          "vegetables": this.vegetables
+          allergies: this.allergies,
+          diet: this.isDiet,
+          vegetables: this.vegetables,
         },
-        headers: this.authHeader
-      }).then(res => {
-        console.log(res)
-        this.$router.push({name:'surveysubti'})
-      }).catch(err => {
-        console.error(err)
+        headers: this.authHeader,
       })
-    }
-
-
-  }
-}
+        .then((res) => {
+          console.log(res);
+          this.$router.push({ name: "surveysubti" });
+        })
+        .catch((err) => {
+          console.error(err);
+        });
+    },
+  },
+};
 </script>
 
 <style scoped>
@@ -256,7 +307,7 @@ export default {
   padding-top: 46px;
 }
 .title {
-  height:46px;
+  height: 50px;
   width: 100%;
   display: flex;
   justify-content: center;
@@ -269,8 +320,7 @@ export default {
   border: 3px solid #f4c41f;
 }
 
-input[type='checkbox']:checked {
-  
+input[type="checkbox"]:checked {
   background-color: #f4c41f;
   border: 5px solid #f4c41f;
 }
@@ -293,13 +343,12 @@ progress {
   display: flex;
   flex-direction: column;
   align-items: center;
-  border-bottom: 1px solid;
   margin-bottom: 20px;
 }
 
 .vege {
   appearance: none;
-  height: 80px; 
+  height: 80px;
   width: 80px;
   border-radius: 50%;
   border-style: solid;
@@ -326,15 +375,13 @@ progress {
   display: flex;
   flex-direction: column;
   align-items: center;
-  border-bottom: 1px solid;
   margin-bottom: 20px;
 }
 .allcon {
-  
   display: flex;
   flex-direction: column;
-  justify-content:space-evenly;
-  align-items:center
+  justify-content: space-evenly;
+  align-items: center;
 }
 .allrow {
   margin-top: 10px;
@@ -346,6 +393,7 @@ progress {
   height: 30px;
   border-radius: 15px;
   margin: 5px;
+  font-size: 14px;
 }
 
 .diet {
@@ -353,7 +401,6 @@ progress {
   margin: auto;
   display: flex;
   flex-direction: column;
-  
   align-items: center;
 }
 .dietbtn {
@@ -363,16 +410,14 @@ progress {
   border-radius: 15px;
   margin: auto;
   margin-top: 15px;
+  font-size: 14px;
 }
 .next_btn {
   width: 185px;
   height: 30px;
-  border-radius: 13px;
   display: block;
   margin: auto;
   margin-top: 20px;
   margin-bottom: 20px;
 }
-
-
 </style>
