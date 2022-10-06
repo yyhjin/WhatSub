@@ -6,14 +6,15 @@
     <div class="pt-20" align="center">
       <div class="pb-4">
         <v-avatar color="grey lighten-1" size="90"
-          ><img :src="profile.profileImg" alt="user image"
+          ><v-img :src="profile.profileImg" alt="user image"
         /></v-avatar>
       </div>
       <div>
-        <h3>{{ profile.userName }}</h3>
+        <h3 style="font-size: 20px">{{ profile.userName }}</h3>
       </div>
       <div>
-        <h3>{{ profile.subti }}</h3>
+        <span style="font-size: 13px; font-weight: bold">썹BTI: &nbsp; &nbsp;</span>
+        <span style="font-size: 18px; font-weight: bold">{{ profile.subti }}</span>
       </div>
     </div>
     <div>

@@ -3,11 +3,13 @@
     <v-container>
       <v-row align="center">
         <v-col cols="1">
-          <v-avatar size="45" color="#d9d9d9" @click="goProfile"></v-avatar>
+          <v-avatar size="45" color="#d9d9d9" @click="goProfile"
+            ><img :src="combiReviewItem.profileImg"
+          /></v-avatar>
         </v-col>
         <v-col class="ml-5" cols="8">
           <div style="font-size: 13px" @click="goProfile">
-            {{ combiReviewItem.userId }} | {{ createDate }}
+            {{ combiReviewItem.userName }} | {{ createDate }}
           </div>
           <div>
             <v-rating

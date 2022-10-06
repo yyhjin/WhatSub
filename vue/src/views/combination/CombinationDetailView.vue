@@ -79,7 +79,9 @@
       <div @click="goProfile">
         <v-row align="center">
           <v-col cols="2">
-            <v-avatar size="45" color="#d9d9d9"><img alt="" /></v-avatar>
+            <v-avatar size="45" color="#d9d9d9"
+              ><v-img :src="combiDetail.userImg" alt="user image"
+            /></v-avatar>
           </v-col>
           <v-col>
             <div>
