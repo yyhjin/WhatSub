@@ -32,19 +32,63 @@
 import TopNav from "@/components/common/TopNav.vue";
 import SearchStoreMap from "../../components/order/SearchStoreMap.vue";
 import BottomNav from "@/components/common/BottomNav.vue";
-import { mapGetters } from "vuex";
+import { mapGetters, mapActions } from "vuex";
+import axios from 'axios';
+import api from '@/api/api';
 
 export default {
   components: { SearchStoreMap, TopNav, BottomNav },
   name: "OrderOne",
+
+  props: {
+    combinationPostId:Number
+  },
 
   computed: {
     ...mapGetters(["selectedStore"]),
   },
 
   methods: {
+    ...mapActions([ 'selectMenu', 'selectBread', 'selectCheese', 'selectVege', 'selectSauce',
+    'selectMoreMeat', 'selectMore', 'selectMoreCheese']),
     nextOrder () {
       this.$router.push({name:'ordertwo'})
+    }
+  },
+
+
+  created () {
+
+  },
+
+  mounted () {
+    if (this.combinationPostId) {
+      axios({
+        url: api.comb.comb.ingre(this.combinationPostId),
+        method: 'get'
+      }).then(res => {
+        console.log(res)
+        // this.selectMenu(this.orderMenu.combinationList[radio.value].menu)
+        res.data.data.forEach(ingredient => {
+          if (ingredient.category === '빵') {
+            this.selectBread(ingredient)
+          } else if (ingredient.category === '치즈') {
+            this.selectCheese(ingredient)
+          } else if (ingredient.category === '야채') {
+            this.selectVege(ingredient)
+          } else if (ingredient.category === '소스') {
+            this.selectSauce(ingredient)
+          } else if (ingredient.category === '미트추가') {
+            this.selectMoreMeat(ingredient)
+          } else if (ingredient.category === '추가') {
+            this.selectMore(ingredient)
+          } else if (ingredient.category === '치즈추가') {
+            this.selectMoreCheese(ingredient)
+          } 
+        }) 
+      }).catch(err => {
+        console.log('ingre 오류', err)
+      })
     }
   }
 };

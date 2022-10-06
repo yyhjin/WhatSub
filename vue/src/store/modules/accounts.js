@@ -92,6 +92,9 @@ export default({
       .then( res => {
         commit('SET_PROFILE', res.data.data)
       })
+      .catch( err=> {
+        console.log('fetchprofile 오류', err)
+      })
     },
 
     signup ({ dispatch, getters }, formData) {

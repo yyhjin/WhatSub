@@ -6,7 +6,7 @@
       <v-form class="form" @submit.prevent="signup">
         <div class="image">
           <v-avatar>
-            <img src="https://cdn.vuetifyjs.com/images/john.jpg" alt="" id="preview">
+            <img :src="imgUrl" alt="" id="preview">
           </v-avatar>
           <v-file-input
             accept="image/png, image/jpeg, image/bmp, image/jpg"
@@ -25,11 +25,11 @@
           <v-radio-group v-model="credentials.gender" row class="radio">
             <v-radio
               label="남자"
-              value="radio-1"
+              value="1"
             ></v-radio>
             <v-radio
               label="여자"
-              value="radio-2"
+              value="0"
             ></v-radio>
           </v-radio-group>
         </div>
@@ -75,13 +75,13 @@ export default {
       credentials: {
         username: '',
         gender: '',
-        birthYear: ''
+        birthYear: null
       },
       items : items,
       formData: formData,
       code: '',
       accessToken : '',
-      refreshToken : ''
+      imgUrl: ''
     }
   },
 
@@ -104,7 +104,7 @@ export default {
 
     signup () {
       this.formData.append("userName", this.credentials.username)
-      this.formData.append("gender", 1)
+      this.formData.append("gender", this.credentials.gender)
       this.formData.append("birthYear", this.credentials.birthYear)
       //formData를 axios로 서버로 보냄
       this.formData.append('email', '')
@@ -164,6 +164,7 @@ export default {
           code:this.code
         },
       }).then(res => {
+        this.imgUrl = res.data.data.profileImage
         console.log(res)
         this.saveToken(res.data.data.accessToken)
         // this.formData.append('userId', res.data.data.userId)

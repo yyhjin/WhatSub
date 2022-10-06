@@ -4,20 +4,27 @@
       <v-btn  icon class="backbtn"><v-icon>mdi-arrow-left</v-icon></v-btn>
       장바구니
     </div>
-    <div class="store">
-      서브웨이 {{ store.branchName }}점 
-    </div>
-    <div class="orderCheck">
-      <order-basket :bas="bas" :index="index" v-for="(bas, index) in basket" :key="index"></order-basket>
-    </div>
-    <div class="bottom">
-      <div class="total_price">
-        총 {{ totalPrice }}원
+    <div v-if="basket">
+      <div class="store">
+        서브웨이 {{ store.branchName }}점 
       </div>
-      
-      <button class="order_btn green_btn" @click.prevent="setOrder">
-        주문하기
-      </button>
+      <div class="orderCheck">
+        <order-basket :bas="bas" :index="index" v-for="(bas, index) in basket" :key="index"></order-basket>
+      </div>
+      <div class="bottom">
+        <div class="total_price">
+          총 {{ totalPrice }}원
+        </div>
+        
+        <button class="order_btn green_btn" @click.prevent="setOrder">
+          주문하기
+        </button>
+      </div>
+    </div>
+    <div v-else>
+      <h1 style="text-align:center; margin-top:200px;">
+      장바구니가 없습니다~
+      </h1>
     </div>
   </div>
 </template>
@@ -38,7 +45,10 @@ export default {
 
     totalPrice () {
       let price = 0
-      this.basket.forEach(bas => price += bas.price)
+      if (this.basket) {
+
+        this.basket.forEach(bas => price += bas.price * bas.cnt)
+      }
       return price
     },
 
@@ -48,7 +58,7 @@ export default {
   },
 
   methods: {
-    ...mapActions(['fetchBasket']),
+    ...mapActions(['fetchBasket', 'resetBasket', 'resetStore']),
     setOrder () {
       let combinationList = []
       this.basket.forEach(bas => {
@@ -142,20 +152,23 @@ export default {
         data: data
         // headers:getters.authHeader
       }).then(res => {
-        console.log(res)
-        console.log(combinationList)
+        localStorage.setItem('store', null)
+        localStorage.setItem('basket', null)
+        // this.resetBasket()
+        this.resetStore()
         this.$router.push({name:'ordercheck', params:{orderId: res.data.data.orderId}}) // 요청 성공하면 주소 옮기는게 나을수도
       }).catch(err => {
-        console.error(err)
-        console.log(combinationList)
+        console.error('makeorder 에러', err)
+        
       })
     }
   },
 
   mounted () {
+    // this.$router.go(0)
     this.fetchBasket()
     localStorage.removeItem('menu', 'more', 'vege', 'bread', 'sauce', 'size', 'moremeat', 'cheese', 'morecheese');
-    
+    console.log(this.basket)
   }
 }
 </script>

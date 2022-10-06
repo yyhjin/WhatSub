@@ -32,7 +32,7 @@ export default {
   },
 
   mounted () {
-    if (this.bread.ingredientId === this.selectedBread.ingredientId) {
+    if (this.selectedBread !== null && this.bread.ingredientId === this.selectedBread.ingredientId) {
       this.$el.childNodes[0].classList.add("checked")
     }
   }

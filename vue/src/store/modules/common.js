@@ -23,7 +23,7 @@ export default({
         axios({
           url: api.accounts.dib(getters.username),
           method: 'post',
-          // headers: getters.authHeader
+          headers: getters.authHeader
         }).then(res => {
           console.log(getters.username)
           console.log(res)
