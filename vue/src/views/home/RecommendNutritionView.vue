@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="nutribody">
     <div class="top">
       <v-row>
         <v-col cols="3">
@@ -208,6 +208,7 @@ export default {
   margin: 10px;
   position: fixed;
   width: 100%;
+  background-color: white;
 }
 .card_font {
   font-size: 13px;
@@ -217,5 +218,14 @@ export default {
 }
 .text-style >>> .v-input__slot::before {
   border-style: none !important;
+}
+.n_card {
+  padding-left: 0px;
+}
+.n_card :first-child {
+  margin: auto;
+}
+.nutribody {
+  padding-bottom: 80px;
 }
 </style>
