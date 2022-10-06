@@ -65,6 +65,7 @@ export default {
         this.deleteReview({
           postId: this.combiReviewItem.combinationPostId,
           reviewId: this.combiReviewItem.reviewId,
+          userId: this.sampleUserId,
         });
       }
     },

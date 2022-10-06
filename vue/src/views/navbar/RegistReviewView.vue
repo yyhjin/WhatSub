@@ -103,7 +103,7 @@ export default {
   },
 
   computed: {
-    ...mapGetters(['combiDetail', 'profile', 'username'])
+    ...mapGetters(['combiDetail', 'profile', ])
   },
 
   methods: {
@@ -152,8 +152,8 @@ export default {
 
   mounted () {
     console.log(this.combinationPostId)
+    this.fetchProfile()
     this.getCombiDetail({ combinationPostId: this.combinationPostId, userId:this.profile.userId })
-    this.fetchProfile({username:this.username})
     axios({
       url: `https://j7a105.p.ssafy.io/api/v1/review/${this.combinationPostId}`,
       method: 'get'

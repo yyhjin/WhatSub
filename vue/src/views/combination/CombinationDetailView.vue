@@ -156,6 +156,11 @@ export default {
   computed: {
     ...mapGetters(["combiDetail", "sampleUserId"]),
   },
+  // watch: {
+  //   "$store.state.combination.combiDetail": function () {
+  //     this.getCombiDetail({ combinationPostId: this.combinationPostId, userId: this.sampleUserId });
+  //   },
+  // },
   filters: {
     comma(val) {
       return String(val).replace(/\B(?=(\d{3})+(?!\d))/g, ",");
@@ -195,6 +200,11 @@ export default {
     goProfile() {
       this.$router.push({ name: "mypage" });
     },
+
+    goOrderCombi () {
+      this.$router.push({ name: "orderone", params: {combinationPostId: parseInt(this.combinationPostId) } });
+    }
+
   },
 };
 </script>

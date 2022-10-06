@@ -1,10 +1,11 @@
 import axios from "axios";
 import api from "@/api/api";
+import router from "@/router";
 
 export default({
   state: {
     token : localStorage.getItem('token') || '',
-    username: localStorage.getItem('username') || '',
+    username: localStorage.getItem('username') || '', //지워질 예정
     currentUser: {},
     profile : {},
   },
@@ -12,9 +13,9 @@ export default({
   getters: {
     isLoggedIn : state => !!state.token,
     authHeader  (state) {
-      return {Authorization: `Token ${state.token}`}
+      return {Authorization: `Bearer ${state.token}`}
     },
-    username: state => state.username,
+    username: state => state.username,  //지워질 예정
     profile: state => state.profile,
     currentUser : state => state.currentUser,
   },
@@ -23,7 +24,7 @@ export default({
     SET_TOKEN (state, token) {
       state.token = token
     },
-    SET_USERNAME : (state, username) => state.username = username,
+    SET_USERNAME : (state, username) => state.username = username,  //지워질 예정
     SET_CURRENT_USER : (state, user) => state.currentUser = user,
     SET_PROFILE : (state, profile) => state.profile = profile,
   },
@@ -34,7 +35,7 @@ export default({
       
       localStorage.setItem('token', token)   // 새로고침 후에도 유지
     },
-    saveUserName ({ commit }, username) {
+    saveUserName ({ commit }, username) {     //지워질 예정
       commit('SET_USERNAME', username)
       localStorage.setItem('username', username)
     },
@@ -52,6 +53,7 @@ export default({
       })
       .then(() => {
         dispatch('removeToken')
+        localStorage.removeItem('username')
         alert('로그아웃 성공!')
         // router.push({name:'login'})
       })
@@ -65,16 +67,19 @@ export default({
           headers: getters.authHeader
         })
         .then(res => {
+          console.log('fetchcurrentuser',res)
           axios({
             url: api.accounts.profile(res.data.username),
             method: 'get',
             headers: getters.authHeader
           })
           .then( res => {
+            console.log('profile',res)
             commit('SET_CURRENT_USER', res.data)
           }) 
         })
         .catch( err => {
+          console.log('fetchprofile 에러' ,err)
           if (err.response.status === 401) {
             dispatch('removeToken')
             // router.push({name:'login'})
@@ -83,33 +88,37 @@ export default({
       }
     },
 
-    fetchProfile ({  commit, getters }, { username }) {
+    fetchProfile ({  commit, getters }) {
       axios({
-        url: api.accounts.profile(username),
+        url: api.accounts.profile(),
         method: 'get',
         headers: getters.authHeader
       })
       .then( res => {
+        console.log('fetchProfile 성공', res)
         commit('SET_PROFILE', res.data.data)
+      })
+      .catch( err=> {
+        console.log('fetchprofile 오류', err)
       })
     },
 
-    signup ({ dispatch }, formData) {
+    signup ({  getters, dispatch }, formData) {
       axios({
         url : api.accounts.signup(),
         method : 'post',
         data : formData,
-        // headers:{
-        //   'Content-Type':'multipart/form-data'
-        // }
+        headers: getters.authHeader
       })
       .then(res => {
-        dispatch('saveToken', res.data.key)
-        dispatch('fetchCurrentUser')
-        // router.push({name:'home'})    
+        console.log(res)
+        dispatch('saveUserName', res.data.data.userName)
+        // dispatch('saveToken', res.data.key)
+        // dispatch('fetchCurrentUser')
+        router.push({name:'home'})    
       })
       .catch(err => {
-        console.error(err.response.data)
+        console.error('signup 에러',err.response.data)
         // commit('SET_AUTH_ERROR', err.response.data)
       })
   },

@@ -43,6 +43,7 @@
     <div v-if="scrollSandList.length" v-observe-visibility="handleScrolledToBottom"></div>
     <br />
     <br />
+    <br />
   </div>
 </template>
 
@@ -110,13 +111,16 @@ export default {
     ...mapGetters(["combiList", "sampleUserId"]),
   },
   created() {
-    this.getCombiList({
-      orderNo: 1,
-      userId: this.sampleUserId,
-    });
     console.log(this.combiList);
     this.homeToScroll();
   },
+  watch: {
+    "$store.state.combination.combiList": function () {
+      this.scrollSandList = [];
+      this.homeToScroll();
+    },
+  },
+
   methods: {
     ...mapActions(["getCombiList", "getFilteringMenu"]),
     handleScrolledToBottom(isVisible) {
@@ -136,11 +140,6 @@ export default {
         menuId: this.selectedMenuId,
         userId: this.sampleUserId,
       });
-      this.getCombiList({
-        orderNo: 1,
-        userId: this.sampleUserId,
-      });
-      this.homeToScroll();
     },
     sortByRating() {
       this.getCombiList({
@@ -148,11 +147,6 @@ export default {
         userId: this.sampleUserId,
       });
       console.log(this.combiList);
-      this.getCombiList({
-        orderNo: 1,
-        userId: this.sampleUserId,
-      });
-      this.homeToScroll();
     },
     sortByDate() {
       this.getCombiList({
@@ -160,11 +154,6 @@ export default {
         userId: this.sampleUserId,
       });
       console.log(this.combiList);
-      this.getCombiList({
-        orderNo: 1,
-        userId: this.sampleUserId,
-      });
-      this.homeToScroll();
     },
   },
 };
@@ -177,7 +166,7 @@ export default {
   padding-right: 20px;
 }
 .big_card:last-child {
-  margin-bottom: 70px;
+  margin-bottom: 90px;
 }
 .v-input__slot {
   min-height: 38px !important;

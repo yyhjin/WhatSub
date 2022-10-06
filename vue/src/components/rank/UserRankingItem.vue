@@ -2,15 +2,15 @@
   <div class="main_card">
     <v-card class="home_card_b" elevation="3" outlined>
       <div class="imgwrap">
-        <img :src="sand.menu_imgurl" alt="">
+        <img :src="sand.imgUrl" alt="">
       </div>
       <div class="rollingbanner">
-        <h3 >{{ sand.menu }}</h3>
+        <h3 >{{ sand.menuName }}</h3>
         <div class="wrap">
-          <h5 class="current">{{sand.rank1.ranking}}위 {{ sand.rank1.username }} {{ sand.rank1.cnt }}개</h5>
-          <h5 class="next">{{sand.rank2.ranking}}위 {{ sand.rank2.username }} {{ sand.rank2.cnt }}개</h5>
-          <h5 >{{sand.rank3.ranking}}위 {{ sand.rank3.username }} {{ sand.rank3.cnt }}개</h5>
-          <h5 class="prev">{{sand.rank4.ranking}}위 {{ sand.rank4.username }} {{ sand.rank4.cnt }}개</h5>
+          <h5 class="current">{{sand.data[0].ranking}}위 {{ sand.data[0].userName }} {{ sand.data[0].cnt }}개</h5>
+          <h5 class="next">{{sand.data[1].ranking}}위 {{ sand.data[1].userName }} {{ sand.data[1].cnt }}개</h5>
+          <h5 class="prev">{{sand.data[1].ranking}}위 {{ sand.data[1].userName }} {{ sand.data[1].cnt }}개</h5>
+          <!-- <h5 class="prev">{{sand.rank4.ranking}}위 {{ sand.rank4.username }} {{ sand.rank4.cnt }}개</h5> -->
         </div>
       </div>
     </v-card>

@@ -81,13 +81,16 @@ export default {
     };
   },
   computed: {
-    ...mapGetters(["combiBasedIndividual", "sampleUserId"]),
+    ...mapGetters(["combiBasedIndividual", "profile", "username"]),
   },
   created() {
-    console.log(this.sampleUserId);
-    this.getCombiBasedIndividual({
-      userId: this.sampleUserId,
+    this.fetchProfile({
+      username: this.username,
     });
+    this.getCombiBasedIndividual({
+      userId: this.profile.userId,
+    });
+    console.log(this.combiBasedIndividual.ingredients.length);
     for (let index = 0; index < this.combiBasedIndividual.ingredients.length; index++) {
       if (this.combiBasedIndividual.ingredients[index].category == "빵") {
         this.bread.push(this.combiBasedIndividual.ingredients[index].name);
@@ -104,7 +107,7 @@ export default {
     },
   },
   methods: {
-    ...mapActions(["getCombiBasedIndividual"]),
+    ...mapActions(["getCombiBasedIndividual", "fetchProfile"]),
     changeCard() {
       this.isClicked = !this.isClicked;
     },

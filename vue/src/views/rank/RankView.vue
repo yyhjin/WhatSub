@@ -3,7 +3,7 @@
     <div class="top">
       <top-nav></top-nav>
     </div>
-    <user-ranking></user-ranking>
+    <user-ranking :userRank="userRank"></user-ranking>
     <div class="bottom">
       <bottom-nav></bottom-nav>
     </div>
@@ -14,12 +14,32 @@
 import TopNav from '@/components/common/TopNav.vue';
 import UserRanking from '@/components/rank/UserRanking.vue';
 import BottomNav from '../../components/common/BottomNav.vue';
+import axios from 'axios'
 export default {
   name: "RankView",
 
+  data () {
+    return {
+      userRank:[]
+    }
+  },
+
   components: { TopNav, UserRanking, BottomNav },
 
+  mounted () {
+    axios({
+      url: 'https://j7a105.p.ssafy.io/api/v1/ranking',
+      method: 'get'
+    }).then(res => {
+      console.log('ranking 성공', res)
+      this.userRank = res.data.data
+    }).catch(err => {
+      console.log('ranking 실패', err)
+  })
+  }
 }
+
+
         
  
 </script>

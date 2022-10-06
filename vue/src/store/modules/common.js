@@ -23,7 +23,7 @@ export default({
         axios({
           url: api.accounts.dib(getters.username),
           method: 'post',
-          // headers: getters.authHeader
+          headers: getters.authHeader
         }).then(res => {
           console.log(getters.username)
           console.log(res)
@@ -33,11 +33,11 @@ export default({
         })
       },
 
-      fetchOrder({ commit, getters }) {
+      fetchOrder({ commit, getters }, username) {
         axios({
-          url: api.order.order.read(getters.username),
+          url: api.order.order.read(username),
           method: 'get',
-          // headers: getters.authHeader
+          headers: getters.authHeader
         }).then(res => {
           console.log(res)
           commit('SET_ORDER', res.data.data)

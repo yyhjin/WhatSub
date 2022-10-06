@@ -14,8 +14,8 @@
       </v-btn>
     </v-app-bar>
     <div class="moreBtn">
-      <div class="id">
-        ssafy07
+      <div class="id" >  
+        {{ profile.userName }}
       </div>
       <div @click="goOrderDetail">
         최근 주문 내역
@@ -35,6 +35,8 @@
 </template>
 
 <script>
+import router from '@/router'
+import { mapActions, mapGetters } from 'vuex';
 export default {
   name: "TopNav",
 
@@ -44,7 +46,20 @@ export default {
     };
   },
 
+  computed: {
+    ...mapGetters(['profile', 'username'])
+  },
+  
+
+  mounted () {
+    this.fetchProfile({username: this.username})
+  },
+
   methods: {
+    // goProfile () {
+    //   this.$router.push({ name:'mypage', params:{}})
+    // },
+    ...mapActions(['removeToken', 'fetchProfile']),
     goBasket() {
       this.$router.push("/orderbasket");
     },
@@ -70,7 +85,9 @@ export default {
       this.$router.push({ name: "surveysubti"})
     },
     logout() {
-
+      this.removeToken()
+      alert('로그아웃 성공!')
+      router.push({name:'login'})
     }
   }
 };

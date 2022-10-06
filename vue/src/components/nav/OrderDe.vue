@@ -1,5 +1,5 @@
 <template>
-  <div class="bill">
+  <div class="bill" >
     <div class="orderBox">
       <div class="menuCheck">
         <div class="name">
@@ -39,13 +39,15 @@
   
 </template>
 
-<script>
+<script scoped>
 export default {
   name: 'OrderDe',
 
   props:{
     menu:Object
   },
+
+  
 
   computed: {
     vege () {
@@ -86,7 +88,7 @@ export default {
 .bill {
   
   width: 90%;
-  border: 1px solid;
+  border: 1px ;
   margin: auto;
   margin-bottom: 10px;
   
@@ -105,6 +107,8 @@ export default {
   justify-content: space-around
 }
 .content {
+  display: block;
   width: 90%;
 }
+
 </style>
