@@ -2,45 +2,51 @@
   <div class="moreMeat">
     <button class="oneChoose moreMeatChoose" @click="select($event, moreMeat)"></button>
     <div class="title">{{ moreMeat.name }}</div>
-    <div class="price">+{{ moreMeat.price }}원</div>
+    <div class="price">+{{ moreMeat.price | comma }}원</div>
   </div>
 </template>
 
 <script>
-import { mapActions, mapGetters } from 'vuex'
+import { mapActions, mapGetters } from "vuex";
 export default {
-  name: 'MoreMeatItem',
+  name: "MoreMeatItem",
 
   props: {
-    moreMeat: Object
+    moreMeat: Object,
   },
 
   computed: {
-    ...mapGetters(['selectedMoreMeat'])
+    ...mapGetters(["selectedMoreMeat"]),
   },
-
+  filters: {
+    comma(val) {
+      return String(val).replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    },
+  },
   methods: {
-    ...mapActions(['selectMoreMeat', 'removeMoreMeat']),
-    select (event, moreMeat) {
-      document.querySelectorAll('.moreMeatChoose').forEach(each => {
-        each.classList.remove('checked')
-        })
+    ...mapActions(["selectMoreMeat", "removeMoreMeat"]),
+    select(event, moreMeat) {
+      document.querySelectorAll(".moreMeatChoose").forEach((each) => {
+        each.classList.remove("checked");
+      });
       if (moreMeat === this.selectedMoreMeat) {
-        this.selectMoreMeat(null)
+        this.selectMoreMeat(null);
       } else {
-        event.target.classList.add('checked')
-        this.selectMoreMeat(moreMeat)
+        event.target.classList.add("checked");
+        this.selectMoreMeat(moreMeat);
       }
-    }
+    },
   },
 
-  mounted () {
-    if (this.selectedMoreMeat !== null && this.moreMeat.ingredientId === this.selectedMoreMeat.ingredientId) {
-      this.$el.childNodes[0].classList.add("checked")
+  mounted() {
+    if (
+      this.selectedMoreMeat !== null &&
+      this.moreMeat.ingredientId === this.selectedMoreMeat.ingredientId
+    ) {
+      this.$el.childNodes[0].classList.add("checked");
     }
-  }
-
-}
+  },
+};
 </script>
 
 <style scoped>
@@ -56,7 +62,7 @@ export default {
   width: 24px;
   height: 24px;
   border-radius: 50%;
-  border: 8px solid  #D9D9D9;
+  border: 8px solid #d9d9d9;
   margin-right: 5px;
 }
 .price {
@@ -71,5 +77,4 @@ export default {
   border-color: #239347;
   background-color: #f4c41f;
 }
-
 </style>

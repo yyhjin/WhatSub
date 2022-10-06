@@ -1,58 +1,69 @@
 <template>
   <div class="container" @click.prevent="select($event, menu)">
     <div class="imgwrap">
-      <img :src="menu.imgUrl" alt="">
+      <img :src="menu.imgUrl" alt="" />
     </div>
-    <div class="content">
-      <div class="title">{{ menu.menuName }}
-      </div>
-      <div class="ingred">{{ menu.ingredients }}
-      </div>
-    </div>
-    <div class="price">{{ menu.price }}원
-    </div>
+    <v-row>
+      <v-col cols="9">
+        <div>
+          <div class="pb-2">
+            <h4 style="font-size: 16px">
+              {{ menu.menuName }}
+            </h4>
+          </div>
+          <div class="ingred">{{ menu.ingredients }}</div>
+        </div>
+      </v-col>
+      <v-col class="pa-0 pt-4" cols="3">
+        <div class="price">{{ menu.price | comma }}원</div>
+      </v-col>
+    </v-row>
   </div>
 </template>
 
 <script>
-import { mapActions, mapGetters } from 'vuex'
+import { mapActions, mapGetters } from "vuex";
 export default {
   name: "MenuListItem",
 
   computed: {
-    ...mapGetters(['selectedMenu']),
+    ...mapGetters(["selectedMenu"]),
   },
 
   props: {
-    menu: Object
+    menu: Object,
   },
-
+  filters: {
+    comma(val) {
+      return String(val).replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    },
+  },
   methods: {
-    ...mapActions(['selectMenu']),
-    select (event, menu) {
+    ...mapActions(["selectMenu"]),
+    select(event, menu) {
       if (this.selectedMenu === menu) {
-        event.currentTarget.classList.remove('select')
-        this.selectMenu()
+        event.currentTarget.classList.remove("select");
+        this.selectMenu();
       } else {
-        this.removeSelect()
-        event.currentTarget.classList.add('select')
-        this.selectMenu(menu)
+        this.removeSelect();
+        event.currentTarget.classList.add("select");
+        this.selectMenu(menu);
       }
     },
 
-    removeSelect () {
-      document.querySelectorAll(".container").forEach(select =>{
-          select.classList.remove('select')
-        })
-    }
+    removeSelect() {
+      document.querySelectorAll(".container").forEach((select) => {
+        select.classList.remove("select");
+      });
+    },
   },
 
-  mounted () {
+  mounted() {
     if (this.selectedMenu !== null && this.menu.menuId === this.selectedMenu.menuId) {
-      this.$el.classList.add('select')
+      this.$el.classList.add("select");
     }
-  }
-}
+  },
+};
 </script>
 
 <style scoped>
@@ -65,23 +76,21 @@ export default {
   align-items: center;
 }
 .imgwrap img {
-  display:block;
-	height:100%;
-	width:auto;
+  display: block;
+  height: 100%;
+  width: auto;
 }
 .imgwrap {
-  height: 100%;
+  height: 80px;
 }
 .content {
-  display: block;
   text-align: center;
 }
 .title {
-  font-size: 15px;
   font-weight: 700;
 }
 .ingred {
-  font-size: 10px;
+  font-size: 12px;
   font-weight: 400;
 }
 .price {

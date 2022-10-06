@@ -1,46 +1,52 @@
 <template>
-<div class="cheese">
-    <button class="oneChoose moreCheeseChoose" @click="select($event, moreChe)" ></button>
+  <div class="cheese">
+    <button class="oneChoose moreCheeseChoose" @click="select($event, moreChe)"></button>
     <div class="title">{{ moreChe.name }}</div>
-    <div class="price">+{{ moreChe.price }}원</div>
+    <div class="price">+{{ moreChe.price | comma }}원</div>
   </div>
-  
 </template>
 
 <script>
-import { mapActions, mapGetters } from 'vuex'
+import { mapActions, mapGetters } from "vuex";
 export default {
-  name: 'MoreCheeseItem',
+  name: "MoreCheeseItem",
 
   props: {
-    moreChe:Object
+    moreChe: Object,
   },
-
+  filters: {
+    comma(val) {
+      return String(val).replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    },
+  },
   computed: {
-    ...mapGetters(['selectedMoreCheese'])
+    ...mapGetters(["selectedMoreCheese"]),
   },
 
   methods: {
-    ...mapActions(['selectMoreCheese']),
-    select (event, moreChe) {
-      document.querySelectorAll('.moreCheeseChoose').forEach(each => {
-        each.classList.remove('checked')
-        })
+    ...mapActions(["selectMoreCheese"]),
+    select(event, moreChe) {
+      document.querySelectorAll(".moreCheeseChoose").forEach((each) => {
+        each.classList.remove("checked");
+      });
       if (moreChe === this.selectedMoreCheese) {
-        this.selectMoreCheese(null)
+        this.selectMoreCheese(null);
       } else {
-        event.target.classList.add('checked')
-        this.selectMoreCheese(moreChe)
+        event.target.classList.add("checked");
+        this.selectMoreCheese(moreChe);
       }
-    }
+    },
   },
 
-  mounted () {
-    if (this.selectedMoreCheese !== null && this.moreChe.ingredientId === this.selectedMoreCheese.ingredientId) {
-      this.$el.childNodes[0].classList.add("checked")
+  mounted() {
+    if (
+      this.selectedMoreCheese !== null &&
+      this.moreChe.ingredientId === this.selectedMoreCheese.ingredientId
+    ) {
+      this.$el.childNodes[0].classList.add("checked");
     }
-  }
-}
+  },
+};
 </script>
 
 <style scoped>
@@ -64,12 +70,11 @@ export default {
   width: 24px;
   height: 24px;
   border-radius: 50%;
-  border: 8px solid  #D9D9D9;
+  border: 8px solid #d9d9d9;
   margin-right: 5px;
 }
 .checked {
   border-color: #239347;
   background-color: #f4c41f;
 }
-
 </style>

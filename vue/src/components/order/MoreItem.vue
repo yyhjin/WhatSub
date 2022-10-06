@@ -1,50 +1,60 @@
 <template>
   <div class="more">
-    <input type="checkbox" v-model="isMore" name="more" class="multiChoose" @click="select($event, mo)">
+    <input
+      type="checkbox"
+      v-model="isMore"
+      name="more"
+      class="multiChoose"
+      @click="select($event, mo)"
+    />
     <div class="title">{{ mo.name }}</div>
-    <div class="price">+{{ mo.price }}원</div>
+    <div class="price">+{{ mo.price | comma }}원</div>
   </div>
 </template>
 
 <script>
-import { mapActions, mapGetters } from 'vuex'
+import { mapActions, mapGetters } from "vuex";
 export default {
-  name: 'MoreItem',
+  name: "MoreItem",
 
-  data () {
+  data() {
     return {
-      isMore:false
-    }
+      isMore: false,
+    };
   },
 
   computed: {
-    ...mapGetters(['selectedMore'])
+    ...mapGetters(["selectedMore"]),
   },
-
+  filters: {
+    comma(val) {
+      return String(val).replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    },
+  },
   props: {
-    mo:Object
+    mo: Object,
   },
 
   methods: {
-    ...mapActions(['selectMore', 'removeMore']),
+    ...mapActions(["selectMore", "removeMore"]),
 
-    select (event, more) {
+    select(event, more) {
       if (event.target.checked) {
-        this.selectMore(more)
+        this.selectMore(more);
       } else {
-        this.removeMore(more)
+        this.removeMore(more);
       }
-    }
+    },
   },
 
-  mounted () {
-    this.selectedMore.forEach(each => {
+  mounted() {
+    this.selectedMore.forEach((each) => {
       if (each.ingredientId === this.mo.ingredientId) {
-        this.isMore = true  
+        this.isMore = true;
       }
-    })
-  }
-}
+    });
+  },
+};
 </script>
 
 <style scoped>
@@ -67,12 +77,11 @@ export default {
 .multiChoose {
   width: 25px;
   height: 25px;
-  
-  border: 8px solid  #D9D9D9;
+
+  border: 8px solid #d9d9d9;
   margin-right: 5px;
 }
-.multiChoose:checked{
+.multiChoose:checked {
   accent-color: #239347;
-  
 }
 </style>

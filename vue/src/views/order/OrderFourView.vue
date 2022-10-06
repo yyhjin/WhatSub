@@ -1,38 +1,42 @@
 <template>
-  <div class="body"> 
-    <alert-order :cnt="cnt" :totalPrice="totalPrice" :selectedStore="JSON.stringify(selectedStore)"></alert-order>
-    <div class="top">
+  <div class="body">
+    <alert-order
+      :cnt="cnt"
+      :totalPrice="totalPrice"
+      :selectedStore="JSON.stringify(selectedStore)"
+    ></alert-order>
+    <div class="top pt-2 pb-2">
       <v-row>
         <v-col cols="4">
           <v-btn @click="goBack" icon><v-icon>mdi-arrow-left</v-icon></v-btn>
         </v-col>
-        <v-col class="mt-1"><h3>메뉴 선택</h3></v-col>
+        <v-col class="mt-1 ml-5 mb-2"><h3>메뉴 선택</h3></v-col>
       </v-row>
       <v-card class="currentState">
         <div class="menu">
           <div class="imgwrap">
-            <img :src="selectedMenu.imgUrl" alt="">
+            <img :src="selectedMenu.imgUrl" alt="" />
           </div>
           <div class="title">{{ selectedMenu.menuName }}</div>
         </div>
         <div class="ingred">
           <div class="in_row">
             <div class="imgwrap">
-              <img src="@/assets/bread.png" alt="">
+              <img src="@/assets/bread.png" alt="" />
             </div>
             <div class="in_title">{{ bread_name }}</div>
             <div class="imgwrap">
-              <img src="@/assets/cheese.png" alt="">
+              <img src="@/assets/cheese.png" alt="" />
             </div>
             <div class="in_title">{{ cheese_name }}</div>
           </div>
           <div class="in_row">
             <div class="imgwrap">
-              <img src="@/assets/vege.png" alt="">
+              <img src="@/assets/vege.png" alt="" />
             </div>
             <div class="in_title">{{ vege_name }}</div>
             <div class="imgwrap">
-              <img src="@/assets/sauce.png" alt="">
+              <img src="@/assets/sauce.png" alt="" />
             </div>
             <div class="in_title">{{ sauce_name }}</div>
           </div>
@@ -40,20 +44,14 @@
 
         <div class="addingred">
           <div class="imgwrap plus">
-              <img src="@/assets/plus.png" alt="">
-            </div>
-            <div class="in_title plus_title">{{ more_name }}</div>
+            <img src="@/assets/plus.png" alt="" />
+          </div>
+          <div class="in_title plus_title">{{ more_name }}</div>
         </div>
         <div class="nutr">
-          <div class="kcal">
-            칼로리 : {{ calorie }}
-          </div>
-          <div class="protein">
-            단백질 : {{ protein }}
-          </div>
-          <div class="fat">
-            지방 : {{ fat }}
-          </div>
+          <div class="kcal">칼로리 : {{ calorie }}</div>
+          <div class="protein">단백질 : {{ protein }}</div>
+          <div class="fat">지방 : {{ fat }}</div>
         </div>
       </v-card>
     </div>
@@ -67,219 +65,236 @@
     <div class="cnt">
       <div>수량</div>
       <div class="cnt_input">
-        <v-icon
-          slot="append" @click="down"
-        >
-          mdi-minus
-        </v-icon>
+        <v-icon slot="append" @click="down"> mdi-minus </v-icon>
         <div class="value">{{ cnt }}</div>
-        <v-icon
-          slot="prepend" @click="up"
-        >
-          mdi-plus
-        </v-icon>
+        <v-icon slot="prepend" @click="up"> mdi-plus </v-icon>
       </div>
     </div>
     <div class="bottom">
-      <div class="total_price">
-        총 {{ totalPrice }}원
-      </div>
-      
-      <button class="order_btn main_btn" @click.prevent="setBasket">
-        장바구니
-      </button>
-      
-      
+      <div class="total_price">총 {{ totalPrice | comma }}원</div>
+
+      <button class="order_btn main_btn" @click.prevent="setBasket">장바구니</button>
     </div>
   </div>
 </template>
 
 <script>
-import { mapActions, mapGetters } from 'vuex';
-import ChooseBread from '../../components/order/ChooseBread.vue';
-import ChooseCheese from '../../components/order/ChooseCheese.vue';
-import ChooseMore from '../../components/order/ChooseMore.vue';
-import ChooseMoreMeat from '../../components/order/ChooseMoreMeat.vue';
-import ChooseSauce from '../../components/order/ChooseSauce.vue';
-import ChooseVege from '../../components/order/ChooseVege.vue';
-import AlertOrder from '@/components/order/AlertOrder'
-import ChooseMoreCheese from '../../components/order/ChooseMoreCheese.vue';
+import { mapActions, mapGetters } from "vuex";
+import ChooseBread from "../../components/order/ChooseBread.vue";
+import ChooseCheese from "../../components/order/ChooseCheese.vue";
+import ChooseMore from "../../components/order/ChooseMore.vue";
+import ChooseMoreMeat from "../../components/order/ChooseMoreMeat.vue";
+import ChooseSauce from "../../components/order/ChooseSauce.vue";
+import ChooseVege from "../../components/order/ChooseVege.vue";
+import AlertOrder from "@/components/order/AlertOrder";
+import ChooseMoreCheese from "../../components/order/ChooseMoreCheese.vue";
 
 export default {
-  components: { AlertOrder, ChooseBread, ChooseCheese, ChooseVege, ChooseMore, ChooseMoreMeat, ChooseSauce, ChooseMoreCheese },
-  name: 'OrderFourView',
+  components: {
+    AlertOrder,
+    ChooseBread,
+    ChooseCheese,
+    ChooseVege,
+    ChooseMore,
+    ChooseMoreMeat,
+    ChooseSauce,
+    ChooseMoreCheese,
+  },
+  name: "OrderFourView",
+  filters: {
+    comma(val) {
+      return String(val).replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    },
+  },
 
-  data () {
+  data() {
     return {
-      cnt:1
-    }
+      cnt: 1,
+    };
   },
 
   computed: {
-  
-    ...mapGetters(['selectedStore', 'selectedMenu', 'selectedBread', 'selectedCheese', 
-    'selectedSauce', 'selectedMore', 'selectedVege', 'selectedMoreMeat', 'selectedMoreCheese']),
+    ...mapGetters([
+      "selectedStore",
+      "selectedMenu",
+      "selectedBread",
+      "selectedCheese",
+      "selectedSauce",
+      "selectedMore",
+      "selectedVege",
+      "selectedMoreMeat",
+      "selectedMoreCheese",
+    ]),
 
-    bread_name () {
+    bread_name() {
       if (this.selectedBread === null) {
-        return '선택해주세요'
+        return "선택해주세요";
       } else {
-        return this.selectedBread.name
+        return this.selectedBread.name;
       }
     },
-    moreCheese_name () {
+    moreCheese_name() {
       if (this.selectedMoreCheese === null) {
-        return ''
+        return "";
       } else {
-        return this.selectedCheese.name
+        return this.selectedCheese.name;
       }
     },
 
-    cheese_name () {
+    cheese_name() {
       if (this.selectedCheese === null) {
-        return '선택해주세요'
+        return "선택해주세요";
       } else {
-        return this.selectedCheese.name
+        return this.selectedCheese.name;
       }
     },
 
-    
-
-    sauce_name () {
+    sauce_name() {
       if (this.selectedSauce.length === 0) {
-        return '선택해주세요'
+        return "선택해주세요";
       } else {
-        let sauces = ''
-        this.selectedSauce.forEach(sauce => {
-          sauces += sauce.name + ','
-        })
-        return sauces
+        let sauces = "";
+        this.selectedSauce.forEach((sauce) => {
+          sauces += sauce.name + ",";
+        });
+        return sauces;
       }
     },
-    vege_name () {
+    vege_name() {
       if (this.selectedVege.length === 0) {
-        return '선택해주세요'
+        return "선택해주세요";
       } else {
-        let veges = ''
-        this.selectedVege.forEach(vege => {
-          veges += vege.name + ','
-        })
-        return veges
+        let veges = "";
+        this.selectedVege.forEach((vege) => {
+          veges += vege.name + ",";
+        });
+        return veges;
       }
     },
 
-    more_name () {
-      let mores = ''
+    more_name() {
+      let mores = "";
       if (this.selectedMore.length === 0 && this.selectedMoreMeat === null) {
-        return '선택해주세요'
+        return "선택해주세요";
       } else if (this.selectedMore.length !== 0 && this.selectedMoreMeat !== null) {
-        this.selectedMore.forEach(more => {
-          mores += more.name + ','
-        })
-        mores += this.selectedMoreMeat.name
-        return mores
+        this.selectedMore.forEach((more) => {
+          mores += more.name + ",";
+        });
+        mores += this.selectedMoreMeat.name;
+        return mores;
       } else if (this.selectedMore.length !== 0 && this.selectedMoreMeat === null) {
-        this.selectedMore.forEach(more => {
-          mores += more.name + ','
-        })
-        return mores
+        this.selectedMore.forEach((more) => {
+          mores += more.name + ",";
+        });
+        return mores;
       } else {
-        mores += this.selectedMoreMeat.name
-        return mores
+        mores += this.selectedMoreMeat.name;
+        return mores;
       }
     },
 
-    calorie () {
-      let kcal = 0
-      
-      kcal += (this.selectedMenu === null ? 0:this.selectedMenu.kcal) + (this.selectedBread === null ? 0:this.selectedBread.kcal) 
-      + (this.selectedCheese === null ? 0:this.selectedCheese.kcal) + (this.selectedMoreMeat === null ? 0:this.selectedMoreMeat.kcal)
-      + (this.selectedMoreCheese === null ? 0:this.selectedMoreCheese.kcal)
-      this.selectedMore.forEach(each => kcal += each.kcal)
-      this.selectedVege.forEach(each => kcal += each.kcal)
-      this.selectedSauce.forEach(each => kcal += each.kcal)
-      
-      return Math.ceil(kcal)
+    calorie() {
+      let kcal = 0;
+
+      kcal +=
+        (this.selectedMenu === null ? 0 : this.selectedMenu.kcal) +
+        (this.selectedBread === null ? 0 : this.selectedBread.kcal) +
+        (this.selectedCheese === null ? 0 : this.selectedCheese.kcal) +
+        (this.selectedMoreMeat === null ? 0 : this.selectedMoreMeat.kcal) +
+        (this.selectedMoreCheese === null ? 0 : this.selectedMoreCheese.kcal);
+      this.selectedMore.forEach((each) => (kcal += each.kcal));
+      this.selectedVege.forEach((each) => (kcal += each.kcal));
+      this.selectedSauce.forEach((each) => (kcal += each.kcal));
+
+      return Math.ceil(kcal);
     },
 
-    protein () {
-      let protein = 0
-      
-      protein += (this.selectedMenu === null ? 0:this.selectedMenu.protein) + (this.selectedBread === null ? 0:this.selectedBread.protein) 
-      + (this.selectedCheese === null ? 0:this.selectedCheese.protein) + (this.selectedMoreMeat === null ? 0:this.selectedMoreMeat.protein)
-      + (this.selectedMoreCheese === null ? 0:this.selectedMoreCheese.protein)
-      this.selectedMore.forEach(each => protein += each.protein)
-      this.selectedVege.forEach(each => protein += each.protein)
-      this.selectedSauce.forEach(each => protein += each.protein)
-      
-      return Math.ceil(protein)
+    protein() {
+      let protein = 0;
+
+      protein +=
+        (this.selectedMenu === null ? 0 : this.selectedMenu.protein) +
+        (this.selectedBread === null ? 0 : this.selectedBread.protein) +
+        (this.selectedCheese === null ? 0 : this.selectedCheese.protein) +
+        (this.selectedMoreMeat === null ? 0 : this.selectedMoreMeat.protein) +
+        (this.selectedMoreCheese === null ? 0 : this.selectedMoreCheese.protein);
+      this.selectedMore.forEach((each) => (protein += each.protein));
+      this.selectedVege.forEach((each) => (protein += each.protein));
+      this.selectedSauce.forEach((each) => (protein += each.protein));
+
+      return Math.ceil(protein);
     },
 
-    fat () {
-      let fat = 0
-      
-      fat += (this.selectedMenu === null ? 0:this.selectedMenu.fat) + (this.selectedBread === null ? 0:this.selectedBread.fat) 
-      + (this.selectedCheese === null ? 0:this.selectedCheese.fat) + (this.selectedMoreMeat === null ? 0:this.selectedMoreMeat.fat)
-      + (this.selectedMoreCheese === null ? 0:this.selectedMoreCheese.fat)
-      this.selectedMore.forEach(each => fat += each.fat)
-      this.selectedVege.forEach(each => fat += each.fat)
-      this.selectedSauce.forEach(each => fat += each.fat)
-      
-      return Math.ceil(fat)
+    fat() {
+      let fat = 0;
+
+      fat +=
+        (this.selectedMenu === null ? 0 : this.selectedMenu.fat) +
+        (this.selectedBread === null ? 0 : this.selectedBread.fat) +
+        (this.selectedCheese === null ? 0 : this.selectedCheese.fat) +
+        (this.selectedMoreMeat === null ? 0 : this.selectedMoreMeat.fat) +
+        (this.selectedMoreCheese === null ? 0 : this.selectedMoreCheese.fat);
+      this.selectedMore.forEach((each) => (fat += each.fat));
+      this.selectedVege.forEach((each) => (fat += each.fat));
+      this.selectedSauce.forEach((each) => (fat += each.fat));
+
+      return Math.ceil(fat);
     },
 
-    totalPrice () {
-      let price = 0
-      price += (this.selectedMenu === null ? 0:this.selectedMenu.price) + (this.selectedBread === null ? 0:this.selectedBread.price) 
-      + (this.selectedCheese === null ? 0:this.selectedCheese.price) + (this.selectedMoreMeat === null ? 0:this.selectedMoreMeat.price)
-      + (this.selectedMoreCheese === null ? 0:this.selectedMoreCheese.price)
-      this.selectedMore.forEach(each => price += each.price)
-      this.selectedVege.forEach(each => price += each.price)
-      this.selectedSauce.forEach(each => price += each.price)
+    totalPrice() {
+      let price = 0;
+      price +=
+        (this.selectedMenu === null ? 0 : this.selectedMenu.price) +
+        (this.selectedBread === null ? 0 : this.selectedBread.price) +
+        (this.selectedCheese === null ? 0 : this.selectedCheese.price) +
+        (this.selectedMoreMeat === null ? 0 : this.selectedMoreMeat.price) +
+        (this.selectedMoreCheese === null ? 0 : this.selectedMoreCheese.price);
+      this.selectedMore.forEach((each) => (price += each.price));
+      this.selectedVege.forEach((each) => (price += each.price));
+      this.selectedSauce.forEach((each) => (price += each.price));
 
-      return price
-    }
+      return price;
+    },
   },
   methods: {
-    ...mapActions(['fetchIngredient']),
+    ...mapActions(["fetchIngredient"]),
     goBack() {
-      this.$router.push({name: 'orderthree'});
+      this.$router.push({ name: "orderthree" });
     },
 
-    up () {
-      this.cnt += 1
+    up() {
+      this.cnt += 1;
     },
 
-    down () {
+    down() {
       if (this.cnt > 0) {
-        this.cnt -= 1
+        this.cnt -= 1;
       }
     },
 
-    setBasket () {
+    setBasket() {
       if (this.selectedBread === null || this.selectedBread === undefined) {
-        alert('빵을 골라주세요')
+        alert("빵을 골라주세요");
       } else {
         if (this.selectedCheese === null || this.selectedCheese === undefined) {
-          alert('치즈를 골라주세요')
+          alert("치즈를 골라주세요");
         } else {
-          const modal = document.querySelector('.modal')
-          modal.style.display = 'block'
-          document.body.style.overflow = 'hidden'
+          const modal = document.querySelector(".modal");
+          modal.style.display = "block";
+          document.body.style.overflow = "hidden";
         }
       }
-    } ,
+    },
 
-
-    setOrder () {
-      this.$router.push('/ordercheck')
-    }
+    setOrder() {
+      this.$router.push("/ordercheck");
+    },
   },
 
-  mounted () {
-    this.fetchIngredient()
-  }
-}
+  mounted() {
+    this.fetchIngredient();
+  },
+};
 </script>
 
 <style scoped>
@@ -287,23 +302,18 @@ export default {
   /* position: relative; */
   padding-top: 360px;
   padding-bottom: 40px;
-  
-  
 }
-.body::after{
+.body::after {
   content: "";
   position: absolute;
   top: 0;
   left: 0;
-  
 }
 .top {
   top: 0;
   /* position:relative; */
   width: 100%;
   background: white;
-  
-  
 }
 .row {
   width: 100%;
@@ -323,9 +333,9 @@ export default {
   align-items: center;
 }
 .imgwrap img {
-  display:block;
-	height:100%;
-	width:auto;
+  display: block;
+  height: 100%;
+  width: auto;
 }
 .imgwrap {
   height: 100%;
@@ -350,7 +360,7 @@ export default {
   height: 60px;
   display: flex;
   flex-direction: row;
-  align-items: center; 
+  align-items: center;
 }
 .plus {
   margin-left: 10px;
@@ -358,7 +368,7 @@ export default {
 .plus_title {
   margin: auto;
 }
-.nutr{
+.nutr {
   height: 50px;
   border-top: 1px solid;
   display: flex;
