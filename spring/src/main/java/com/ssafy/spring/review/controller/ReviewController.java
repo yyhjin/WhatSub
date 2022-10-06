@@ -61,6 +61,8 @@ public class ReviewController {
         Review review = Review.builder()
                 .content(request.getContent())
                 .score(request.getScore())
+                .combinationPost(combPostService.findByCombinationPostId(request.getCombinationPostId()))
+                .user(userService.getUserByUserId(request.getUserId()))
                 .build();
 
         reviewService.update(review, reviewId);
