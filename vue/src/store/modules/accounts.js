@@ -95,6 +95,7 @@ export default({
         headers: getters.authHeader
       })
       .then( res => {
+        console.log('fetchProfile 성공')
         commit('SET_PROFILE', res.data.data)
       })
       .catch( err=> {
