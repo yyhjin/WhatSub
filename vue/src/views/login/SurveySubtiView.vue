@@ -239,6 +239,7 @@ export default {
           headers: this.authHeader
         }).then( res => {
           console.log(res)
+          this.$router.push({name:'home'})
         }).catch( err => {
           console.error(err)
         })

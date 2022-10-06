@@ -54,4 +54,12 @@ export default {
 };
 </script>
 
-<style></style>
+<style>
+.r_card {
+  padding-left: 0px;
+  padding-top: 180px;
+}
+.r_card :first-child {
+  margin: auto;
+}
+</style>

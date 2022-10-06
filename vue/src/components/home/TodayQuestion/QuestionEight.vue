@@ -45,4 +45,5 @@ export default {
 .q_card :first-child {
   margin: auto;
 }
+
 </style>
