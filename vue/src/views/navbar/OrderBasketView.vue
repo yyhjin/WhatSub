@@ -19,7 +19,12 @@
       </div>
     </div>
     <div v-else>
-      <h1 style="text-align: center; margin-top: 200px">장바구니가 없습니다~</h1>
+      <h2 style="text-align: center; margin-top: 240px">장바구니가 비었습니다 ~</h2>
+      <h3 class="mt-2" style="text-align: center">
+        <v-btn class="grey_btn" color="grey lighten-1" rounded small @click="goOrder"
+          >샌드위치 담으러 GO?</v-btn
+        >
+      </h3>
     </div>
     <div class="bottom">
       <div class="bot">
@@ -185,6 +190,11 @@ export default {
       //   console.error(err);
       //   console.log(combinationList);
       // });
+    },
+    goOrder() {
+      this.$router.push({
+        name: "orderone",
+      });
     },
   },
 

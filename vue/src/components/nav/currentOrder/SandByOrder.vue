@@ -1,42 +1,60 @@
 <template>
   <div>
-    <v-card class="sand_big_card">
-      <div class="first">
-        <div class="imgwrap">
-          <img :src="imgUrl" alt="">
-        </div>
-        <div class="title">
-          {{ name }}
-        </div>
-      </div>
-      <div class="second">
-        <div class="ingre">
-          <div class="menu">
-            메뉴: {{ menu }}
+    <v-card class="sand_big_card" style="position: relative">
+      <v-row class="pb-0">
+        <v-col class="pa-0 mt-3 ml-3" cols="5" align="center">
+          <v-img class="shadow_img" height="70" width="150" :src="imgUrl"></v-img>
+        </v-col>
+        <v-col class="pb-0" align="start">
+          <div class="mt-2 ml-n4">
+            <h6 style="font-size: 14px; font-weight: 500">
+              추가재료: {{ more.substring(0, 9) }}···<br />소스: {{ sauce }}
+            </h6>
           </div>
-          <div class="more">
-            추가재료: {{ more }}
+        </v-col>
+      </v-row>
+      <v-row class="" align="center">
+        <v-col cols="6" class="" align="center">
+          <div>
+            <h6 style="font-size: 15px; font-weight: bold">{{ name }}</h6>
           </div>
-          <div class="sauce">
-            소스: {{ sauce }}
+        </v-col>
+        <v-col class="ml-n6" align="center">
+          <div>
+            <v-btn
+              class="main_btn regist"
+              width="120"
+              v-if="isRegisted"
+              rounded
+              small
+              @click="goRegistForm"
+              >리뷰 등록</v-btn
+            >
+            <v-btn class="green_btn regist" v-else width="120" rounded small @click="goRegistForm"
+              >조합 등록</v-btn
+            >
           </div>
-        </div>
-        <v-btn class="green_btn regist" v-if="isRegisted" rounded small @click="goRegistForm">리뷰등록</v-btn>
-        <v-btn class="green_btn regist" v-else rounded small @click="goRegistForm">조합등록</v-btn>
-        <!-- <v-btn class="main_btn" rounded small>상세보기</v-btn> -->
-      </div>
+        </v-col>
+      </v-row>
     </v-card>
-    <alert-combi :imgUrl="imgUrl" :name="name" :combinationId="combination.combinationId" :combi="combi"     :value="openAlert" @input="openAlert = $event"></alert-combi>
+    <alert-combi
+      :imgUrl="imgUrl"
+      :name="name"
+      :combinationId="combination.combinationId"
+      :combi="combi"
+      :value="openAlert"
+      @input="openAlert = $event"
+    ></alert-combi>
   </div>
 </template>
 
 <script>
 import AlertCombi from "@/components/nav/AlertCombi.vue";
-import api from '@/api/api'
-import axios from 'axios'
-import { mapGetters } from 'vuex';
+import api from "@/api/api";
+import axios from "axios";
+import { mapGetters } from "vuex";
 export default {
-  name: 'SandByOrder',
+  name: "SandByOrder",
 
   components: { AlertCombi },
 
@@ -51,51 +69,55 @@ export default {
       imgUrl: this.combination.menu.imgUrl,
       name: this.combination.menu.menuName,
       menu: this.combination.menu.menuName,
-      combi: null
+      combi: null,
     };
   },
 
   computed: {
-    ...mapGetters(['profile']),
-    more () {
-      let more = ''
-      this.combination.ingredients.forEach(each => {
-        if (each.category === '추가' || each.category === '치즈추가' || each.category === '미트추가') {
-          more += each.name + ', '
+    ...mapGetters(["profile"]),
+    more() {
+      let more = "";
+      this.combination.ingredients.forEach((each) => {
+        if (
+          each.category === "추가" ||
+          each.category === "치즈추가" ||
+          each.category === "미트추가"
+        ) {
+          more += each.name + ", ";
         }
-      })
-      return more.slice(0, -2)
+      });
+      return more.slice(0, -2);
     },
 
-    sauce () {
-      let sauce = ''
-      this.combination.ingredients.forEach(each => {
-        if (each.category === '소스') {
-          sauce += each.name + ', '
+    sauce() {
+      let sauce = "";
+      this.combination.ingredients.forEach((each) => {
+        if (each.category === "소스") {
+          sauce += each.name + ", ";
         }
-      })
-      
-      return sauce.slice(0, -2)
-    }
+      });
+
+      return sauce.slice(0, -2);
+    },
   },
 
-  watch : {
-    isRegisted () {
+  watch: {
+    isRegisted() {
       if (this.isRegisted) {
         axios({
           url: api.comb.comb.read(this.combinationPostId, this.profile.userId),
-          method:'get'
-        }).then(res=> {
-          this.imgUrl = res.data.data.imgUrl
-          this.name = res.data.data.combName
-        }).catch(err => {
-          console.error(err)
+          method: "get",
         })
-      } 
-    }
-
+          .then((res) => {
+            this.imgUrl = res.data.data.imgUrl;
+            this.name = res.data.data.combName;
+          })
+          .catch((err) => {
+            console.error(err);
+          });
+      }
+    },
   },
-
 
   methods: {
     goRegistForm() {
@@ -103,7 +125,10 @@ export default {
 
       //리뷰 등록할 꿀조합이 있다면 리뷰 등록 화면으로 이동
       if (this.isRegisted) {
-        this.$router.push({ name: "registreview", params: {combinationPostId: parseInt(this.combinationPostId)} });
+        this.$router.push({
+          name: "registreview",
+          params: { combinationPostId: parseInt(this.combinationPostId) },
+        });
       } else {
         //리뷰 등록할 꿀조합이 없다면 AlertCombi 띄워주기
         this.openAlert = true;
@@ -111,37 +136,29 @@ export default {
     },
   },
 
-  mounted () {
+  mounted() {
     axios({
       url: api.comb.comb.exist(this.combination.combinationId),
-      method: 'get'
-    }).then(res => {
-      // console.log(res.data)
-      console.log(typeof(res.data.data))
-      if (typeof(res.data.data) === "number") {
-        this.isRegisted = true
-        this.combinationPostId = res.data.data
-      } else {
-        this.combi = res.data.data
-      }
-    }).catch(err => {
-      console.error(err)
+      method: "get",
     })
-  }
+      .then((res) => {
+        // console.log(res.data)
+        console.log(typeof res.data.data);
+        if (typeof res.data.data === "number") {
+          this.isRegisted = true;
+          this.combinationPostId = res.data.data;
+        } else {
+          this.combi = res.data.data;
+        }
+      })
+      .catch((err) => {
+        console.error(err);
+      });
+  },
 };
 </script>
 
-<style scoped>
-.sand_big_card {
-  height: 140px;
-  width: 90%;
-  margin: auto;
-  margin-bottom: 20px;
-  display: flex;
-}
-.sand_big_card:last-child {
-  margin-bottom: 25px;
-}
+<style>
 .first {
   width: 40%;
   display: flex;
@@ -155,9 +172,9 @@ export default {
   justify-content: center;
 }
 .imgwrap img {
-  display:block;
-	height:100%;
-	width:auto;
+  display: block;
+  height: 100%;
+  width: auto;
 }
 .imgwrap {
   height: 60%;

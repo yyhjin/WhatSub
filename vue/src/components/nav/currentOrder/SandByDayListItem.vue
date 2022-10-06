@@ -1,33 +1,35 @@
 <template>
   <div class="cardwrap">
     <div class="ordertitle">
-      <h4>{{ index+1 }}번째 주문</h4>
-      <v-btn class="main_btn" rounded small @click.stop="openMo = true">상세보기</v-btn>
+      <h4 class="pt-2" style="font-size: 14px">{{ index + 1 }}번째 주문</h4>
+      <v-btn class="grey_btn" rounded small @click.stop="openMo = true">자세히 보기</v-btn>
     </div>
     <sand-by-order
-    v-for="(combination, index) in combinationList" :key="index"
-    :combination="combination"
+      v-for="(combination, index) in combinationList"
+      :key="index"
+      :combination="combination"
     ></sand-by-order>
+    <v-divider></v-divider>
     <order-detail-modal
-    :orderMenu="orderMenu"
-    :value="openMo"
-    @input="openMo = $event"
-    :date="date"
+      :orderMenu="orderMenu"
+      :value="openMo"
+      @input="openMo = $event"
+      :date="date"
     ></order-detail-modal>
   </div>
 </template>
 
 <script>
-import OrderDetailModal from '../OrderDetailModal.vue';
+import OrderDetailModal from "../OrderDetailModal.vue";
 // import api from '@/api/api'
-import SandByOrder from './SandByOrder.vue';
+import SandByOrder from "./SandByOrder.vue";
 export default {
   name: "SandByDayListItem",
   components: { SandByOrder, OrderDetailModal },
   props: {
     orderMenu: Object,
-    index:Number,
-    date:String
+    index: Number,
+    date: String,
   },
 
   data() {
@@ -35,19 +37,14 @@ export default {
       openMo: false,
     };
   },
- 
-  computed : {
-    combinationList () {
-      return this.orderMenu.combinationList
-    }
+
+  computed: {
+    combinationList() {
+      return this.orderMenu.combinationList;
+    },
   },
 
-
-  methods: {
-    
-  },
-
-  
+  methods: {},
 };
 </script>
 
@@ -69,7 +66,8 @@ export default {
   width: 60%;
 }
 .ordertitle {
-  margin-bottom: 10px;
+  margin-top: 12px;
+  margin-bottom: 20px;
   justify-content: space-between;
   width: 90%;
   display: flex;
