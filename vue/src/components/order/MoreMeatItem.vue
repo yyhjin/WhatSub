@@ -1,7 +1,7 @@
 <template>
   <div class="moreMeat">
     <button class="oneChoose moreMeatChoose" @click="select($event, moreMeat)"></button>
-    <div class="title">{{ moreMeat.name }}</div>
+    <div class="title" style="font-size: 16px !important">{{ moreMeat.name }}</div>
     <div class="price">+{{ moreMeat.price | comma }}원</div>
   </div>
 </template>
@@ -63,6 +63,7 @@ export default {
   height: 24px;
   border-radius: 50%;
   border: 8px solid #d9d9d9;
+  margin-left: 5px;
   margin-right: 5px;
 }
 .price {

@@ -7,7 +7,7 @@
       class="multiChoose"
       @click="select($event, mo)"
     />
-    <div class="title">{{ mo.name }}</div>
+    <div class="title" style="font-size: 16px !important">{{ mo.name }}</div>
     <div class="price">+{{ mo.price | comma }}원</div>
   </div>
 </template>
@@ -75,10 +75,9 @@ export default {
   width: 70%;
 }
 .multiChoose {
-  width: 25px;
-  height: 25px;
-
-  border: 8px solid #d9d9d9;
+  width: 20px;
+  height: 20px;
+  margin-left: 5px;
   margin-right: 5px;
 }
 .multiChoose:checked {

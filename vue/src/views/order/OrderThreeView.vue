@@ -35,22 +35,20 @@
     <br />
     <br />
     <br />
+    <br />
+    <br />
     <div align="center" class="order_btn">
       <v-btn class="main_btn" width="185" small elevation="0" rounded @click="goNext">다음</v-btn>
-    </div>
-    <div class="bottom">
-      <bottom-nav></bottom-nav>
     </div>
   </div>
 </template>
 
 <script>
-import BottomNav from "@/components/common/BottomNav.vue";
 import { mapActions, mapGetters } from "vuex";
 export default {
   name: "OrderThreeView",
 
-  components: { BottomNav },
+  components: {},
 
   computed: {
     ...mapGetters(["selectedSize"]),
