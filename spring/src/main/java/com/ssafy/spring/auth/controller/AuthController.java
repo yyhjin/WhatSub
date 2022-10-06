@@ -57,7 +57,7 @@ public class AuthController {
 
             // DB에는 저장하지 않고 프론트에만 이름 리턴(칼럼 유니크 조건 때문)
             user.setUserName(kakaoUserInfo.getNickname());
-            String accessToken = jwtUtil.createToken(user.getEmail());
+            String accessToken = jwtUtil.createToken(user.getAuthId());
             loginResponse = new AuthResponse.LoginResponse(user, 2, accessToken);
         }
 
