@@ -32,6 +32,7 @@ public class User {
     @Column(unique = true)
     private String userName;
 
+    @ColumnDefault("https://whatsub.s3.ap-northeast-2.amazonaws.com/default/p0.png")
     private String profileImg;
 
     private String subti;
