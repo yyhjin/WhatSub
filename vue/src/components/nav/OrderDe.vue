@@ -13,7 +13,7 @@
         </div>
       </div>
       <div class="otherCheck">
-        <div class="name">
+        <div class="name" style="text-align:center;">
           빵/치즈/소스/야채/추가
         </div>
         <div class="content">
@@ -109,6 +109,7 @@ export default {
 .content {
   display: block;
   width: 90%;
+  text-align: center;
 }
 
 </style>

@@ -2,7 +2,7 @@
   <div>
     <!-- v-for 날짜별 -->
     <div class="mt-3 mb-1">
-      <h4 class="ml-n20">{{ date }}</h4>
+      <h4 class="ml-n20"><h3>{{ date }}</h3></h4>
     </div>
     <div v-for="(orderMenus, index) in orderListByDay" :key="orderMenus.orderId">
       <sand-by-day-list-item

@@ -21,8 +21,8 @@
             소스: {{ sauce }}
           </div>
         </div>
-        <v-btn class="green_btn" v-if="isRegisted" rounded small @click="goRegistForm">리뷰등록</v-btn>
-        <v-btn class="green_btn" v-else rounded small @click="goRegistForm">조합등록</v-btn>
+        <v-btn class="green_btn regist" v-if="isRegisted" rounded small @click="goRegistForm">리뷰등록</v-btn>
+        <v-btn class="green_btn regist" v-else rounded small @click="goRegistForm">조합등록</v-btn>
         <!-- <v-btn class="main_btn" rounded small>상세보기</v-btn> -->
       </div>
     </v-card>
@@ -144,9 +144,15 @@ export default {
 }
 .first {
   width: 40%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 .second {
   width: 60%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 .imgwrap img {
   display:block;
@@ -155,5 +161,9 @@ export default {
 }
 .imgwrap {
   height: 60%;
+}
+.regist {
+  width: 40%;
+  margin: auto;
 }
 </style>

@@ -13,7 +13,7 @@
           </v-col>
         </v-row>
       </v-card-title>
-      <div class="date">
+      <div class="date" style="width: 90%; margin:auto;">
         {{date}}
       </div>
       <div class="store">
