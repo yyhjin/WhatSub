@@ -28,6 +28,7 @@
 <script>
 import router from "@/router";
 import { mapActions, mapGetters } from "vuex";
+import swal from 'sweetalert';
 export default {
   name: "TopNav",
 
@@ -76,7 +77,12 @@ export default {
     },
     logout() {
       this.removeToken();
-      alert("로그아웃 성공!");
+      // alert("로그아웃 성공!");
+      swal({
+          title: '로그아웃 성공!',
+          text: '다음에 또 오세요!',
+          icon: 'success'
+        })
       router.push({ name: "login" });
     },
   },

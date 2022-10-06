@@ -183,6 +183,7 @@ import BottomNav from '../../components/common/BottomNav.vue';
 import api from '@/api/api'
 import axios from 'axios'
 import { mapActions, mapGetters } from 'vuex'
+import swal from 'sweetalert'
 export default {
   components: { BottomNav },
   name: 'SurveySubtiView',
@@ -239,12 +240,13 @@ export default {
           headers: this.authHeader
         }).then( res => {
           console.log(res)
+          swal(`당신의 SUBTI는 ${this.subti}입니다!`)
           this.$router.push({name:'home'})
         }).catch( err => {
           console.error(err)
         })
       } else {
-        alert('문항을 모두 기입해주세요')
+        swal('문항을 모두 기입해주세요')
       }
     }
   },

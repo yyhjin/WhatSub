@@ -31,8 +31,8 @@
           <v-col class="pa-0" cols="12" @click="changeCard">
             <div style="font-size: 13px; font-weight: bold">
               <div>빵: {{ bread[0] }}</div>
-              <div>치즈: {{ cheese[0] }}</div>
-              <div>소스: {{ sauce[0] }} {{ sauce[1] }}</div>
+              <div>치즈: {{ cheese[0] }}···</div>
+              <div>소스: {{ sauce[0] }} {{ sauce[1] }}···</div>
             </div>
           </v-col>
         </v-row>

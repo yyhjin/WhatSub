@@ -22,7 +22,7 @@
 <script>
 import MenuList from "@/components/order/MenuList.vue";
 import { mapGetters, mapActions } from "vuex";
-
+import swal from 'sweetalert';
 export default {
   name: "OrderTwoView",
 
@@ -40,7 +40,7 @@ export default {
 
     goNext() {
       if (this.selectedMenu === null || this.selectedMenu === undefined) {
-        alert("메뉴를 선택해주세요");
+        swal("메뉴를 선택해주세요");
       } else {
         this.$router.push({ path: "orderthree" });
       }
