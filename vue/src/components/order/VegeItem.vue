@@ -1,6 +1,6 @@
 <template>
   <div class="vege">
-    <input type="checkbox"  class="multiChoose" @click="select($event, vege)">
+    <input type="checkbox"  v-model="isVege" class="multiChoose" @click="select($event, vege)">
     <div class="title">{{ vege.name }}</div>
     <div class="price">+{{ vege.price }}원</div>
   </div>
@@ -8,24 +8,43 @@
 </template>
 
 <script>
-import { mapActions } from 'vuex'
+import { mapActions, mapGetters } from 'vuex'
 export default {
   name: 'VegeItem',
 
+  data () {
+    return {
+      isVege:false
+    }
+  },
+
   props:{
     vege:Object
+  },
+
+  computed: {
+    ...mapGetters(['selectedVege'])
   },
 
   methods: {
     ...mapActions(['selectVege', 'removeVege']),
 
     select (event, vege) {
+      console.log(event.target)
       if (event.target.checked) {
         this.selectVege(vege)
       } else {
-        this.removeVege(vege)
+        this.removeVege(vege) 
       }
     }
+  },
+
+  mounted () {
+    this.selectedVege.forEach(each => {
+      if (each.ingredientId === this.vege.ingredientId) {
+        this.isVege = true  
+      }
+    })
   }
 }
 </script>

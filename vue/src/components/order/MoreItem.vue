@@ -1,15 +1,25 @@
 <template>
   <div class="more">
-    <input type="checkbox" name="more" class="multiChoose" @click="select($event, mo)">
+    <input type="checkbox" v-model="isMore" name="more" class="multiChoose" @click="select($event, mo)">
     <div class="title">{{ mo.name }}</div>
     <div class="price">+{{ mo.price }}원</div>
   </div>
 </template>
 
 <script>
-import { mapActions } from 'vuex'
+import { mapActions, mapGetters } from 'vuex'
 export default {
   name: 'MoreItem',
+
+  data () {
+    return {
+      isMore:false
+    }
+  },
+
+  computed: {
+    ...mapGetters(['selectedMore'])
+  },
 
   props: {
     mo:Object
@@ -25,6 +35,14 @@ export default {
         this.removeMore(more)
       }
     }
+  },
+
+  mounted () {
+    this.selectedMore.forEach(each => {
+      if (each.ingredientId === this.mo.ingredientId) {
+        this.isMore = true  
+      }
+    })
   }
 }
 </script>

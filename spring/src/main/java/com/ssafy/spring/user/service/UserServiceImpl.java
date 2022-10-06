@@ -1,6 +1,13 @@
 package com.ssafy.spring.user.service;
 
+import com.ssafy.spring.comb.dto.CombPostDto;
 import com.ssafy.spring.comb.dto.IngredientDto;
+import com.ssafy.spring.comb.entity.Combination;
+import com.ssafy.spring.comb.entity.Ingredient;
+import com.ssafy.spring.comb.entity.Menu;
+import com.ssafy.spring.comb.repository.IngredientRepository;
+import com.ssafy.spring.comb.repository.MenuRepository;
+import com.ssafy.spring.user.dto.DibDto;
 import com.ssafy.spring.user.entity.Dib;
 import com.ssafy.spring.user.entity.User;
 import com.ssafy.spring.user.repository.DibRepository;
@@ -15,9 +22,13 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     private UserRepository userRepository;
-
     @Autowired
     private DibRepository dibRepository;
+    @Autowired
+    private IngredientRepository ingredientRepository;
+    @Autowired
+    private MenuRepository menuRepository;
+
 
     @Override
     public void save(User user) {
@@ -70,5 +81,52 @@ public class UserServiceImpl implements UserService {
         }
 
         return excludedIngredientIds;
+    }
+
+    @Override
+    public List<com.ssafy.spring.recommend.dto.IngredientDto> getIngredientList(String combinationId) {
+        List<com.ssafy.spring.recommend.dto.IngredientDto> ingredients = new ArrayList<>();
+
+        String list = combinationId.substring(1);
+        for (int i = 0, j = 0; j < list.length()/2; i += 2, j++) {
+            com.ssafy.spring.recommend.dto.IngredientDto ingredient = new com.ssafy.spring.recommend.dto.IngredientDto();
+            String ingredientId = list.substring(i, i+2);
+            Ingredient in = ingredientRepository.findByIngredientId(ingredientId);
+            ingredient.setCategory(in.getCategory());
+            ingredient.setName(in.getName());
+            ingredient.setImgUrl(in.getImgUrl());
+            ingredients.add(ingredient);
+        }
+
+        return ingredients;
+    }
+
+    @Override
+    public List<DibDto> addMenuNameAndIngredientsToDib(List<DibDto> dibList) {
+        for(DibDto dib : dibList){
+            CombPostDto combPostDto = dib.getCombinationPostDto();
+            Combination combination = combPostDto.getCombination();
+
+            String menuId = combination.getCombinationId().substring(0,1);
+            Menu menu = menuRepository.findByMenuId(menuId);
+            combPostDto.setMenuName(menu.getMenuName());
+            combPostDto.setIngredients(this.getIngredientList(combination.getCombinationId()));
+        }
+
+        return dibList;
+    }
+
+    @Override
+    public List<CombPostDto> addMenuNameAndIngredientsToCombPost(List<CombPostDto> combPostList) {
+        for(CombPostDto combPost : combPostList){
+            Combination comb = combPost.getCombination();
+
+            String menuId = comb.getCombinationId().substring(0,1);
+            Menu menu = menuRepository.findByMenuId(menuId);
+            combPost.setMenuName(menu.getMenuName());
+            combPost.setIngredients(this.getIngredientList(comb.getCombinationId()));
+        }
+
+        return combPostList;
     }
 }

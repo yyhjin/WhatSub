@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div align="center" style="font-size: 18px; font-weight: bold">개인 맞춤 추천</div>
+    <div class="mt-5" align="center" style="font-size: 18px; font-weight: bold">개인 맞춤 추천</div>
     <v-card
       class="home_cover home_card_b myclass3"
       elevation="5"
@@ -88,6 +88,7 @@ export default {
     this.getCombiBasedIndividual({
       userId: this.sampleUserId,
     });
+    console.log(this.combiBasedIndividual.ingredients.length);
     for (let index = 0; index < this.combiBasedIndividual.ingredients.length; index++) {
       if (this.combiBasedIndividual.ingredients[index].category == "빵") {
         this.bread.push(this.combiBasedIndividual.ingredients[index].name);

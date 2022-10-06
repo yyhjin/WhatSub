@@ -7,8 +7,9 @@ const COMB = 'comb/'
 
 export default {
   comb: {
-    read: (combinationPostId) => HOST + COMB + `${combinationPostId}`,
-    exist: (combinationId) => HOST + COMB + `exist/${combinationId}`
+    read: (combinationPostId, userId) => HOST + COMB + `${combinationPostId}/${userId}`,
+    exist: (combinationId) => HOST + COMB + `exist/${combinationId}`,
+    ingre: (combinationPostId) => HOST + COMB + `${combinationPostId}`
   },
  
 }

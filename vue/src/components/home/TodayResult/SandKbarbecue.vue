@@ -6,10 +6,15 @@
           <h3 align="center">K-바비큐</h3>
         </div>
         <div class="pt-3 pb-5" align="center">
-          <v-img height="110" width="200" src="https://picsum.photos/510/300?random"></v-img>
+          <v-img
+            class="shadow_img"
+            height="110"
+            width="200"
+            src="https://whatsub.s3.ap-northeast-2.amazonaws.com/SUBWAY/Sandwich/K-BBQ.png"
+          ></v-img>
         </div>
         <div align="center">
-          <v-btn class="green_btn" width="210" elevation="0" small rounded @click="startTodayReco"
+          <v-btn class="green_btn" width="210" elevation="0" small rounded @click="goCombiTab"
             >K-바비큐 꿀조합 보러가기</v-btn
           >
         </div>
@@ -24,11 +29,26 @@
 </template>
 
 <script>
+import { mapActions, mapGetters } from "vuex";
+
 export default {
   name: "SandKbarbecue",
+  computed: {
+    ...mapGetters(["sampleUserId"]),
+  },
   methods: {
+    ...mapActions(["getFilteringMenu"]),
     goTodayReco() {
       this.$router.go(0);
+    },
+    goCombiTab() {
+      this.getFilteringMenu({
+        menuId: "n",
+        userId: this.sampleUserId,
+      });
+      this.$router.push({
+        name: "combination",
+      });
     },
   },
 };

@@ -1,9 +1,13 @@
 package com.ssafy.spring.user.dto;
 
 import com.ssafy.spring.comb.dto.CombPostDto;
+import com.ssafy.spring.comb.dto.IngredientDto;
 import com.ssafy.spring.user.entity.Dib;
 import lombok.Getter;
 import lombok.Setter;
+
+import java.util.ArrayList;
+import java.util.List;
 
 //@Data
 @Getter @Setter

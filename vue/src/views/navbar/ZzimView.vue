@@ -23,7 +23,7 @@ export default {
   },
 
   mounted () {
-    this.fetchDibList(this.currentUser.username)
+    this.fetchDibList()
   }
 }
 </script>

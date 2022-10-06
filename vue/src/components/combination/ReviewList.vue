@@ -5,7 +5,6 @@
         <v-col>
           <h3 style="font-size: 16px">리뷰({{ combiReview.length }})</h3>
         </v-col>
-        <v-col class="mt-1" cols="4" style="font-size: 13px">평점순 | 최신순</v-col>
       </v-row>
     </v-container>
     <v-card height="1" width="360" elevation="0" style="background-color: #d9d9d9">&nbsp;</v-card>

@@ -9,6 +9,7 @@ import com.ssafy.spring.comb.entity.CombinationPost;
 import com.ssafy.spring.comb.entity.Ingredient;
 import com.ssafy.spring.comb.entity.Menu;
 import com.ssafy.spring.comb.service.*;
+import com.ssafy.spring.order.dto.OrderResponse;
 import com.ssafy.spring.order.entity.OrderHistory;
 import com.ssafy.spring.order.service.OrderHistoryService;
 import com.ssafy.spring.review.dto.ReviewResponse;
@@ -28,10 +29,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
 
 
@@ -75,32 +73,34 @@ public class CombPostController {
     }
 
 
-    @ApiOperation(value = "게시판 등록 여부", notes = "해당 조합이 꿀조합 게시판에 있는지 확인한다.\n있으면 해당 게시글 번호 반환 / 없으면 -1 반환", httpMethod = "GET")
+    @ApiOperation(value = "게시판 등록 여부", notes = "해당 조합이 꿀조합 게시판에 있는지 확인한다.\n있으면 해당 게시글 번호 반환 / 없으면 해당 조합 정보 반환", httpMethod = "GET")
     @GetMapping("/exist/{combinationId}")
     public SuccessResponseResult checkPostExist(@PathVariable String combinationId) {
 
         CombinationPost post = combPostService.findByCombination_CombinationId(combinationId);
         int postId;
 
-        if(post == null)
-            postId = -1;
-        else
+        if(post == null) {
+            CombDto combDto = new CombDto(combService.findByCombinationId(combinationId));
+            return new SuccessResponseResult(combDto);
+        }
+        else {
             postId = post.getCombinationPostId();
-
-        return new SuccessResponseResult(postId);
+            return new SuccessResponseResult(postId);
+        }
     }
 
 
     @ApiOperation(value = "꿀조합 게시글 등록", notes = "꿀조합 게시판에 글을 등록한다.", httpMethod = "POST")
     @PostMapping("/board")
-    @Transactional
+    //@Transactional
     public SuccessResponseResult createCombPost(@RequestPart(value = "combPostRequest") CombPostRequest combPostRequest, @RequestPart(value = "file", required = false) MultipartFile file) {
 
         Combination comb = combService.findByCombinationId(combPostRequest.getCombinationId());
         User user = userService.getUserByUserId(combPostRequest.getUserId());
 
         String imgurl;
-        if(file.isEmpty()) {
+        if(Objects.isNull(file)) {
             String menuid = combPostRequest.getCombinationId().substring(0,1);
             Menu menu = menuService.getMenuByMenuId(menuid);
             imgurl = menu.getImgUrl();
@@ -115,12 +115,13 @@ public class CombPostController {
 
 
     @ApiOperation(value = "게시글 조회", notes = "해당 게시글의 정보들을 조회한다.", httpMethod = "GET")
-    @GetMapping("/{combinationPostId}")
-    public SuccessResponseResult getPostDetail(@PathVariable int combinationPostId) throws JsonProcessingException {
+    @GetMapping("/{combinationPostId}/{userId}")
+    public SuccessResponseResult getPostDetail(@PathVariable int combinationPostId, @PathVariable int userId) throws JsonProcessingException {
 
         CombPostResponse.PostDetailResponse response = new CombPostResponse.PostDetailResponse();
 
         CombinationPost post = combPostService.findByCombinationPostId(combinationPostId);
+
 
         response.setCombinationPostId(combinationPostId);
         response.setCombination(post.getCombination());
@@ -132,27 +133,25 @@ public class CombPostController {
         response.setScoreAvg(post.getScoreAvg());
 
         // Json string -> Object로 변환
-        String statistics = post.getStatistics();
-        ObjectMapper objectMapper = new ObjectMapper();
-        StatisticsDto statisticsDto = objectMapper.readValue(statistics, StatisticsDto.class);
-        response.setStatistics(statisticsDto);
+        if(post.getStatistics() != null) {
+            String statistics = post.getStatistics();
+            ObjectMapper objectMapper = new ObjectMapper();
+            StatisticsDto statisticsDto = objectMapper.readValue(statistics, StatisticsDto.class);
+            response.setStatistics(statisticsDto);
+        }
+        else {
+            response.setStatistics(new StatisticsDto());
+        }
 
         // 메뉴 정보
         String menuId = post.getCombination().getCombinationId().substring(0,1);
         Menu menu = menuService.getMenuByMenuId(menuId);
         response.setMenuName(menu.getMenuName());
 
-        System.out.println(post.getCombination().getCombinationId());
-        System.out.println(post.getCombination().getCombinationId().substring(0,1));
-        System.out.println(menu.getMenuName());
-        System.out.println(post.getCombination().getCombinationId().substring(1));
-
-
         // 재료 정보
         List<IngredientDto.ingredientResponse> ingredients = new ArrayList<>();
 
         String list = post.getCombination().getCombinationId().substring(1);
-        //String[] ingredient = new String[list.length()/2];
         for (int i = 0, j = 0; j < list.length()/2; i += 2, j++) {
             IngredientDto.ingredientResponse ingredientResponse = new IngredientDto.ingredientResponse();
             String ingredientId = list.substring(i, i+2);
@@ -173,12 +172,48 @@ public class CombPostController {
 
         response.setReviews(reviewList);
 
+        // 찜 여부
+        Dib dib = dibService.findByCombinationPost_CombinationPostIdAndUser_UserId(post.getCombinationPostId(), userId);
+        if(dib == null) response.setDib(0);
+        else response.setDib(1);
+
         return new SuccessResponseResult(response);
     }
 
+
+    @ApiOperation(value = "게시글 메뉴, 재료 조회", notes = "해당 게시글의 재료 정보들을 조회한다.", httpMethod = "GET")
+    @GetMapping("/{combinationPostId}")
+    public SuccessResponseResult getPostIngredients(@PathVariable int combinationPostId) {
+
+        CombPostResponse.MenuIngredient response = new CombPostResponse.MenuIngredient();
+
+        CombinationPost post = combPostService.findByCombinationPostId(combinationPostId);
+
+        // 메뉴
+        String menuId = post.getCombination().getCombinationId().substring(0,1);
+        Menu menu = menuService.getMenuByMenuId(menuId);
+        OrderResponse.MenuDto menuDto = new OrderResponse.MenuDto(menu);
+        response.setMenu(menuDto);
+
+        // 재료
+        List<OrderResponse.IngredientDto> ingredientDtos = new ArrayList<>();
+
+        String list = post.getCombination().getCombinationId().substring(1);
+        for (int i = 0, j = 0; j < list.length()/2; i += 2, j++) {
+            String ingredientId = list.substring(i, i+2);
+            OrderResponse.IngredientDto ingredientResponse = new OrderResponse.IngredientDto(ingredientService.findByIngredientId(ingredientId));
+            ingredientDtos.add(ingredientResponse);
+        }
+
+        response.setIngredients(ingredientDtos);
+
+        return new SuccessResponseResult(response);
+    }
+
+
     @ApiOperation(value = "메뉴로 게시글 목록 조회", notes = "해당하는 메뉴의 게시글 목록을 조회한다.", httpMethod = "GET")
-    @GetMapping("/menu/{menuId}")
-    public SuccessResponseResult getPostsByMenu(@PathVariable String menuId) {
+    @GetMapping("/menu/{menuId}/{userId}")
+    public SuccessResponseResult getPostsByMenu(@PathVariable String menuId, @PathVariable int userId) {
 
         List<CombPostResponse.PostResponse> posts = new ArrayList<>();
 
@@ -219,6 +254,11 @@ public class CombPostController {
             List<Review> reviews = reviewService.getReviewList(current.getCombinationPostId());
             response.setReviewCnt(reviews.size());
 
+            // 찜 여부
+            Dib dib = dibService.findByCombinationPost_CombinationPostIdAndUser_UserId(current.getCombinationPostId(), userId);
+            if(dib == null) response.setDib(0);
+            else response.setDib(1);
+
             posts.add(response);
         }
 
@@ -226,8 +266,8 @@ public class CombPostController {
     }
 
     @ApiOperation(value = "Best 게시글 조회", notes = "Best 게시글의 정보를 조회한다.\n좋아요 가장 많은 게시물, 같을 시 별점으로", httpMethod = "GET")
-    @GetMapping("/best")
-    public SuccessResponseResult getBestPost() {
+    @GetMapping("/best/{userId}")
+    public SuccessResponseResult getBestPost(@PathVariable int userId) {
 
         CombPostResponse.PostResponse response = new CombPostResponse.PostResponse();
 
@@ -265,13 +305,18 @@ public class CombPostController {
         List<Review> reviews = reviewService.getReviewList(post.getCombinationPostId());
         response.setReviewCnt(reviews.size());
 
+        // 찜 여부
+        Dib dib = dibService.findByCombinationPost_CombinationPostIdAndUser_UserId(post.getCombinationPostId(), userId);
+        if(dib == null) response.setDib(0);
+        else response.setDib(1);
+
         return new SuccessResponseResult(response);
     }
 
 
     @ApiOperation(value = "정렬 기준에 따라 게시글 목록 조회", notes = "선택한 정렬 기준에 따라 게시글 목록을 조회한다.\n0 : 별점순\n1 : 최신순", httpMethod = "GET")
-    @GetMapping("/order/{orderNo}")
-    public SuccessResponseResult getPostsOrderBy(@PathVariable int orderNo) {
+    @GetMapping("/order/{orderNo}/{userId}")
+    public SuccessResponseResult getPostsOrderBy(@PathVariable int orderNo, @PathVariable int userId) {
 
         List<CombPostResponse.PostResponse> posts = new ArrayList<>();
         List<CombinationPost> list = new ArrayList<>();
@@ -319,6 +364,11 @@ public class CombPostController {
             List<Review> reviews = reviewService.getReviewList(current.getCombinationPostId());
             response.setReviewCnt(reviews.size());
 
+            // 찜 여부
+            Dib dib = dibService.findByCombinationPost_CombinationPostIdAndUser_UserId(current.getCombinationPostId(), userId);
+            if(dib == null) response.setDib(0);
+            else response.setDib(1);
+
             posts.add(response);
         }
 
@@ -364,6 +414,7 @@ public class CombPostController {
     @ApiOperation(value = "게시글 통계 갱신", notes = "하루에 한 번씩 모든 게시글에 대한 통계를 갱신하여 저장한다.", httpMethod = "GET")
     @GetMapping("/statistics")
     @Scheduled(cron = "0 0 12 * * *")
+    @Transactional
     @Async
     public void updatePostStatistics() throws JsonProcessingException {
 
@@ -425,6 +476,7 @@ public class CombPostController {
                 else if(user_age>=60) map.put("sixties", map.get("sixties")+1);
 
                 // SUBTI count
+                if(user_subti == null) continue;
                 String subti = user_subti.toLowerCase();
                 map.put(subti, map.get(subti)+1);
 
@@ -437,6 +489,7 @@ public class CombPostController {
             // 게시글에 통계 저장
             combPostService.statisticsUpdate(curPost, statisticsJson);
         }
+
 
     }
 }

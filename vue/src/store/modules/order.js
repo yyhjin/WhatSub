@@ -3,7 +3,7 @@ import api from "@/api/api"
 
 export default {
   state: {
-    selectedStore: localStorage.getItem('store') || null,
+    selectedStore: JSON.parse(localStorage.getItem('store')) || null,
     basket: JSON.parse(localStorage.getItem('basket')) || [],
     menus: [],
     breads: [],
@@ -85,7 +85,7 @@ export default {
 
     REMOVE_SELECTEDSAUCE: (state, value) => {
       state.selectedSauce = state.selectedSauce.filter(sauce => 
-         sauce !== value 
+         sauce.ingredientId !== value.ingredientId 
       )
       localStorage.setItem('sauce', JSON.stringify(state.selectedSauce))
     },
@@ -97,7 +97,7 @@ export default {
 
     REMOVE_SELECTEDMORE: (state, value) => {
       state.selectedMore = state.selectedMore.filter(more => 
-         more !== value 
+         more.ingredientId !== value.ingredientId 
       )
       localStorage.setItem('more', JSON.stringify(state.selectedMore))
     },
@@ -109,7 +109,7 @@ export default {
     
     REMOVE_SELECTEDVEGE: (state, value) => {
       state.selectedVege = state.selectedVege.filter(vege => 
-         vege !== value 
+         vege.ingredientId !== value.ingredientId 
       )
       localStorage.setItem('vege', JSON.stringify(state.selectedVege))
     },
@@ -126,7 +126,13 @@ export default {
       if (state.basket[value].cnt > 0){
         (state.basket[value].cnt -= 1)
       }
-    }
+    },
+
+    RESET_MORE: (state) => state.selectedMore = [],
+    RESET_VEGE: (state) => state.selectedVege = [],
+    RESET_SAUCE: (state) => state.selectedSauce = [],
+    RESET_STORE: (state) => state.selectedStore = null,
+    RESET_BASKET: (state) => state.basket = null,
   },
   actions: {
     fetchMenus ({commit}) {
@@ -267,6 +273,28 @@ export default {
       commit('DOWN_CNT', index)   
     },
 
-    
+    resetMore ({ commit }) {
+      commit('RESET_MORE')
+    },
+
+    resetVege ({ commit }) {
+      commit('RESET_VEGE')
+    },
+
+    resetSauce ({ commit }) {
+      commit('RESET_SAUCE')
+    },
+
+    resetStore ({ commit }) {
+      commit('RESET_STORE')
+    },
+
+    resetBasket ({ commit }) {
+      commit('RESET_BASKET')
+    },
+
+    // letCheck() {
+    //   console.log('!!!!!!!!')
+    // }
   },
 };

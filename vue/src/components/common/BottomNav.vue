@@ -10,7 +10,10 @@
       <v-icon>mdi-equalizer</v-icon>
     </v-btn>
 
-    <v-btn class="clickBtn" @click="[routerPushes('combination'), fetchBottomValue(3)]">
+    <v-btn
+      class="clickBtn"
+      @click="[fetchCombiList(), routerPushes('combination'), fetchBottomValue(3)]"
+    >
       <span>꿀조합</span>
       <v-icon>mdi-magnify</v-icon>
     </v-btn>
@@ -39,12 +42,23 @@ export default {
     };
   },
   computed: {
-    ...mapGetters(["bottomValue"]),
+    ...mapGetters(["bottomValue", "sampleUserId", "sampleUserName"]),
   },
   methods: {
-    ...mapActions(["fetchBottomValue"]),
+    ...mapActions(["fetchBottomValue", "getMyList", "getCombiList"]),
     routerPushes(icon) {
       router.push({ name: icon });
+    },
+    // clickMyPage(userName) {
+    //   this.getMyList({
+    //     userName: userName,
+    //   });
+    // },
+    fetchCombiList() {
+      this.getCombiList({
+        orderNo: 1,
+        userId: this.sampleUserId,
+      });
     },
   },
   watch: {

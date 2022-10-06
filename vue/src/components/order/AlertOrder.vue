@@ -16,19 +16,87 @@
 </template>
 
 <script>
+import { mapActions, mapGetters } from 'vuex'
 export default {
   name: "AlertOrder",
 
+  props: {
+    cnt:Number,
+    totalPrice:Number,
+    selectedStore:String
+  },
+
+  computed: {
+    ...mapGetters(['selectedMenu', 'selectedSize', 'selectedBread', 'selectedCheese', 
+    'selectedMoreCheese', 'selectedMore', 'selectedVege', 'selectedSauce', 'selectedMoreMeat']),
+    store () {
+      return JSON.parse(this.selectedStore)
+    }
+  },
+
   methods: {
+    ...mapActions(['selectMenu', 'selectSize', 'selectBread', 'selectCheese', 
+    'selectMoreCheese', 'resetMore', 'resetVege', 'resetSauce', 'selectMoreMeat']),
     goBasket () {
+      this.setBasket()
+      this.reset()
       this.$router.push('/orderbasket')
     },
 
     goFirst () {
+      this.setBasket()
+      this.reset()
       this.$router.replace('/ordertwo')
-    }
+    },
+
+    setBasket () {
+      const bas = JSON.parse(localStorage.getItem('basket')) || []
+      let order = {
+        'store': this.store,
+        'menu' : this.selectedMenu,
+        'size' : this.selectedSize,
+        'vege' : this.selectedVege,
+        'more' : this.selectedMore,
+        'sauce' : this.selectedSauce,
+        'moremeat' : this.selectedMoreMeat,
+        'bread' : this.selectedBread,
+        'cheese' : this.selectedCheese,
+        'cnt' : this.cnt,
+        'price' : this.totalPrice
+      }
+      
+      bas.push(order)
+      localStorage.setItem('basket', JSON.stringify(bas))
+    },
+
+    reset() {
+      localStorage.setItem('menu', null)
+      localStorage.setItem('size', null)
+      localStorage.setItem('vege', null)
+      localStorage.setItem('more', null)
+      localStorage.setItem('sauce', null)
+      localStorage.setItem('bread', null)
+      localStorage.setItem('cheese', null)
+      localStorage.setItem('moremeat', null)
+      localStorage.setItem('morecheese', null)
+  
+      this.selectMenu(null)
+      this.selectSize(null)
+      this.selectBread(null)
+      this.selectCheese(null) 
+      this.selectMoreCheese(null)
+      this.resetMore()
+      this.resetVege()
+      this.resetSauce()
+      this.selectMoreMeat(null)
+    },
+
+    // unmounted () {
+    //   this.reset()
+    // }
   }
 }
+
 </script>
 
 <style scoped>

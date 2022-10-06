@@ -2,11 +2,14 @@ package com.ssafy.spring.comb.dto;
 
 import com.ssafy.spring.comb.entity.Combination;
 import com.ssafy.spring.comb.entity.CombinationPost;
+import com.ssafy.spring.recommend.dto.IngredientDto;
 import com.ssafy.spring.user.dto.UserDto;
 import lombok.Getter;
 import lombok.Setter;
 
 import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.List;
 
 @Getter @Setter
 public class CombPostDto {
@@ -21,6 +24,7 @@ public class CombPostDto {
     private int likesCnt;
     private Timestamp createdAt;
     private String statistics;
+    private List<IngredientDto> ingredients = new ArrayList<>();
 
     public CombPostDto (CombinationPost combinationPost){
         this.combinationPostId = combinationPost.getCombinationPostId();

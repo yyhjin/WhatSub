@@ -6,7 +6,7 @@
       <v-form class="form" @submit.prevent="signup">
         <div class="image">
           <v-avatar>
-            <img src="https://cdn.vuetifyjs.com/images/john.jpg" alt="" id="preview">
+            <img :src="imgUrl" alt="" id="preview">
           </v-avatar>
           <v-file-input
             accept="image/png, image/jpeg, image/bmp, image/jpg"
@@ -17,7 +17,10 @@
           ></v-file-input>
         </div>
         <div class="nickname">
-          <v-text-field label="닉네임" v-model="credentials.username"></v-text-field>
+          <div style="display:flex;">
+            <v-text-field label="닉네임" v-model="credentials.username" class="nameInput"></v-text-field>
+            <v-icon v-if="checked">mdi-check</v-icon>
+          </div>
           <v-btn class="main_btn name_btn" @click="checkId(credentials.username)">닉네임 중복검사</v-btn>
         </div>
         <div class="gender">
@@ -25,11 +28,11 @@
           <v-radio-group v-model="credentials.gender" row class="radio">
             <v-radio
               label="남자"
-              value="radio-1"
+              value="1"
             ></v-radio>
             <v-radio
               label="여자"
-              value="radio-2"
+              value="0"
             ></v-radio>
           </v-radio-group>
         </div>
@@ -75,13 +78,14 @@ export default {
       credentials: {
         username: '',
         gender: '',
-        birthYear: ''
+        birthYear: null
       },
       items : items,
       formData: formData,
       code: '',
       accessToken : '',
-      refreshToken : ''
+      imgUrl: '',
+      checked: 0
     }
   },
 
@@ -96,18 +100,25 @@ export default {
         console.log(res)
         if (res.data.data === false) {
           alert('가능')
+          this.checked = true
         } else {
+          this.checked=false
           alert('있는 아이디')
         }
       }).catch(err => console.error(err))
     },
 
     signup () {
-      this.formData.append("username", this.credentials.username)
-      this.formData.append("gender", this.credentials.gender)
-      this.formData.append("birthYear", this.credentials.birthYear)
-      //formData를 axios로 서버로 보냄
-      this.$store.dispatch('signup', this.formData)
+      if (!this.checked) {
+        alert('중복검사 실시')
+      } else {
+        this.formData.append("userName", this.credentials.username)
+        this.formData.append("gender", this.credentials.gender)
+        this.formData.append("birthYear", this.credentials.birthYear)
+        //formData를 axios로 서버로 보냄
+        this.formData.append('email', '')
+        this.$store.dispatch('signup', this.formData)
+      }
      
     },
 
@@ -119,7 +130,7 @@ export default {
     console.log(input)
     console.dir(input)
     reader.readAsDataURL(input);
-    this.formData.append('profile_img', input)
+    this.formData.append('profileImg', input)
   },
 
 
@@ -163,8 +174,10 @@ export default {
           code:this.code
         },
       }).then(res => {
+        this.imgUrl = res.data.data.profileImage
         console.log(res)
         this.saveToken(res.data.data.accessToken)
+        // this.formData.append('userId', res.data.data.userId)
         this.saveUserName(res.data.data.userName)
         // this.fetchCurrentUser(res.data.data.userName)
         if (res.data.data.result === 1) {

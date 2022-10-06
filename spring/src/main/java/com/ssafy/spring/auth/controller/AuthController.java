@@ -33,12 +33,8 @@ public class AuthController {
     @ApiOperation(value = "카카오 로그인", notes="인가 코드를 주면 기존 유저는 1, 신규 유저는 회원가입 후 2 반환", httpMethod = "GET")
     @GetMapping("/login")
     public SuccessResponseResult kakakoLogin(@RequestParam String code, HttpServletResponse httpServletResponse){
-        System.out.println("로그인 함수 실행");
         KakaoTokenInfo kakaoTokenInfo = authService.getTokenByCode(code);
-        System.out.println("kakaoTokenInfo = " + kakaoTokenInfo);
-
         KakaoUserInfo kakaoUserInfo = authService.getUserByAccessToken(kakaoTokenInfo.getAccessToken());
-        System.out.println("kakaoUserInfo" + kakaoUserInfo);
 
         String authId = Long.toString(kakaoUserInfo.getId());
         User user;
@@ -48,19 +44,20 @@ public class AuthController {
         if(userService.existsByAuthId(authId)){
             user = userService.getUserByAuthId(authId);
 
-            String accessToken = jwtUtil.createToken(user.getEmail());
+            String accessToken = jwtUtil.createToken(user.getAuthId());
             loginResponse = new AuthResponse.LoginResponse(user, 1, accessToken);
         }
         else { // 새 회원이면 회원가입 및 로그인 시키고 2 리턴
             user = User.builder()
                     .authId(Long.toString(kakaoUserInfo.getId()))
-                    .userName(kakaoUserInfo.getNickname())
+//                    .userName(kakaoUserInfo.getNickname())
                     .profileImg(kakaoUserInfo.getProfileImage())
-//                    .refreshToken(kakaoTokenInfo.getRefreshToken())
                     .build();
             userService.save(user);
 
-            String accessToken = jwtUtil.createToken(user.getEmail());
+            // DB에는 저장하지 않고 프론트에만 이름 리턴(칼럼 유니크 조건 때문)
+            user.setUserName(kakaoUserInfo.getNickname());
+            String accessToken = jwtUtil.createToken(user.getAuthId());
             loginResponse = new AuthResponse.LoginResponse(user, 2, accessToken);
         }
 

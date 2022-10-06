@@ -5,7 +5,11 @@
     </div>
     <div class="pt-20" align="center">
       <div class="pb-4">
-        <v-avatar color="grey lighten-1" size="80"><img src="" alt="user image" /></v-avatar>
+        <v-avatar color="grey lighten-1" size="90"
+          ><img
+            src="https://whatsub.s3.ap-northeast-2.amazonaws.com/default/homin.png"
+            alt="user image"
+        /></v-avatar>
       </div>
       <div>
         <h3>{{ userInfo.nick }}</h3>
@@ -15,7 +19,7 @@
       </div>
     </div>
     <div>
-      <collection-list :collection-info="userInfo.collection"></collection-list>
+      <collection-list></collection-list>
     </div>
     <div class="bottom">
       <bottom-nav></bottom-nav>
@@ -27,6 +31,7 @@
 import TopNav from "@/components/common/TopNav.vue";
 import BottomNav from "@/components/common/BottomNav.vue";
 import CollectionList from "@/components/profile/CollectionList.vue";
+import { mapActions, mapGetters } from "vuex";
 
 export default {
   name: "MyPageView",
@@ -61,6 +66,17 @@ export default {
         ],
       },
     };
+  },
+  computed: {
+    ...mapGetters(["profile", "sampleUserName", "username"]),
+  },
+  created() {
+    this.fetchProfile({
+      username: this.username,               //나중에 제대로 구현되면 지워야할듯
+    });
+  },
+  methods: {
+    ...mapActions(["fetchProfile"]),
   },
 };
 </script>
