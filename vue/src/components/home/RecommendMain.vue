@@ -1,6 +1,6 @@
 <template>
   <div class="maincover">
-    <div v-if="!value" style="position: relative">
+    <div v-if="!val" style="position: relative">
       <div class="" style="position: absolute; z-index: 2; width:100%;">
         <v-card class="home_cover myclass" height="350" width="95%" elevation="5" outlined>
           <div class="pt-15" align="center">
@@ -60,19 +60,19 @@
         </div>
       </div>
     </div>
-    <div v-if="value">
+    <div v-if="val">
       <div class="main_card">
         <recommend-personal v-if="isLoad"></recommend-personal>
         <div class="text-center" v-else>
           <v-progress-circular
-            :rotate="360"
-            :size="100"
-            :width="15"
-            :time="time"
-            color="teal"
-          >
-            {{ time }}
-          </v-progress-circular>
+        :rotate="360"
+        :size="100"
+        :width="15"
+        :value="value"
+        color="teal"
+      >
+        {{ value }}
+      </v-progress-circular>
         </div>
       </div>
       <div class="main_card">
@@ -99,12 +99,12 @@ export default {
   data () {
       return {
         interval: {},
-        time: 0,
+        value: 0,
       }
   },
   computed: {
   ...mapGetters(['profile', 'isLoad']),
-    value () {
+    val () {
       return this.profile.subti===null ? false:true
       
     }
@@ -118,10 +118,10 @@ export default {
 
   mounted () {
     this.interval = setInterval(() => {
-      if (this.time === 100) {
-        return (this.time = 0)
+      if (this.value === 100) {
+        return (this.value = 0)
       }
-      this.time += 25
+      this.value += 25
     }, 1000)
   },
 
