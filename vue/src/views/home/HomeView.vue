@@ -3,13 +3,6 @@
     <div class="top">
       <top-nav></top-nav>
     </div>
-    <div class="moreBtn mt-n2">
-      <div class="id">ssafy07</div>
-      <div @click="goOrderDetail">최근 주문 내역</div>
-      <div @click="goZzim">꿀조합 찜 목록</div>
-      <div @click="goSub">썹bti 재검사</div>
-      <div class="logout" @click="logout">로그아웃</div>
-    </div>
     <div>
       <recommend-main></recommend-main>
     </div>
@@ -40,90 +33,39 @@ import TopNav from "@/components/common/TopNav.vue";
 import BottomNav from "@/components/common/BottomNav.vue";
 import RecommendMain from "@/components/home/RecommendMain.vue";
 import RecommendCombList from "@/components/home/RecommendCombList.vue";
+import { mapActions, mapGetters } from 'vuex';
 
 export default {
   name: "HomeView",
   components: { TopNav, BottomNav, RecommendMain, RecommendCombList },
   data() {
     return {
-      combiList: [
-        {
-          id: 1,
-          name: "sand1",
-          basic: "에그마요",
-          score: 1.5,
-          desc: "닭가슴살로 만든 치키 슬라이스를 담백하게 즐겨보세요.",
-          nutri: 300,
-          ingre: ["플랫브래드", "오이1", "토마토1"],
-          price: 5400,
-        },
-        {
-          id: 2,
-          name: "sand2",
-          basic: "터키 베이컨 아보카도",
-          score: 2.5,
-          desc: "맛난 샌드위치2~",
-          nutri: 250,
-          ingre: "토마토2",
-          price: 6400,
-        },
-        {
-          id: 3,
-          name: "sand3",
-          score: 3.5,
-          desc: "맛난 샌드위치3~",
-          basic: "치킨 슬라이스",
-          nutri: 350,
-          ingre: "토마토3",
-          price: 7400,
-        },
-        {
-          id: 4,
-          name: "sand4",
-          basic: "스테이크&치즈",
-          score: 4.5,
-          desc: "맛난 샌드위치4~",
-          nutri: 450,
-          ingre: "토마토4",
-          price: 7400,
-        },
-        {
-          id: 5,
-          name: "sand5",
-          basic: "터키 베이컨 아보카도",
-          score: 5.5,
-          desc: "맛난 샌드위치5~",
-          nutri: 550,
-          ingre: "토마토5",
-          price: 7400,
-        },
-      ],
+      combiList: []
     };
   },
+  computed: {
+    ...mapGetters(['username'])
+  },
   methods: {
+    ...mapActions(['fetchProfile']),
     goTodayReco() {
       this.$router.push({ name: "recommendtoday" });
     },
     goNutriReco() {
       this.$router.push({ name: "recommendnutrition" });
     },
-    goOrderDetail() {
-      this.$router.push({ name: "orderdetail" });
-    },
-    goZzim() {
-      this.$router.push({ name: "zzim" });
-    },
-    goSub() {
-      this.$router.push({ name: "surveysubti" });
-    },
-    logout() {},
   },
+  mounted() {
+    this.fetchProfile({username:this.usernam})
+  }
 };
 </script>
 
 <style scoped>
 @import "@/scss/common.scss";
-
+.top {
+  z-index: 5;
+}
 .bottom {
   position: fixed;
   width: 100%;
