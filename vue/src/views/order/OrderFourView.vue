@@ -92,7 +92,7 @@ import ChooseSauce from "../../components/order/ChooseSauce.vue";
 import ChooseVege from "../../components/order/ChooseVege.vue";
 import AlertOrder from "@/components/order/AlertOrder";
 import ChooseMoreCheese from "../../components/order/ChooseMoreCheese.vue";
-
+import swal from 'sweetalert';
 export default {
   components: {
     AlertOrder,
@@ -278,10 +278,10 @@ export default {
 
     setBasket() {
       if (this.selectedBread === null || this.selectedBread === undefined) {
-        alert("빵을 골라주세요");
+        swal("빵을 골라주세요");
       } else {
         if (this.selectedCheese === null || this.selectedCheese === undefined) {
-          alert("치즈를 골라주세요");
+          swal("치즈를 골라주세요");
         } else {
           const modal = document.querySelector(".modal");
           modal.style.display = "block";

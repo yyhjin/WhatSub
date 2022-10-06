@@ -44,7 +44,7 @@
 <script>
 import { mapActions } from 'vuex';
 import OrderDe from './OrderDe.vue';
-
+import swal from 'sweetalert';
 
 export default {
   components: { OrderDe },
@@ -88,7 +88,7 @@ export default {
     goOrderCombi() {  
       var radio = document.querySelector('input[type=radio][name=order]:checked');
       if (radio === null) {
-        alert('하나를 선택해주세요')
+        swal('하나를 선택해주세요')
       } else {
         this.selectMenu(this.orderMenu.combinationList[radio.value].menu)
         this.orderMenu.combinationList[radio.value].ingredients.forEach(ingredient => {

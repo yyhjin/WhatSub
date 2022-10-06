@@ -14,6 +14,7 @@
 
 <script>
 import { mapActions, mapGetters } from "vuex";
+import swal from 'sweetalert';
 export default {
   name: "SauceItem",
 
@@ -36,7 +37,7 @@ export default {
 
     select(event, sauce) {
       if (this.isSauce === false && this.selectedSauce.length === 3) {
-        alert("3개만 고르세요");
+        swal("3개만 고르세요");
         event.target.checked = false;
       } else {
         if (event.target.checked) {
