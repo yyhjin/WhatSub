@@ -87,7 +87,7 @@ export default {
   },
 
   computed: {
-    ...mapGetters(["profile", "username"]),
+    ...mapGetters(["profile"]),
     com() {
       return JSON.parse(this.combi);
     },
@@ -137,7 +137,7 @@ export default {
   },
 
   mounted() {
-    this.fetchProfile({ username: this.username });
+    this.fetchProfile();
   },
 };
 </script>

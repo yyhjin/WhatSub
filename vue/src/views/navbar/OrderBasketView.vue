@@ -45,7 +45,7 @@ export default {
     },
   },
   computed: {
-    ...mapGetters(["basket", "selectedStore", "profile", "username"]),
+    ...mapGetters(["basket", "selectedStore", "profile"]),
 
     totalPrice() {
       let price = 0;
@@ -170,20 +170,20 @@ export default {
         .catch((err) => {
           console.error("makeorder 에러", err);
         })
-        .then((res) => {
-          console.log(res);
-          console.log(combinationList);
-          this.$router.push({ name: "ordercheck", params: { orderId: res.data.data.orderId } }); // 요청 성공하면 주소 옮기는게 나을수도
-        })
-        .catch((err) => {
-          console.error(err);
-          console.log(combinationList);
-        });
+        // .then((res) => {
+        //   console.log(res);
+        //   console.log(combinationList);
+        //   this.$router.push({ name: "ordercheck", params: { orderId: res.data.data.orderId } }); // 요청 성공하면 주소 옮기는게 나을수도
+        // })
+        // .catch((err) => {
+        //   console.error(err);
+        //   console.log(combinationList);
+        // });
     },
   },
 
   mounted() {
-    this.fetchProfile({ username: this.username });
+    this.fetchProfile();
     this.fetchBasket();
     localStorage.removeItem(
       "menu",
