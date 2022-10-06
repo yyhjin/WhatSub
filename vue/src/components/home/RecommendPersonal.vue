@@ -32,7 +32,7 @@
             <div style="font-size: 14px; font-weight: bold">
               <div>빵: {{ bread[0] }}</div>
               <div>치즈: {{ cheese[0] }}</div>
-              <div>소스: {{ sauce[0] }} {{ sauce[1] }}</div>
+              <div>소스: <span v-for="sau in sauce" :key="sau">{{sau}}</span></div>
             </div>
           </v-col>
         </v-row>
@@ -81,7 +81,7 @@ export default {
     };
   },
   computed: {
-    ...mapGetters(["combiBasedIndividual", "profile", "username"]),
+    ...mapGetters(["combiBasedIndividual", "profile"]),
   },
   
 
@@ -99,7 +99,7 @@ export default {
       } else if (this.combiBasedIndividual.ingredients[index].category == "치즈") {
         this.cheese.push(this.combiBasedIndividual.ingredients[index].name);
       } else if (this.combiBasedIndividual.ingredients[index].category == "소스") {
-        this.sauce.push(this.combiBasedIndividuals.ingredients[index].name);
+        this.sauce.push(this.combiBasedIndividual.ingredients[index].name);
       }
     }
     }
