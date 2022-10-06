@@ -62,7 +62,18 @@
     </div>
     <div v-if="value">
       <div class="main_card">
-        <recommend-personal></recommend-personal>
+        <recommend-personal v-if="isLoad"></recommend-personal>
+        <div class="text-center" v-else>
+          <v-progress-circular
+            :rotate="360"
+            :size="100"
+            :width="15"
+            :time="time"
+            color="teal"
+          >
+            {{ time }}
+          </v-progress-circular>
+        </div>
       </div>
       <div class="main_card">
         <recommend-subti></recommend-subti>
@@ -70,6 +81,12 @@
     </div>
   </div>
 </template>
+
+
+    
+
+
+
 
 <script>
 import { mapGetters } from 'vuex';
@@ -79,13 +96,14 @@ import RecommendSubti from "./RecommendSubti.vue";
 export default {
   name: "RecommendMain",
   components: { RecommendPersonal, RecommendSubti },
-  data() {
-    return {
-      
-    };
+  data () {
+      return {
+        interval: {},
+        time: 0,
+      }
   },
   computed: {
-  ...mapGetters(['profile', ]),
+  ...mapGetters(['profile', 'isLoad']),
     value () {
       return this.profile.subti===null ? false:true
       
@@ -96,6 +114,20 @@ export default {
     goSurvey(){
       this.$router.push({name:'surveybasic'})
     }
+  },
+
+  mounted () {
+    this.interval = setInterval(() => {
+      if (this.time === 100) {
+        return (this.time = 0)
+      }
+      this.time += 25
+    }, 1000)
+  },
+
+
+  beforeDestroy () {
+    clearInterval(this.interval)
   },
 };
 </script>
@@ -118,5 +150,8 @@ padding-top: 56px;
   opacity: 0.9;
   top: 3;
   margin: auto;
+}
+.v-progress-circular {
+  margin: 1rem;
 }
 </style>

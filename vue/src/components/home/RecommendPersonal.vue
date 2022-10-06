@@ -86,12 +86,6 @@ export default {
   
 
   watch: {
-    profile () {
-      this.getCombiBasedIndividual({
-      userId: this.profile.userId,
-    }); 
-    },
-
     combiBasedIndividual () {
       for (let index = 0; index < this.combiBasedIndividual.ingredients.length; index++) {
       if (this.combiBasedIndividual.ingredients[index].category == "빵") {

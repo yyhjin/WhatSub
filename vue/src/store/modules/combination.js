@@ -180,6 +180,7 @@ export default{
     filteringMenu: [],
 
     myList:{}, 
+    isLoad: false
   },
   getters: {
     sampleUserId: (state) => state.sampleUserId,
@@ -194,6 +195,7 @@ export default{
     combiBasedSubti: (state) => state.combiBasedSubti,
     filteringMenu: (state) => state.filteringMenu,
     myList: (state) => state.myList,
+    isLoad: (state) => state.isLoad
   },
   mutations: {
     SET_COMBI_LIST_BY_OTHERS: (state, combiListByOthers) => (state.combiListByOthers = combiListByOthers),
@@ -205,6 +207,7 @@ export default{
     SET_COMBI_BASED_SUNBTI: (state, combiBasedSubti) =>(state.combiBasedSubti = combiBasedSubti),
     SET_FILTERING_MENU: (state, filteringMenu) =>(state.filteringMenu = filteringMenu),
     SET_MY_LIST: (state, myList) =>(state.myList = myList),
+    SET_ISLOAD: (state) => (state.isLoad = true)
   },
   actions: {
     getCombiListByOthers({commit}) {
@@ -304,7 +307,7 @@ export default{
         headers: getters.authHeader
       })
         .then((res) => {
-          
+          commit("SET_ISLOAD")
           commit("SET_COMBI_BASED_INDIVIDUAL", res.data[0]);
           console.log("hybrid: ", res.data[0]);
         })

@@ -43,9 +43,21 @@ export default {
       combiList: []
     };
   },
+  // computed: {
+  //   ...mapGetters(['profile'])
+  // },
+
+  watch: {
+    '$store.getters.profile' (profile) {
+      console.log('!')
+      this.getCombiBasedIndividual({
+      userId: profile.userId,
+    }); 
+    },
+  },
   
   methods: {
-    ...mapActions(['fetchProfile']),
+    ...mapActions(['fetchProfile', 'getCombiBasedIndividual']),
     goTodayReco() {
       this.$router.push({ name: "recommendtoday" });
     },

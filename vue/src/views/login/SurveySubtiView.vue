@@ -9,7 +9,7 @@
     </div>
     <v-card class="home_card_b" elevation="3" outlined>
       <h3>썹BTI 란?</h3>
-      <h5>본인이 원ㄴ하는 영양 정보를 통해 샌드위치를 추천 받을 수 있습니다.</h5>
+      <h5><p>내 입맛에 어울리는 서브웨이 조합은?!</p><p>나의 입맛 그룹을 진단받고, </p><p>나와 같은 입맛을 가진 사람들이 </p>선호하는 메뉴를 추천받을 수 있습니다!</h5>
     </v-card>
     <div class="subti">
       <div class="question">
