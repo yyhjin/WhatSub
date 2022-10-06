@@ -225,6 +225,7 @@ export default {
     },
 
     next () {
+      
       //axios로 체크한거 백으로 요청 
       //다음 페이지로 넘기기
       axios({
@@ -233,7 +234,7 @@ export default {
         data: {
           "allergies" : this.allergies,
           "diet" : this.isDiet,
-          "vegetables:": this.vegetables
+          "vegetables": this.vegetables
         },
         headers: this.authHeader
       }).then(res => {
