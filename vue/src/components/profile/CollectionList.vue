@@ -29,7 +29,7 @@
       </v-tabs>
       <v-tabs-items v-model="tab">
         <v-tab-item v-for="item in items" :key="item">
-          <v-card v-if="item == '꿀조합 목록'" flat>
+          <v-card v-if="item === items[0]" flat>
             <div class="pt-5 pl-6 pr-6">
               <sand-small-list :combi-list="pro.combs"></sand-small-list>
             </div>
@@ -57,7 +57,7 @@ export default {
   data() {
     return {
       tab: null,
-      items: ["꿀조합 목록", "찜 목록"],
+      items: [`꿀조합 목록 (${this.pro.combs.length})`, `찜 목록 (${this.pro.dibs.length})`],
     };
   },
   props: {

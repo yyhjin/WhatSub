@@ -10,7 +10,7 @@
 
 <script>
 import SandSmallListItem from "@/components/common/mypage/SandSmallListItemMyCombi.vue";
-import { mapGetters } from "vuex";
+// import { mapGetters } from "vuex";
 
 export default {
   name: "SandSmallListMyCombi",
@@ -21,9 +21,9 @@ export default {
     combiList: Array,
   },
   components: { SandSmallListItem },
-  computed: {
-    ...mapGetters(["combiListByNutri"]),
-  },
+  // computed: {
+  //   ...mapGetters(["combiListByNutri"]),
+  // },
 };
 </script>
 

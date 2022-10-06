@@ -36,9 +36,9 @@ import axios from 'axios';
 export default {
   name: "MyPageView",
   components: { TopNav, BottomNav, CollectionList },
-  props:{
-    userName:String
-  },
+  // props:{
+  //   userName:String
+  // },
   data() {
     return {
       pro : null
