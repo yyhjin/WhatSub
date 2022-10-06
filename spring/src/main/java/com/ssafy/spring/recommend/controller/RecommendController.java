@@ -176,6 +176,8 @@ public class RecommendController {
 
             // json string을 Map으로 매핑
             String statistics = post.getStatistics();
+            if(statistics == null) continue;
+
             ObjectMapper objectMapper = new ObjectMapper();
             Map<String, Integer> map = objectMapper.readValue(statistics, Map.class);
 

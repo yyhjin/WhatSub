@@ -183,7 +183,7 @@ public class CombPostController {
 
     @ApiOperation(value = "게시글 메뉴, 재료 조회", notes = "해당 게시글의 재료 정보들을 조회한다.", httpMethod = "GET")
     @GetMapping("/{combinationPostId}")
-    public SuccessResponseResult getPostIngredients(@PathVariable int combinationPostId) throws JsonProcessingException {
+    public SuccessResponseResult getPostIngredients(@PathVariable int combinationPostId) {
 
         CombPostResponse.MenuIngredient response = new CombPostResponse.MenuIngredient();
 
@@ -413,7 +413,7 @@ public class CombPostController {
 
     @ApiOperation(value = "게시글 통계 갱신", notes = "하루에 한 번씩 모든 게시글에 대한 통계를 갱신하여 저장한다.", httpMethod = "GET")
     @GetMapping("/statistics")
-    @Scheduled(cron = "0 0 12 * * *")
+    @Scheduled(cron = "0 30 10 * * *")
     @Async
     public void updatePostStatistics() throws JsonProcessingException {
 
@@ -475,6 +475,7 @@ public class CombPostController {
                 else if(user_age>=60) map.put("sixties", map.get("sixties")+1);
 
                 // SUBTI count
+                if(user_subti == null) continue;
                 String subti = user_subti.toLowerCase();
                 map.put(subti, map.get(subti)+1);
 
