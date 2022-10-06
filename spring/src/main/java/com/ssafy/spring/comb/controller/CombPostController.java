@@ -464,8 +464,8 @@ public class CombPostController {
                 String user_subti = curOrder.getSubti();
 
                 // 성별 count
-                if(user_gender.equals("0")) map.put("male", map.get("male")+1);
-                else if(user_gender.equals("1")) map.put("female", map.get("female")+1);
+                if(user_gender.equals("0")) map.put("female", map.get("female")+1);
+                else if(user_gender.equals("1")) map.put("male", map.get("male")+1);
 
                 //나이 count
                 if(user_age<20) map.put("teenager", map.get("teenager")+1);

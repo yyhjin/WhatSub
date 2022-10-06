@@ -8,5 +8,5 @@ import java.util.List;
 
 @Repository
 public interface ReviewRepository extends JpaRepository<Review, Integer>{
-    public List<Review> findAllByCombinationPost_CombinationPostId(int combinationPostId);
+    List<Review> findAllByCombinationPost_CombinationPostIdOrderByCreatedAtDesc(int combinationPostId);
 }
