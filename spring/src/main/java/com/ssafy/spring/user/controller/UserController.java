@@ -129,16 +129,9 @@ public class UserController {
     }
 
     @ApiOperation(value = "유저 정보 조회", notes="userName을 통해 유저 정보 조회(남자: 0, 여자: 1)", httpMethod = "GET")
-    @GetMapping("/{userName}")
+    @GetMapping("")
 //    public SuccessResponseResult getUser(@PathVariable String userName, @RequestHeader("Authorization") String accessToken) throws NoSuchUserException {
-    public SuccessResponseResult getUser(@PathVariable String userName, @ClientIp String authId) throws NoSuchUserException {
-//        System.out.println("Accesstoken = " + accessToken);
-//        String authId = jwtUtil.getUserEmailFromJWT(accessToken);
-//        System.out.println("authId = " + authId);
-//        User user = userService.getUserByUserName(userName);
-
-
-//        System.out.println("Access Token = " + accessTokenHeader);
+    public SuccessResponseResult getUser(@ClientIp String authId) throws NoSuchUserException {
         User user = userService.getUserByAuthId(authId);
 
         if(user == null){
