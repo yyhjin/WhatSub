@@ -23,8 +23,8 @@ def make_response(result, combination_posts, ingredients, combinations, menus):
         
         menu = sandwich[0]
         partial['menu'] = {'menu_id': menu, 
-                            'menu_name': df_menus[df_menus['menu_id']==menu]['menu_name'][0],
-                            'img_url': df_menus[df_menus['menu_id']==menu]['img_url'][0]}
+                            'menu_name': df_menus[df_menus['menu_id']==menu]['menu_name'].values[0],
+                            'img_url': df_menus[df_menus['menu_id']==menu]['img_url'].values[0]}
 
         elements = []
         for i in range(1,len(sandwich),2):

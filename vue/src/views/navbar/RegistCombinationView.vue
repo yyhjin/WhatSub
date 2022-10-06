@@ -130,7 +130,7 @@ export default {
         }
       }).then(res => {
         console.log(res)
-        this.$router.push({name:'home'})
+        this.$router.push({name:'combination'})
       }).catch(err => 
       console.error(err))
     }

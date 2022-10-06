@@ -25,7 +25,7 @@ export default {
       console.log(window.Kakao)
       window.Kakao.Auth.authorize({
         scope: 'profile_nickname, profile_image',
-        redirectUri: 'http://localhost:8080/signup',
+        redirectUri: process.env.VUE_APP_REDIRECTURI,
       });
     }
   }

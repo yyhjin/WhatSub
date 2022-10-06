@@ -178,7 +178,7 @@ export default {
         console.log(res)
         this.saveToken(res.data.data.accessToken)
         // this.formData.append('userId', res.data.data.userId)
-        this.saveUserName(res.data.data.userName)
+        
         // this.fetchCurrentUser(res.data.data.userName)
         if (res.data.data.result === 1) {
           this.$router.push('/')

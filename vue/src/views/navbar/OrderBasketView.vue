@@ -23,6 +23,9 @@
     <div v-else>
       <h1 style="text-align: center; margin-top: 200px">장바구니가 없습니다~</h1>
     </div>
+    <div class="bottom">
+      <bottom-nav></bottom-nav>
+    </div>
   </div>
 </template>
 
