@@ -1,8 +1,8 @@
 <template>
-  <div class="pt-9">
+  <div class="maincover">
     <div v-if="!value" style="position: relative">
-      <div class="pl-2" style="position: absolute; z-index: 2">
-        <v-card class="home_cover myclass" height="350" width="344" elevation="5" outlined>
+      <div class="" style="position: absolute; z-index: 2; width:100%;">
+        <v-card class="home_cover myclass" height="350" width="95%" elevation="5" outlined>
           <div class="pt-15" align="center">
             <h2 style="font-size: 20px">
               <div class="pb-2">몇 가지 질문을 통해</div>
@@ -16,7 +16,7 @@
               나의 취향에 맞게 샌드위치를 추천 받을 수 있습니다.
             </div>
             <div class="pt-6" style="z-index: 1">
-              <v-btn class="green_btn" rounded>설문조사 하러 가기</v-btn>
+              <v-btn class="green_btn" rounded @click.prevent="goSurvey">설문조사 하러 가기</v-btn>
             </div>
           </div>
         </v-card>
@@ -72,6 +72,7 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex';
 import RecommendPersonal from "./RecommendPersonal.vue";
 import RecommendSubti from "./RecommendSubti.vue";
 
@@ -80,10 +81,22 @@ export default {
   components: { RecommendPersonal, RecommendSubti },
   data() {
     return {
-      value: true,
+      
     };
   },
-  methods: {},
+  computed: {
+  ...mapGetters(['profile', ]),
+    value () {
+      // return this.profile.subti===null ? false:true
+      return false
+    }
+  },
+
+  methods: {
+    goSurvey(){
+      this.$router.push({name:'surveybasic'})
+    }
+  },
 };
 </script>
 
@@ -97,9 +110,13 @@ export default {
   border-color: #424242 !important;
   border-width: 2px;
 }
+.maincover {
+padding-top: 56px;
+}
 .home_cover {
   background-color: white;
   opacity: 0.9;
   top: 3;
+  margin: auto;
 }
 </style>
