@@ -15,7 +15,7 @@
     </v-app-bar>
     <div class="moreBtn">
       <div class="id" >  
-        {{ profile.username }}
+        {{ profile.userName }}
       </div>
       <div @click="goOrderDetail">
         최근 주문 내역
