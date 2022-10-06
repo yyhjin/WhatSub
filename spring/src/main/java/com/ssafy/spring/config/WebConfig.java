@@ -39,10 +39,10 @@ public class WebConfig implements WebMvcConfigurer {
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
 //        // 카카오 토큰 확인(주석 해제하고 테스트 가능)
-        registry.addInterceptor(jwtInterceptor)
-                .addPathPatterns("/**")
-                .excludePathPatterns("/auth/**", "/error/**") // 로그인 과정에 필요한 api 호출들 제외
-                .excludePathPatterns("/swagger-resources/**", "/swagger-ui/**", "/v2/api-docs"); // 스웨거 관련 경로 제외
+//        registry.addInterceptor(jwtInterceptor)
+//                .addPathPatterns("/**")
+//                .excludePathPatterns("/auth/**", "/error/**") // 로그인 과정에 필요한 api 호출들 제외
+//                .excludePathPatterns("/swagger-resources/**", "/swagger-ui/**", "/v2/api-docs"); // 스웨거 관련 경로 제외
 
 //        // 설문 가입 여부 확인
 //        registry.addInterceptor(signupInterceptor)
