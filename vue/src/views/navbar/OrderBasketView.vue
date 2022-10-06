@@ -1,7 +1,7 @@
 <template>
   <div class="body">
     <div class="top">
-      <v-btn  icon class="backbtn"><v-icon>mdi-arrow-left</v-icon></v-btn>
+      <v-btn  icon class="backbtn" @click="goback"><v-icon>mdi-arrow-left</v-icon></v-btn>
       장바구니
     </div>
     <div v-if="basket">
@@ -26,6 +26,9 @@
       장바구니가 없습니다~
       </h1>
     </div>
+    <div class="bottom">
+      <bottom-nav></bottom-nav>
+    </div>
   </div>
 </template>
 
@@ -35,10 +38,11 @@ import api from "@/api/api"
 import { mapActions, mapGetters } from 'vuex'
 // import OrderDetail from '../../components/common/OrderDetail.vue'
 import OrderBasket from '../../components/order/OrderBasket.vue'
+import BottomNav from '../../components/common/BottomNav.vue'
 export default {
   name: 'OrderBasketView',
 
-  components: { OrderBasket },
+  components: { OrderBasket, BottomNav },
 
   computed: {
     ...mapGetters(['basket', 'selectedStore', 'profile', 'username']),
@@ -58,6 +62,9 @@ export default {
   },
 
   methods: {
+    goback () {
+      this.$router.go(-1)
+    },
     ...mapActions(['fetchBasket', 'resetBasket', 'resetStore' ,'fetchProfile']),
     setOrder () {
       let combinationList = []
