@@ -116,6 +116,9 @@ export default {
 }
 .content {
   width: 90%;
+  display: flex;
+  flex-direction: column;
+  margin: auto;
 }
 .cnt {
   width: 80%;

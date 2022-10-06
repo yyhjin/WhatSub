@@ -1,7 +1,7 @@
 <template>
   <div class="body">
     <div class="top">
-      <v-btn icon class="backbtn"><v-icon>mdi-arrow-left</v-icon></v-btn>
+      <v-btn icon class="backbtn pl-3" @click="goHome"><v-icon>mdi-home-outline</v-icon></v-btn>
       픽업 매장 위치
     </div>
     <div class="title">
@@ -13,14 +13,18 @@
       :storeInfoList="[store]"
       :type="1"
     ></store-map>
+    <div class="bottom">
+      <bottom-nav></bottom-nav>
+    </div>
   </div>
 </template>
 
 <script>
 import { mapGetters } from "vuex";
+import BottomNav from '../../components/common/BottomNav.vue';
 import StoreMap from "../../components/common/StoreMap.vue";
 export default {
-  components: { StoreMap },
+  components: { StoreMap, BottomNav },
   name: "StoreInfo",
 
   computed: {
@@ -30,6 +34,14 @@ export default {
       return this.basket[0].store;
     },
   },
+
+  methods: {
+    goHome() {
+      this.$router.push({
+        name: "home",
+      });
+    },
+  }
 };
 </script>
 
