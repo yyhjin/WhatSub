@@ -177,7 +177,7 @@ export default {
         this.imgUrl = res.data.data.profileImage
         console.log(res)
         this.saveToken(res.data.data.accessToken)
-        // this.formData.append('userId', res.data.data.userId)
+        this.formData.append('userId', res.data.data.userId)
         
         // this.fetchCurrentUser(res.data.data.userName)
         if (res.data.data.result === 1) {

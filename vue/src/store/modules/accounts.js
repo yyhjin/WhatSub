@@ -88,9 +88,9 @@ export default({
       }
     },
 
-    fetchProfile ({  commit, getters }, { username }) {
+    fetchProfile ({  commit, getters }) {
       axios({
-        url: api.accounts.profile(username),
+        url: api.accounts.profile(),
         method: 'get',
         headers: getters.authHeader
       })
