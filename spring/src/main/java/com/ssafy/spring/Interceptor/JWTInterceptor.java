@@ -27,9 +27,10 @@ public class JWTInterceptor implements HandlerInterceptor {
             if(jwtUtil.validateToken(token)){
                 System.out.println("토큰 인증 완료!");
                 return true;
-            }else {
+            } else {
                 System.out.println("유효하지 않은 토큰!");
-                response.sendRedirect("/login");
+                response.sendRedirect(request.getContextPath() + "/login");
+                return false;
 //                throw new NotValidateAccessTokenException();
             }
         }

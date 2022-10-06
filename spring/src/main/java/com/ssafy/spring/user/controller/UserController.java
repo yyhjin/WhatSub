@@ -105,8 +105,15 @@ public class UserController {
 
         // 프로필 사진 저장 후 경로 리턴
         List<MultipartFile> multipartFiles = new ArrayList<>();
-        multipartFiles.add(formRequest.getProfileImg());
-        String profileImgPath = s3Service.uploadFile(multipartFiles).get(0);
+        String profileImgPath;
+
+        if(formRequest.getProfileImg() == null){
+            profileImgPath = "https://whatsub.s3.ap-northeast-2.amazonaws.com/5eb4a43f-3e2c-40ef-a8a8-6427e6b80850.jpg";
+        }
+        else {
+            multipartFiles.add(formRequest.getProfileImg());
+            profileImgPath = s3Service.uploadFile(multipartFiles).get(0);
+        }
 
         user.setEmail(formRequest.getEmail());
         user.setGender(formRequest.getGender());
