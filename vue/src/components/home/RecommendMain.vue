@@ -62,6 +62,7 @@
     </div>
     <div v-if="val">
       <div class="main_card">
+        <div class="" align="center" style="font-size: 18px; font-weight: bold">개인 맞춤 추천</div>
         <recommend-personal v-if="isLoad"></recommend-personal>
         <div class="text-center" v-else>
           <v-progress-circular
@@ -121,8 +122,8 @@ export default {
       if (this.value === 100) {
         return (this.value = 0)
       }
-      this.value += 25
-    }, 1000)
+      this.value += 10
+    }, 500)
   },
 
 
