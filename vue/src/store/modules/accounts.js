@@ -103,7 +103,7 @@ export default({
       })
     },
 
-    signup ({  getters }, formData) {
+    signup ({  getters, dispatch }, formData) {
       axios({
         url : api.accounts.signup(),
         method : 'post',
