@@ -42,6 +42,7 @@ public class AuthController {
 
         // 기존 회원이면 로그인 시키고 1 리턴
         if(userService.existsByAuthId(authId)){
+            System.out.println("기존 회원!!");
             user = userService.getUserByAuthId(authId);
 
             String accessToken = jwtUtil.createToken(user.getAuthId());
