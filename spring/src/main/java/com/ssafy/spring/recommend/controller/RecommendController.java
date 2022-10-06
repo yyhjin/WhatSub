@@ -167,7 +167,7 @@ public class RecommendController {
         List<CombinationPost> posts = combPostService.findAllByOrderByCreatedAtDesc();
 
         // 해당 subti가 가장 많이 먹은 조합 인덱스와 횟수
-        int maxCnt = 0;
+        int maxCnt = -1;
         int maxIdx = -1;
 
         String lower_subti = subti.toLowerCase();
