@@ -68,12 +68,10 @@ export default {
     };
   },
   computed: {
-    ...mapGetters(["profile", "sampleUserName", "username"]),
+    ...mapGetters(["profile", "sampleUserName", ]),
   },
   created() {
-    this.fetchProfile({
-      username: this.username,               //나중에 제대로 구현되면 지워야할듯
-    });
+    this.fetchProfile();
   },
   methods: {
     ...mapActions(["fetchProfile"]),
