@@ -15,15 +15,17 @@ public class RankingDto {
     private int rankingId;
     private String menuId;
     private String menuName;
+    private String menuDesc;
     private String imgUrl;
     private Date rankDate;
     private List<RankingData> data;
 
     @SuppressWarnings("unchecked")
-    public RankingDto(int rankingId, String menuId, String menuName, String imgUrl, Date rankDate, String data) throws JsonProcessingException {
+    public RankingDto(int rankingId, String menuId, String menuName, String menuDesc, String imgUrl, Date rankDate, String data) throws JsonProcessingException {
         this.rankingId = rankingId;
         this.menuId = menuId;
         this.menuName = menuName;
+        this.menuDesc = menuDesc;
         this.imgUrl = imgUrl;
         this.rankDate = rankDate;
 
