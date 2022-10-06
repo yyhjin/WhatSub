@@ -96,6 +96,12 @@ export default {
   margin: auto;
   background-color: white;
 }
+.content {
+  width: 90%;
+  display: flex;
+  flex-direction: column;
+  margin: auto;
+}
 .cntPrice {
   display: flex;
   flex-direction: row;
