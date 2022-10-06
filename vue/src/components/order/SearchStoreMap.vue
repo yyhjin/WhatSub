@@ -13,7 +13,7 @@
 <script>
 import StoreMap from "../common/StoreMap.vue";
 import axios from "axios";
-
+import swal from 'sweetalert';
 export default {
   components: { StoreMap },
   name: "SearchStoreMap",
@@ -55,7 +55,7 @@ export default {
         );
         this.storeInfoList = data.data.data;
       } catch (e) {
-        alert("지점 정보를 불러올 수 없습니다.");
+        swal("지점 정보를 불러올 수 없습니다.");
       }
     },
   },

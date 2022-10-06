@@ -54,7 +54,7 @@ export default({
       .then(() => {
         dispatch('removeToken')
         localStorage.removeItem('username')
-        alert('로그아웃 성공!')
+        // alert('로그아웃 성공!')
         // router.push({name:'login'})
       })
     },

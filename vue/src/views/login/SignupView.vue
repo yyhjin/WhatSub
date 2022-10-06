@@ -60,7 +60,7 @@ import axios from 'axios'
 import api from '@/api/api'
 import BottomNav from '../../components/common/BottomNav.vue'
 import { mapActions, mapGetters } from 'vuex'
-
+import swal from 'sweetalert';
 export default {
   components: { BottomNav },
   name: 'SignupView',
@@ -104,18 +104,18 @@ export default {
       }).then(res => {
         console.log(res)
         if (res.data.data === false) {
-          alert('가능')
+          swal('가능')
           this.checked = true
         } else {
           this.checked=false
-          alert('있는 아이디')
+          swal('있는 아이디')
         }
       }).catch(err => console.error(err))
     },
 
     signup () {
       if (!this.checked) {
-        alert('중복검사 실시')
+        swal('중복검사 실시')
       } else {
         this.formData.append("userName", this.credentials.username)
         this.formData.append("gender", this.credentials.gender)

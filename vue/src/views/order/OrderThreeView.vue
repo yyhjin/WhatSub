@@ -45,6 +45,7 @@
 
 <script>
 import { mapActions, mapGetters } from "vuex";
+import swal from 'sweetalert';
 export default {
   name: "OrderThreeView",
 
@@ -79,7 +80,7 @@ export default {
 
     goNext() {
       if (this.selectedSize === null || this.selectedSize === undefined) {
-        alert("길이를 선택해주세요");
+        swal("길이를 선택해주세요");
       } else {
         this.$router.push({ path: "orderfour" });
       }
