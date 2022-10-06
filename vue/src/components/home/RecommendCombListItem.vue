@@ -7,8 +7,8 @@
       outlined
       @click.stop="dialogRecoCombi = true"
       ><v-img class="shadow_img" :src="combiListItem.imgUrl"></v-img>
-      <h4 class="mt-n3">{{ combiListItem.combName }}</h4>
-      <div style="font-size: 15px">{{ combiListItem.price | comma }}원</div></v-card
+      <h4 class="mt-n2" style="font-size: 15px">{{ combiListItem.combName }}</h4>
+      <div style="font-size: 13px">{{ combiListItem.price | comma }}원</div></v-card
     >
     <combi-modal
       :combi-list-item="combiListItem"
