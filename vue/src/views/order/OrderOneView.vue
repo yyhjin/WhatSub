@@ -70,7 +70,7 @@ export default {
         console.log(res)
         // this.selectMenu(this.orderMenu.combinationList[radio.value].menu)
         this.selectMenu(res.data.data.menu)
-        res.data.data.forEach(ingredient => {
+        res.data.data.ingredients.forEach(ingredient => {
           if (ingredient.category === '빵') {
             this.selectBread(ingredient)
           } else if (ingredient.category === '치즈') {

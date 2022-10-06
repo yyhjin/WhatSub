@@ -166,8 +166,8 @@ export default {
 
   mounted () {
     
-    this.fetchProfile()
-    this.fetchBasket({username: this.username})
+    this.fetchProfile({username: this.username})
+    this.fetchBasket()
     localStorage.removeItem('menu', 'more', 'vege', 'bread', 'sauce', 'size', 'moremeat', 'cheese', 'morecheese');
     console.log(this.basket)
   }

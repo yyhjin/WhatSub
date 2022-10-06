@@ -155,7 +155,7 @@ const routes = [
       console.log(from.name)
       console.log(to.name)
       next()
-      if (from.name !== 'ordertwo' && from.name !== 'orderthree' && from.name !== 'orderfour') {
+      if (from.name !== 'ordertwo' && from.name !== 'orderthree' && from.name !== 'orderfour' && from.name !== 'orderdetail') {
         console.log(1)
         localStorage.setItem('menu', null)
         localStorage.setItem('size', null)
