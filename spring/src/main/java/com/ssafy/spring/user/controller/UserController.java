@@ -98,7 +98,6 @@ public class UserController {
     public SuccessResponseResult signUp(UserRequest.SignUpRequest formRequest, @ClientIp String authId) throws NoSuchUserException {
 //        User user = userService.getUserByUserId(formRequest.getUserId());
         User user = userService.getUserByAuthId(authId);
-        System.out.println("AuthId = " + authId);
 
         if(user == null){
             throw new NoSuchUserException();
@@ -109,14 +108,20 @@ public class UserController {
         multipartFiles.add(formRequest.getProfileImg());
         String profileImgPath = s3Service.uploadFile(multipartFiles).get(0);
 
-        user = User.builder()
-                .userId(user.getUserId())
-                .email(formRequest.getEmail())
-                .gender(formRequest.getGender())
-                .birthYear(formRequest.getBirthYear())
-                .userName(formRequest.getUserName())
-                .profileImg(profileImgPath)
-                .build();
+        user.setEmail(formRequest.getEmail());
+        user.setGender(formRequest.getGender());
+        user.setBirthYear(formRequest.getBirthYear());
+        user.setUserName(formRequest.getUserName());
+        user.setProfileImg(profileImgPath);
+
+//        user = User.builder()
+//                .userId(user.getUserId())
+//                .email(formRequest.getEmail())
+//                .gender(formRequest.getGender())
+//                .birthYear(formRequest.getBirthYear())
+//                .userName(formRequest.getUserName())
+//                .profileImg(profileImgPath)
+//                .build();
 
         userService.save(user);
         String userName = user.getUserName();

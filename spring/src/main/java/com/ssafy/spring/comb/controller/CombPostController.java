@@ -413,7 +413,8 @@ public class CombPostController {
 
     @ApiOperation(value = "게시글 통계 갱신", notes = "하루에 한 번씩 모든 게시글에 대한 통계를 갱신하여 저장한다.", httpMethod = "GET")
     @GetMapping("/statistics")
-    @Scheduled(cron = "0 30 10 * * *")
+    @Scheduled(cron = "0 0 12 * * *")
+    @Transactional
     @Async
     public void updatePostStatistics() throws JsonProcessingException {
 
@@ -488,6 +489,7 @@ public class CombPostController {
             // 게시글에 통계 저장
             combPostService.statisticsUpdate(curPost, statisticsJson);
         }
+
 
     }
 }
