@@ -85,10 +85,10 @@
           </v-col>
           <v-col>
             <div>
-              <div style="font-size: 14px">{{ combiDetail.userName }}</div>
+              <div style="font-size: 13px">{{ combiDetail.userName }}</div>
             </div>
             <div>
-              <div style="font-size: 13px">{{ createDate }}</div>
+              <div style="font-size: 12px">{{ createDate }}</div>
             </div>
           </v-col>
         </v-row>

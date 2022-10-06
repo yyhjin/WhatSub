@@ -1,7 +1,7 @@
 <template>
   <div class="maincover">
     <div v-if="!val" style="position: relative">
-      <div class="" style="position: absolute; z-index: 2; width:100%;">
+      <div class="" style="position: absolute; z-index: 2; width: 100%">
         <v-card class="home_cover myclass" height="350" width="95%" elevation="5" outlined>
           <div class="pt-15" align="center">
             <h2 style="font-size: 20px">
@@ -64,16 +64,9 @@
       <div class="main_card">
         <div class="" align="center" style="font-size: 18px; font-weight: bold">개인 맞춤 추천</div>
         <recommend-personal v-if="isLoad"></recommend-personal>
-        <div class="text-center" v-else>
-          <v-progress-circular
-        :rotate="360"
-        :size="100"
-        :width="15"
-        :value="value"
-        color="teal"
-      >
-        {{ value }}
-      </v-progress-circular>
+        <div class="text-center pt-6 pb-4" v-else>
+          <v-progress-circular :rotate="360" :size="50" :width="15" :value="value" color="#f4c41f">
+          </v-progress-circular>
         </div>
       </div>
       <div class="main_card">
@@ -83,52 +76,44 @@
   </div>
 </template>
 
-
-    
-
-
-
-
 <script>
-import { mapGetters } from 'vuex';
+import { mapGetters } from "vuex";
 import RecommendPersonal from "./RecommendPersonal.vue";
 import RecommendSubti from "./RecommendSubti.vue";
 
 export default {
   name: "RecommendMain",
   components: { RecommendPersonal, RecommendSubti },
-  data () {
-      return {
-        interval: {},
-        value: 0,
-      }
+  data() {
+    return {
+      interval: {},
+      value: 0,
+    };
   },
   computed: {
-  ...mapGetters(['profile', 'isLoad']),
-    val () {
-      return this.profile.subti===null ? false:true
-      
-    }
+    ...mapGetters(["profile", "isLoad"]),
+    val() {
+      return this.profile.subti === null ? false : true;
+    },
   },
 
   methods: {
-    goSurvey(){
-      this.$router.push({name:'surveybasic'})
-    }
+    goSurvey() {
+      this.$router.push({ name: "surveybasic" });
+    },
   },
 
-  mounted () {
+  mounted() {
     this.interval = setInterval(() => {
       if (this.value === 100) {
-        return (this.value = 0)
+        return (this.value = 0);
       }
-      this.value += 10
-    }, 500)
+      this.value += 15;
+    }, 500);
   },
 
-
-  beforeDestroy () {
-    clearInterval(this.interval)
+  beforeDestroy() {
+    clearInterval(this.interval);
   },
 };
 </script>
@@ -144,7 +129,7 @@ export default {
   border-width: 2px;
 }
 .maincover {
-padding-top: 56px;
+  padding-top: 56px;
 }
 .home_cover {
   background-color: white;

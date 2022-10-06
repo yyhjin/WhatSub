@@ -29,7 +29,7 @@
       >
         <v-row class="pl-8 pt-6" align="center" @click="changeCard">
           <v-col class="pa-0" cols="12" @click="changeCard">
-            <div style="font-size: 14px; font-weight: bold">
+            <div style="font-size: 13px; font-weight: bold">
               <div>빵: {{ bread[0] }}</div>
               <div>치즈: {{ cheese[0] }}</div>
               <div>소스: {{ sauce[0] }} {{ sauce[1] }}</div>
@@ -38,10 +38,10 @@
         </v-row>
         <v-row class="pl-6">
           <v-col>
-            <div style="font-size: 16px; font-weight: bold">{{ combiBasedSubti.kcal }}kcal</div>
+            <div style="font-size: 15px; font-weight: bold">{{ combiBasedSubti.kcal }}kcal</div>
           </v-col>
           <v-col>
-            <div style="font-size: 16px; font-weight: bold">
+            <div style="font-size: 15px; font-weight: bold">
               {{ combiBasedSubti.price | comma }}원
             </div>
           </v-col>
@@ -84,30 +84,28 @@ export default {
     };
   },
 
-  watch:{
-    profile () {
+  watch: {
+    profile() {
       this.getCombiBasedSubti({
-      subti: this.profile.subti,
-    });
+        subti: this.profile.subti,
+      });
     },
 
-    combiBasedSubti () {
+    combiBasedSubti() {
       for (let index = 0; index < this.combiBasedSubti.ingredient.length; index++) {
-      if (this.combiBasedSubti.ingredient[index].category == "빵") {
-        this.bread.push(this.combiBasedSubti.ingredient[index].name);
-      } else if (this.combiBasedSubti.ingredient[index].category == "치즈") {
-        this.cheese.push(this.combiBasedSubti.ingredient[index].name);
-      } else if (this.combiBasedSubti.ingredient[index].category == "소스") {
-        this.sauce.push(this.combiBasedSubti.ingredient[index].name);
+        if (this.combiBasedSubti.ingredient[index].category == "빵") {
+          this.bread.push(this.combiBasedSubti.ingredient[index].name);
+        } else if (this.combiBasedSubti.ingredient[index].category == "치즈") {
+          this.cheese.push(this.combiBasedSubti.ingredient[index].name);
+        } else if (this.combiBasedSubti.ingredient[index].category == "소스") {
+          this.sauce.push(this.combiBasedSubti.ingredient[index].name);
+        }
       }
-    }
-    }
+    },
   },
 
   created() {
-    
     console.log(this.combiBasedSubti.ingredient.length);
-    
   },
   filters: {
     comma(val) {

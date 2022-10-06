@@ -1,5 +1,5 @@
 <template>
-  <div style="font-size: 14px" align="center">
+  <div style="font-size: 13px" align="center">
     <v-row class="r_border">
       <v-col align="left" cols="6">열량(kcal)</v-col>
       <v-col align="right" cols="6" style="color: #239347">{{ combiDetail.kcal.toFixed(1) }}</v-col>

@@ -28,21 +28,23 @@
       >
         <v-row class="pl-8 pt-6" align="center" @click="changeCard">
           <v-col class="pa-0" cols="12">
-            <div style="font-size: 14px; font-weight: bold">
+            <div style="font-size: 13px; font-weight: bold">
               <div>빵: {{ bread[0] }}</div>
               <div>치즈: {{ cheese[0] }}</div>
-              <div>소스: <span v-for="sau in sauce" :key="sau">{{sau}}</span></div>
+              <div>
+                소스: <span v-for="sau in sauce" :key="sau">{{ sau }}</span>
+              </div>
             </div>
           </v-col>
         </v-row>
         <v-row class="pl-6">
           <v-col>
-            <div style="font-size: 16px; font-weight: bold">
+            <div style="font-size: 15px; font-weight: bold">
               {{ combiBasedIndividual.kcal }}kcal
             </div>
           </v-col>
           <v-col>
-            <div style="font-size: 16px; font-weight: bold">
+            <div style="font-size: 15px; font-weight: bold">
               {{ combiBasedIndividual.price | comma }}원
             </div>
           </v-col>
@@ -82,25 +84,22 @@ export default {
   computed: {
     ...mapGetters(["combiBasedIndividual", "profile"]),
   },
-  
 
   watch: {
-    combiBasedIndividual () {
+    combiBasedIndividual() {
       for (let index = 0; index < this.combiBasedIndividual.ingredients.length; index++) {
-      if (this.combiBasedIndividual.ingredients[index].category == "빵") {
-        this.bread.push(this.combiBasedIndividual.ingredients[index].name);
-      } else if (this.combiBasedIndividual.ingredients[index].category == "치즈") {
-        this.cheese.push(this.combiBasedIndividual.ingredients[index].name);
-      } else if (this.combiBasedIndividual.ingredients[index].category == "소스") {
-        this.sauce.push(this.combiBasedIndividual.ingredients[index].name);
+        if (this.combiBasedIndividual.ingredients[index].category == "빵") {
+          this.bread.push(this.combiBasedIndividual.ingredients[index].name);
+        } else if (this.combiBasedIndividual.ingredients[index].category == "치즈") {
+          this.cheese.push(this.combiBasedIndividual.ingredients[index].name);
+        } else if (this.combiBasedIndividual.ingredients[index].category == "소스") {
+          this.sauce.push(this.combiBasedIndividual.ingredients[index].name);
+        }
       }
-    }
-    }
+    },
   },
 
-  created() {
-    
-  },
+  created() {},
   filters: {
     comma(val) {
       return String(val).replace(/\B(?=(\d{3})+(?!\d))/g, ",");
