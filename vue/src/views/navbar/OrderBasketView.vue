@@ -14,9 +14,8 @@
           :key="index"
         ></order-basket>
       </div>
-      <div class="bottom">
+      <div class="bot">
         <div class="total_price">총 {{ totalPrice }}원</div>
-
         <button class="order_btn green_btn" @click.prevent="setOrder">주문하기</button>
       </div>
     </div>
@@ -35,10 +34,11 @@ import api from "@/api/api";
 import { mapActions, mapGetters } from "vuex";
 // import OrderDetail from '../../components/common/OrderDetail.vue'
 import OrderBasket from "../../components/order/OrderBasket.vue";
+import BottomNav from '../../components/common/BottomNav.vue';
 export default {
   name: "OrderBasketView",
 
-  components: { OrderBasket },
+  components: { OrderBasket, BottomNav,  },
   filters: {
     comma(val) {
       return String(val).replace(/\B(?=(\d{3})+(?!\d))/g, ",");
@@ -239,6 +239,12 @@ export default {
 .backbtn {
   position: absolute;
   left: 0;
+}
+.bot{
+  display: flex;
+  margin-top: 15px;
+  justify-content: space-evenly
+
 }
 .bottom {
   height: 70px;
