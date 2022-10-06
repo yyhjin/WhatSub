@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="mt-5" align="center" style="font-size: 18px; font-weight: bold">개인 맞춤 추천</div>
+    <div class="" align="center" style="font-size: 18px; font-weight: bold">개인 맞춤 추천</div>
     <v-card
       class="home_cover home_card_b myclass3"
       elevation="5"

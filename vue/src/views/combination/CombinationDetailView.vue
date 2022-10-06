@@ -28,7 +28,7 @@
       ></v-img>
       <v-container>
         <v-row align="center">
-          <v-col class="pa-0" align="center">
+          <v-col class="pa-0 pt-5" align="center">
             <span style="font-size: 18px; font-weight: bold"
               >{{ combiDetail.combName }}&nbsp;&nbsp;&nbsp;
             </span>
@@ -79,7 +79,7 @@
       <div @click="goProfile">
         <v-row align="center">
           <v-col cols="2">
-            <v-avatar size="45" color="#d9d9d9"></v-avatar>
+            <v-avatar size="45" color="#d9d9d9"><img alt="" /></v-avatar>
           </v-col>
           <v-col>
             <div>
@@ -154,7 +154,7 @@ export default {
     combinationPostId: String,
   },
   computed: {
-    ...mapGetters(["combiDetail", "sampleUserId"]),
+    ...mapGetters(["combiDetail", "profile"]),
   },
   // watch: {
   //   "$store.state.combination.combiDetail": function () {
@@ -167,8 +167,9 @@ export default {
     },
   },
   created() {
+    this.fetchProfile();
     //combinationPostId 로 api 검색
-    this.getCombiDetail({ combinationPostId: this.combinationPostId, userId: this.sampleUserId });
+    this.getCombiDetail({ combinationPostId: this.combinationPostId, userId: this.profile.userId });
     if (this.combiDetail.dib == 1) {
       this.isliked = true;
     } else {
@@ -178,7 +179,7 @@ export default {
     //현재 로그인한 유저의 찜 목록(찜 목록 조회)에 해당 꿀조합이 있다면 빨간하트 표시
   },
   methods: {
-    ...mapActions(["getCombiDetail", "updateZzimCombi", "sampleUserId"]),
+    ...mapActions(["getCombiDetail", "updateZzimCombi", "fetchProfile"]),
     goBack() {
       this.$router.go(-1);
     },
@@ -186,13 +187,13 @@ export default {
       if (this.isliked) {
         this.updateZzimCombi({
           combPostId: this.combinationPostId,
-          userId: this.sampleUserId,
+          userId: this.profile.userId,
         });
         this.isliked = false;
       } else {
         this.updateZzimCombi({
           combPostId: this.combinationPostId,
-          userId: this.sampleUserId,
+          userId: this.profile.userId,
         });
         this.isliked = true;
       }
@@ -201,10 +202,12 @@ export default {
       this.$router.push({ name: "mypage" });
     },
 
-    goOrderCombi () {
-      this.$router.push({ name: "orderone", params: {combinationPostId: parseInt(this.combinationPostId) } });
-    }
-
+    goOrderCombi() {
+      this.$router.push({
+        name: "orderone",
+        params: { combinationPostId: parseInt(this.combinationPostId) },
+      });
+    },
   },
 };
 </script>

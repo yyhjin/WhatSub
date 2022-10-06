@@ -108,7 +108,7 @@ export default {
     };
   },
   computed: {
-    ...mapGetters(["combiList", "sampleUserId"]),
+    ...mapGetters(["combiList", "profile"]),
   },
   created() {
     console.log(this.combiList);
@@ -138,20 +138,20 @@ export default {
       console.log(this.selectedMenuId);
       this.getFilteringMenu({
         menuId: this.selectedMenuId,
-        userId: this.sampleUserId,
+        userId: this.profile.userId,
       });
     },
     sortByRating() {
       this.getCombiList({
         orderNo: 0,
-        userId: this.sampleUserId,
+        userId: this.profile.userId,
       });
       console.log(this.combiList);
     },
     sortByDate() {
       this.getCombiList({
         orderNo: 1,
-        userId: this.sampleUserId,
+        userId: this.profile.userId,
       });
       console.log(this.combiList);
     },

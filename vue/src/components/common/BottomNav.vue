@@ -42,7 +42,7 @@ export default {
     };
   },
   computed: {
-    ...mapGetters(["bottomValue", "sampleUserId", "sampleUserName"]),
+    ...mapGetters(["bottomValue", "profile"]),
   },
   methods: {
     ...mapActions(["fetchBottomValue", "getMyList", "getCombiList"]),
@@ -57,7 +57,7 @@ export default {
     fetchCombiList() {
       this.getCombiList({
         orderNo: 1,
-        userId: this.sampleUserId,
+        userId: this.profile.userId,
       });
     },
   },

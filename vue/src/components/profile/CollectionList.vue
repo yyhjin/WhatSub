@@ -62,23 +62,24 @@ export default {
   },
   props: {},
   computed: {
-    ...mapGetters(["myList", "sampleUserName"]),
+    ...mapGetters(["myList", "profile"]),
   },
   watch: {
     "$store.state.combination.combiDetail": function () {
       this.getMyList({
-        userName: this.sampleUserName,
+        userName: this.profile.userName,
       });
     },
   },
   created() {
+    this.fetchProfile();
     this.getMyList({
-      userName: this.sampleUserName,
+      userName: this.profile.userName,
     });
     console.log(this.myList.combinations);
   },
   methods: {
-    ...mapActions(["getMyList"]),
+    ...mapActions(["getMyList", "fetchProfile"]),
   },
 };
 </script>

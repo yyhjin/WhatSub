@@ -34,17 +34,18 @@ import { mapActions, mapGetters } from "vuex";
 export default {
   name: "SandChickenteriyaki",
   computed: {
-    ...mapGetters(["sampleUserId"]),
+    ...mapGetters(["profile"]),
   },
   methods: {
-    ...mapActions(["getFilteringMenu"]),
+    ...mapActions(["getFilteringMenu", "fetchProfile"]),
     goTodayReco() {
       this.$router.go(0);
     },
     goCombiTab() {
+      this.fetchProfile();
       this.getFilteringMenu({
         menuId: "s",
-        userId: this.sampleUserId,
+        userId: this.profile.userId,
       });
       this.$router.push({
         name: "combination",

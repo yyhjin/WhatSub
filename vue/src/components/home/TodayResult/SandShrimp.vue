@@ -34,17 +34,18 @@ import { mapActions, mapGetters } from "vuex";
 export default {
   name: "SandShrimp",
   computed: {
-    ...mapGetters(["sampleUserId"]),
+    ...mapGetters(["profile"]),
   },
   methods: {
-    ...mapActions(["getFilteringMenu"]),
+    ...mapActions(["getFilteringMenu", "fetchProfile"]),
     goTodayReco() {
       this.$router.go(0);
     },
     goCombiTab() {
+      this.fetchProfile();
       this.getFilteringMenu({
         menuId: "m",
-        userId: this.sampleUserId,
+        userId: this.profile.userId,
       });
       this.$router.push({
         name: "combination",

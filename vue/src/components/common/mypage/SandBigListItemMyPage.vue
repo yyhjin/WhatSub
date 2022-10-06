@@ -8,7 +8,7 @@
       >
         <v-icon small color="red">mdi-close</v-icon>제거
       </div>
-      <v-row class="pt-4">
+      <v-row class="">
         <v-col class="pa-0 mt-3 ml-3" cols="5" align="center">
           <v-img class="shadow_img" height="70" width="150" :src="sand.imgUrl"></v-img>
           <div class="mt-1">
@@ -69,7 +69,7 @@ export default {
     sandListItem: Object,
   },
   computed: {
-    ...mapGetters(["sampleUserId"]),
+    ...mapGetters(["profile"]),
     sand() {
       return this.sandListItem.combinationPostDto;
     },
@@ -95,9 +95,8 @@ export default {
       if (confirm("삭제하시겠습니까?")) {
         this.updateZzimCombi({
           combPostId: this.sand.combinationPostId,
-          userId: this.sampleUserId,
+          userId: this.profile.userId,
         });
-        alert("삭제되었습니다.");
       }
     },
   },

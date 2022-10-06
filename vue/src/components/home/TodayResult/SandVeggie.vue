@@ -34,17 +34,18 @@ import { mapActions, mapGetters } from "vuex";
 export default {
   name: "SandVeggie",
   computed: {
-    ...mapGetters(["sampleUserId"]),
+    ...mapGetters(["profile"]),
   },
   methods: {
-    ...mapActions(["getFilteringMenu"]),
+    ...mapActions(["getFilteringMenu", "fetchProfile"]),
     goTodayReco() {
       this.$router.go(0);
     },
     goCombiTab() {
+      this.fetchProfile();
       this.getFilteringMenu({
         menuId: "l",
-        userId: this.sampleUserId,
+        userId: this.profile.userId,
       });
       this.$router.push({
         name: "combination",
