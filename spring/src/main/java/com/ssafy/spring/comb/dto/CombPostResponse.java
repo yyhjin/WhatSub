@@ -1,6 +1,8 @@
 package com.ssafy.spring.comb.dto;
 
+import com.querydsl.core.types.Order;
 import com.ssafy.spring.comb.entity.Combination;
+import com.ssafy.spring.order.dto.OrderResponse;
 import com.ssafy.spring.review.dto.ReviewResponse;
 import com.ssafy.spring.review.entity.Review;
 import lombok.AllArgsConstructor;
@@ -47,5 +49,11 @@ public class CombPostResponse {
         private List<IngredientDto.ingredientResponse> ingredients = new ArrayList<>();
         private int dib;
 
+    }
+
+    @Data
+    public static class MenuIngredient {
+        private OrderResponse.MenuDto menu;
+        private List<OrderResponse.IngredientDto> ingredients = new ArrayList<>();
     }
 }

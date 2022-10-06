@@ -181,20 +181,31 @@ public class CombPostController {
     }
 
 
-    @ApiOperation(value = "게시글 재료 조회", notes = "해당 게시글의 재료 정보들을 조회한다.", httpMethod = "GET")
+    @ApiOperation(value = "게시글 메뉴, 재료 조회", notes = "해당 게시글의 재료 정보들을 조회한다.", httpMethod = "GET")
     @GetMapping("/{combinationPostId}")
     public SuccessResponseResult getPostIngredients(@PathVariable int combinationPostId) throws JsonProcessingException {
 
-        List<OrderResponse.IngredientDto> response = new ArrayList<>();
+        CombPostResponse.MenuIngredient response = new CombPostResponse.MenuIngredient();
 
         CombinationPost post = combPostService.findByCombinationPostId(combinationPostId);
+
+        // 메뉴
+        String menuId = post.getCombination().getCombinationId().substring(0,1);
+        Menu menu = menuService.getMenuByMenuId(menuId);
+        OrderResponse.MenuDto menuDto = new OrderResponse.MenuDto(menu);
+        response.setMenu(menuDto);
+
+        // 재료
+        List<OrderResponse.IngredientDto> ingredientDtos = new ArrayList<>();
 
         String list = post.getCombination().getCombinationId().substring(1);
         for (int i = 0, j = 0; j < list.length()/2; i += 2, j++) {
             String ingredientId = list.substring(i, i+2);
             OrderResponse.IngredientDto ingredientResponse = new OrderResponse.IngredientDto(ingredientService.findByIngredientId(ingredientId));
-            response.add(ingredientResponse);
+            ingredientDtos.add(ingredientResponse);
         }
+
+        response.setIngredients(ingredientDtos);
 
         return new SuccessResponseResult(response);
     }
