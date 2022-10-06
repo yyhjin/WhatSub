@@ -112,6 +112,7 @@ export default({
       })
       .then(res => {
         console.log(res)
+        dispatch('saveUserName', res.data.data.userName)
         // dispatch('saveToken', res.data.key)
         // dispatch('fetchCurrentUser')
         router.push({name:'home'})    
