@@ -33,7 +33,7 @@ import TopNav from "@/components/common/TopNav.vue";
 import BottomNav from "@/components/common/BottomNav.vue";
 import RecommendMain from "@/components/home/RecommendMain.vue";
 import RecommendCombList from "@/components/home/RecommendCombList.vue";
-import { mapActions, mapGetters } from 'vuex';
+import { mapActions } from 'vuex';
 
 export default {
   name: "HomeView",
@@ -43,9 +43,7 @@ export default {
       combiList: []
     };
   },
-  computed: {
-    ...mapGetters(['username'])
-  },
+  
   methods: {
     ...mapActions(['fetchProfile']),
     goTodayReco() {
@@ -56,7 +54,7 @@ export default {
     },
   },
   mounted() {
-    this.fetchProfile({username:this.usernam})
+    this.fetchProfile()
   }
 };
 </script>
