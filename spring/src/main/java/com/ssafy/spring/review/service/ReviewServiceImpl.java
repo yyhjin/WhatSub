@@ -40,6 +40,6 @@ public class ReviewServiceImpl implements ReviewService{
 
     @Override
     public List<Review> getReviewList(int combinationPostId) {
-        return reviewRepository.findAllByCombinationPost_CombinationPostId(combinationPostId);
+        return reviewRepository.findAllByCombinationPost_CombinationPostIdOrderByCreatedAtDesc(combinationPostId);
     }
 }
