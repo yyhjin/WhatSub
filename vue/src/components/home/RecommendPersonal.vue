@@ -81,12 +81,14 @@ export default {
     };
   },
   computed: {
-    ...mapGetters(["combiBasedIndividual", "sampleUserId"]),
+    ...mapGetters(["combiBasedIndividual", "profile", "username"]),
   },
   created() {
-    console.log(this.sampleUserId);
+    this.fetchProfile({
+      username: this.username,
+    });
     this.getCombiBasedIndividual({
-      userId: this.sampleUserId,
+      userId: this.profile.userId,
     });
     console.log(this.combiBasedIndividual.ingredients.length);
     for (let index = 0; index < this.combiBasedIndividual.ingredients.length; index++) {
@@ -105,7 +107,7 @@ export default {
     },
   },
   methods: {
-    ...mapActions(["getCombiBasedIndividual"]),
+    ...mapActions(["getCombiBasedIndividual", "fetchProfile"]),
     changeCard() {
       this.isClicked = !this.isClicked;
     },
