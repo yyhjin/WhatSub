@@ -30,10 +30,8 @@
           <v-col class="pa-0" cols="12">
             <div style="font-size: 13px; font-weight: bold">
               <div>빵: {{ bread[0] }}</div>
-              <div>치즈: {{ cheese[0] }}</div>
-              <div>
-                소스: <span v-for="sau in sauce" :key="sau">{{ sau }}</span>
-              </div>
+              <div>치즈: {{ cheese[0] }}···</div>
+              <div>소스: {{ sauce[0] }} {{ sauce[1] }}···</div>
             </div>
           </v-col>
         </v-row>
