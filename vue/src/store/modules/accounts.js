@@ -75,6 +75,7 @@ export default({
           }) 
         })
         .catch( err => {
+          console.log('fetchprofile 에러' ,err)
           if (err.response.status === 401) {
             dispatch('removeToken')
             // router.push({name:'login'})

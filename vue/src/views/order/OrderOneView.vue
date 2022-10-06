@@ -69,6 +69,7 @@ export default {
       }).then(res => {
         console.log(res)
         // this.selectMenu(this.orderMenu.combinationList[radio.value].menu)
+        this.selectMenu(res.data.data.menu)
         res.data.data.forEach(ingredient => {
           if (ingredient.category === '빵') {
             this.selectBread(ingredient)
