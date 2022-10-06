@@ -88,6 +88,7 @@ export default {
     this.getCombiBasedIndividual({
       userId: this.sampleUserId,
     });
+    console.log(this.combiBasedIndividual.ingredients.length);
     for (let index = 0; index < this.combiBasedIndividual.ingredients.length; index++) {
       if (this.combiBasedIndividual.ingredients[index].category == "빵") {
         this.bread.push(this.combiBasedIndividual.ingredients[index].name);
