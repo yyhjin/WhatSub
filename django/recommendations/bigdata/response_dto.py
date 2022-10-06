@@ -1,7 +1,7 @@
 import pandas as pd
 import random
 def make_response(result, combination_posts, ingredients, combinations, menus):
-    df_combination_posts = pd.DataFrame(list(combination_posts.values()))[['combination_id','comb_name','content', 'score_avg']]
+    df_combination_posts = pd.DataFrame(list(combination_posts.values()))[['combination_id','comb_name','content', 'score_avg', 'combination_post_id']]
     df_combinations = pd.DataFrame(list(combinations.values()))[['combination_id','kcal','protein','sodium','fat','sugar','allergies','price']]
     df_ingredients = pd.DataFrame(list(ingredients.values()))[['ingredient_id','category','name','img_url']]
     df_menus = pd.DataFrame(list(menus.values()))[['menu_id', 'menu_name', 'img_url']]
@@ -9,6 +9,7 @@ def make_response(result, combination_posts, ingredients, combinations, menus):
     for sandwich in result: # 순회하면서 json 만들기
         partial = {}
         partial['combination_id'] = sandwich
+        partial['combination_post_id'] = df_combination_posts[df_combination_posts['combination_id']==sandwich]['combination_post_id'].values[0]
         partial['comb_name'] = df_combination_posts[df_combination_posts['combination_id']==sandwich]['comb_name'].values[0]
         partial['content'] =  df_combination_posts[df_combination_posts['combination_id']==sandwich]['content'].values[0]
         partial['score_avg'] =  df_combination_posts[df_combination_posts['combination_id']==sandwich]['score_avg'].values[0]
