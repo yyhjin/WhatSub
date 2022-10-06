@@ -10,4 +10,6 @@ public interface ExceptionMessage {
     String NOT_VALID_ACCESS_TOKEN_MESSAGE = "[ERROR] 유효하지 않은 토큰입니다.";
 
     String NOT_VALID_ACCESS_MESSAGE = "[ERROR] 유효하지 않은 접근입니다.";
+
+    String YET_SIGNUP_USER_MESSAGE = "[ERROR] 설문조사 미작성 유저입니다.";
 }

@@ -108,7 +108,7 @@ public class UserController {
         String profileImgPath;
 
         if(formRequest.getProfileImg() == null){
-            profileImgPath = "https://whatsub.s3.ap-northeast-2.amazonaws.com/5eb4a43f-3e2c-40ef-a8a8-6427e6b80850.jpg";
+            profileImgPath = "https://whatsub.s3.ap-northeast-2.amazonaws.com/default/p0.png";
         }
         else {
             multipartFiles.add(formRequest.getProfileImg());
