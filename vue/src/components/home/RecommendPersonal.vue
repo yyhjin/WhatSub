@@ -83,13 +83,19 @@ export default {
   computed: {
     ...mapGetters(["combiBasedIndividual", "profile", "username"]),
   },
-  created() {
-    this.fetchProfile({
-      username: this.username,
-    });
-    this.getCombiBasedIndividual({
+  
+
+  watch: {
+    profile () {
+      this.getCombiBasedIndividual({
       userId: this.profile.userId,
     });
+    }
+  },
+
+  created() {
+    
+    
     console.log(this.combiBasedIndividual.ingredients.length);
     for (let index = 0; index < this.combiBasedIndividual.ingredients.length; index++) {
       if (this.combiBasedIndividual.ingredients[index].category == "빵") {

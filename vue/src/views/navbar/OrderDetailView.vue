@@ -84,12 +84,14 @@ export default {
     },
   },
 
-  mounted () {
-    this.fetchProfile().then(() =>{
-
-      console.log(this.profile.userName),
+  watch: {
+    profile () {
       this.fetchOrder(this.profile.userName)
-    })
+    }
+  },
+  mounted () {
+    this.fetchProfile()
+      
   }
 };
 </script>
