@@ -29,4 +29,14 @@ public class UserResponse {
         List<DibDto> dibs;
         List<CombPostDto> combinations;
     }
+
+    @Data
+    @Builder
+    public static class UserInfoResponse{
+        private String userName;
+        private String subti;
+        private List<CollectionDto> collections;
+        private List<CombPostDto> combs;
+        private List<DibDto> dibs;
+    }
 }

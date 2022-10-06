@@ -121,21 +121,12 @@ public class UserController {
         user.setUserName(formRequest.getUserName());
         user.setProfileImg(profileImgPath);
 
-//        user = User.builder()
-//                .userId(user.getUserId())
-//                .email(formRequest.getEmail())
-//                .gender(formRequest.getGender())
-//                .birthYear(formRequest.getBirthYear())
-//                .userName(formRequest.getUserName())
-//                .profileImg(profileImgPath)
-//                .build();
-
         userService.save(user);
         String userName = user.getUserName();
         return new SuccessResponseResult(userName);
     }
 
-    @ApiOperation(value = "유저 정보 조회", notes="userName을 통해 유저 정보 조회(남자: 0, 여자: 1)", httpMethod = "GET")
+    @ApiOperation(value = "현재 로그인한 유저 정보 조회", notes="현재 로그인한 유저 정보 조회", httpMethod = "GET")
     @GetMapping("")
 //    public SuccessResponseResult getUser(@PathVariable String userName, @RequestHeader("Authorization") String accessToken) throws NoSuchUserException {
     public SuccessResponseResult getUser(@ClientIp String authId) throws NoSuchUserException {
@@ -159,6 +150,44 @@ public class UserController {
                 .subti(user.getSubti())
                 .isDiet(user.isDiet())
                 .collectionList(collectionDtoList)
+                .build();
+
+        return new SuccessResponseResult(response);
+    }
+
+    @ApiOperation(value = "유저 이름으로 정보 조회", notes="userName을 통해 유저 정보 조회", httpMethod = "GET")
+    @GetMapping("/{userName}")
+//    public SuccessResponseResult getUser(@PathVariable String userName, @RequestHeader("Authorization") String accessToken) throws NoSuchUserException {
+    public SuccessResponseResult getUserByUserName(@PathVariable String userName) throws NoSuchUserException {
+        User user = userService.getUserByUserName(userName);
+
+        if(user == null) {
+            throw new NoSuchUserException();
+        }
+
+        List<CollectionDto> collectionList = user.getCollections().stream()
+                .map(CollectionDto::new)
+                .collect(toList());
+
+        List<DibDto> dibList = userService.getDibsByUserAndStateIsTrue(user).stream()
+                .map(DibDto::new)
+                .collect(toList());
+
+        dibList = userService.addMenuNameAndIngredientsToDib(dibList);
+
+        List<CombPostDto> combPostList = user.getCombinationPosts().stream()
+                .map(CombPostDto::new)
+                .collect(toList());
+
+        combPostList = userService.addMenuNameAndIngredientsToCombPost(combPostList);
+
+
+        UserResponse.UserInfoResponse response = UserResponse.UserInfoResponse.builder()
+                .userName(user.getUserName())
+                .subti(user.getSubti())
+                .collections(collectionList)
+                .dibs(dibList)
+                .combs(combPostList)
                 .build();
 
         return new SuccessResponseResult(response);
