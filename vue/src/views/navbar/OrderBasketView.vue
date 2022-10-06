@@ -13,16 +13,21 @@
           v-for="(bas, index) in basket"
           :key="index"
         ></order-basket>
-      </div>
-      <div class="bot">
-        <div class="total_price">총 {{ totalPrice }}원</div>
-        <button class="order_btn green_btn" @click.prevent="setOrder">주문하기</button>
+        <br />
+        <br />
+        <br />
       </div>
     </div>
     <div v-else>
       <h1 style="text-align: center; margin-top: 200px">장바구니가 없습니다~</h1>
     </div>
     <div class="bottom">
+      <div class="bot">
+        <div class="total_price">
+          <h4>총 {{ totalPrice | comma }}원&nbsp;&nbsp;&nbsp;&nbsp;</h4>
+        </div>
+        <button class="order_btn green_btn" @click.prevent="setOrder">주문하기</button>
+      </div>
       <bottom-nav></bottom-nav>
     </div>
   </div>
@@ -34,16 +39,17 @@ import api from "@/api/api";
 import { mapActions, mapGetters } from "vuex";
 // import OrderDetail from '../../components/common/OrderDetail.vue'
 import OrderBasket from "../../components/order/OrderBasket.vue";
-import BottomNav from '../../components/common/BottomNav.vue';
+import BottomNav from "../../components/common/BottomNav.vue";
 export default {
   name: "OrderBasketView",
 
-  components: { OrderBasket, BottomNav,  },
+  components: { OrderBasket, BottomNav },
   filters: {
     comma(val) {
       return String(val).replace(/\B(?=(\d{3})+(?!\d))/g, ",");
     },
   },
+
   computed: {
     ...mapGetters(["basket", "selectedStore", "profile"]),
 
@@ -169,16 +175,16 @@ export default {
         })
         .catch((err) => {
           console.error("makeorder 에러", err);
-        })
-        // .then((res) => {
-        //   console.log(res);
-        //   console.log(combinationList);
-        //   this.$router.push({ name: "ordercheck", params: { orderId: res.data.data.orderId } }); // 요청 성공하면 주소 옮기는게 나을수도
-        // })
-        // .catch((err) => {
-        //   console.error(err);
-        //   console.log(combinationList);
-        // });
+        });
+      // .then((res) => {
+      //   console.log(res);
+      //   console.log(combinationList);
+      //   this.$router.push({ name: "ordercheck", params: { orderId: res.data.data.orderId } }); // 요청 성공하면 주소 옮기는게 나을수도
+      // })
+      // .catch((err) => {
+      //   console.error(err);
+      //   console.log(combinationList);
+      // });
     },
   },
 
@@ -217,13 +223,13 @@ export default {
   align-items: center;
 }
 .store {
-  height: 50px;
+  height: 60px;
   width: 100%;
   background-color: #f5f5f5;
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-bottom: 2px;
+  font-size: 17px;
 }
 .orderCheck {
   width: 100%;
@@ -240,14 +246,15 @@ export default {
   position: absolute;
   left: 0;
 }
-.bot{
+.bot {
   display: flex;
   margin-top: 15px;
-  justify-content: space-evenly
-
+  justify-content: space-evenly;
+  align-items: center;
+  margin-top: -60px;
 }
 .bottom {
-  height: 70px;
+  height: 120px;
   position: fixed;
   bottom: 0;
   background: white;
