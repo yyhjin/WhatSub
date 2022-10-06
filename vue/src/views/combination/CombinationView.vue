@@ -18,7 +18,7 @@
       </div>
       <div class="">
         <v-card class="sand_big_card" style="position: relative; z-index: 1">
-          <v-row class="pt-4">
+          <v-row class="">
             <v-col class="pa-0 mt-3 ml-3" cols="5" align="center" @click="goCombiDetail">
               <v-img class="shadow_img" height="70" width="150" :src="bestCombi.imgUrl"></v-img>
               <div class="mt-1">

@@ -1,7 +1,7 @@
 <template>
   <div class="mb-n2">
     <v-card class="sand_big_card">
-      <v-row class="pt-4">
+      <v-row class="">
         <v-col class="pa-0 mt-3 ml-3" cols="5" align="center" @click="goCombiDetail">
           <v-img class="shadow_img" height="72" width="130" :src="combiListItem.imgUrl"></v-img>
           <div class="mt-1">

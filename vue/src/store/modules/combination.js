@@ -166,7 +166,7 @@ export default{
     // ],
     sampleUserId: 1,
     sampleUserName: "test1",
-    userSubti: "icah",
+    userSubti: "lsah",
 
     first: "https://whatsub.s3.ap-northeast-2.amazonaws.com/default/gold.png",
     second: "https://whatsub.s3.ap-northeast-2.amazonaws.com/default/silver.png",

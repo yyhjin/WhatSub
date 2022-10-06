@@ -1,6 +1,6 @@
 <template>
   <div>
-    <v-container class="mb-n10">
+    <v-container class="mb-n8">
       <v-row class="pl-2 pr-2">
         <v-col cols="8" align="center" style="float: left" v-on:click="setfiltering"
           ><v-select
