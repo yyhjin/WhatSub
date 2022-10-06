@@ -83,11 +83,17 @@ export default {
       sauce: [],
     };
   },
-  created() {
-    this.fetchProfile();
-    this.getCombiBasedSubti({
+
+  watch:{
+    profile () {
+      this.getCombiBasedSubti({
       subti: this.profile.subti,
     });
+    }
+  },
+
+  created() {
+    
     console.log(this.combiBasedSubti.ingredient.length);
     for (let index = 0; index < this.combiBasedSubti.ingredient.length; index++) {
       if (this.combiBasedSubti.ingredient[index].category == "빵") {
