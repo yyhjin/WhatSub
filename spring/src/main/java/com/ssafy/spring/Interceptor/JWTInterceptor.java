@@ -21,19 +21,20 @@ public class JWTInterceptor implements HandlerInterceptor {
         }
 
         String token = request.getHeader(HEADER_AUTH);
-//        System.out.println("인터셉터에서 토큰 헤더 얻기 " + token);
 
         if(token != null){
             if(jwtUtil.validateToken(token)){
-                System.out.println("토큰 인증 완료!");
+                System.out.println("[ERROR]: validate token!");
                 return true;
             } else {
-                System.out.println("유효하지 않은 토큰!");
-                response.sendRedirect(request.getContextPath() + "/login");
+                System.out.println("[ERROR]: not validate token!");
+                response.sendRedirect("https://j7a105.p.ssafy.io/login");
                 return false;
 //                throw new NotValidateAccessTokenException();
             }
         }
+        System.out.println("[ERROR]: token is null!");
+        response.sendRedirect("https://j7a105.p.ssafy.io/login");
         return false;
 //        throw new NotValidateAccessException();
     }
