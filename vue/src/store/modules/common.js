@@ -33,9 +33,9 @@ export default({
         })
       },
 
-      fetchOrder({ commit, getters }) {
+      fetchOrder({ commit, getters }, username) {
         axios({
-          url: api.order.order.read(getters.username),
+          url: api.order.order.read(username),
           method: 'get',
           headers: getters.authHeader
         }).then(res => {
