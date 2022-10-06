@@ -15,15 +15,18 @@ export default {
   name: 'ZzimView',
 
   computed: {
-    ...mapGetters(['currentUser', ])
+    ...mapGetters(['profile'])
   },
 
   methods: {
-    ...mapActions(['fetchDibList']),
+    
+    ...mapActions(['fetchDibList', 'fetchProfile']),
   },
 
   mounted () {
-    this.fetchDibList()
+    this.fetchProfile().then(
+      this.fetchDibList(this.profile.userName)
+    )
   }
 }
 </script>

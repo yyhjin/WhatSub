@@ -19,14 +19,14 @@ export default({
     },
 
     actions: {
-      fetchDibList ({ commit, getters } ) {
+      fetchDibList ({ commit, getters }, username ) {
         axios({
-          url: api.accounts.dib(getters.username),
+          url: api.accounts.dib(username),
           method: 'post',
           headers: getters.authHeader
         }).then(res => {
-          console.log(getters.username)
-          console.log(res)
+          
+          console.log('fetchdib 성공', res)
           commit('SET_DIBLIST', res.data.data)
         }).catch(err => {
           console.error(err)

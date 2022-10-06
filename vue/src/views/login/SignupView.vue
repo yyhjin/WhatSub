@@ -59,11 +59,15 @@
 import axios from 'axios'
 import api from '@/api/api'
 import BottomNav from '../../components/common/BottomNav.vue'
-import { mapActions } from 'vuex'
+import { mapActions, mapGetters } from 'vuex'
 
 export default {
   components: { BottomNav },
   name: 'SignupView',
+
+  computed: {
+    ...mapGetters(['authHeader'])
+  },
 
   data () {
     var now = new Date()
@@ -96,6 +100,7 @@ export default {
       axios({
         method: 'get',
         url: api.accounts.check(username),
+        headers: this.authHeader
       }).then(res => {
         console.log(res)
         if (res.data.data === false) {

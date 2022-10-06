@@ -42,7 +42,7 @@ export default {
   },
 
   computed: {
-    ...mapGetters(['currentUser', 'order', 'profile']),
+    ...mapGetters([ 'order', 'profile']),
 
     orderList () {
       let olist = {}
@@ -85,10 +85,11 @@ export default {
   },
 
   mounted () {
-    this.fetchProfile().then(
-      this.fetchOrder(this.profile.userName)
-    )
+    this.fetchProfile().then(() =>{
 
+      console.log(this.profile.userName),
+      this.fetchOrder(this.profile.userName)
+    })
   }
 };
 </script>
