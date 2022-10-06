@@ -62,6 +62,11 @@ export default {
 
   methods: {
     ...mapActions(["fetchBasket", "resetBasket", "resetStore", "fetchProfile"]),
+    goHome() {
+      this.$router.push({
+        name: "home",
+      });
+    },
     setOrder() {
       let combinationList = [];
       this.basket.forEach((bas) => {
