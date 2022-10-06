@@ -27,7 +27,7 @@
           :max-k="max_k"
           :min_k="min_k"
           v-model="range_k"
-          max="1000"
+          max="1200"
           :thumb-size="25"
           color="#239347"
           thumb-color="#239347"
@@ -108,7 +108,7 @@
           :max-m="max_m"
           :min_m="min_m"
           v-model="range_m"
-          max="1000"
+          max="2500"
           :thumb-size="25"
           color="#239347"
           thumb-color="#239347"
@@ -168,14 +168,14 @@ export default {
   data() {
     return {
       min_k: 0,
-      max_k: 1000,
-      range_k: [0, 1000],
+      max_k: 1200,
+      range_k: [0, 1200],
       min_g: 0,
       max_g: 100,
       range_g: [0, 100],
       min_m: 0,
-      max_m: 1000,
-      range_m: [0, 1000],
+      max_m: 2500,
+      range_m: [0, 2500],
     };
   },
   computed: {
