@@ -182,7 +182,7 @@
 import BottomNav from '../../components/common/BottomNav.vue';
 import api from '@/api/api'
 import axios from 'axios'
-import { mapGetters } from 'vuex'
+import { mapActions, mapGetters } from 'vuex'
 export default {
   components: { BottomNav },
   name: 'SurveySubtiView',
@@ -201,7 +201,7 @@ export default {
   },
 
   computed: {
-    ...mapGetters(['authHeader', 'currentUser']),
+    ...mapGetters(['authHeader', 'profile']),
     lvi () {
       return (parseInt(this.question2) + parseInt(this.question6)) >= 8 ? "I":"L"
     },
@@ -220,6 +220,7 @@ export default {
   },
 
   methods: {
+    ...mapActions(['fetchProfile']),
     goBack() {
       this.$router.go(-1);
     },
@@ -230,12 +231,12 @@ export default {
       this.question5 !== 0 && this.question6 !== 0 && this.question7 !== 0 && this.question8 !== 0) {
         axios({
           url: api.accounts.subti(),
-          methods: 'post',
+          method: 'post',
           data: {
             "subti": this.subti,
-            "userId": this.currentUser.userId,
+            "userId": this.profile.userId,
           },
-          // headers: this.authHeader
+          headers: this.authHeader
         }).then( res => {
           console.log(res)
         }).catch( err => {
@@ -245,6 +246,10 @@ export default {
         alert('문항을 모두 기입해주세요')
       }
     }
+  },
+
+  mounted () {
+    this.fetchProfile()
   }
 }
 </script>

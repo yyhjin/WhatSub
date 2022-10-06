@@ -114,7 +114,7 @@
 import api from '@/api/api'
 import axios from 'axios'
 import BottomNav from '../../components/common/BottomNav.vue'
-import { mapGetters } from 'vuex'
+import { mapActions, mapGetters } from 'vuex'
 export default {
   components: { BottomNav },
   name: 'SurveyBasicView',
@@ -150,7 +150,7 @@ export default {
   },
 
   computed: {
-    ...mapGetters(['authHeader', 'currentUser']),
+    ...mapGetters(['authHeader', 'profile']),
     vegetables () {
       let veges = []
       const mapping = {
@@ -189,8 +189,12 @@ export default {
 
   },
 
+  mounted() {
+    this.fetchProfile()
+  },
   
   methods: {
+    ...mapActions(['fetchProfile', 'authHeader']),
     goBack() {
       this.$router.go(-1);
     },
@@ -224,14 +228,14 @@ export default {
       //axios로 체크한거 백으로 요청 
       //다음 페이지로 넘기기
       axios({
-        url: api.accounts.exclude(this.currentUser.username),
+        url: api.accounts.exclude(this.profile.userName),
         method: 'post',
         data: {
           "allergies" : this.allergies,
           "diet" : this.isDiet,
           "vegetables:": this.vegetables
         },
-        // headers: geeters.authHeader
+        headers: this.authHeader
       }).then(res => {
         console.log(res)
         this.$router.push({name:'surveysubti'})
