@@ -300,9 +300,10 @@ export default{
         url: `https://j7a105.p.ssafy.io/api/v1/recommendations/hybrid/${userId}`,
         data: {
           userId: userId,
-        }
+        },
       })
         .then((res) => {
+          
           commit("SET_COMBI_BASED_INDIVIDUAL", res.data[0]);
           console.log("dd", res.data[0]);
         })

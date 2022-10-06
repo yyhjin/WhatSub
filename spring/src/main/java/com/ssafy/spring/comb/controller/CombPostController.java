@@ -29,10 +29,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
 
 
@@ -96,14 +93,14 @@ public class CombPostController {
 
     @ApiOperation(value = "꿀조합 게시글 등록", notes = "꿀조합 게시판에 글을 등록한다.", httpMethod = "POST")
     @PostMapping("/board")
-    @Transactional
+    //@Transactional
     public SuccessResponseResult createCombPost(@RequestPart(value = "combPostRequest") CombPostRequest combPostRequest, @RequestPart(value = "file", required = false) MultipartFile file) {
 
         Combination comb = combService.findByCombinationId(combPostRequest.getCombinationId());
         User user = userService.getUserByUserId(combPostRequest.getUserId());
 
         String imgurl;
-        if(file.isEmpty()) {
+        if(Objects.isNull(file)) {
             String menuid = combPostRequest.getCombinationId().substring(0,1);
             Menu menu = menuService.getMenuByMenuId(menuid);
             imgurl = menu.getImgUrl();
@@ -184,20 +181,31 @@ public class CombPostController {
     }
 
 
-    @ApiOperation(value = "게시글 재료 조회", notes = "해당 게시글의 재료 정보들을 조회한다.", httpMethod = "GET")
+    @ApiOperation(value = "게시글 메뉴, 재료 조회", notes = "해당 게시글의 재료 정보들을 조회한다.", httpMethod = "GET")
     @GetMapping("/{combinationPostId}")
-    public SuccessResponseResult getPostIngredients(@PathVariable int combinationPostId) throws JsonProcessingException {
+    public SuccessResponseResult getPostIngredients(@PathVariable int combinationPostId) {
 
-        List<OrderResponse.IngredientDto> response = new ArrayList<>();
+        CombPostResponse.MenuIngredient response = new CombPostResponse.MenuIngredient();
 
         CombinationPost post = combPostService.findByCombinationPostId(combinationPostId);
+
+        // 메뉴
+        String menuId = post.getCombination().getCombinationId().substring(0,1);
+        Menu menu = menuService.getMenuByMenuId(menuId);
+        OrderResponse.MenuDto menuDto = new OrderResponse.MenuDto(menu);
+        response.setMenu(menuDto);
+
+        // 재료
+        List<OrderResponse.IngredientDto> ingredientDtos = new ArrayList<>();
 
         String list = post.getCombination().getCombinationId().substring(1);
         for (int i = 0, j = 0; j < list.length()/2; i += 2, j++) {
             String ingredientId = list.substring(i, i+2);
             OrderResponse.IngredientDto ingredientResponse = new OrderResponse.IngredientDto(ingredientService.findByIngredientId(ingredientId));
-            response.add(ingredientResponse);
+            ingredientDtos.add(ingredientResponse);
         }
+
+        response.setIngredients(ingredientDtos);
 
         return new SuccessResponseResult(response);
     }
@@ -406,6 +414,7 @@ public class CombPostController {
     @ApiOperation(value = "게시글 통계 갱신", notes = "하루에 한 번씩 모든 게시글에 대한 통계를 갱신하여 저장한다.", httpMethod = "GET")
     @GetMapping("/statistics")
     @Scheduled(cron = "0 0 12 * * *")
+    @Transactional
     @Async
     public void updatePostStatistics() throws JsonProcessingException {
 
@@ -467,6 +476,7 @@ public class CombPostController {
                 else if(user_age>=60) map.put("sixties", map.get("sixties")+1);
 
                 // SUBTI count
+                if(user_subti == null) continue;
                 String subti = user_subti.toLowerCase();
                 map.put(subti, map.get(subti)+1);
 
@@ -479,6 +489,7 @@ public class CombPostController {
             // 게시글에 통계 저장
             combPostService.statisticsUpdate(curPost, statisticsJson);
         }
+
 
     }
 }

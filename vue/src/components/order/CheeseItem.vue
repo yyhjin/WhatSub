@@ -33,7 +33,7 @@ export default {
   },
 
   mounted () {
-    if (this.chee.ingredientId === this.selectedCheese.ingredientId) {
+    if (this.selectedCheese !== null && this.chee.ingredientId === this.selectedCheese.ingredientId) {
       this.$el.childNodes[0].classList.add("checked")
     }
   }

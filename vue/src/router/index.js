@@ -138,7 +138,7 @@ const routes = [
 
   //order
   {
-    path: "/ordercheck",
+    path: "/ordercheck/:orderId",
     name: "ordercheck",
     component: OrderCheckView,
     props: true
@@ -147,28 +147,49 @@ const routes = [
     path: "/orderone",
     name: "orderone",
     component: OrderOneView,
+    props: true
   },
   {
     path: "/ordertwo",
     name: "ordertwo",
     component: OrderTwoView,
+    beforeEnter: function(to, from, next) {
+      if (from.name === 'orderone') {
+        next()
+      } else {
+        next({name:'orderone'})
+      }
+    }
   },
   {
     path: "/orderthree",
     name: "orderthree",
     component: OrderThreeView,
+    beforeEnter: function(to, from, next) {
+      if (from.name === 'ordertwo') {
+        next()
+      } else {
+        next({name:'orderone'})
+      }
+    }
   },
   {
     path: "/orderfour",
     name: "orderfour",
     component: OrderFourView,
+    beforeEnter: function(to, from, next) {
+      if (from.name === 'orderthree') {
+        next()
+      } else {
+        next({name:'orderone'})
+      }
+    }
   },
   {
     path: "/storeinfo",
     name: "storeinfo",
     component: StoreInfoView,
   },
-  
   
   //profile
   {
