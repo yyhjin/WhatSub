@@ -181,7 +181,6 @@ public class UserController {
 
         combPostList = userService.addMenuNameAndIngredientsToCombPost(combPostList);
 
-
         UserResponse.UserInfoResponse response = UserResponse.UserInfoResponse.builder()
                 .userName(user.getUserName())
                 .img(user.getProfileImg())
