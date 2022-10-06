@@ -21,7 +21,7 @@
         </v-col>
       </v-row>
     </div>
-    <div align="center"><v-img height="130" src="@/assets/subway_ad.jpg"></v-img></div>
+    <div align="center"><a href="https://www.subway.co.kr/eventView?eventIdx=215&query="><v-img height="130" src="@/assets/subway_ad.jpg"></v-img></a></div>
     <div class="bottom">
       <bottom-nav></bottom-nav>
     </div>
