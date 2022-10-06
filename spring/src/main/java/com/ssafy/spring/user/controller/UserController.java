@@ -184,6 +184,7 @@ public class UserController {
 
         UserResponse.UserInfoResponse response = UserResponse.UserInfoResponse.builder()
                 .userName(user.getUserName())
+                .img(user.getProfileImg())
                 .subti(user.getSubti())
                 .collections(collectionList)
                 .dibs(dibList)

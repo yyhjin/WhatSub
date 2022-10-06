@@ -33,6 +33,7 @@ public class UserResponse {
     @Data
     @Builder
     public static class UserInfoResponse{
+        private String img;
         private String userName;
         private String subti;
         private List<CollectionDto> collections;
