@@ -17,7 +17,10 @@
           ></v-file-input>
         </div>
         <div class="nickname">
-          <v-text-field label="닉네임" v-model="credentials.username"></v-text-field>
+          <div style="display:flex;">
+            <v-text-field label="닉네임" v-model="credentials.username" class="nameInput"></v-text-field>
+            <v-icon v-if="checked">mdi-check</v-icon>
+          </div>
           <v-btn class="main_btn name_btn" @click="checkId(credentials.username)">닉네임 중복검사</v-btn>
         </div>
         <div class="gender">
@@ -81,7 +84,8 @@ export default {
       formData: formData,
       code: '',
       accessToken : '',
-      imgUrl: ''
+      imgUrl: '',
+      checked: 0
     }
   },
 
@@ -96,19 +100,25 @@ export default {
         console.log(res)
         if (res.data.data === false) {
           alert('가능')
+          this.checked = true
         } else {
+          this.checked=false
           alert('있는 아이디')
         }
       }).catch(err => console.error(err))
     },
 
     signup () {
-      this.formData.append("userName", this.credentials.username)
-      this.formData.append("gender", this.credentials.gender)
-      this.formData.append("birthYear", this.credentials.birthYear)
-      //formData를 axios로 서버로 보냄
-      this.formData.append('email', '')
-      this.$store.dispatch('signup', this.formData)
+      if (!this.checked) {
+        alert('중복검사 실시')
+      } else {
+        this.formData.append("userName", this.credentials.username)
+        this.formData.append("gender", this.credentials.gender)
+        this.formData.append("birthYear", this.credentials.birthYear)
+        //formData를 axios로 서버로 보냄
+        this.formData.append('email', '')
+        this.$store.dispatch('signup', this.formData)
+      }
      
     },
 

@@ -1,5 +1,6 @@
 import axios from "axios";
 import api from "@/api/api";
+import router from "@/router";
 
 export default({
   state: {
@@ -65,16 +66,19 @@ export default({
           headers: getters.authHeader
         })
         .then(res => {
+          console.log('fetchcurrentuser',res)
           axios({
             url: api.accounts.profile(res.data.username),
             method: 'get',
             headers: getters.authHeader
           })
           .then( res => {
+            console.log('profile',res)
             commit('SET_CURRENT_USER', res.data)
           }) 
         })
         .catch( err => {
+          console.log('fetchprofile 에러' ,err)
           if (err.response.status === 401) {
             dispatch('removeToken')
             // router.push({name:'login'})
@@ -97,7 +101,7 @@ export default({
       })
     },
 
-    signup ({ dispatch, getters }, formData) {
+    signup ({  getters }, formData) {
       axios({
         url : api.accounts.signup(),
         method : 'post',
@@ -105,12 +109,13 @@ export default({
         headers: getters.authHeader
       })
       .then(res => {
-        dispatch('saveToken', res.data.key)
-        dispatch('fetchCurrentUser')
-        // router.push({name:'home'})    
+        console.log(res)
+        // dispatch('saveToken', res.data.key)
+        // dispatch('fetchCurrentUser')
+        router.push({name:'home'})    
       })
       .catch(err => {
-        console.error(err.response.data)
+        console.error('signup 에러',err.response.data)
         // commit('SET_AUTH_ERROR', err.response.data)
       })
   },

@@ -10,7 +10,7 @@ export default {
   accounts: {
     login: () => HOST + 'auth/login',
     // logout: () => HOST + ACCOUNTS + 'logout/',
-    signup: () => HOST + ACCOUNTS + 'signup/',
+    signup: () => HOST + ACCOUNTS + 'signup',
     check: (username) => HOST + ACCOUNTS + 'check/' + username + '/',
     // Token 으로 현재 user 판단
     // currentUserInfo: () => HOST + ACCOUNTS + 'user/',
