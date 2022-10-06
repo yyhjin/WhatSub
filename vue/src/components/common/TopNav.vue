@@ -35,6 +35,8 @@
 </template>
 
 <script>
+import router from '@/router'
+import { mapActions } from 'vuex';
 export default {
   name: "TopNav",
 
@@ -45,6 +47,7 @@ export default {
   },
 
   methods: {
+    ...mapActions(['removeToken']),
     goBasket() {
       this.$router.push("/orderbasket");
     },
@@ -70,7 +73,9 @@ export default {
       this.$router.push({ name: "surveysubti"})
     },
     logout() {
-
+      this.removeToken()
+      alert('로그아웃 성공!')
+      router.push({name:'login'})
     }
   }
 };

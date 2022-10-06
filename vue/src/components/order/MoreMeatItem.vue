@@ -39,7 +39,10 @@ export default {
   },
 
   mounted() {
-    if (this.moreMeat.ingredientId === this.selectedMoreMeat.ingredientId) {
+    if (
+      this.selectedMoreMeat !== null &&
+      this.moreMeat.ingredientId === this.selectedMoreMeat.ingredientId
+    ) {
       this.$el.childNodes[0].classList.add("checked");
     }
   },

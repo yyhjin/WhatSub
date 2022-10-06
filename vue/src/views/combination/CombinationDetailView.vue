@@ -200,6 +200,11 @@ export default {
     goProfile() {
       this.$router.push({ name: "mypage" });
     },
+
+    goOrderCombi () {
+      this.$router.push({ name: "orderone", params: {combinationPostId: parseInt(this.combinationPostId) } });
+    }
+
   },
 };
 </script>

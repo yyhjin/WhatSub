@@ -8,24 +8,18 @@
         <v-col class="mt-1 ml-3"><h3>메뉴 선택</h3></v-col>
       </v-row>
     </div>
-    <div class="pt-14">
-      <menu-list></menu-list>
-    </div>
-    <div class="bottom" style="background-color: white">
-      <div align="center" class="order_btn">
-        <v-btn class="main_btn" width="185" small elevation="0" rounded @click="goNext"
-          >주문하기</v-btn
-        >
-      </div>
+    <menu-list></menu-list>
+    <div align="center" class="order_btn">
+      <v-btn class="main_btn" width="185" small elevation="0" rounded @click="goNext"
+        >주문하기</v-btn
+      >
     </div>
   </div>
 </template>
 
 <script>
 import MenuList from "@/components/order/MenuList.vue";
-import { mapGetters } from "vuex";
-
-import { mapActions } from "vuex";
+import { mapGetters, mapActions } from "vuex";
 
 export default {
   name: "OrderTwoView",
@@ -53,9 +47,6 @@ export default {
 
   mounted() {
     this.fetchMenus();
-  },
-  created() {
-    // this.fetchMenus()
   },
 };
 </script>

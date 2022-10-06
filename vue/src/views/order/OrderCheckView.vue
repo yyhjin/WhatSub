@@ -21,7 +21,7 @@
     <div class="checkStore">
       예상 시간에 맞춰 매장에 방문해주세요!
       <div align="center" class="order_btn">
-        <v-btn class="main_btn" width="185" small elevation="0" rounded >픽업 매장 확인하기</v-btn>
+        <v-btn class="main_btn" width="185" small elevation="0" rounded @click.prevent="goStoreInfo">픽업 매장 확인하기</v-btn>
       </div>
     </div>
     <div class="bottom">
@@ -34,6 +34,8 @@
 import OrderDetail from '../../components/common/OrderDetail.vue'
 import BottomNav from '@/components/common/BottomNav.vue'
 import { mapGetters } from 'vuex'
+import axios from 'axios'
+import api from '@/api/api'
 export default {
   components: { OrderDetail, BottomNav },
   name: 'OrderCheckView',
@@ -46,8 +48,21 @@ export default {
     ...mapGetters(['basket'])
   },
 
+  methods: {
+    goStoreInfo () {
+      this.$router.push({name: 'storeinfo'})
+    }
+  },
+
   mounted () {
-    // localStorage.removeItem('basket', 'morecheese')
+    axios({
+      url: api.order.order.readorder(this.orderId),
+      method: 'get'
+    }).then(res => {
+      console.log(res)
+    }).catch(err => {
+      console.log('orderread 오류', err)
+    })
     
   }
   

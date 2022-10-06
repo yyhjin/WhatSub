@@ -4,19 +4,24 @@
       <v-btn icon class="backbtn pl-3" @click="goHome"><v-icon>mdi-home-outline</v-icon></v-btn>
       <h4 style="font-size: 18px">장바구니</h4>
     </div>
-    <div class="store">서브웨이 {{ store.branchName }}점</div>
-    <div class="orderCheck">
-      <order-basket
-        :bas="bas"
-        :index="index"
-        v-for="(bas, index) in basket"
-        :key="index"
-      ></order-basket>
-    </div>
-    <div class="bottom">
-      <div class="total_price">총 {{ totalPrice | comma }}원</div>
+    <div v-if="basket">
+      <div class="store">서브웨이 {{ store.branchName }}점</div>
+      <div class="orderCheck">
+        <order-basket
+          :bas="bas"
+          :index="index"
+          v-for="(bas, index) in basket"
+          :key="index"
+        ></order-basket>
+      </div>
+      <div class="bottom">
+        <div class="total_price">총 {{ totalPrice }}원</div>
 
-      <button class="order_btn green_btn" @click.prevent="setOrder">주문하기</button>
+        <button class="order_btn green_btn" @click.prevent="setOrder">주문하기</button>
+      </div>
+    </div>
+    <div v-else>
+      <h1 style="text-align: center; margin-top: 200px">장바구니가 없습니다~</h1>
     </div>
   </div>
 </template>
@@ -37,11 +42,13 @@ export default {
     },
   },
   computed: {
-    ...mapGetters(["basket", "selectedStore"]),
+    ...mapGetters(["basket", "selectedStore", "profile", "username"]),
 
     totalPrice() {
       let price = 0;
-      this.basket.forEach((bas) => (price += bas.price));
+      if (this.basket) {
+        this.basket.forEach((bas) => (price += bas.price * bas.cnt));
+      }
       return price;
     },
 
@@ -51,12 +58,7 @@ export default {
   },
 
   methods: {
-    ...mapActions(["fetchBasket"]),
-    goHome() {
-      this.$router.push({
-        name: "home",
-      });
-    },
+    ...mapActions(["fetchBasket", "resetBasket", "resetStore", "fetchProfile"]),
     setOrder() {
       let combinationList = [];
       this.basket.forEach((bas) => {
@@ -141,7 +143,7 @@ export default {
         branchId: this.store.branchId,
         combinationList: combinationList,
         orderPrice: this.totalPrice,
-        userId: 1,
+        userId: this.profile.userId,
       };
       console.log(data);
       axios({
@@ -150,6 +152,16 @@ export default {
         data: data,
         // headers:getters.authHeader
       })
+        .then((res) => {
+          localStorage.setItem("store", null);
+          localStorage.setItem("basket", null);
+          // this.resetBasket()
+          this.resetStore();
+          this.$router.push({ name: "ordercheck", params: { orderId: res.data.data.orderId } }); // 요청 성공하면 주소 옮기는게 나을수도
+        })
+        .catch((err) => {
+          console.error("makeorder 에러", err);
+        })
         .then((res) => {
           console.log(res);
           console.log(combinationList);
@@ -163,6 +175,7 @@ export default {
   },
 
   mounted() {
+    this.fetchProfile({ username: this.username });
     this.fetchBasket();
     localStorage.removeItem(
       "menu",
@@ -175,6 +188,7 @@ export default {
       "cheese",
       "morecheese"
     );
+    console.log(this.basket);
   },
 };
 </script>

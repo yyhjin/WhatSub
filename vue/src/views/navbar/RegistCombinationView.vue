@@ -119,22 +119,21 @@ export default {
         new Blob([JSON.stringify(data)], { type: "application/json" })
       );
       // this.formData.append("combPostRequest", data)
-      // this.formData.append("file", '')
+      this.formData.append("file", 'sdfsd')
       // console.log(this.formData.values())
       axios({
         url: "https://j7a105.p.ssafy.io/api/v1/comb/board",
         method: "post",
         data: this.formData,
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
-      })
-        .then((res) => {
-          console.log(res);
-          this.$router.push({ name: "home" });
-        })
-        .catch((err) => console.error(err));
-    },
+        headers:{
+          'Content-Type':'multipart/form-data'
+        }
+      }).then(res => {
+        console.log(res)
+        this.$router.push({name:'home'})
+      }).catch(err => 
+      console.error(err))
+    }
   },
 
   mounted() {

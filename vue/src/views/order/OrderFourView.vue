@@ -1,6 +1,10 @@
 <template>
   <div class="body">
-    <alert-order></alert-order>
+    <alert-order
+      :cnt="cnt"
+      :totalPrice="totalPrice"
+      :selectedStore="JSON.stringify(selectedStore)"
+    ></alert-order>
     <div class="top pt-2 pb-2">
       <v-row>
         <v-col cols="4">
@@ -271,41 +275,15 @@ export default {
     setBasket() {
       if (this.selectedBread === null || this.selectedBread === undefined) {
         alert("빵을 골라주세요");
+      } else {
+        if (this.selectedCheese === null || this.selectedCheese === undefined) {
+          alert("치즈를 골라주세요");
+        } else {
+          const modal = document.querySelector(".modal");
+          modal.style.display = "block";
+          document.body.style.overflow = "hidden";
+        }
       }
-      if (this.selectedCheese === null || this.selectedCheese === undefined) {
-        alert("치즈를 골라주세요");
-      }
-
-      const bas = JSON.parse(localStorage.getItem("basket")) || [];
-      let order = {
-        store: this.selectedStore,
-        menu: this.selectedMenu,
-        size: this.selectedSize,
-        vege: this.selectedVege,
-        more: this.selectedMore,
-        sauce: this.selectedSauce,
-        moremeat: this.selectedMoreMeat,
-        bread: this.selectedBread,
-        cheese: this.selectedCheese,
-        cnt: this.cnt,
-        price: this.totalPrice,
-      };
-
-      bas.push(order);
-
-      localStorage.setItem("basket", JSON.stringify(bas));
-      localStorage.setItem("menu", null);
-      localStorage.setItem("size", null);
-      localStorage.setItem("vege", null);
-      localStorage.setItem("more", null);
-      localStorage.setItem("sauce", null);
-      localStorage.setItem("bread", null);
-      localStorage.setItem("cheese", null);
-      localStorage.setItem("moremeat", null);
-
-      const modal = document.querySelector(".modal");
-      modal.style.display = "block";
-      document.body.style.overflow = "hidden";
     },
 
     setOrder() {
@@ -423,7 +401,7 @@ export default {
   justify-content: space-between;
 }
 .bottom {
-  height: 55px;
+  height: 40px;
   position: fixed;
   bottom: 0;
   background: white;

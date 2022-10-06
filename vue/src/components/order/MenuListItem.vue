@@ -59,7 +59,7 @@ export default {
   },
 
   mounted() {
-    if (this.menu.menuId === this.selectedMenu.menuId) {
+    if (this.selectedMenu !== null && this.menu.menuId === this.selectedMenu.menuId) {
       this.$el.classList.add("select");
     }
   },
@@ -84,7 +84,7 @@ export default {
   height: 80px;
 }
 .content {
-  text-align: left !important;
+  text-align: center;
 }
 .title {
   font-weight: 700;
