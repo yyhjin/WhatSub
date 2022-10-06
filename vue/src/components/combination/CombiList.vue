@@ -110,6 +110,9 @@ export default {
   computed: {
     ...mapGetters(["combiList", "profile"]),
   },
+
+
+
   created() {
     console.log(this.combiList);
     this.homeToScroll();
@@ -119,6 +122,7 @@ export default {
       this.scrollSandList = [];
       this.homeToScroll();
     },
+    
   },
 
   methods: {

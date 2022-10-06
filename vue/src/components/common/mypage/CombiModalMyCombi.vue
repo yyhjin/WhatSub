@@ -73,7 +73,12 @@ export default {
         },
       });
     },
-    goOrderCombi() {},
+    goOrderCombi() {
+      this.$router.push({
+        name: "orderone",
+        params: { combinationPostId: parseInt(this.combiListItem.combinationPostId) },
+      });
+    },
   },
 };
 </script>

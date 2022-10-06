@@ -79,19 +79,29 @@ export default {
   computed: {
     ...mapGetters(["bestCombi", "profile"]),
   },
-  created() {
-    this.fetchProfile();
-    this.getBestCombi({
+
+  watch : {
+    profile () {
+      this.getBestCombi({
       userId: this.profile.userId,
     });
-    for (let index = 0; index < this.bestCombi.ingredients.length; index++) {
+    },
+
+    bestCombi () {
+      for (let index = 0; index < this.bestCombi.ingredients.length; index++) {
       if (this.bestCombi.ingredients[index].category == "추가") {
         this.others.push(this.bestCombi.ingredients[index].name);
       } else if (this.bestCombi.ingredients[index].category == "소스") {
         this.sauce.push(this.bestCombi.ingredients[index].name);
       }
     }
+    }
   },
+
+  created() {
+    this.fetchProfile();
+  },
+
   filters: {
     comma(val) {
       return String(val).replace(/\B(?=(\d{3})+(?!\d))/g, ",");

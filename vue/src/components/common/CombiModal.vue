@@ -26,7 +26,7 @@
           총&nbsp; {{ combiListItem.price | comma }}원
         </div>
         <v-spacer></v-spacer>
-        <v-btn class="main_btn" width="180" elevation="0" rounded @click="goOrderCombi"
+        <v-btn class="main_btn" width="180" elevation="0" rounded @click.prevent="goOrderCombi"
           >주문하러 가기</v-btn
         >
       </v-card-actions>
@@ -73,7 +73,13 @@ export default {
         },
       });
     },
-    goOrderCombi() {},
+    goOrderCombi() {
+      
+      this.$router.push({
+        name: "orderone",
+        params: { combinationPostId: parseInt(this.combiListItem.combinationPostId) },
+      });
+    },
   },
 };
 </script>

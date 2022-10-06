@@ -51,6 +51,18 @@ export default {
       return String(val).replace(/\B(?=(\d{3})+(?!\d))/g, ",");
     },
   },
+
+  // watch: {
+  //   combiListItem () {
+  //     for (let index = 0; index < this.combiListItem.ingredients.length; index++) {
+  //       if (this.combiListItem.ingredients[index].category == "추가") {
+  //         this.others.push(this.combiListItem.ingredients[index].name);
+  //       } else if (this.combiListItem.ingredients[index].category == "소스") {
+  //         this.sauce.push(this.combiListItem.ingredients[index].name);
+  //       }
+  //     }
+  //   }
+  // },
   created() {
     for (let index = 0; index < this.combiListItem.ingredients.length; index++) {
       if (this.combiListItem.ingredients[index].category == "추가") {
