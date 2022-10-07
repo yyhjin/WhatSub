@@ -105,7 +105,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 .sand_big_card {
   height: 140px;
   width: 333px;

@@ -35,7 +35,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 .sand_small_card {
   height: 140px;
   width: 140px;
@@ -46,3 +46,4 @@ export default {
   margin-bottom: 15px;
 }
 </style>
+ㅎ
