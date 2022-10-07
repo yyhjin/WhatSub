@@ -11,7 +11,15 @@
       >
       <div class="mt-6">
         <div class="pt-8 ml-n2 mb-n10">
-          <h2 style="position: relative; z-index: 2; transform: rotate(-35deg); width: 10px">
+          <h2
+            style="
+              font-size: 20px;
+              position: relative;
+              z-index: 2;
+              transform: rotate(-35deg);
+              width: 10px;
+            "
+          >
             <span class="fir">BEST</span><span class="sec">!</span>
           </h2>
         </div>
@@ -80,22 +88,22 @@ export default {
     ...mapGetters(["bestCombi", "profile"]),
   },
 
-  watch : {
-    profile () {
+  watch: {
+    profile() {
       this.getBestCombi({
-      userId: this.profile.userId,
-    });
+        userId: this.profile.userId,
+      });
     },
 
-    bestCombi () {
+    bestCombi() {
       for (let index = 0; index < this.bestCombi.ingredients.length; index++) {
-      if (this.bestCombi.ingredients[index].category == "추가") {
-        this.others.push(this.bestCombi.ingredients[index].name);
-      } else if (this.bestCombi.ingredients[index].category == "소스") {
-        this.sauce.push(this.bestCombi.ingredients[index].name);
+        if (this.bestCombi.ingredients[index].category == "추가") {
+          this.others.push(this.bestCombi.ingredients[index].name);
+        } else if (this.bestCombi.ingredients[index].category == "소스") {
+          this.sauce.push(this.bestCombi.ingredients[index].name);
+        }
       }
-    }
-    }
+    },
   },
 
   created() {

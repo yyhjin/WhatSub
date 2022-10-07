@@ -1,27 +1,28 @@
 <template>
   <div class="body">
-    <div class="top">
-      주문완료!
-    </div>
+    <div class="top pt-1">주문완료!</div>
     <div class="time">
-      <p>
-        주문 번호: <span>129번</span>
-      </p>
-      <p>
-        <span>10~15분</span>정도 소요될 예정이에요.
-      </p>
+      <p>주문 번호: <span style="font-size: 20px">129번</span></p>
+      <p><span style="font-size: 20px">10~15분 </span>정도 소요될 예정이에요.</p>
     </div>
-    <div class="store">
-      서브웨이 {{basket[0].store.branchName}}점
-    </div>
-    <div class="orderCheck">
-      주문내역
+    <div class="store pt-1">서브웨이 {{ basket[0].store.branchName }}점</div>
+    <div class="orderCheck pt-3 pb-3">
+      <div class="pb-2">주문내역</div>
       <order-detail :bas="bas" v-for="(bas, index) in basket" :key="index"></order-detail>
     </div>
     <div class="checkStore">
-      예상 시간에 맞춰 매장에 방문해주세요!
-      <div align="center" class="order_btn">
-        <v-btn class="main_btn" width="185" small elevation="0" rounded @click.prevent="goStoreInfo">픽업 매장 확인하기</v-btn>
+      <div>예상 시간에 맞춰 매장에 방문해주세요!</div>
+      <div align="center" class="order_btn pb-1">
+        <v-btn
+          class="main_btn"
+          style="font-size: 14px"
+          width="185"
+          small
+          elevation="0"
+          rounded
+          @click.prevent="goStoreInfo"
+          >픽업 매장 확인하기</v-btn
+        >
       </div>
     </div>
     <div class="bottom">
@@ -31,42 +32,42 @@
 </template>
 
 <script>
-import OrderDetail from '../../components/common/OrderDetail.vue'
-import BottomNav from '@/components/common/BottomNav.vue'
-import { mapGetters } from 'vuex'
-import axios from 'axios'
-import api from '@/api/api'
+import OrderDetail from "../../components/common/OrderDetail.vue";
+import BottomNav from "@/components/common/BottomNav.vue";
+import { mapGetters } from "vuex";
+import axios from "axios";
+import api from "@/api/api";
 export default {
   components: { OrderDetail, BottomNav },
-  name: 'OrderCheckView',
+  name: "OrderCheckView",
 
   props: {
-    orderId:Number
+    orderId: Number,
   },
 
   computed: {
-    ...mapGetters(['basket'])
+    ...mapGetters(["basket"]),
   },
 
   methods: {
-    goStoreInfo () {
-      this.$router.push({name: 'storeinfo'})
-    }
+    goStoreInfo() {
+      this.$router.push({ name: "storeinfo" });
+    },
   },
 
-  mounted () {
+  mounted() {
     axios({
       url: api.order.order.readorder(this.orderId),
-      method: 'get'
-    }).then(res => {
-      console.log(res)
-    }).catch(err => {
-      console.log('orderread 오류', err)
+      method: "get",
     })
-    
-  }
-  
-}
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((err) => {
+        console.log("orderread 오류", err);
+      });
+  },
+};
 </script>
 
 <style scoped>
@@ -76,20 +77,22 @@ export default {
 .top {
   position: fixed;
   top: 0;
-  height: 70px;
+  height: 55px;
   width: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
   background-color: #239347;
   color: #f4c41f;
+  font-size: 20px;
   font-weight: bold;
 }
 
-.time{
-  height: 150px;
+.time {
+  height: 130px;
   width: 100%;
-  border: 1px solid;   /* 나중에 지울 거 */
+  margin-top: -16px;
+  border: 1px solid; /* 나중에 지울 거 */
   display: flex;
   flex-direction: column;
   text-align: center;
@@ -100,27 +103,27 @@ p {
 }
 span {
   font-size: 30px;
-  color: red;
+  color: #239347;
 }
-.store{
+.store {
   height: 50px;
   width: 100%;
-  background-color: #F5F5F5;
+  background-color: #f5f5f5;
   display: flex;
   justify-content: center;
   align-items: center;
   margin-bottom: 2px;
 }
-.orderCheck{
+.orderCheck {
   width: 100%;
-  height: 300px;
+  height: 400px;
   overflow: scroll;
-  background-color: #F5F5F5;
+  background-color: #f5f5f5;
   text-align: center;
 }
 .checkStore {
   margin-top: 20px;
-  height: 60px;
+  height: 70px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;

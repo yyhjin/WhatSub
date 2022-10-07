@@ -48,52 +48,71 @@
         <v-expansion-panel-header style="font-size: 18px">
           <v-row>
             <v-col>
-              <div class="mb-5">
+              <div class="mb-3" style="color: #239347">
                 {{ sandItem.menuName }}
+              </div>
+              <div style="font-size: 12px; color: #757575">
+                {{ sandItem.menuDesc }}
               </div>
               <br />
               <br />
             </v-col>
           </v-row>
-          <div class="shadow_img mt-7 ml-100" style="position: absolute">
+          <div class="shadow_img ml-100" style="position: absolute">
             <v-img class="img_rank" :src="sandItem.imgUrl" max-width="120" alt="" />
           </div>
         </v-expansion-panel-header>
         <v-expansion-panel-content>
-          <v-row class="mt-1" align="center">
-            <v-col cols="3" class="pa-0">
-              <!-- <v-avatar><v-img :src="sandItem.data[0].profileImg"></v-img></v-avatar> -->
-              <v-img src="@/assets/collection/gold.png" width="50"></v-img>
-            </v-col>
-            <v-col cols="6" align="left">
-              {{ sandItem.data[0].userName }}
-            </v-col>
-            <v-col align="right"> {{ sandItem.data[0].cnt }}개 </v-col>
-          </v-row>
+          <div @click.prevent="goProfile(sandItem.data[0].userName)">
+            <v-row class="mt-2" align="center">
+              <v-col cols="3" class="pa-0">
+                <!-- <v-avatar><v-img :src="sandItem.data[0].profileImg"></v-img></v-avatar> -->
+                <v-img src="@/assets/collection/gold.png" width="45"></v-img>
+              </v-col>
+              <v-col cols="6" align="left">
+                <div style="font-size: 15px">
+                  {{ sandItem.data[0].userName }}
+                </div>
+              </v-col>
+              <v-col align="right">
+                <div style="font-size: 16px">{{ sandItem.data[0].cnt }}개</div></v-col
+              >
+            </v-row>
+          </div>
         </v-expansion-panel-content>
         <v-divider></v-divider>
         <v-expansion-panel-content>
-          <v-row class="mt-2" align="center">
-            <v-col cols="3" class="pa-0">
-              <v-img src="@/assets/collection/silver.png" width="50"></v-img>
-            </v-col>
-            <v-col cols="6" align="left">
-              {{ sandItem.data[1].userName }}
-            </v-col>
-            <v-col align="right"> {{ sandItem.data[1].cnt }}개 </v-col>
-          </v-row>
-        </v-expansion-panel-content>
+          <div @click="goProfile(sandItem.data[1].userName)">
+            <v-row class="mt-2" align="center">
+              <v-col cols="3" class="pa-0">
+                <v-img src="@/assets/collection/silver.png" width="45"></v-img>
+              </v-col>
+              <v-col cols="6" align="left">
+                <div style="font-size: 15px">
+                  {{ sandItem.data[1].userName }}
+                </div>
+              </v-col>
+              <v-col align="right">
+                <div style="font-size: 16px">{{ sandItem.data[1].cnt }}개</div>
+              </v-col>
+            </v-row>
+          </div>
+        </v-expansion-panel-content >
         <v-divider></v-divider>
-        <v-expansion-panel-content>
-          <v-row class="mt-2" align="center">
-            <v-col cols="3" class="pa-0">
-              <v-img src="@/assets/collection/bronze.png" width="50"></v-img>
-            </v-col>
-            <v-col cols="6" align="left">
-              {{ sandItem.data[2].userName }}
-            </v-col>
-            <v-col align="right"> {{ sandItem.data[2].cnt }}개 </v-col>
-          </v-row>
+        <v-expansion-panel-content >
+          <div @click="goProfile(sandItem.data[2].userName)">
+            <v-row class="mt-2" align="center">
+              <v-col cols="3" class="pa-0">
+                <v-img src="@/assets/collection/bronze.png" width="45"></v-img>
+              </v-col>
+              <v-col cols="6" align="left">
+                <div style="font-size: 15px">
+                  {{ sandItem.data[2].userName }}
+                </div>
+              </v-col>
+              <v-col align="right"> {{ sandItem.data[2].cnt }}개 </v-col>
+            </v-row>
+          </div>
         </v-expansion-panel-content>
       </v-expansion-panel>
     </v-expansion-panels>
@@ -110,13 +129,18 @@ export default {
   name: "UserRankingItem",
 
   props: {
-    sand: Object,
+    sand: Array,
     index: Number,
   },
 
   // components: { ModalRanking },
 
-  methods: {},
+  methods: {
+    goProfile (username) {
+      console.log(1)
+      this.$router.push({name:'mypage', params:{userName:username}})
+    }
+  },
 };
 </script>
 
@@ -185,5 +209,6 @@ export default {
 }
 .ml-100 {
   margin-left: 120px;
+  margin-top: 65px;
 }
 </style>

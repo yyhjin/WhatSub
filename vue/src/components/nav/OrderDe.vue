@@ -1,24 +1,19 @@
 <template>
-  <div class="bill" >
+  <div class="bill">
     <div class="orderBox">
       <div class="menuCheck">
         <div class="name">
-          {{ menu.menu.menu_name}}
+          {{ menu.menu.menu_name }}
         </div>
         <div class="cntPrice">
-          <div class="cnt">
-            수량:{{ menu.count }}개
-          </div>
-          
+          <div class="cnt">수량:{{ menu.count }}개</div>
         </div>
       </div>
       <div class="otherCheck">
-        <div class="name" style="text-align:center;">
-          빵/치즈/소스/야채/추가
-        </div>
+        <div class="name" style="text-align: center">빵/치즈/소스/야채/추가</div>
         <div class="content">
           <div class="bread">
-            {{ menu.ingredients[0].name }} 
+            {{ menu.ingredients[0].name }}
           </div>
           <div class="cheese">
             {{ menu.ingredients[1].name }}
@@ -34,64 +29,59 @@
           </div>
         </div>
       </div>
-    </div> 
+    </div>
   </div>
-  
 </template>
 
 <script scoped>
 export default {
-  name: 'OrderDe',
+  name: "OrderDe",
 
-  props:{
-    menu:Object
+  props: {
+    menu: Object,
   },
 
-  
-
   computed: {
-    vege () {
-      let vege = ''
-      this.menu.ingredients.forEach(each => {
+    vege() {
+      let vege = "";
+      this.menu.ingredients.forEach((each) => {
         if (each.category === "야채") {
-          vege += each.name + ', '
+          vege += each.name + ", ";
         }
-      })
-      vege = vege.slice(0, -2)
-      return vege
+      });
+      vege = vege.slice(0, -2);
+      return vege;
     },
-    sauce () {
-      let sauce = ''
-      this.menu.ingredients.forEach(each => {
+    sauce() {
+      let sauce = "";
+      this.menu.ingredients.forEach((each) => {
         if (each.category === "소스") {
-          sauce += each.name + ', '
+          sauce += each.name + ", ";
         }
-      })
-      sauce = sauce.slice(0, -2)
-      return sauce
+      });
+      sauce = sauce.slice(0, -2);
+      return sauce;
     },
-    more () {
-      let more = ''
-      this.menu.ingredients.forEach(each => {
+    more() {
+      let more = "";
+      this.menu.ingredients.forEach((each) => {
         if (each.category === "추가" || each.category === "미트추가") {
-          more += each.name + ', '
+          more += each.name + ", ";
         }
-      })
-      
-      return more.slice(0, -2)
-    }
-  }
-}
+      });
+
+      return more.slice(0, -2);
+    },
+  },
+};
 </script>
 
 <style scoped>
 .bill {
-  
   width: 90%;
-  border: 1px ;
+  border: 1px;
   margin: auto;
-  margin-bottom: 10px;
-  
+  margin-bottom: 20px;
 }
 .menuCheck {
   border-bottom: 1px solid;
@@ -104,12 +94,11 @@ export default {
 .cntPrice {
   display: flex;
   flex-direction: row;
-  justify-content: space-around
+  justify-content: space-around;
 }
 .content {
   display: block;
   width: 90%;
   text-align: center;
 }
-
 </style>
