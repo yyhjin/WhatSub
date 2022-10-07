@@ -2,17 +2,13 @@
   <div class="body">
     <div class="top">
       <v-btn icon class="backbtn pl-3" @click="goHome"><v-icon>mdi-home-outline</v-icon></v-btn>
-      픽업 매장 위치
+      <h4 class="pt-1">픽업 매장 위치</h4>
     </div>
-    <div class="title">
-      {{ store.branchName }}
+    <div class="title" align="center">
+      <h6 cla>서브웨이 {{ store.branchName }}점 (02-501-1554)</h6>
     </div>
-    <store-map
-      :lat="store.lat"
-      :lng="store.lng"
-      :storeInfoList="[store]"
-      :type="1"
-    ></store-map>
+    <div class="pt-1 mb-3" align="center">서울특별시 강남구 테헤란로 25길 20</div>
+    <store-map :lat="store.lat" :lng="store.lng" :storeInfoList="[store]" :type="1"></store-map>
     <div class="bottom">
       <bottom-nav></bottom-nav>
     </div>
@@ -21,7 +17,7 @@
 
 <script>
 import { mapGetters } from "vuex";
-import BottomNav from '../../components/common/BottomNav.vue';
+import BottomNav from "../../components/common/BottomNav.vue";
 import StoreMap from "../../components/common/StoreMap.vue";
 export default {
   components: { StoreMap, BottomNav },
@@ -41,7 +37,7 @@ export default {
         name: "home",
       });
     },
-  }
+  },
 };
 </script>
 
