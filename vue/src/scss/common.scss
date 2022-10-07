@@ -1,0 +1,78 @@
+.top {
+  position: fixed;
+  width: 100%;
+  z-index: 2;
+}
+.bottom {
+  position: fixed;
+  width: 100%;
+  bottom: 0;
+}
+
+.main_btn {
+  color: #ffffff !important;
+  background-color: #f4c41f !important;
+}
+
+.green_btn {
+  color: #ffffff !important;
+  background-color: #239347 !important;
+}
+
+.grey_btn{
+  color: #ffffff !important;
+  background-color: #757575 !important;
+}
+
+.no-scroll::-webkit-scrollbar {
+  display: none;
+}
+
+.verti_combi {
+  overflow: scroll;
+  white-space: nowrap;
+  display: flex;
+}
+
+.test{
+  color: #8274b3;
+}
+
+.q_card {
+  padding-top: 255px;
+  padding-left: 55px;
+}
+
+.r_card{
+  padding-top: 200px;
+  padding-left: 55px;
+}
+
+.n_card {
+  padding-top: 70px;
+  padding-left: 20px;
+}
+
+.pt-20{
+  padding-top: 80px;
+}
+
+.ml-30{
+  margin-left: 100px;
+  margin-right: 50px;
+}
+
+.ml-n20{
+  margin-left: -220px;
+}
+
+span.fir {
+  color: #239347;
+}
+span.sec {
+  color: #f4c41f;
+}
+
+.shadow_img {
+  filter: drop-shadow(3px 6px 3px #a0a0a0);
+}
