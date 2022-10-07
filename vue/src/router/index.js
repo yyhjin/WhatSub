@@ -255,7 +255,7 @@ router.beforeEach((to, from, next) => {
     swal({
       title: '로그인 필요!',
       text: '로그인해주세요',
-      icon: 'fail'
+      icon: 'error'
     })
     next({ name: 'login' })
   } else {

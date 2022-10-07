@@ -2,7 +2,7 @@
   <div class="moreMeat">
     <button class="oneChoose moreMeatChoose" @click="select($event, moreMeat)"></button>
     <div class="title" style="font-size: 16px !important">{{ moreMeat.name }}</div>
-    <div class="price">+{{ moreMeat.price | comma }}원</div>
+    <div class="price ml-n2">+{{ moreMeat.price | comma }}원</div>
   </div>
 </template>
 

@@ -1,7 +1,7 @@
 <template>
   <div>
     <v-card class="sand_small_card" align="center" @click.stop="dialogRecoCombi = true">
-      <v-img class="shadow_img" :src="SandListItem.imgUrl"></v-img>
+      <v-img class="shadow_img" :src="SandListItem.imgUrl" width="85%" ></v-img>
       <h4 class="mt-n2" style="font-size: 15px">{{ SandListItem.combName }}</h4>
       <div class="" style="font-size: 13px">{{ SandListItem.combination.price | comma }}원</div>
     </v-card>
@@ -35,9 +35,15 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 .sand_small_card {
   height: 140px;
   width: 140px;
+  
+}
+.shadow_img {
+  top: 5px;
+  margin-bottom: 15px;
 }
 </style>
+ㅎ

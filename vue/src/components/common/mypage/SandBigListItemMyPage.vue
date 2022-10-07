@@ -10,7 +10,7 @@
       </div>
       <v-row class="">
         <v-col class="pa-0 mt-3 ml-3" cols="5" align="center">
-          <v-img class="shadow_img" height="70" width="150" :src="sand.imgUrl"></v-img>
+          <v-img class="shadow_img" height="70" width="85%" :src="sand.imgUrl"></v-img>
           <div class="mt-1">
             <h6 style="font-size: 15px; font-weight: bold">{{ sand.combName }}</h6>
           </div>
@@ -105,7 +105,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 .sand_big_card {
   height: 140px;
   width: 333px;
