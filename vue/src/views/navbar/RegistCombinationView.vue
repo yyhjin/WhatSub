@@ -9,12 +9,12 @@
       </v-row>
     </div>
     <div class="pt-20" align="center">
-      <input id="imgUpload" type="file" @change="selectFile" />
+      <input class="pl-5" id="imgUpload" type="file" @change="selectFile" />
       <v-img height="100" width="250" :src="imgUrl" alt="sandwitch"></v-img>
       <div class="pt-3">
         <h2 style="font-size: 17px">{{ name }}</h2>
       </div>
-      <div class="pt-1 pb-8" style="font-size: 15px">{{ com.price }}원</div>
+      <div class="pt-1 pb-8" style="font-size: 15px">{{ com.price | comma }}원</div>
     </div>
     <v-card height="4" width="360" elevation="0" style="background-color: #d9d9d9">&nbsp;</v-card>
     <div>
@@ -92,6 +92,11 @@ export default {
       return JSON.parse(this.combi);
     },
   },
+  filters: {
+    comma(val) {
+      return String(val).replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    },
+  },
 
   methods: {
     ...mapActions(["fetchProfile"]),
@@ -119,21 +124,22 @@ export default {
         new Blob([JSON.stringify(data)], { type: "application/json" })
       );
       // this.formData.append("combPostRequest", data)
-      this.formData.append("file", 'sdfsd')
+      this.formData.append("file", "sdfsd");
       // console.log(this.formData.values())
       axios({
         url: "https://j7a105.p.ssafy.io/api/v1/comb/board",
         method: "post",
         data: this.formData,
-        headers:{
-          'Content-Type':'multipart/form-data'
-        }
-      }).then(res => {
-        console.log(res)
-        this.$router.push({name:'combination'})
-      }).catch(err => 
-      console.error(err))
-    }
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      })
+        .then((res) => {
+          console.log(res);
+          this.$router.push({ name: "combination" });
+        })
+        .catch((err) => console.error(err));
+    },
   },
 
   mounted() {

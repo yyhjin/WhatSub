@@ -44,11 +44,19 @@ export default {
       pro : null
     };
   },
-  // computed: {
-  //   profile () {
+  watch: {
+    '$store.getters.combiDetail' () {
+      axios({
+      url: `https://j7a105.p.ssafy.io/api/v1/user/${this.$route.params.userName}`,
+      method:'get',
 
-  //   }
-  // },
+    }).then(res => {
+      console.log(res)
+      this.pro = res.data.data
+    })
+    },
+
+  },
   mounted () {
     axios({
       url: `https://j7a105.p.ssafy.io/api/v1/user/${this.$route.params.userName}`,
