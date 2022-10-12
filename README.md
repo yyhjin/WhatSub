@@ -93,8 +93,7 @@
 - 카카오 로그인 / 회원가입
 (닉네임 중복 검사를 해야 회원가입을 할 수 있습니다)
 
-![image](/uploads/81a749390f03ce47d3b98c372dd44659/image.png)
-![image](/uploads/1dff2fca5b17b0f03282b1d24da0f785/image.png)
+![regiser_login](/uploads/21e71b897a3100add9ba53d1f158f06a/regiser_login.gif)
 
 
 
@@ -140,5 +139,5 @@
 
 ### 취향 설문
 
-- 
+- ![exclude_subti](/uploads/242a30bc5b28582976840cb93a60f459/exclude_subti.gif)
 
