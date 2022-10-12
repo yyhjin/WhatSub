@@ -76,14 +76,15 @@
 - [API](https://j7a105.p.ssafy.io/api/v1/swagger-ui/)
 - [ERD](https://www.erdcloud.com/d/Gyp3shSQq5N24c8ny)
 - 기술스택
-- UCC
+- [UCC](./README.assets/A105_UCC.mp4)
 - (서버)아키텍쳐
+![image_architecture](README.assets/A105_아키텍쳐.png)
 
 ## 7. :label: 프로젝트 결과물
 
 - [포팅매뉴얼](./exec/A105_포팅_매뉴얼.pdf)
-- [중간발표자료](./exec/A105_중간발표자료.pdf)
-- [최종발표자료](./exec/A105_최종발표자료.pdf)
+- [중간발표자료](./README.assets/A105_중간발표자료.pdf)
+- [최종발표자료](./README.assets/A105_최종발표자료.pdf)
 
 ## 8. :film_projector: Whatsub 서비스 화면
 
