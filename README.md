@@ -1,28 +1,15 @@
-# :sandwich: WhatSub? - 우리 서비스 한마디로..
+# :bread: WhatSub? - 우리 서비스 한마디로..
 
-<!-- ![로고](./docks) -->
-<img src="" width="350" height="100">
-
-## :date: 프로젝트 진행 기간
-2022.00.00 ~ 2022.00.00 ( 00일간 진행 )
-<br>
-SSAFY 7기 2학기 특화프로젝트 A105 - WhatSub?
-
-## ✔ 소개
-
-_-
-
-## ✔ 기획의도
-
-_- 
-
-## ✔ 주요 기능
-
-- 
+## 1. :notebook_with_decorative_cover: PJT summary
+- 팀명: A105
+- 프로젝트명: WhatSub 
+- 주제: 개인 추천 알고리즘을 적용한 SUBWAY 메뉴 추천 모바일웹
+- 기간: 2022.08.22 - 2022.10.07
 
 
-## ✔ 주요 기술
 
+
+## 2. :ferris_wheel: 주요 기술
 
 **Backend**
 
@@ -49,7 +36,7 @@ _-
 - NGINX
 - Certbot
 
-## ✔ 협업 툴
+## 3. :handshake: 협업 툴
 
 - Git
 - Notion
@@ -59,17 +46,17 @@ _-
 - Discord
 - Visual Studio Code Live Share
 
-## ✔ 프로젝트 파일 구조 
+## 4. :building_construction: 프로젝트 파일 구조 
 - 파일 구조
 
 ![image](/uploads/556886de9a2a87a2be3e67009e7d62f0/image.png)
 
 
-## ✔ 팀원 역할 분배
+## 5. :family: 팀원 역할 분배
 
 ![image](/uploads/a155a9a943ccc3e5034417c2aaaaf960/image.png)
 
-## ✔ 프로젝트 산출물
+## 6. :volcano: 프로젝트 산출물
 
 - [기능정의서](https://evergreen-navy-d7f.notion.site/870e84099d3342359a0fd3ef06531e40)
 - [와이어프레임](https://www.figma.com/file/WGOaRdUVENFfuCMPU3m9h3/%5B%ED%8A%B9%ED%99%94-PJT%5D-A105?node-id=54%3A1683)
@@ -80,13 +67,13 @@ _-
 - UCC
 - (서버)아키텍쳐
 
-## ✔ 프로젝트 결과물
+## 7. :label: 프로젝트 결과물
 
 - [포팅매뉴얼](./exec/A105_포팅_매뉴얼.pdf)
 - 중간발표자료
 - 최종발표자료
 
-## ✔ Whatsub 서비스 화면
+## 8. :film_projector: Whatsub 서비스 화면
 
 
 ### 회원가입
