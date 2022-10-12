@@ -1,4 +1,4 @@
-# :bread: WhatSub? - 우리 서비스 한마디로..
+# :bread: WhatSub? - 서브웨이 샌드위치 조합 추천 서비스
 
 ## 1. :notebook_with_decorative_cover: PJT summary
 - 팀명: A105
@@ -82,8 +82,8 @@
 ## 7. :label: 프로젝트 결과물
 
 - [포팅매뉴얼](./exec/A105_포팅_매뉴얼.pdf)
-- 중간발표자료
-- 최종발표자료
+- [중간발표자료](./exec/A105_중간발표자료.pdf)
+- [최종발표자료](./exec/A105_최종발표자료.pdf)
 
 ## 8. :film_projector: Whatsub 서비스 화면
 
