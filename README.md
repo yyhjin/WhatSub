@@ -61,12 +61,12 @@
 ## 4. :building_construction: 프로젝트 파일 구조 
 - 파일 구조
 
-![image](/uploads/556886de9a2a87a2be3e67009e7d62f0/image.png)
+![image](https://user-images.githubusercontent.com/99111030/230043566-d9d8bfba-767a-45a0-b630-a1d4968d96ad.png)
 
 
 ## 5. :family: 팀원 역할 분배
 
-![image](/uploads/a155a9a943ccc3e5034417c2aaaaf960/image.png)
+![image (1)](https://user-images.githubusercontent.com/99111030/230043688-7138d960-3577-4c94-bd17-9a11fe87e5c3.png)
 
 ## 6. :volcano: 프로젝트 산출물
 
@@ -94,7 +94,7 @@
 - 카카오 로그인 / 회원가입
 (닉네임 중복 검사를 해야 회원가입을 할 수 있습니다)
 
-![regiser_login](/uploads/21e71b897a3100add9ba53d1f158f06a/regiser_login.gif)
+![회원가입](https://user-images.githubusercontent.com/99111030/230043992-2fdef72f-f9c6-4804-aee8-cf60ebc10661.gif)
 
 
 
